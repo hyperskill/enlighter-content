@@ -1,0 +1,226 @@
+<p>Congratulations! You've successfully completed this journey into the world of Model Context Protocol (MCP) servers. Let's take a moment to reflect on what we've learned and explore some additional resources to further enhance your MCP capabilities.</p>
+
+<strong style="font-size: 15px;">What We've Learned</strong><br>
+
+<p>Throughout this course, we've covered a comprehensive set of skills and concepts related to MCPs:</p>
+
+- Sorted out what MCPs are and why they're important for extending AI capabilities<br>
+- Created simple and advanced MCP servers to understand their structure and functionality<br>
+- Learned how to configure MCPs within Cursor for seamless integration<br>
+- Mastered development tools and debugging techniques using the MCP Inspector<br>
+- Built our own custom MCPs<br>
+- Explored how to strengthen Cursor with custom browsing tools<br>
+- Optimized tool selection with Cursor rules to improve AI decision-making<br><br>
+
+<p>You now have a solid foundation in building, configuring, and using MCP servers to extend Cursor's AI capabilities. From simple text echo functionality to complex browser automation, you've experienced how MCPs can transform your interaction with AI tools.</p>
+
+<strong style="font-size: 15px;">Resources to Explore MCPs Further</strong><br>
+
+<p>Your journey with MCPs doesn't have to end here. Check out these resources to expand your knowledge:</p>
+
+- <a href="https://github.com/modelcontextprotocol" target="_blank">Official MCP GitHub Repository</a> - The central hub for specifications, SDKs (TypeScript, Python, Java, Kotlin, Rust), and documentation<br>
+- <a href="https://github.com/modelcontextprotocol/servers" target="_blank">MCP Servers Repository</a> - Ready-to-use servers for file systems, databases, Git, GitHub, memory management, image generation, and more<br>
+- <a href="https://github.com/ericzakariasson/uber-eats-mcp-server" target="_blank">Uber Eats MCP Server</a> - Creative and fun example showing how to build an MCP that orders food through Uber Eats<br>
+- <a href="https://mcpservers.org" target="_blank">MCPServers.org</a> - Comprehensive directory of community MCP servers with ratings and reviews<br><br>
+
+<strong style="font-size: 15px;">Build, Build, Build!</strong><br>
+
+<p>The most important thing now is to take what you've learned and build your own MCPs. The possibilities are endless:</p>
+
+- Create an MCP for your favorite API service<br>
+- Build a specialized tool for your development workflow<br>
+- Automate repetitive tasks in your environment<br>
+- Integrate with your organization's internal tools and services<br>
+- Share your creations with the community<br><br>
+
+<details>
+<summary><strong>Optional Challenge: Build Your Own Browser-Use MCP</strong></summary>
+
+<br><p>Ready for an exciting challenge? Try building an AI-driven browser-use MCP. Here's what you'll need to create:</p>
+
+- An MCP server that uses AI-driven browser<br>
+- Tools for web research, documentation checking, and scenario testing<br>
+- Functions to handle common browser tasks like navigation, screenshots, and data extraction<br>
+- Integration with Cursor rules for smart tool selection<br><br>
+
+<p>Key features to implement:</p>
+- Autonomous web research capability<br>
+- Documentation search and summarization<br>
+- UI testing automation<br>
+- Complex user flow validation<br>
+
+<p>Browser-use leverages another LLM (like GPT-4) as an agent that interprets high-level tasks and autonomously performs the necessary browser actions to complete them.</p>
+
+<p>The task will help you apply everything you've learned while creating a truly useful tool for your development workflow!</p>
+
+<alert>This task requires API keys for the LLM to make AI-agentic browser work. You can use your own OPENAI_API_KEY for this task.</alert><br>
+
+<p>We won't go into details of the implementation here but you can use the reference implementation below:</p>
+
+<strong style="font-size: 15px;">Setting Up the Browser-use MCP</strong><br>
+
+<p>Let's create our browser-use MCP server. First, we need to install the required packages:</p>
+
+<callout type="chat">
+Install browser-use and langchain-openai Python packages into project's virtual environment. Do not install it globally.
+</callout>
+
+<checkable-item title="Packages installed">
+Make sure the packages are installed successfully.
+</checkable-item>
+
+<strong style="font-size: 15px;">Creating the Browser-use MCP Server</strong><br>
+
+<p>Now, let's create our browser-use MCP server. Ask the AI to generate the code:</p>
+
+<callout type="chat">Create a file named browser_use_mcp.py. I need code that:
+
+1. Creates an MCP server named "Browser-use"
+2. Implements a tool called "browser_use_tool" that takes a "task" (str) parameter
+3. Uses browser-use library with ChatOpenAI (gpt-4o-mini as model) to create an agent
+4. Returns the final result from the agent
+5. MCP implements only one tool: browser_use_tool
+6. Use the following code to create the agent: 
+agent = Agent(
+    task=task,
+    llm=ChatOpenAI(model="gpt-4o-mini"),
+    browser=browser,
+)
+7. Use browser = Browser(config=config) to create a browser instance
+8. Use the following code to perform the task:
+
+result = await agent.run(max_steps=20)
+return result.final_result()
+
+Use browser-use and langchain-openai packages. Make the MCP server the same way as echo_server.py</callout>
+
+<p>After you create the file, run the server in development mode:</p>
+
+<callout type="chat">
+Run 'mcp dev browser_use_mcp.py' in terminal to start the Browser-use MCP server in development mode. Keep it running in terminal. Ensure the required packages are installed in virtual environment and check if mcp dev command started without errors.
+</callout>
+
+<p>Open the MCP Inspector in your browser at the URL shown in the terminal (typically http://localhost:5173).</p>
+
+<checkable-item title="Connected to browser-use MCP in dev mode">
+Connect to the server in the MCP Inspector and click "List Tools" to verify the browser_use_tool is available.
+</checkable-item>
+
+<p>Test the tool with dev mode interface providing a simple web task like "Search for today's weather in San Francisco and summarize the results" in tools tab.</p>
+
+<alert>Sometimes browser-use tool may fail with timeout in development mode. This is expected. It works better in production mode.</alert>
+
+<alert type="info">
+    We strongly recommend you to try to implement the tool yourself. There might be some issues with the generated code but try to fix them with AI. 
+    Building the solution yourself will help you to get a better understanding of the code and the concepts.
+    But if you get stuck, you can use the reference implementation below.
+    <details>
+        <summary>Reference Browser-use MCP Implementation</summary>
+        <callout type="chat">
+            Create a file named browser_use_mcp.py with the following code:
+
+from langchain_openai import ChatOpenAI
+from mcp.server.fastmcp import FastMCP
+from browser_use import Agent, Browser, BrowserConfig
+import asyncio
+import logging
+
+# Disable all logging
+logging.getLogger().setLevel(logging.CRITICAL)
+
+# Initialize MCP server
+mcp = FastMCP("Browser-use")
+
+# Global browser instance
+browser = None
+
+@mcp.tool()
+async def browser_use_tool(task: str) -> str:
+    """Use a browser to complete a task"""
+    global browser
+    
+    # Initialize browser if needed
+    if browser is None:
+        config = BrowserConfig(
+            headless=False,
+            disable_security=True,
+            extra_chromium_args=[
+                '--no-sandbox',
+                '--disable-logging',
+                '--log-level=3',  # FATAL only
+                '--silent'
+            ]
+        )
+        browser = Browser(config=config)
+        await asyncio.sleep(0.2)
+    
+    # Create agent
+    agent = Agent(
+        task=task,
+        llm=ChatOpenAI(model="gpt-4o-mini", openai_api_key=os.getenv("OPENAI_API_KEY")),
+        browser=browser,
+    )
+    
+    # Run agent
+    result = await agent.run(max_steps=20)
+    return result.final_result()
+
+if __name__ == "__main__":
+    mcp.run() 
+        </callout>
+    </details>
+</alert>
+
+<checkable-item title="Browser-use MCP server connects in dev mode"></checkable-item>
+
+<p>Now that we've verified our browser-use MCP works, let's add it to our Cursor configuration:</p>
+
+<callout type="chat">
+    Update the .cursor/mcp.json file to include our browser-use MCP server (browser_use_mcp.py). Use the same format as for echo_server.py.
+    The configuration must have 'Browser use' as the name of the MCP server.
+</callout>
+
+<checkable-item title="MCP configuration updated">
+Make sure the configuration file is updated with the browser-use MCP server.
+</checkable-item>
+
+<strong style="font-size: 15px;">Enabling in Cursor Settings</strong><br>
+
+<checkable-item title="Browser-use MCP enabled in settings">
+Make sure the browser-use MCP is enabled in Cursor settings.
+</checkable-item>
+
+<alert>
+    Sometimes you may note errors in MCP status in the settings.
+    This may happen because browser-use uses standard output for logging.
+    As we already know, MCPs use standard input/output for communication. You can experiment with config to disable logging. 
+    We leave it as an exercise for you.
+</alert>
+
+<strong style="font-size: 15px;">Testing our browser-use tool</strong><br>
+
+<p>Now let's test our browser-use MCP by getting the current weather in your location:</p>
+
+<callout type="chat">Using the browser-use tool, find the current weather for my location.</callout>
+
+<p>
+    When AI calls the browser-use tool, it will use the browser to find your location and check the weather. 
+</p>
+
+<checkable-item title="MCP tool is called">
+Verify that the AI called the tool to use the browser to find your location and check the weather.
+</checkable-item>
+
+<alert>
+    Browsing may take time. To improve performance or general reliability, you can experiment with different LLMs but it may require API keys for the LLMs.
+    We leave this as an exercise for you.
+</alert>
+
+</details>
+
+<div style="text-align: center; margin: 20px 0;">
+  <img src="https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif" alt="Adorable cat with computer" width="400" />
+  <p style="font-size: 12px; color: #666;">Time to build amazing things with MCP!</p>
+</div>
+
+<p>Happy coding!</p> 
