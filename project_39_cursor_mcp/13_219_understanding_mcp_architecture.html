@@ -3,11 +3,12 @@
 <strong style="font-size: 15px;">MCP Architecture in Depth</strong><br>
 
 <p>MCP follows a client-server architecture with these components:</p>
-
-- <strong>MCP Hosts</strong>: Programs like Cursor IDE that want to access data through MCP<br>
-- <strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers<br>
-- <strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized protocol<br>
-- <strong>Data Sources</strong>: Your computer's files, databases, services, or remote APIs that MCP servers can access<br><br>
+<ul>
+  <li><strong>MCP Hosts</strong>: Programs like Cursor IDE that want to access data through MCP</li>
+  <li><strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers</li>
+  <li><strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized protocol</li>
+  <li><strong>Data Sources</strong>: Your computer's files, databases, services, or remote APIs that MCP servers can access</li>
+</ul>
 
 <p>Think of MCP like a USB-C port for AI applications - it provides a standardized way to connect AI models to different data sources and tools. MCP servers act as bridges between the AI and external capabilities, expanding what you can accomplish with AI assistance in your development workflow.</p>
 
@@ -18,22 +19,58 @@
 
 <p>MCP servers can communicate with Cursor using two different transport formats:</p>
 
-<strong>SSE (Server-Sent Events):</strong><br>
-- Used for web-based connections<br>
-- Enables real-time, one-way communication from server to client<br>
-- Better for services that run as standalone web servers<br>
-- Good for cloud-hosted or remote services<br><br>
+<p><strong>SSE (Server-Sent Events):</strong></p>
+<ul>
+  <li>Used for web-based connections</li>
+  <li>Enables real-time, one-way communication from server to client</li>
+  <li>Better for services that run as standalone web servers</li>
+  <li>Good for cloud-hosted or remote services</li>
+</ul>
 
-<strong>STDIO (Standard Input/Output):</strong><br>
-- Used for local processes<br>
-- Communications happen through standard input/output streams<br>
-- Simpler setup for local tools and commands<br>
-- More efficient for tools that run directly on your machine<br><br>
+<p><strong>STDIO (Standard Input/Output):</strong></p>
+<ul>
+  <li>Used for local processes</li>
+  <li>Communications happen through standard input/output streams</li>
+  <li>Simpler setup for local tools and commands</li>
+  <li>More efficient for tools that run directly on your machine</li>
+</ul>
 
-<p>You can get more details about the difference between SSE and STDIO from AI:</p>
-<callout type="chat">
-  Explain the difference between SSE and STDIO for MCP servers in very simple terms
-</callout>
+<p>Let's download MCP documentation and ask Junie to explain the difference between SSE and STDIO based on the documentation:</p>
+<alert>
+  <checkable-item title="Run in <strong>code mode</strong>">
+  <callout type="chat">
+    Download file content of https://modelcontextprotocol.io/llms-full.txt to mcp_documentation.txt. Use only terminal, do not create other scripts.
+  </callout>
+  </checkable-item>
+</alert>
+<alert>
+  <checkable-item title="Run in <strong>ask mode</strong>">
+  <callout type="chat">
+    Explain the difference between SSE and STDIO for MCP servers in very simple terms based on the content of mcp_documentation.txt
+  </callout>
+  </checkable-item>
+</alert>
+
+<alert>
+<details>
+  <summary>Adding files to context</summary>
+  <p>
+    Usually, Junie is quite good at navigating the project on his own but if you want Junie to be laser-focused, you can hit the <strong>"+" button</strong> to attach specific files or folders. This is how you give Junie access to custom parts of your project—like your README, API guidelines, or folder structures.
+  </p>
+  <p>
+    <img style="max-width: 500px; margin: auto; display: block;" src="https://ucarecdn.com/e9ada323-f819-4557-b031-101d6eb23ea9/" alt="Adding files to context" >
+  </p>
+  <p>You can attach:</p>
+
+  <ul>
+    <li>Config or certain files;</li>
+    <li>Entire directories (e.g., /src/controllers);</li>
+    <li>Single files with tricky logic or expanded instructions.</li>
+  </ul>
+
+  <p>This is a huge help in larger projects. Instead of explaining everything to Junie, just show it.</p>
+</details>
+</alert>
 
 <p>
   The choice between SSE and STDIO depends on the nature of the service and how it's deployed. Most local MCP servers use STDIO for simplicity.
