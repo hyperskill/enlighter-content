@@ -1,0 +1,73 @@
+<p>Now that we've built and tested our Echo MCP server, let's explore the development and debugging features provided by the MCP Python SDK. These tools will help us troubleshoot issues and develop more complex MCP servers with ease.</p>
+
+<strong style="font-size: 15px;">Understanding Development Mode</strong><br>
+
+<p>The MCP Python SDK includes a powerful development mode that provides a web interface for testing and debugging your MCP servers. This interface allows you to:</p>
+
+- Inspect server capabilities and configurations<br>
+- Test resources, tools, and prompts interactively<br>
+- View request and response details<br>
+- Debug communication between clients and your server<br><br>
+
+<p>Development mode is especially useful when building complex MCP servers, as it provides immediate feedback without requiring a full integration with client.</p>
+
+<strong style="font-size: 15px;">Running the Server in Development Mode</strong><br>
+
+<p>Let's run our Echo MCP server in development mode:</p>
+
+<callout type="chat">
+Run 'mcp dev echo_server.py' in terminal to start the Echo MCP server in development mode. Don't forget to use our virtual environment. 
+</callout>
+
+<p>This will start the server and open a web interface for debugging.</p>
+
+<p>Now you can see the debug interface in your browser by opening the link shown in the terminal output (typically <code>http://localhost:5173</code>).</p>
+
+<p>Connect to your MCP server by clicking the "Connect" button in the interface.</p>
+
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-inpector-init.png" alt="MCP Inspector Connect" style="width: 100%; height: auto;">
+
+<checkable-item title="MCP dev interface is opened and connected">
+Make sure your MCP server is running and you're connected to it in the Inspector interface.
+</checkable-item>
+
+<strong style="font-size: 15px;">Inspecting Resources</strong><br>
+
+<p>One of the most powerful features of the MCP Inspector is the ability to explore and test the resources exposed by your server. Let's see how to inspect resources:</p>
+
+<p>
+In the MCP Inspector interface, click the "Resources" tab and then click the "List Resources" or "List Templates" button.<br>
+This will send a request to your server to retrieve all available resource patterns.<br>
+You should see <code>echo_resource</code> in the results.
+</p>
+
+<checkable-item title="Resources are listed"></checkable-item>
+
+<strong style="font-size: 15px;">Inspecting Tools</strong><br>
+
+<p>The MCP Inspector also makes it easy to explore and test the tools exposed by your server. Here's how to inspect tools:</p>
+
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-inspector-list-tools.png" alt="MCP Inspector Tools" style="width: 100%; height: auto;">
+
+<p>
+Click the "Tools" tab and then click the "List Tools" button in the interface.<br>
+This sends a request to retrieve all available tools.<br>
+You should see "echo_tool" in the results.
+</p>
+
+<checkable-item title="Available tools are listed"></checkable-item>
+
+<p>When a tool is listed, you can click on tool name and can see messages texbox. It is a tool input field. AI uses this field when calls the tool.</p>
+
+<checkable-item title="Tool details are shown"></checkable-item>
+
+<p>To test our echo tool:<br>
+- Enter a test message: <code>Testing echo tool from Inspector</code><br>
+- Click "Run Tool"<br>
+- You should see the result: <code>Tool echo: Testing echo tool from Inspector</code></p>
+
+<checkable-item title="The message is shown"></checkable-item>
+
+<strong style="font-size: 15px;">What's Next?</strong><br>
+
+<p>In the next stage, we'll use a little trick to make tool calling work better. Let's move on to the next stage!</p> 
