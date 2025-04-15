@@ -50,3 +50,27 @@ To fetch and store stages for project_id=38:
 2. Create directory: `mkdir -p project_38_camera_junie`
 3. Create HTML files for each stage with pattern: `1_213_what_you_will_build.html`
 4. Write each stage's description HTML to its file 
+
+## Instructions for Updating Database from Local Changes
+
+### 1. Identify modified files
+```
+1. Review local HTML files that have been modified
+2. Extract stage ID from each filename (e.g., "213" from "1_213_what_you_will_build.html")
+```
+
+### 2. Update database with local changes
+```sql
+UPDATE stages 
+SET description = '<HTML_CONTENT>' 
+WHERE id = <STAGE_ID>;
+```
+
+### 3. Execution procedure
+```
+1. For each modified file:
+   - Read file content
+   - Extract stage ID from filename
+   - Execute UPDATE query with escaped HTML content
+2. Verify changes by querying updated stages
+```
