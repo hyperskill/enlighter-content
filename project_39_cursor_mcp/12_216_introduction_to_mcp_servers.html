@@ -83,27 +83,6 @@
 }
 </callout>
 
-<alert>
-If you use Windows, you need to change "npx" command to "cmd /c npx" in the mcp.json file.
-<details>
-  <summary>Prompt for Windows users</summary>
-  <callout type="chat">Create a folder .cursor in our project directory if it doesn't already exist. Create a file .cursor/mcp.json with the following content:
-    {
-      "mcpServers": {
-        "playwright": {
-          "command": "cmd /c npx",
-          "args": [
-            "-y",
-            "@executeautomation/playwright-mcp-server"
-          ]
-        }
-      }
-    }
-    </callout>
-</details>
-
-</alert>
-
 <ul interactive>
 	<li title=".cursor/mcp.json is created"></li>
 	<li title=".cursor/mcp.json is configured as defined above"></li>
