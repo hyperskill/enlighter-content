@@ -31,6 +31,7 @@ mkdir -p project_<PROJECT_ID>_<PROJECT_NAME>
 - File naming: `<stage.order_num>_<stage.id>_<stage.title>.html`
 - Convert stage title to underscore case
 - Store stage description as HTML content
+- HTML content should match exactly content in the database
 
 ### 4. Example procedure
 ```
@@ -47,5 +48,5 @@ mkdir -p project_<PROJECT_ID>_<PROJECT_NAME>
 To fetch and store stages for project_id=38:
 1. Query: `SELECT id, title, description, order_num FROM stages WHERE project_id = 38 ORDER BY order_num ASC;`
 2. Create directory: `mkdir -p project_38_camera_junie`
-3. Create HTML files for each stage with pattern: `213_what_you_will_build.html`
+3. Create HTML files for each stage with pattern: `1_213_what_you_will_build.html`
 4. Write each stage's description HTML to its file 
