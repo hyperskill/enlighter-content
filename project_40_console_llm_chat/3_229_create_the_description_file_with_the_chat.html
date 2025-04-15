@@ -1,11 +1,10 @@
-<p>Chat knows how to create files and a whole application. Let's start small, ask it to create a file in the root of your project that describes in detail how the application works. We have prepared this file for you, you will need to edit it a bit in the future.</p>
+<p>Junie knows how to create files and a whole application. Let's start small, ask it to create a file in the root of your project that describes in detail how the application works. We have prepared this file for you, you will need to edit it a bit in the future.</p>
 
 <p>
-<checkable-item title="Run this command in Chat:">
-<warning>When the Chat finishes creating or editing files, you should accept the changes by pressing the "Accept" or "Accept All" button.</warning>
+<checkable-item title="Run this command in chat with Junie:">
 
 <callout type="chat">
-Create a file named project-rules.txt in the root of my project. Add the following content to it:
+Create a file named task-description.txt in the root of my project. Add the following content to it:
 The application is simple console chatbot that allows user to ask questions and get answers.
 
 1. Use OpenRouter API by passing base url and API key to Langchain's implementation 
@@ -23,13 +22,33 @@ The application is simple console chatbot that allows user to ask questions and 
 </checkable-item>
 </p>
 
-Learning how to write such descriptions is the most important part of working with code generation tools. Creating applications with AI is still software engineering. AI only helps with that. The good news is that AI is great at explaining complex terms and concepts. Put its abilities to the test. In the chat window, you can tag any file with the <code>@</code> symbol and ask it to clarify something or do something based on the description in that file. For example like this.
+<p>Learning how to write such descriptions is the most important part of working with code generation tools. Creating applications with AI is still software engineering. AI only helps with that. The good news is that AI is great at explaining complex terms and concepts. Put its abilities to the test. In the chat window, you can attach any file with the by pressing <strong>"+" button</strong> and ask it to clarify something or do something based on the description in that file. For example like this.</p>
+<alert>
+    <details>
+      <summary>Adding files to context</summary>
+      <p>
+        Usually, Junie is quite good at navigating the project on his own but if you want Junie to be laser-focused, you can hit the <strong>"+" button</strong> to attach specific files or folders. This is how you give Junie access to custom parts of your project—like your README, API guidelines, or folder structures.
+      </p>
+      <p>
+        <img style="max-width: 500px; margin: auto; display: block;" src="https://ucarecdn.com/e9ada323-f819-4557-b031-101d6eb23ea9/" alt="Adding files to context" >
+      </p>
+      <p>You can attach:</p>
+    
+      <ul>
+        <li>Config or certain files;</li>
+        <li>Entire directories (e.g., /src/controllers);</li>
+        <li>Single files with tricky logic or expanded instructions.</li>
+      </ul>
+    
+      <p>This is a huge help in larger projects. Instead of explaining everything to Junie, just show it.</p>
+    </details>
+</alert>
 
 <p>
 <checkable-item title="Run this command in the chat window">
-<warning>Don't forget to check that the file is added to the context, sometimes tagging stops working when inserted. Check it manually</warning>
-<callout type="chat" include-file="project-rules.txt">
-Explain to me all the technical terms and details in the @project-rules.txt file the way one would explain to a teenager with poor computer skills. Use metaphors and analogies. Make me understand how the application works, what different parts of it are responsible for, what libraries perform what role.
+<warning>Don't forget to add task-description.txt file to the context.</warning>
+<callout type="chat" include-file="task-description.txt">
+Explain to me all the technical terms and details in the task-description.txt file the way one would explain to a teenager with poor computer skills. Use metaphors and analogies. Make me understand how the application works, what different parts of it are responsible for, what libraries perform what role.
 </callout>
 </checkable-item>
 </p> 
