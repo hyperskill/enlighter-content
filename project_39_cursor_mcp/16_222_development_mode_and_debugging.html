@@ -1,37 +1,41 @@
 <p>Now that we've built and tested our Echo MCP server, let's explore the development and debugging features provided by the MCP Python SDK. These tools will help us troubleshoot issues and develop more complex MCP servers with ease.</p>
 
-<strong style="font-size: 15px;">Understanding Development Mode</strong><br>
+<h5>Understanding Development Mode</h5>
 
 <p>The MCP Python SDK includes a powerful development mode that provides a web interface for testing and debugging your MCP servers. This interface allows you to:</p>
 
-- Inspect server capabilities and configurations<br>
-- Test resources, tools, and prompts interactively<br>
-- View request and response details<br>
-- Debug communication between clients and your server<br><br>
+<ul>
+  <li>Inspect server capabilities and configurations</li>
+  <li>Test resources, tools, and prompts interactively</li>
+  <li>View request and response details</li>
+  <li>Debug communication between clients and your server</li>
+</ul>
 
 <p>Development mode is especially useful when building complex MCP servers, as it provides immediate feedback without requiring a full integration with client.</p>
 
-<strong style="font-size: 15px;">Running the Server in Development Mode</strong><br>
+<h5>Running the Server in Development Mode</h5>
 
 <p>Let's run our Echo MCP server in development mode:</p>
 
-<callout type="chat">
-Run 'mcp dev echo_server.py' in terminal to start the Echo MCP server in development mode. Don't forget to use our virtual environment. 
-</callout>
+<checkable-item title="Run <code>mcp dev echo_server.py</code> in the terminal"></checkable-item>
+<pre><code>mcp dev echo_server.py</code></pre>
+<alert>Do not forget to use virtual environment</alert>
 
-<p>This will start the server and open a web interface for debugging.</p>
+<p><img style="margin: auto; display: block; max-width: 500px;" src="https://ucarecdn.com/80e7463d-fbb1-4eea-8093-31278e41f84c/-/stretch/off/-/resize/2200x/-/format/webp/" alt="MCP dev interface"></p>
 
-<p>Now you can see the debug interface in your browser by opening the link shown in the terminal output (typically <code>http://localhost:5173</code>).</p>
+<p>This will start the server and open a web interface for debugging. Now you can see the debug interface in your browser by opening the link shown in the terminal output.</p>
 
-<p>Connect to your MCP server by clicking the "Connect" button in the interface.</p>
+<p>Update fields <code>command</code> and <code>arguments</code> to correct ones and connect to your MCP server by clicking the <strong>"Connect"</strong> button in the interface.</p>
+<alert>You can use the same command and arguments as we used in claude_desktop_config.json file.</alert>
 
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-inpector-init.png" alt="MCP Inspector Connect" style="width: 100%; height: auto;">
+<p><img style="margin: auto; display: block; max-width: 100%;" src="https://ucarecdn.com/7e794cc8-e63a-4f1d-8cda-d48c5306a130/-/stretch/off/-/resize/2200x/-/format/webp/" alt="MCP dev interface"></p>
+<ul interactive>
+    <li title="MCP dev interface is opened"></li>
+    <li title="Fields command and arguments are updated"></li>
+    <li title="MCP dev interface is connected to the MCP server"></li>
+</ul>
 
-<checkable-item title="MCP dev interface is opened and connected">
-Make sure your MCP server is running and you're connected to it in the Inspector interface.
-</checkable-item>
-
-<strong style="font-size: 15px;">Inspecting Resources</strong><br>
+<h5>Inspecting Resources</h5>
 
 <p>One of the most powerful features of the MCP Inspector is the ability to explore and test the resources exposed by your server. Let's see how to inspect resources:</p>
 
@@ -43,16 +47,16 @@ You should see <code>echo_resource</code> in the results.
 
 <checkable-item title="Resources are listed"></checkable-item>
 
-<strong style="font-size: 15px;">Inspecting Tools</strong><br>
+<h5>Inspecting Tools</h5>
 
 <p>The MCP Inspector also makes it easy to explore and test the tools exposed by your server. Here's how to inspect tools:</p>
 
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-inspector-list-tools.png" alt="MCP Inspector Tools" style="width: 100%; height: auto;">
+<p><img style="margin: auto; display: block; max-width: 100%;" src="https://ucarecdn.com/ff901f2a-4353-475e-a411-223072f569dc/-/stretch/off/-/resize/2200x/-/format/webp/" alt="MCP Inspector Tools"></p>
 
 <p>
 Click the "Tools" tab and then click the "List Tools" button in the interface.<br>
 This sends a request to retrieve all available tools.<br>
-You should see "echo_tool" in the results.
+You should see <strong>"echo_tool"</strong> in the results.
 </p>
 
 <checkable-item title="Available tools are listed"></checkable-item>
@@ -61,13 +65,17 @@ You should see "echo_tool" in the results.
 
 <checkable-item title="Tool details are shown"></checkable-item>
 
-<p>To test our echo tool:<br>
-- Enter a test message: <code>Testing echo tool from Inspector</code><br>
-- Click "Run Tool"<br>
-- You should see the result: <code>Tool echo: Testing echo tool from Inspector</code></p>
+<p>To test our echo tool:</p>
+<ul>
+  <li>Enter a test message: <code>Testing echo tool from Inspector</code></li>
+  <li>Click <strong>"Run Tool"</strong></li>
+  <li>You should see the result: <code>Tool echo: Testing echo tool from Inspector</code></li>
+</ul>
 
 <checkable-item title="The message is shown"></checkable-item>
 
-<strong style="font-size: 15px;">What's Next?</strong><br>
+<p><img style="margin: auto; display: block; max-width: 100%;" src="https://ucarecdn.com/bf02955e-bb01-4b02-850b-bf5224dc0884/-/stretch/off/-/resize/2200x/-/format/webp/" alt="MCP Inspector Tool"></p>
+
+<h5>What's Next?</h5>
 
 <p>In the next stage, we'll use a little trick to make tool calling work better. Let's move on to the next stage!</p> 
