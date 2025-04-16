@@ -181,10 +181,7 @@ if __name__ == "__main__":
 
 <p>Now that we've verified our browser-use MCP works, let's add it to our Claude Desktop configuration:</p>
 
-<callout type="chat">
-    Update the claude_desktop_config.json file to include our browser-use MCP server (browser_use_mcp.py). Use the same format as for echo_server.py.
-    The configuration must have 'Browser use' as the name of the MCP server.
-</callout>
+<p>Update the claude_desktop_config.json file to include our browser-use MCP server (browser_use_mcp.py). Use the same format as for echo_server.py.</p>
 
 <checkable-item title="MCP configuration updated">
 Make sure the configuration file is updated with the browser-use MCP server.
@@ -207,7 +204,10 @@ Make sure the browser-use MCP is enabled in Claude Desktop.
 
 <p>Now let's test our browser-use MCP by getting the current weather in your location:</p>
 
-<callout type="chat">Using the browser-use tool, find the current weather for my location.</callout>
+<p>Ask chat:</p>
+<alert>
+    Using the browser-use tool, find the current weather for my location.
+</alert>
 
 <p>
     When AI calls the browser-use tool, it will use the browser to find your location and check the weather. 
