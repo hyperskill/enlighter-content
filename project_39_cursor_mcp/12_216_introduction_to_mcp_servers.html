@@ -1,38 +1,35 @@
 <p>In this stage, we'll learn the basics of MCP servers and set up our first server using Playwright. As a platform for launching MCP servers, we'll use <a href="https://claude.ai/download" target="_blank">Claude Desktop</a>.</p>
 
-<strong style="font-size: 15px;">What is MCP?</strong><br>
+<h5>What is MCP?</h5>
 
 <p>MCP (Model Context Protocol) is an open protocol that allows AI models to interact with external tools and services. With MCP servers, the AI can perform actions beyond just generating text, such as:</p>
+<ul>
+<li>Controlling applications</li>
+<li>Accessing external APIs and data sources</li>
+<li>Running specific commands on your system</li>
+<li>Browsing websites and taking screenshots</li>
+</ul>
 
-- Controlling applications<br>
-- Accessing external APIs and data sources<br>
-- Running specific commands on your system<br>
-- Browsing websites and taking screenshots<br><br>
+<h5>How to configure MCP servers in Claude Desktop</h5>
 
-<strong style="font-size: 15px;">How to configure MCP servers in Claude Desktop</strong><br>
+<p>In Claude Desktop Settings:</p>
+<ol>
+  <li>Go to <strong>Settings → Developer</strong></li>
+  <li>Click <strong>Edit config</strong></li>
+</ol>
 
-<strong>In Claude Desktop Settings:</strong><br>
-- Access through Settings → Developer<br>
-
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//39-quickstart-menu.png" alt="Claude MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
-
-- Click "Edit config"<br>
-
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//39-2-quickstart-menu.png" alt="Claude MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+<p><img style="margin: auto; display: block; max-width: 800px;" src="https://ucarecdn.com/cff14d5b-f4a2-403b-98e1-8c61d0e3e899/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Settings"></p>
 
 <p>This will create a configuration file at:</p>
 
-<pre>
-macOS: ~/Library/Application Support/Claude/claude_desktop_config.json
-Windows: %APPDATA%\Claude\claude_desktop_config.json
-</pre>
+<pre><code>macOS: ~/Library/Application Support/Claude/claude_desktop_config.json
+Windows: %APPDATA%\Claude\claude_desktop_config.json</code></pre>
 
 <strong style="font-size: 15px;">MCP Configuration Format</strong><br>
 
 <p>The configuration format in <code>claude_desktop_config.json</code> files follows this structure:</p>
 
-<pre>
-{
+<pre><code>{
   "mcpServers": {
     "serverName": {
       "command": "executable", // or "url"
@@ -41,21 +38,21 @@ Windows: %APPDATA%\Claude\claude_desktop_config.json
       "transport": "stdio" // or "sse"
     }
   }
-}</pre>
+}</code></pre>
 
 <p>Where:</p>
 
-- <code>serverName</code>: The name you'll use to reference this server<br>
-- <code>command</code>: The executable to run<br>
-- <code>args</code>: Command-line arguments to pass<br>
-- <code>env</code>: Environment variables (optional)<br>
-- <code>transport</code>: Communication method (default is "stdio")<br>
+<ul>
+  <li><code>serverName</code>: The name you'll use to reference this server</li>
+  <li><code>command</code>: The executable to run</li>
+  <li><code>args</code>: Command-line arguments to pass</li>
+  <li><code>env</code>: Environment variables (optional)</li>
+  <li><code>transport</code>: Communication method (default is "stdio")</li>
+</ul>
 
 <alert>Do not worry if you don't understand all of this parameters right now. We'll go through an examples in the next steps to sort this out.</alert>
 
-<p>This structure is used to configure both Global and Project-specific MCP servers through the <code>mcp.json</code> file.</p>
-
-<strong style="font-size: 15px;">Setting Up Playwright MCP Server</strong><br>
+<h5>Setting Up Playwright MCP Server</h5>
 
 <p>Let's set up our first MCP server using Playwright. Playwright is a browser automation framework that will allow the AI to control web browsers, navigate to websites, take screenshots, and interact with web pages.</p>
 
@@ -63,18 +60,18 @@ Windows: %APPDATA%\Claude\claude_desktop_config.json
   Before continuing, ensure you have npx installed on your system. 
   npx is a package runner that comes with Node.js and npm. 
   This is required for the Playwright MCP server to work. 
-  Let's ask AI to install npx if it's not installed:
+  Let's ask Junie to install npx if it's not installed:
   <callout type="chat">Check if npx and npm are installed. Install them if they are not installed.</callout>
-  
 </alert>
 
 <p>Let's create the Playwright MCP configuration:</p>
 
-1. Open claude_desktop_config.json with a text editor.<br>
-2. Paste the following configuration:
+<ol>
+  <li>Open <code>claude_desktop_config.json</code> with a text editor.</li>
+  <li>Paste the following configuration:</li>
+</ol>
 
-<pre>
-{
+<pre><code>{
   "mcpServers": {
     "playwright": {
       "command": "npx",
@@ -84,42 +81,39 @@ Windows: %APPDATA%\Claude\claude_desktop_config.json
       ]
     }
   }
-}
-</pre>
+}</code></pre>
 
 <ul interactive>
-	<li title=".claude_desktop_config.json is created"></li>
-	<li title=".claude_desktop_config.json is configured as defined above"></li>
+	<li title="<code>claude_desktop_config.json</code> is created"></li>
+	<li title="<code>claude_desktop_config.json</code> is configured as defined above"></li>
+  <li title="After the file is configured, restart Claude Desktop"></li>
 </ul>
-
-<p>After the file is configured, restart Claude Desktop.</p>
 
 <p>Now you will see hammer icon:</p>
 
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//39-3-quickstart-hammer.png" alt="Claude MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+<p><img style="margin: auto; display: block; max-width: 800px;" src="https://ucarecdn.com/81a01572-665b-4ced-95d3-a37efbe302ce/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Settings"></p>
 
 <p>Click on the hammer icon to see available tools:</p>
 
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//39-4-tools-list.png" alt="Claude MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+<p><img style="margin: auto; display: block; max-width: 800px;" src="https://ucarecdn.com/0f89021c-98e0-411e-9994-3b2b8c3a627b/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Tools"></p>
 
 <checkable-item title="Playwright MCP tools are listed"></checkable-item>
 
-<strong style="font-size: 15px;">Testing Our Playwright Setup</strong><br>
+<h5>Testing Our Playwright Setup</h5>
 
 <p>Now that we've set up our Playwright MCP server, let's test it by asking the AI to use it to check the weather in New York.</p>
 
-<p>Ask chat:</p>
-<alert>
-  Using the playwright MCP tools, navigate to accuweather.com and check the current temperature in New York City. Take a screenshot of the weather page.
-</alert>
+<callout type="chat">
+  Using the Playwright MCP tools, navigate to Wikipedia and answer the question: which OpenAI text LLM model is the latest available?
+</callout>
 
 <checkable-item title="Chat uses Playwright MCP server to navigate in browser">
 </checkable-item>
 
-<p>If everything is set up correctly, the AI should be able to use the Playwright tools to open a browser, navigate to a weather website, and retrieve the current weather information for New York City.</p>
+<p>If everything is set up correctly, the AI should be able to use the Playwright tools to open a browser, navigate to Wikipedia and answer the question.</p>
 
 <alert>Browsing with Playwright is not so fast. Give it a time to do the task.</alert>
 
-<strong style="font-size: 15px;">What's Next?</strong><br>
+<p><strong style="font-size: 15px;">What's Next?</strong></p>
 
 <p>In the next stage, we'll dive deeper into MCP architecture, transport formats, and will build a custom MCP server.</p> 
