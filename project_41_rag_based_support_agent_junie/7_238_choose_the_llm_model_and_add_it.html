@@ -2,39 +2,59 @@
 
 <ol interactive>
 <li title='Sign up and log in to the website. <a href="https://openrouter.ai/" target="_blank">https://openrouter.ai/</a>'></li>
-<li title='In the "Models" folder, select any free model.'>We used this one for our case, and you can use this one too. Feel free to use the <a href="https://openrouter.ai/google/gemini-2.0-pro-exp-02-05:free" target="_blank">Gemini Pro 2.0 Experimental (free)</a> model. If you want better answer results, use any paid model.</li>
+<li title='In the "Models" folder, select any free model.'>We used this one for our case, and you can use this one too. Feel free to use the <a href="https://openrouter.ai/google/gemini-2.5-pro-exp-03-25:free" target="_blank">Gemini Pro 2.5 Experimental (free)</a> model. If you want better answer results, use any paid model.</li>
 <li title='Go to the "API" tab and create an API key.'>
 <p>
 <img src="https://ucarecdn.com/803eeda5-782c-46d4-bee2-7c39816960c7/" alt="" style="width:100%; margin: 8px 0;">
 </p>
 </li>
-<li title="Save this key in your cursor context file.">
+<li title="Save this key in your <code>task-description.md</code> file.">
 <p>
 <img src="https://ucarecdn.com/e8664df9-c46d-4fd4-8c96-dbabd247e063/" alt="" style="width:100%; margin: 8px 0;">
 </p>
 </li>
-<li title="Add a host to your helper notepad.">
-<p>You can find it on the OpenRouter website under "Code Examples"</p>
+<li title="Add a host to <code>task-description.md</code> file">
+<p>You can find it on the OpenRouter base URL under "Code Examples"</p>
 <p>
 <img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//02-1.png" alt="" style="width:100%; margin: 8px 0;"> 
 </p>
 </li>
-<li title="Enter the name of your LLM model in the cursor context file.">
+<li title="Enter the name of your LLM model in the <code>task-description.md</code> file.">
 <p>
 <img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//03-1.png" alt="" style="width:100%; margin: 8px 0;"> 
 </p>
 </li>
 </ol>
-<p>You now have everything you need to create your future app. Let's talk about how to build it. We've also predefined the embedding model for you. You can ask your chatbot what it is.</p>
+<p>You now have everything you need to create your future app. Let’s talk about how to build it. We've also preselected the embedding model for you – feel free to ask Junie what it is.</p>
 
-<p>Ask the chat about terms you're not sure about</p>
+<p>Ask Junie about any terms you're unsure of</p>
 
 <callout type="chat">
-What is embedding model and Huggingface
+What is an embedding model, and what is Hugging Face?
 </callout>
-<p>To test if it works okay, ask Chat or Composer for some info from this file. Then, add the file to the context.</p>
+<p>To test if it's working correctly, ask Junie for some information from this file. Do not forget to add <code>task-description.md</code> file to the context.</p>
+<alert>
+    <details>
+      <summary>Adding files to context</summary>
+      <p>
+        Usually, Junie is quite good at navigating the project on his own but if you want Junie to be laser-focused, you can hit the <strong>"+" button</strong> to attach specific files or folders. This is how you give Junie access to custom parts of your project—like your README, API guidelines, or folder structures.
+      </p>
+      <p>
+        <img style="max-width: 500px; margin: auto; display: block;" src="https://ucarecdn.com/e9ada323-f819-4557-b031-101d6eb23ea9/" alt="Adding files to context" >
+      </p>
+      <p>You can attach:</p>
+    
+      <ul>
+        <li>Config or certain files;</li>
+        <li>Entire directories (e.g., /src/controllers);</li>
+        <li>Single files with tricky logic or expanded instructions.</li>
+      </ul>
+    
+      <p>This is a huge help in larger projects. Instead of explaining everything to Junie, just show it.</p>
+    </details>
+</alert>
 
-<p>Test your context file</p>
+<p>Test your <code>task-description.md</code> file</p>
 
 <p>
 <img src="https://ucarecdn.com/c8385d16-8f6b-4433-8c6d-c0089cf3759b/" alt="" style="width:100%; margin: 8px 0;"> 
