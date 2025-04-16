@@ -1,0 +1,42 @@
+<p>We've already added all the requirements to the context file. Here's the description prompt:</p>
+
+<pre>
+<code>1. Download resolved ticket descriptions from Zendesk API
+2. Build database for RAG. Database must have two columns: question and answer. Extract questions and answers based on a conversation - every ticket has a list of comments.
+3. Answers are made by user with id=111
+4. Build a RAG with Langchain based on answered ticket comments
+5. Download open tickets from Zendesk API
+6. Recommend answers to open tickets based on RAG. Ensure system prompt includes both question and answer.
+7. Send recommended answers as non-public comments to related tickets in Zendesk API
+8. Get updated tickets from Zendesk API and print to the console
+9. Do not fix exact versions of python packages. Let pip resolve it by itself
+10. Use embeddings from langchain-huggingface
+11. Test the solution BY YOURSELF by running the app in console:
+    11.1. The app receives question as input and shows ONLY an answer
+    11.2. RAG built properly: system prompt includes question(s) and answer(s)
+    11.3. RAG built properly: an answer based on included question(s) and answer(s)
+12. Fix all errors
+13. Never change credentials</code>
+</pre>
+
+<p>If there are any technical terms in this description that are unclear, please discuss them with LLM.</p>
+
+<callout-group>
+<callout type="chat">
+What is RAG in simple words?
+</callout>
+<callout type="chat">
+What is Langchain?
+</callout>
+<callout type="chat">
+What does "Do not fix exact versions of python packages. Let pip resolve it by itself" mean in simple words?
+</callout>
+<callout type="chat">
+What is langchain-huggingface?
+</callout>
+<callout type="chat">
+What is embeddings?
+</callout>
+</callout-group>
+
+<p>You can also ask Chat to explain more. Try to get enough detailed explanations to understand all these requirements. LLM is a great way to explain technical things.</p> 
