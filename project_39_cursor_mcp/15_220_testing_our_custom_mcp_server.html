@@ -1,11 +1,10 @@
 <p>Now that we've built our Echo MCP server, let's configure Claude Desktop to use it and test its functionality. In this stage, we'll add our server to the MCP configuration, verify it's enabled in settings, and test each of its features.</p>
 
-<strong style="font-size: 15px;">Adding the Echo Server to MCP Configuration</strong><br>
+<h5>Adding the Echo Server to MCP Configuration</h5>
 
 <p>First, we need to add our custom MCP server to Claude's claude_desktop_config.json file. The same as before, we need to add the server to the claude_desktop_config.json file.</p>
 
-<pre>
-{
+<pre><code>{
   "mcpServers": {
     "Echo": {
       "command": "path/to/your/project/venv/bin/python3.12",
@@ -14,31 +13,56 @@
       ]
     }
   }
-}
-</pre>
+}</code></pre>
+
+<alert>
+<details>
+  <summary>Ask Junie to compose correct MCP configuration</summary>
+  <callout type="chat">
+I want to attach MCP to Claude Desktop app. Please update paths in the following config to correct ones.
+
+    {
+      "mcpServers": {
+        "Echo": {
+          "command": "path/to/your/project/venv/bin/python3.12",
+          "args": [
+            "path/to/your/project/echo_server.py",
+          ]
+        }
+      }
+    }
+    
+    
+Pass absolute path to the python executable instead of "path/to/your/project". Do the same for "path/to/your/project" in args. Make sure the path to echo_server.py is correct relative to your project root.
+  </callout>
+</details>
+</alert>
 
 <alert>
   Don't forget to update the path to the python executable and the path to the echo_server.py file.
 </alert>
 
-<checkable-item title="MCP configuration is updated"></checkable-item>
+<ul interactive>
+  <li title="MCP configuration is updated"></li>
+  <li title="Claude Desktop is restarted"></li>
+  <li title="Echo tool is listed in the tools menu"></li>
+</ul>
 
-<strong style="font-size: 15px;">Verifying MCP Server is enabled</strong><br>
+<p><img style="margin: auto; display: block; max-width: 800px;" src="https://ucarecdn.com/58cb76ec-a7ed-4c68-b1a3-fa286e86da13/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Echo tool response"></p>
 
-<p>Next, restart Claude Desktop and click on the hammer icon to check if the server is enabled as explained in the previous steps.</p>
-
-<strong style="font-size: 15px;">Testing the Echo Tool</strong><br>
+<h5>Testing the Echo Tool</h5>
 
 <p>Now, let's test the tool functionality:</p>
 
-<p>Ask chat:</p>
-<alert>
+<callout type="chat">
   Please use the echo_tool and show the result
-</alert>
+</callout>
 
 <checkable-item title="Echo tool is called by AI"></checkable-item>
 <checkable-item title="Echo tool response has format 'Tool echo: {message}'"></checkable-item>
 
-<strong style="font-size: 15px;">What's Next?</strong><br>
+<p><img style="margin: auto; display: block; max-width: 800px;" src="https://ucarecdn.com/ab8b58ea-09d3-4873-b684-10977b6cc115/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Echo tool response"></p>
+
+<h5>What's Next?</h5>
 
 <p>Now that we've successfully tested our custom Echo MCP server, in the next stage we'll explore advanced testing and debugging techniques provided by MCP SDK.</p> 
