@@ -1,8 +1,8 @@
-<p>In this stage, we'll learn the basics of MCP servers in Cursor and set up our first server using Playwright. This will allow us to interact with web browsers directly from Cursor's AI chat.</p>
+<p>In this stage, we'll learn the basics of MCP servers and set up our first server using Playwright. As a platform for launching MCP servers, we'll use <a href="https://claude.ai/download" target="_blank">Claude Desktop</a>.</p>
 
 <strong style="font-size: 15px;">What is MCP?</strong><br>
 
-<p>MCP (Model Context Protocol) is an open protocol that allows AI models in Cursor to interact with external tools and services. With MCP servers, the AI can perform actions beyond just generating text, such as:</p>
+<p>MCP (Model Context Protocol) is an open protocol that allows AI models to interact with external tools and services. With MCP servers, the AI can perform actions beyond just generating text, such as:</p>
 
 - Controlling applications<br>
 - Accessing external APIs and data sources<br>
@@ -11,30 +11,33 @@
 
 <strong style="font-size: 15px;">MCP Setup Options</strong><br>
 
-<p>There are three ways to configure MCP servers in Cursor:</p>
+<p>How to configure MCP servers in Claude Desktop:</p>
 
-<strong>1. In Cursor Settings:</strong><br>
-- Access through Settings → MCP Servers<br>
-- Configure global MCP servers available in all projects<br>
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-settings.png" alt="Cursor MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+<strong>In Claude Desktop Settings:</strong><br>
+- Access through Settings → Developer<br>
 
-<strong>2. Project-specific setup:</strong><br>
-- Create a <code>.cursor/mcp.json</code> file in your project root<br>
-- Servers defined here are only available in this specific project<br>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//39-quickstart-menu.png" alt="Claude MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
 
-<strong>3. Global configuration:</strong><br>
-- Create a <code>~/.cursor/mcp.json</code> file<br>
-- Servers defined here are available in all your projects<br><br>
+- Click "Edit config"<br>
+
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//39-2-quickstart-menu.png" alt="Claude MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+
+<p>This will create a configuration file at:</p>
+
+<pre>
+macOS: ~/Library/Application Support/Claude/claude_desktop_config.json
+Windows: %APPDATA%\Claude\claude_desktop_config.json
+</pre>
 
 <strong style="font-size: 15px;">MCP Configuration Format</strong><br>
 
-<p>The configuration format in <code>mcp.json</code> files follows this structure:</p>
+<p>The configuration format in <code>claude_desktop_config.json</code> files follows this structure:</p>
 
 <pre>
 {
   "mcpServers": {
     "serverName": {
-      "command": "executable",
+      "command": "executable", // or "url"
       "args": ["arg1", "arg2"],
       "env": { "ENV_VAR": "value" },
       "transport": "stdio" // or "sse"
@@ -67,9 +70,12 @@
   
 </alert>
 
-<p>Let's create the Playwright MCP configuration for our project using the project-specific approach. Ask the AI to create the folder and the <code>mcp.json</code> file.</p>
+<p>Let's create the Playwright MCP configuration:</p>
 
-<callout type="chat">Create a folder .cursor in our project directory if it doesn't already exist. Create a file .cursor/mcp.json with the following content:
+1. Open claude_desktop_config.json with a text editor.
+2. Paste the following configuration:
+
+<pre>
 {
   "mcpServers": {
     "playwright": {
@@ -81,22 +87,24 @@
     }
   }
 }
-</callout>
+</pre>
 
 <ul interactive>
-	<li title=".cursor/mcp.json is created"></li>
-	<li title=".cursor/mcp.json is configured as defined above"></li>
+	<li title=".claude_desktop_config.json is created"></li>
+	<li title=".claude_desktop_config.json is configured as defined above"></li>
 </ul>
 
-<p>After the file is created, check the settings to see the new MCP server:</p>
+<p>After the file is configured, restart Claude Desktop.</p>
 
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//playwright-mcp-enabled.png" alt="Cursor MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+<p>Now you will see hammer icon:</p>
 
-<p>Click on "Disabled" button to enable the server. After that, you should see the green checkmark on the server name as shown above.</p>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//39-3-quickstart-hammer.png" alt="Claude MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
 
-<alert>Enabling the server might take time. If you see the server is not enabled, wait for a few seconds and click on Refresh button in settings.</alert>
+<p>Click on the hammer icon to see available tools:</p>
 
-<checkable-item title="Playwright MCP is enabled"></checkable-item>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//39-4-tools-list.png" alt="Claude MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+
+<checkable-item title="Playwright MCP tools are listed"></checkable-item>
 
 <strong style="font-size: 15px;">Testing Our Playwright Setup</strong><br>
 
