@@ -1,22 +1,26 @@
 <p>Now that we understand the MCP architecture and have experimented with the Playwright MCP server, let's create our own custom MCP server from scratch. We'll build a simple Echo MCP server that will help us understand the core components of an MCP server.</p>
 
-<strong style="font-size: 15px;">Understanding the Tools</strong><br>
+<h5>Understanding the Tools</h5>
 
 <p>For this stage, we'll use two main tools:</p>
 
-<strong>MCP Python Package:</strong><br>
-- <a href="https://github.com/modelcontextprotocol/python-sdk">Official Python SDK for building MCP servers</a><br>
-- Provides a standardized way to expose resources, tools, and prompts to LLMs<br>
-- Handles the protocol communication so we can focus on implementing functionality<br><br>
+<p><strong>MCP Python Package:</strong></p>
+<ul>
+  <li><a href="https://github.com/modelcontextprotocol/python-sdk">Official Python SDK for building MCP servers</a></li>
+  <li>Provides a standardized way to expose resources, tools, and prompts to LLMs</li>
+  <li>Handles the protocol communication so we can focus on implementing functionality</li>
+</ul>
 
-<strong>uv Package Manager:</strong><br>
-- Modern Python package installer and resolver<br>
-- Significantly faster than pip for installing packages<br>
-- Better dependency resolution and virtual environment management<br><br>
+<p><strong>uv Package Manager:</strong></p>
+<ul>
+  <li><a href="https://docs.astral.sh/uv/getting-started/installation/">Modern Python package installer and resolver</a></li>
+  <li>Significantly faster than pip for installing packages</li>
+  <li>Better dependency resolution and virtual environment management</li>
+</ul>
 
 <p>Using these tools together will allow us to quickly create a functional MCP server with minimal boilerplate code.</p>
 
-<strong style="font-size: 15px;">Setting Up the Environment</strong><br>
+<h5>Setting Up the Environment</h5>
 
 <p>Let's start by installing the required packages:</p>
 
@@ -31,7 +35,7 @@ Create requirements.txt.
 
 <checkable-item title="Packages are installed"></checkable-item>
 
-<strong style="font-size: 15px;">Creating the Echo MCP Server</strong><br>
+<h5>Creating the Echo MCP Server</h5>
 
 <p>Now, let's create our Echo MCP server. This will be a simple server that demonstrates the main components of an MCP server: resources and tools.</p>
 
@@ -58,24 +62,28 @@ if __name__ == "__main__":
 <checkable-item title="echo_server.py file created"></checkable-item>
 <checkable-item title="Content of echo_server.py file is the same as in the prompt"></checkable-item>
 
-<strong style="font-size: 15px;">Understanding the MCP Components</strong><br>
+<h5>Understanding the MCP Components</h5>
 
 <p>There are core primitives that we implement in our server:</p>
 
-<strong>1. Resources (@mcp.resource):</strong><br>
-- How you expose data to LLMs<br>
-- Similar to GET endpoints in a REST API<br>
-- Provide data without performing significant computation<br>
-- Should not have side effects<br>
-- Accessed via URI patterns like "echo://{message}"<br>
-- In our example, the resource returns the message with a "Resource echo:" prefix<br><br>
+<p><strong>1. Resources (@mcp.resource):</strong></p>
+<ul>
+  <li>How you expose data to LLMs</li>
+  <li>Similar to GET endpoints in a REST API</li>
+  <li>Provide data without performing significant computation</li>
+  <li>Should not have side effects</li>
+  <li>Accessed via URI patterns like "echo://{message}"</li>
+  <li>In our example, the resource returns the message with a "Resource echo:" prefix</li>
+</ul>
 
-<strong>2. Tools (@mcp.tool):</strong><br>
-- Let LLMs take actions through your server<br>
-- Expected to perform computation and have side effects<br>
-- Called directly by the AI when it needs to execute a specific function<br>
-- Examples include making API calls, updating data, or triggering workflows<br>
-- In our example, the tool returns the message with a "Tool echo:" prefix<br><br>
+<p><strong>2. Tools (@mcp.tool):</strong></p>
+<ul>
+  <li>Let LLMs take actions through your server</li>
+  <li>Expected to perform computation and have side effects</li>
+  <li>Called directly by the AI when it needs to execute a specific function</li>
+  <li>Examples include making API calls, updating data, or triggering workflows</li>
+  <li>In our example, the tool returns the message with a "Tool echo:" prefix</li>
+</ul>
 
 <p>The MCP Python SDK makes it easy to implement these components using decorators, as shown in our echo server example.</p>
 
