@@ -1,56 +1,36 @@
-<p>When you opened the project folder, you'll see a file called <code>.cursor/rules/my-project-rules.mdc</code> in it. Look at this file. It contains all the information you need for your project.</p>
+<p>Junie knows how to create files and a whole application. Let's start small, ask it to create a file in the root of your project that describes in detail how the application works. We have prepared this file for you, you will need to edit it a bit in the future.</p>
 
-<p>Also please note a scope in Globs using <code>*</code></p>
-<p>This means that all of these instructions will be accepted everywhere. All files and the Chat will see those instructions.</p>
+<checkable-item title="Run this command in chat with Junie in Code Mode">
+<callout>
+ Create a file named task-description.md in the project folder. Add the following content to it:
 
-<p>☑️ Check if the Globs set to <code>*</code> in your context file</p>
+ ## CREDENTIALS AND CONSTANTS
 
-<p>
-<img src="https://ucarecdn.com/960c4e4e-0750-4559-9455-d79e3e3e8491/" alt="" style="width: 100%">
-</p>
+ZENDESK API URL: 
+ZENDESK API KEY: 
+OPENROUTER API KEY: 
+OPENROUTER API HOST:
+LLM MODEL:
+EMBEDDINGS MODEL: all-MiniLM-L6-v2 from Huggingface
 
-<p>We have already set up some fields and a prompt for you. In the next few lessons, we will fill in all the information needed and explain the prompt. Let's start by filling in information about your computer:</p>
+## APP REQUIREMENTS
 
-<ul>
-<li>Your operating system version</li>
-<li>Your version of Python</li>
-</ul>
-
-<p>We will explore the Chat functionality to explore your system settings.</p>
-
-<p>☑️ Make sure that your Chat is switched to `agent` mode. This means that it can perform actions on its own.</p>
-
-<p>
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//chat-01.png" alt="" style="width: 100%">
-</p>
-
-<p><checkable-item>Run the following prompts in the "Chat" tab of your IDE.</checkable-item></p>
-
-<callout-group>
-<callout type="chat">
-Check my OS version
+1. Download resolved ticket descriptions from Zendesk API
+2. Build database for RAG. Database must have two columns: question and answer. Extract questions and answers based on a conversation - every ticket has a list of comments.
+3. Answers are made by user with id=111
+4. Build a RAG with Langchain based on answered ticket comments
+5. Download open tickets from Zendesk API
+6. Recommend answers to open tickets based on RAG. Ensure system prompt includes both question and answer.
+7. Send recommended answers as non-public comments to related tickets in Zendesk API
+8. Get updated tickets from Zendesk API and print to the console
+9. Do not fix exact versions of python packages. Let pip resolve it by itself
+10. Use embeddings from langchain-huggingface
+11. Test the solution BY YOURSELF by running the app in console:
+    11.1 The app receives question as input and shows ONLY an answer
+    11.2 RAG built properly: system prompt includes question(s) and answer(s)
+    11.3 RAG built properly: an answer based on included question(s) and answer(s)
+12. Fix all errors
+13. Never change credentials
 </callout>
-<callout type="chat">
-Show me my python version
-</callout>
-</callout-group>
-
-<p>☑️ <b>Update</b> the <code>.cursor/rules/my-project-rules.mdc</code> file based on the answers from composer.</p>
-
-<p>This will create a proper context for your assistants in future development.</p>
-
-<details>
-  <summary>What Python version do I need?</summary>
-  <div>
-  We suggest using Python 3.12 or higher for this course. If your computer doesn't have it, ask the composer how to update it so that you can run all the commands they recommend.
-  <callout type="composer">
-  Install a Python 3.12 on my computer and upgrade PIP to actual version
-  </callout>
-  </div>
-</details>
-
-<p>You can link this file to the chat context. All further instructions will be based on what is written in this file.</p>
-
-<p>
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//chat-02.png" alt="" style="width: 100%">
-</p> 
+</checkable-item>
+<p>We have already set up some fields and a prompt for you. In the next few lessons, we will fill in all the information needed and explain the prompt.</p>
