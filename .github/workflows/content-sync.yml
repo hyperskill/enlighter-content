@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'project_*/**/*.html'
+      - 'project_*/*.html'
       - '.github/workflows/content-sync.yml'
       - '.github/scripts/**'
 

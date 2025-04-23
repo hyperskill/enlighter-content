@@ -50,7 +50,7 @@ def update_stage_in_supabase(stage_id, description):
 
 def main():
     # Find all HTML files in the project directories
-    html_files = glob.glob("project_*/**/*.html", recursive=True)
+    html_files = glob.glob("project_*/*.html")
     print(f"Found {len(html_files)} HTML files")
     
     updated_count = 0
