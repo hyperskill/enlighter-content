@@ -1,0 +1,61 @@
+<p>The <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/puppeteer">Puppeteer MCP</a> is a tool that provides browser automation capabilities using Puppeteer. This powerful server enables LLMs to interact with web pages, take screenshots, and execute JavaScript in a real browser environment. This stage will guide you through setting up and effectively utilizing this MCP in your Cursor workflow.</p>
+
+<strong style="font-size: 15px;">Features:</strong><br>
+- Navigate to any URL in the browser<br>
+- Capture screenshots of the entire page or specific elements<br>
+- Click elements and fill out forms on web pages<br>
+- Hover over elements to trigger interactions<br>
+- Execute JavaScript code in the browser console<br>
+- Monitor browser console logs<br><br>
+
+<strong style="font-size: 15px;">Key Use Cases</strong><br>
+- Automate web testing and interaction<br>
+- Extract data from websites<br>
+- Fill out web forms programmatically<br>
+- Capture visual evidence from websites<br>
+- Debug web applications with console access<br><br>
+
+<strong style="font-size: 15px;">Setup Instructions</strong><br>
+
+<p>You can set up the Puppeteer MCP using either NPX or Docker. Choose the method that best suits your environment:</p>
+
+<strong style="font-size: 15px;">NPX Setup</strong><br>
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "puppeteer": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ]
+    }
+  }
+}</callout>
+
+<strong style="font-size: 15px;">Docker Setup</strong><br>
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "puppeteer": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--init",
+        "-e",
+        "DOCKER_CONTAINER=true",
+        "mcp/puppeteer"
+      ]
+    }
+  }
+}</callout>
+
+<strong style="font-size: 15px;">Practical Example: Web Automation</strong><br>
+
+<callout type="chat">Use Puppeteer to navigate to https://example.com, take a screenshot of the page, and then click on the first link.</callout>
+
+<p>This example demonstrates how the Puppeteer MCP can be used for basic web automation tasks, including navigation, screenshot capture, and element interaction.</p>

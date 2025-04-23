@@ -1,0 +1,66 @@
+<p>The <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/github">GitHub MCP</a> enables Cursor to interact directly with GitHub repositories, allowing you to manage your code, issues, pull requests, and more without leaving your Cursor environment. This powerful integration provides comprehensive features including file operations, repository management, advanced search functionality, and pull request workflows. This stage will guide you through setting up and utilizing this powerful GitHub integration tool.</p>
+
+<strong style="font-size: 15px;">Features:</strong><br>
+- Create or update files in repositories with automatic branch creation<br>
+- Push multiple files in a single commit with batch operations support<br>
+- Search repositories, code, issues, and users with advanced search capabilities<br>
+- Manage repository issues and pull requests with comprehensive error handling<br>
+- Review and merge pull requests while preserving Git history<br>
+- View file and directory contents<br>
+- Perform both single-file and multi-file operations efficiently<br><br>
+
+<strong style="font-size: 15px;">Key Use Cases</strong><br>
+- Creating and managing GitHub repositories<br>
+- Accessing and modifying repository content<br>
+- Working with issues and pull requests<br>
+- Performing advanced GitHub searches<br>
+- Automating repository operations<br><br>
+
+<strong style="font-size: 15px;">Setup Instructions</strong><br>
+
+<p>You can set up the GitHub MCP using either NPX or Docker. Both methods require a GitHub Personal Access Token.</p>
+
+<strong style="font-size: 15px;">NPX Setup</strong><br>
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_personal_access_token"
+      }
+    }
+  }
+}</callout>
+
+<strong style="font-size: 15px;">Docker Setup</strong><br>
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_personal_access_token"
+      }
+    }
+  }
+}</callout>
+
+<p>To create a GitHub Personal Access Token, go to <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">GitHub Settings → Developer Settings → Personal Access Tokens</a>. For full repository access, select the `repo` scope; for public repositories only, select the `public repositories` scope.</p>
+
+<strong style="font-size: 15px;">Practical Example: Repository Search</strong><br>
+
+<callout type="chat">Search for the most popular TypeScript state management libraries on GitHub. Look for repositories with over 1000 stars that have "state management" in their description or README.</callout>

@@ -1,0 +1,66 @@
+<p>The <a href="https://ui.nanda-registry.com/servers/fe9c7d80-7f3f-495f-8406-7ef7a5667495">Memory Bank MCP</a> provides a structured way to maintain project context for AI assistants. By organizing project information into categorized markdown files, Memory Bank helps Cursor better understand your project's goals, architecture, and current focus. This stage will guide you through setting up and effectively utilizing the Memory Bank MCP in your Cursor workflow.</p>
+
+<strong style="font-size: 15px;">Features:</strong><br>
+- Organize project context in hierarchical markdown files<br>
+- Maintain persistent knowledge between Cursor sessions<br>
+- Retrieve specific context information on demand<br>
+- Generate template files based on project needs<br>
+- Analyze project summaries for better context organization<br><br>
+
+<strong style="font-size: 15px;">Key Use Cases</strong><br>
+- Long-term project development with consistent AI assistance<br>
+- Complex projects requiring detailed context understanding<br>
+- Team collaboration where contextual knowledge needs sharing<br>
+- Projects with evolving requirements and architecture<br><br>
+
+
+<p>Memory Bank organizes project context into six core markdown files:</p>
+
+1. <strong>projectbrief.md</strong> - Foundation document with core requirements<br>
+   - Defines project scope, goals, and success criteria<br>
+   - Created first and rarely changes<br><br>
+
+2. <strong>productContext.md</strong> - The "why" of your project<br>
+   - Explains user needs and problems being solved<br>
+   - Outlines user experience goals<br><br>
+
+3. <strong>systemPatterns.md</strong> - The "how" of your project<br>
+   - Documents system architecture and design patterns<br>
+   - Records key technical decisions<br><br>
+
+4. <strong>techContext.md</strong> - Tools and technologies<br>
+   - Lists frameworks, libraries, and development tools<br>
+   - Documents technical constraints<br><br>
+
+5. <strong>activeContext.md</strong> - Current project state<br>
+   - Describes what you're working on now<br>
+   - Records recent changes and next steps<br><br>
+
+6. <strong>progress.md</strong> - Project status tracking<br>
+   - Lists completed features and known issues<br>
+   - Records the evolution of project decisions<br><br>
+
+This MCP helps to automatically create memory bank files in your project.<br><br>
+
+<strong style="font-size: 15px;">Setup Instructions</strong><br>
+
+<p>You can set up the Memory Bank MCP using SSE connection.</p>
+
+<strong style="font-size: 15px;">SSE Setup</strong><br>
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "memory-bank": {
+      "url": "https://mcp-cursor-setup-enlighter.replit.app/sse"
+    }
+  }
+}</callout>
+
+<p>You can also set up the Memory Bank MCP manually with <a href="https://github.com/aidecentralized/nanda-servers/tree/main/mcp-setup-helper">GitHub repository</a>.</p>
+
+<strong style="font-size: 15px;">Practical Example: Using Memory Bank in Cursor</strong><br>
+
+<callout type="chat">Create a memory bank for TODO list app with your tools</callout>
+
+<p>This example demonstrates how to leverage the Memory Bank MCP to provide rich context to Cursor, enabling more informed AI assistance throughout your development process.</p> 
