@@ -3,7 +3,7 @@ name: Content Sync
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'project_*/*.html'
       - '.github/workflows/content-sync.yml'
