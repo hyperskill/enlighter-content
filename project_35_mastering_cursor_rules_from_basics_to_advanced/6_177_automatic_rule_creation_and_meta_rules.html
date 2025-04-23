@@ -1,0 +1,61 @@
+<p>One of the most powerful aspects of Cursor Rules is that you can create them automatically using Cursor's AI capabilities. Let's explore this feature and learn about some advanced rule settings.</p>
+
+<strong style="font-size: 15px;">Improving Automatic Rule Creation</strong><br>
+
+<p>We've already seen how to create rules with Cursor's help. Now, let's take it a step further by creating a meta-rule - a rule about rules themselves!</p>
+
+<strong style="font-size: 15px;">Rules for Rules: Location Standards</strong><br>
+
+<p>We'll create a rule that ensures all rules are properly located in the .cursor/rules directory:</p>
+
+<callout type="chat">
+Create a new rule file called rules-location.mdc in .cursor/rules folder, set the rule type to “always”, add the following content:
+
+# Cursor Rules Location
+
+Locate all rules in .cursor/rules
+
+Apply this rule for every edit or create rule
+</callout>
+
+<p>In this prompt, we ask you to set the Rule Type for the file to “always”. As a result, the rule should have the option “alwaysApply” with the value “true”. We need to talk more about what this means.</p>
+
+<strong style="font-size: 15px;">Understanding alwaysApply</strong><br>
+
+<p><code>alwaysApply: true</code> setting is a powerful feature that makes a rule apply to <em>every</em> request, regardless of context.</p>
+
+<strong style="font-size: 15px;">When to Use alwaysApply</strong><br>
+
+<p>The alwaysApply setting is most useful for:</p>
+
+- Critical project-wide standards<br>
+- Fundamental architectural principles<br>
+- Meta-rules (like our rules-location rule)<br><br>
+
+<alert>Use alwaysApply sparingly! Too many always-applied rules can slow down Cursor and create conflicting instructions.</alert>
+
+
+<strong style="font-size: 15px;">Completion Checklist</strong><br>
+
+<ul interactive>
+    <li title="Check rule creation">
+        Verify rules-location.mdc exists in .cursor/rules<br>
+    </li>
+    <li title="Check rule type">
+        Verify that rule type is set to "Always"<br>
+    </li>
+</ul>
+
+<strong style="font-size: 15px;">What We've Learned</strong><br>
+
+<p>In this stage, we've discovered some powerful capabilities of Cursor Rules:</p>
+
+- We can create fine-grained rules for different purposes<br>
+- We can create meta-rules that apply to other rules<br>
+- We can use Rule Type "Always" for critical rules<br>
+- We can automate rule creation using Cursor's AI<br><br>
+
+<p>This demonstrates the flexibility and power of the rules system. You can create rules for specific file types, specific coding patterns, or even rules about how to manage other rules!</p>
+
+<br>
+Next, we'll make the process of applying rules more transparent.
