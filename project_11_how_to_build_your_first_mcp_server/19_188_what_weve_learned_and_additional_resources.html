@@ -1,0 +1,140 @@
+<p>Congratulations! You've successfully completed this journey into the world of Model Context Protocol (MCP) servers. Let's take a moment to reflect on what we've learned and explore some additional resources to further enhance your MCP capabilities.</p>
+
+<strong style="font-size: 15px;">What We've Learned</strong><br>
+
+<p>Throughout this course, we've covered a comprehensive set of skills and concepts related to MCPs:</p>
+
+- Sorted out what MCPs are and why they're important for extending AI capabilities<br>
+- Created simple and advanced MCP servers to understand their structure and functionality<br>
+- Learned how to configure MCPs within Cursor for seamless integration<br>
+- Mastered development tools and debugging techniques using the MCP Inspector<br>
+- Built our own custom MCPs<br>
+- Explored how to strengthen Cursor with custom browsing tools<br>
+- Optimized tool selection with Cursor rules to improve AI decision-making<br><br>
+
+<p>You now have a solid foundation in building, configuring, and using MCP servers to extend Cursor's AI capabilities. From simple text echo functionality to complex browser automation, you've experienced how MCPs can transform your interaction with AI tools.</p>
+
+<strong style="font-size: 15px;">Resources to Explore MCPs Further</strong><br>
+
+<p>Your journey with MCPs doesn't have to end here. Check out these resources to expand your knowledge:</p>
+
+- <a href="https://github.com/modelcontextprotocol" target="_blank">Official MCP GitHub Repository</a> - The central hub for specifications, SDKs (TypeScript, Python, Java, Kotlin, Rust), and documentation<br>
+- <a href="https://github.com/modelcontextprotocol/servers" target="_blank">MCP Servers Repository</a> - Ready-to-use servers for file systems, databases, Git, GitHub, memory management, image generation, and more<br>
+- <a href="https://github.com/ericzakariasson/uber-eats-mcp-server" target="_blank">Uber Eats MCP Server</a> - A fun example of using MCPs for food ordering<br>
+- <a href="https://github.com/modelcontextprotocol/python-sdk" target="_blank">Python SDK Documentation</a> - Detailed documentation for the Python SDK we used<br>
+- <a href="https://modelcontextprotocol.io/" target="_blank">MCP Official Website</a> - Comprehensive guide to the protocol and its capabilities<br><br>
+
+<strong style="font-size: 15px;">Bonus: Browser-Use MCP</strong><br>
+
+<p>As a bonus, let's create one more MCP server that allows the AI to use a web browser directly. This will enable the AI to search the web, read content, and interact with websites on your behalf.</p>
+
+<details>
+<summary>Click to expand and create the Browser-Use MCP</summary>
+
+<strong style="font-size: 15px;">Setting Up the Browser-Use MCP</strong><br>
+
+<p>First, let's create a new Python file for our browser-use MCP:</p>
+
+<callout type="chat">
+Create a file named browser_use_mcp.py with the following content:
+
+from mcp.server.fastmcp import FastMCP
+import subprocess
+import sys
+import json
+import os
+
+mcp = FastMCP("Browser Use")
+
+@mcp.tool()
+def use_browser(url: str = None, query: str = None) -> str:
+    """Use a web browser to find information or interact with websites.
+    
+    Args:
+        url: Optional URL to navigate to directly
+        query: Optional search query to look up
+        
+    Returns:
+        Information found or confirmation of action taken
+    """
+    if not url and not query:
+        return "Please provide either a URL to visit or a search query."
+    
+    # If only a query is provided, convert it to a search URL
+    if query and not url:
+        # Use DuckDuckGo for privacy
+        url = f"https://duckduckgo.com/?q={query.replace(' ', '+')}"
+    
+    # Open the URL in the default browser
+    if sys.platform == 'darwin':  # macOS
+        subprocess.run(['open', url])
+    elif sys.platform == 'win32':  # Windows
+        os.startfile(url)
+    else:  # Linux
+        subprocess.run(['xdg-open', url])
+    
+    return f"Opened browser with {'search query: ' + query if query else 'URL: ' + url}"
+
+if __name__ == "__main__":
+    # Print to stderr so it doesn't interfere with MCP communication
+    print("Browser Use MCP server starting...", file=sys.stderr)
+    mcp.run(transport='stdio')
+</callout>
+
+<checkable-item title="browser_use_mcp.py file created">
+Make sure the file is created with the correct content.
+</checkable-item>
+
+<strong style="font-size: 15px;">Adding to MCP Configuration</strong><br>
+
+<p>Now, let's add our browser-use MCP to the Cursor configuration:</p>
+
+<callout type="chat">
+Update the .cursor/mcp.json file to include the browser-use MCP server (browser_use_mcp.py). Use the same format as for echo_server.py.
+    The configuration must have 'Browser use' as the name of the MCP server.
+</callout>
+
+<checkable-item title="MCP configuration updated">
+Make sure the configuration file is updated with the browser-use MCP server.
+</checkable-item>
+
+<strong style="font-size: 15px;">Enabling in Cursor Settings</strong><br>
+
+<checkable-item title="Browser-use MCP enabled in settings">
+Make sure the browser-use MCP is enabled in Cursor settings.
+</checkable-item>
+
+<alert>
+    Sometimes you may note errors in MCP status in the settings.
+    This may happen because browser-use uses standard output for logging.
+    As we already know, MCPs use standard input/output for communication. You can experiment with config to disable logging. 
+    We leave it as an exercise for you.
+</alert>
+
+<strong style="font-size: 15px;">Testing our browser-use tool</strong><br>
+
+<p>Now let's test our browser-use MCP by getting the current weather in your location:</p>
+
+<callout type="chat">Using the browser-use tool, find the current weather for my location.</callout>
+
+<p>
+    When AI calls the browser-use tool, it will use the browser to find your location and check the weather. 
+</p>
+
+<checkable-item title="MCP tool is called">
+Verify that the AI called the tool to use the browser to find your location and check the weather.
+</checkable-item>
+
+<alert>
+    Browsing may take time. To improve performance or general reliability, you can experiment with different LLMs but it may require API keys for the LLMs.
+    We leave this as an exercise for you.
+</alert>
+
+</details>
+
+<div style="text-align: center; margin: 20px 0;">
+  <img style="margin:auto;display:block;" src="https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif" alt="Adorable cat with computer" width="400" />
+  <p style="font-size: 12px; color: #666;">Time to build amazing things with MCP!</p>
+</div>
+
+<p>Happy coding!</p>
