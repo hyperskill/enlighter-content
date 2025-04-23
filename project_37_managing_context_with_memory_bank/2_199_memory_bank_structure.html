@@ -1,0 +1,119 @@
+<p>In this stage, we'll explore the structure of Memory Bank files and how they work together to maintain context for Cursor.</p>
+
+<strong style="font-size: 15px;">The Six Core Files</strong><br>
+
+<p>Memory Bank consists of six markdown files organized in a hierarchical structure:</p>
+
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//37-bank-files.png" alt="Memory Bank File Structure" style="width: 100%; margin: 8px 0px;"><br>
+
+<p>Let's examine each file:</p>
+
+1. <strong>projectbrief.md</strong> - The foundation document<br>
+   - Defines core requirements and goals<br>
+   - Serves as the source of truth for project scope<br>
+   - Created first and rarely changes<br><br>
+
+2. <strong>productContext.md</strong> - The "why" of your project<br>
+   - Explains why the project exists<br>
+   - Describes user needs and problems solved<br>
+   - Outlines user experience goals<br><br>
+
+3. <strong>systemPatterns.md</strong> - The "how" of your project<br>
+   - Documents system architecture<br>
+   - Records key technical decisions<br>
+   - Describes design patterns and component relationships<br><br>
+
+4. <strong>techContext.md</strong> - The tools and technologies<br>
+   - Lists technologies and frameworks used<br>
+   - Documents development setup<br>
+   - Records technical constraints<br><br>
+
+5. <strong>activeContext.md</strong> - The current state<br>
+   - Documents what you're working on right now<br>
+   - Records recent changes and next steps<br>
+   - Updated most frequently<br><br>
+
+6. <strong>progress.md</strong> - The project status<br>
+   - Tracks completed and in-progress features<br>
+   - Lists known issues<br>
+   - Records the evolution of project decisions<br><br>
+
+<strong style="font-size: 15px;">How These Files Work Together</strong><br>
+
+<p>When you start a new session with Cursor, you'll ask it to read your Memory Bank files. Cursor will process these files in sequence, building a comprehensive understanding of your project.</p>
+
+<p>Here's how the information flows:</p>
+
+1. <strong>Project Brief</strong> → Establishes the foundation<br>
+2. <strong>Product Context</strong> → Adds user-focused perspective<br>
+3. <strong>System Patterns</strong> → Provides technical architecture<br>
+4. <strong>Tech Context</strong> → Details specific technologies<br>
+5. <strong>Active Context</strong> → Focuses on current work<br>
+6. <strong>Progress</strong> → Adds historical perspective<br><br>
+
+<p>This hierarchical approach ensures that Cursor has both the big picture and the specific details needed to assist you effectively.</p>
+
+<strong style="font-size: 15px;">Creating Your First Memory Bank</strong><br>
+
+<p>Let's walk through creating a Memory Bank for a simple project. We'll use a todo list application called "TodoMaster" as our example.</p>
+
+<p>First, create a folder called "memory-bank" in your project directory. This will store all six files.</p>
+
+<p>Start by creating the project brief:</p>
+
+<callout type="code">
+# TodoMaster Project Brief
+
+## Overview
+TodoMaster is a simple, intuitive task management application designed to help users organize their daily activities.
+
+## Goals
+- Create a clean, intuitive interface
+- Make task management quick and efficient
+- Help users stay organized
+
+## Scope
+- Web-based application
+- Single-user focus
+- Local storage for data persistence
+- NOT included: user accounts, sharing features
+
+## Success Criteria
+- Users can manage tasks in under 3 clicks
+- All data persists between sessions
+- Interface works on both desktop and mobile
+</callout>
+
+<p>After creating the project brief, we can ask Cursor to help us create the remaining files:</p>
+
+<callout type="chat">
+I've created a projectbrief.md file for my TodoMaster application. Based on this brief, can you help me create the remaining five Memory Bank files (productContext.md, systemPatterns.md, techContext.md, activeContext.md, and progress.md)?
+</callout>
+
+<strong style="font-size: 15px;">Key Benefits of This Structure</strong><br>
+
+<p>This hierarchical structure provides several benefits:</p>
+
+1. <strong>Separation of Concerns</strong>: Each file has a clear, specific purpose<br>
+2. <strong>Progressive Detail</strong>: Information flows from general to specific<br>
+3. <strong>Targeted Updates</strong>: You can update specific aspects without changing everything<br>
+4. <strong>Scalability</strong>: Works for projects of any size<br><br>
+
+<strong style="font-size: 15px;">Completion Checklist</strong><br>
+
+<ul interactive>
+    <li title="Create memory-bank folder">
+        Create a 'memory-bank' folder in your project directory<br>
+    </li>
+    <li title="Create projectbrief.md">
+        Create a projectbrief.md file for your project using the example as a guide<br>
+    </li>
+    <li title="Ask Cursor for help">
+        Use the provided callout to ask Cursor to help create the remaining files<br>
+    </li>
+    <li title="Review file structure">
+        Verify that all six core Memory Bank files have been created<br>
+    </li>
+</ul>
+
+<p>In the next stage, we'll set up custom instructions for Cursor to effectively use your Memory Bank files.</p>

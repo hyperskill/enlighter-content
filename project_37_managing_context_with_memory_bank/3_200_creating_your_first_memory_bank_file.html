@@ -1,0 +1,93 @@
+<p>Now that we understand the Memory Bank concept, let's start creating our files. We'll begin with the most important file: projectbrief.md.</p>
+
+<strong style="font-size: 15px;">Setting Up the Rules Directory</strong><br>
+
+<p>First, let's create a directory for our Memory Bank rules:</p>
+
+<callout type="composer">
+Create a directory structure for our Memory Bank rules:
+
+mkdir -p .cursor/rules/memory-bank
+</callout>
+
+<strong style="font-size: 15px;">Creating projectbrief.md</strong><br>
+
+<p>Now, let's create the projectbrief.md file for our TodoMaster app:</p>
+
+<callout type="composer">
+Create a file at .cursor/rules/memory-bank/projectbrief.md with the following content:
+
+---
+description: Project Brief for TodoMaster
+globs: *.js, *.html, *.css
+alwaysApply: true
+---
+
+# Project Brief: TodoMaster
+
+## Overview
+TodoMaster is a simple web application that helps users organize and track their tasks.
+
+## Core Requirements
+- Create, edit, and delete tasks
+- Organize tasks into categories
+- Set due dates and priorities
+- Mark tasks as complete
+
+## Goals
+- Provide a clean, intuitive interface
+- Make task management quick and efficient
+- Help users stay organized
+
+## Scope
+- Web-based application
+- Single-user focus
+- Local storage for data persistence
+- NOT included: user accounts, sharing features
+
+## Success Criteria
+- Users can manage tasks in under 3 clicks
+- All data persists between sessions
+- Interface works on both desktop and mobile
+</callout>
+
+<p>This file establishes the foundation of our TodoMaster project. It defines:</p>
+
+- <strong>What</strong> we're building (a task management app)<br>
+- <strong>Core features</strong> (task CRUD, categories, priorities)<br>
+- <strong>Goals</strong> (clean interface, efficiency)<br>
+- <strong>Scope</strong> (what's included and what's not)<br>
+- <strong>Success criteria</strong> (how we'll know it's working well)<br><br>
+
+<strong style="font-size: 15px;">Understanding the Rule Format</strong><br>
+
+<p>Notice the metadata at the top of the file:</p>
+
+```
+---
+description: Project Brief for TodoMaster
+globs: *.js, *.html, *.css
+alwaysApply: true
+---
+```
+
+<p>This tells Cursor:</p>
+- What this rule is for (description)<br>
+- Which files it applies to (globs)<br>
+- That it should always be applied (alwaysApply)<br><br>
+
+<strong style="font-size: 15px;">Completion Checklist</strong><br>
+
+<ul interactive>
+    <li title="Create rules directory">
+        Create the .cursor/rules/memory-bank directory<br>
+    </li>
+    <li title="Create projectbrief.md">
+        Create the projectbrief.md file with the provided content<br>
+    </li>
+    <li title="Verify file creation">
+        Check that the file was created successfully<br>
+    </li>
+</ul>
+
+<p>In the next stage, we'll create the productContext.md file to explain why our TodoMaster app exists and who it's for.</p>

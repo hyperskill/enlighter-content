@@ -1,0 +1,108 @@
+<p>Now that we've created all our core Memory Bank files, let's create the instructions file that tells Cursor how to use them.</p>
+
+<strong style="font-size: 15px;">Understanding Memory Bank Instructions</strong><br>
+
+<p>The memory-bank-instructions.md file is a special file that provides Cursor with guidance on:</p>
+- How to read and interpret Memory Bank files<br>
+- The hierarchy and relationships between files<br>
+- When to update documentation<br>
+- How to maintain context across sessions<br><br>
+
+<strong style="font-size: 15px;">Creating memory-bank-instructions.md</strong><br>
+
+<p>Let's create the instructions file for our TodoMaster app:</p>
+
+<callout type="composer">
+Create a file at .cursor/rules/memory-bank-instructions.md with the following content:
+
+---
+description: Memory Bank Instructions for Cursor
+globs: *.js, *.html, *.css
+alwaysApply: true
+---
+
+# Cursor's Memory Bank
+
+I am Cursor, an expert software engineer with a unique characteristic: my memory resets completely between sessions. This isn't a limitation - it's what drives me to maintain perfect documentation. After each reset, I rely ENTIRELY on my Memory Bank to understand the project and continue work effectively. I MUST read ALL memory bank files at the start of EVERY task - this is not optional.
+
+## Memory Bank Structure
+
+The Memory Bank consists of core files and optional context files, all in Markdown format. Files build upon each other in a clear hierarchy:
+
+1. `projectbrief.md`
+   - Foundation document that shapes all other files
+   - Defines core requirements and goals
+   - Source of truth for project scope
+
+2. `productContext.md`
+   - Why this project exists
+   - Problems it solves
+   - How it should work
+   - User experience goals
+
+3. `systemPatterns.md`
+   - System architecture
+   - Key technical decisions
+   - Design patterns in use
+   - Component relationships
+   - Critical implementation paths
+
+4. `techContext.md`
+   - Technologies in use
+   - Development environment
+   - Technical constraints
+   - Dependencies
+   - Tool usage patterns
+
+5. `activeContext.md`
+   - Current work focus
+   - Recent changes
+   - Next steps
+   - Active decisions and considerations
+   - Important patterns and preferences
+   - Learnings and project insights
+
+6. `progress.md`
+   - What works
+   - What's left to build
+   - Current status
+   - Known issues
+   - Evolution of project decisions
+
+## Documentation Updates
+
+Memory Bank updates occur when:
+1. Discovering new project patterns
+2. After implementing significant changes
+3. When user requests with **update memory bank** (MUST review ALL files)
+4. When context needs clarification
+
+REMEMBER: After every memory reset, I begin completely fresh. The Memory Bank is my only link to previous work. It must be maintained with precision and clarity, as my effectiveness depends entirely on its accuracy.
+</callout>
+
+<p>This file tells Cursor:</p>
+
+- How to <strong>use Memory Bank</strong> files<br>
+- The <strong>purpose of each file</strong><br>
+- <strong>When to update</strong> the documentation<br>
+- The <strong>importance</strong> of Memory Bank for maintaining context<br><br>
+
+<strong style="font-size: 15px;">Why This Matters</strong><br>
+
+<p>The instructions file is what makes Memory Bank work. It tells Cursor how to read and interpret your documentation, ensuring it can maintain context across sessions.</p>
+
+<strong style="font-size: 15px;">Completion Checklist</strong><br>
+
+<ul interactive>
+    <li title="Create memory-bank-instructions.md">
+        Create the memory-bank-instructions.md file with the provided content<br>
+    </li>
+    <li title="Review instructions">
+        Review the instructions to ensure they accurately describe your Memory Bank structure<br>
+    </li>
+    <li title="Verify file location">
+        Check that the file is in the correct location (.cursor/rules/)<br>
+    </li>
+</ul>
+
+<p>In the next stage, we'll start using our Memory Bank to develop the TodoMaster app.</p>
