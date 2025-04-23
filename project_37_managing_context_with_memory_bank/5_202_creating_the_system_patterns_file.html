@@ -1,0 +1,86 @@
+<p>Now let's create the systemPatterns.md file, which defines the technical architecture and design patterns for our TodoMaster app.</p>
+
+<strong style="font-size: 15px;">Understanding System Patterns</strong><br>
+
+<p>The systemPatterns.md file documents:</p>
+- The overall architecture<br>
+- Key technical decisions<br>
+- Design patterns used<br>
+- Component relationships<br>
+- Data flow<br><br>
+
+<strong style="font-size: 15px;">Creating systemPatterns.md</strong><br>
+
+<p>Let's create the systemPatterns.md file for our TodoMaster app:</p>
+
+<callout type="composer">
+Create a file at .cursor/rules/memory-bank/systemPatterns.md with the following content:
+
+---
+description: System Patterns for TodoMaster
+globs: *.js, *.html, *.css
+alwaysApply: true
+---
+
+# System Patterns: TodoMaster
+
+## Architecture Overview
+TodoMaster follows a simple MVC (Model-View-Controller) architecture with vanilla JavaScript. All data is stored in the browser's localStorage.
+
+## Component Structure
+- **Models**: Handle data management and business logic
+  - TaskModel: Manages task data (CRUD operations)
+  - CategoryModel: Manages category data
+  - StorageModel: Handles localStorage interactions
+
+- **Views**: Handle UI rendering
+  - TaskListView: Renders the list of tasks
+  - TaskFormView: Renders task creation/editing form
+  - FilterView: Renders filtering controls
+
+- **Controllers**: Connect models and views
+  - AppController: Main application controller
+  - TaskController: Handles task-related operations
+  - FilterController: Manages filtering logic
+
+## Design Patterns
+- **Repository Pattern**: For data access abstraction
+- **Observer Pattern**: For UI updates when data changes
+- **Module Pattern**: For code organization
+- **Factory Pattern**: For creating task and category objects
+
+## Data Flow
+1. User interacts with a View
+2. View notifies Controller of the action
+3. Controller updates Model as needed
+4. Model updates data in localStorage
+5. Model notifies Controller of changes
+6. Controller updates View to reflect changes
+</callout>
+
+<p>This file provides a technical blueprint for our app, including:</p>
+
+- The <strong>architecture</strong> (MVC with localStorage)<br>
+- The <strong>components</strong> and their responsibilities<br>
+- The <strong>design patterns</strong> we'll use<br>
+- How <strong>data flows</strong> through the system<br><br>
+
+<strong style="font-size: 15px;">Why This Matters</strong><br>
+
+<p>The systemPatterns.md file helps Cursor understand how to structure code for our app. When you ask Cursor to implement features, it will follow these patterns, ensuring consistent, maintainable code.</p>
+
+<strong style="font-size: 15px;">Completion Checklist</strong><br>
+
+<ul interactive>
+    <li title="Create systemPatterns.md">
+        Create the systemPatterns.md file with the provided content<br>
+    </li>
+    <li title="Review architecture">
+        Review the architecture to ensure it fits your project needs<br>
+    </li>
+    <li title="Check component structure">
+        Verify that the component structure covers all necessary parts of the app<br>
+    </li>
+</ul>
+
+<p>In the next stage, we'll create the techContext.md file to document the technologies and tools we'll use for TodoMaster.</p>
