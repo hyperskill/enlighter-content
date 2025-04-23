@@ -1,0 +1,99 @@
+<p>Before we dive deeper into project rules, let's set up some important global configurations. Cursor doesn't always automatically fetch rules, so we need to set up both modern and legacy ways to ensure our rules are always applied.</p>
+
+<strong style="font-size: 15px;">Global Rule in Settings</strong><br>
+
+<p>First, let's add a global rule in Cursor settings:</p>
+
+1. Press <code>CMD + Shift + P</code> and type "Cursor settings"<br>
+2. Go to the Rules tab<br>
+3. Find "User Rules" section<br>
+4. Add this rule:<br><br>
+
+<code>
+⚠️ FETCH RULES OR YOUR RESPONSE WILL BE WRONG ⚠️
+
+MANDATORY: CALL fetch_rules FIRST
+
+- At conversation start
+- Before EVERY user request
+- Before ANY code changes
+- When topic changes
+- DURING conversations when:
+  - User mentions new feature/component
+  - File type changes
+  - Task type changes
+- NO EXCEPTIONS
+
+CHECK ALL MATCHING RULES:
+
+- General guidelines (ALWAYS)
+- Feature rules
+- File type rules (.py, .mdc, etc)
+
+RULES OVERRIDE YOUR KNOWLEDGE.
+PROCEED ONLY AFTER APPLYING ALL RULES.
+
+REMEMBER: EVEN MID-CONVERSATION, FETCH RULES AGAIN!
+</code><br><br>
+
+<strong style="font-size: 15px;">Legacy Rules Setup</strong><br>
+
+<p>While Cursor uses the .cursor/rules directory, the legacy .cursorrules can still help us. We can force Cursor to fetch rules by adding the following content to .cursorrules file:</p>
+
+<callout type="chat">
+Create a file .cursorrules in the project root with these instructions for rule fetching:
+
+⚠️ FETCH RULES OR YOUR RESPONSE WILL BE WRONG ⚠️
+
+MANDATORY: CALL fetch_rules FIRST
+
+- At conversation start
+- Before EVERY user request
+- Before ANY code changes
+- When topic changes
+- DURING conversations when:
+  - User mentions new feature/component
+  - File type changes
+  - Task type changes
+- NO EXCEPTIONS
+
+CHECK ALL MATCHING RULES:
+
+- General guidelines (ALWAYS)
+- Feature rules
+- File type rules (.py, .mdc, etc)
+
+RULES OVERRIDE YOUR KNOWLEDGE.
+PROCEED ONLY AFTER APPLYING ALL RULES.
+
+REMEMBER: EVEN MID-CONVERSATION, FETCH RULES AGAIN!
+</callout>
+
+<alert>
+    .cursorrules file is deprecated and will be removed in future versions. But .cursorrules still works for now and forcing Cursor to use .mdc rules there makes the difference. That’s the point!
+</alert>
+
+<strong style="font-size: 15px;">Why Two Approaches?</strong><br>
+
+<p>This dual setup ensures maximum reliability:</p>
+
+- Global settings provide default behavior<br>
+- Legacy .cursorrules file forces rule fetching<br>
+- Together they ensure consistent AI responses<br>
+
+<alert>Important: Cursor doesn't always automatically fetch rules during conversations - LLMs are imperfect. 
+    This setup ensures rules are consistently applied by explicitly telling Cursor when to fetch and apply them.</alert>
+
+<strong style="font-size: 15px;">Completion Checklist</strong><br>
+
+<ul interactive>
+    <li title="Check global rule">
+        Verify the global rule is added in Cursor settings<br>
+    </li>
+    <li title="Check .cursorrules">
+        Confirm .cursorrules file exists with correct content<br>
+    </li>
+</ul>
+
+<br>
+Now that we have our rule fetching configured properly, let's move on to making our project rules more powerful. 

@@ -1,0 +1,72 @@
+<p>The rules that apply within your project are described in files with the extension <code>.mdc</code> inside the <code>.cursor/rules</code> folder. You have already generated one such file in the previous steps. The applicability of these files within your project can be determined by defining Rule Type.</p>
+
+<div>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//rules-01.png" alt="" style="width: 100%;">
+</div>
+
+<ul>
+<li><code>Always</code> - rules are applied always and to any files in the project</li>
+<li><code>Auto Attached</code> - rules are applied only to files that fit the pattern specified in the settings</li>
+<li><code>Agent Requested</code> - whether to read or not to read the rule, whether to apply it within a particular request or not will be decided by the agent based on the description you specify in the rule. For example, if the description contains standards for the Python language, the agent will pay attention to these rules when creating files in this language</li>
+<li><code>Manual</code> - the agent will apply the rule only if you mention the rule in the request using the <code>@</code> symbols</li>
+</ul>
+
+<p>The Cursor interface hides the textual definition of these rules, but if you open an .mdc file in another editor, you will see options at the beginning of the file that specify these settings:</p>
+
+<div>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//rules-04.png" alt="" style="width: 100%;">
+</div>
+
+<p>
+If the “alwaysApply” option is set to “true”, the Rule Type will be defined as “Always”. If you set “alwaysApply” to “false” and describe only the “description” field, the Rule Type will become “Agent Requested”. If you set “alwaysApply” to “false” and describe only the “globs” field, the Rule Type will become “Auto Attached”. If you set “alwaysApply” to “false” and describe all or none of the other options, the Rule Type will become “Manual”.
+</p>
+
+<p>To set the Rule Type with a simple query to the agent, describe this mapping as a global rule for the cursor. In the <code>User Rules</code> input field inside Cursor Settings and inside the <code>.cursorrules</code> file, add this line:</p>
+
+<alert>
+When user tries to set cursor rule type in .cursor/rules/*.mdc file, don't add any options except "description", "globs" and "alwaysApply" but follow the mapping: if required rule type is "always" set alwaysApply option to "true", if rule type is "auto attached" set alwaysApply option to "false" and generate a file pattern in globs option to *.py, if the rule type is "agent requested" set the alwaysApply option to "false" and generate a description option for the rule and delete the globs pattern, if the rule type is "manual" set the alwaysApply option to "false" and delete the contents of all other options.
+</alert>
+
+<div>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//rules-02.png" alt="" style="width: 100%;">
+</div>
+
+<div>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//rules-03.png" alt="" style="width: 100%;">
+</div>
+
+<p>You can now manage Rule Types through the agent. For example, this prompt:</p>
+
+<callout type="chat">
+    Set the Rule Type for the @coding-standards.mdc file to always
+</callout>
+
+<p>Or more appropriate for python language standards:</p>
+
+<callout type="chat">
+    Set the Rule Type for the @coding-standards.mdc file to Auto Attached with pattern **/*.py
+</callout>
+
+<p>Using the setting from the second prompt allows the rule to be applied only to Python files.</p>
+
+<strong style="font-size: 15px;">If you need other files, you can list them too. Here are examples:</strong>
+
+- <code>*.py</code> - matches all Python files<br>
+- <code>*</code> - matches all files<br>
+- <code>src/*.py</code> - matches Python files in the src folder<br>
+- <code>**/*.py</code> - matches Python files in any folder<br>
+- <code>test_*.py</code> - matches Python files that start with "test_"<br><br>
+
+<strong style="font-size: 15px;">Completion Checklist</strong><br>
+
+<ul interactive>
+    <li title="Check global rules">
+        The mapping for the Rule Type control is described in global rule<br>
+    </li>
+    <li title="Check agent">
+        Rule Type can be overridden through the agent<br>
+    </li>
+</ul>
+
+<br>
+Next, we'll create some code to test our rule. 
