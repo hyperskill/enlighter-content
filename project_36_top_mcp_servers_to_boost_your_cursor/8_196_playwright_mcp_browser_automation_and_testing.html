@@ -1,0 +1,86 @@
+<p>We have already reviewed Puppeteer web automation, and Playwright is a more modern and feature-rich alternative.</p>
+
+<p>The <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP</a> is a powerful server that brings Microsoft's Playwright browser automation capabilities to Cursor. This extensive toolkit enables precise control over web browsers, allowing for sophisticated web interactions, testing, and automation.</p>
+
+<strong style="font-size: 15px;">Features:</strong><br>
+- Comprehensive browser control with multiple interaction modes<br>
+- Keyboard and mouse control for complex interactions<br>
+- Screenshot capabilities with customization options<br>
+- Tab and window management for multi-page workflows<br><br>
+
+<strong style="font-size: 15px;">Key Use Cases</strong><br>
+- Automated web testing and verification<br>
+- Complex form filling and submission<br>
+- Web scraping with precise element targeting<br>
+- Multi-step workflow automation<br>
+- Cross-browser compatibility testing<br><br>
+
+<warning>Cursor can handle limited amount of tools slots. If you encounter a problem that new MCPs do not connect due to restrictions, turn off unnecessary ones to free up tools slots.</warning>
+
+<strong style="font-size: 15px;">Setup Instructions</strong><br>
+
+<p>You can set up the Playwright MCP using NPX, which is the recommended method:</p>
+
+<strong style="font-size: 15px;">NPX Setup</strong><br>
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}</callout>
+
+<p>For headless browser operation (no visible browser window), use:</p>
+
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--headless"
+      ]
+    }
+  }
+}
+</callout>
+
+<strong style="font-size: 15px;">Interaction Modes</strong><br>
+
+<p>Playwright MCP offers two primary interaction modes:</p>
+
+<strong style="font-size: 15px;">1. Snapshot Mode (Default)</strong><br>
+- Uses accessibility snapshots for better performance<br>
+- More reliable for structured content<br>
+- Preferred for most automation tasks<br>
+
+<strong style="font-size: 15px;">2. Vision Mode</strong><br>
+- Uses screenshots for visual-based interactions<br>
+- Better for visually complex interfaces<br>
+- Enable with the --vision flag:<br>
+
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+    
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--vision"
+      ]
+    }
+  }
+}
+</callout>
+
+<strong style="font-size: 15px;">Practical Example: Web Automation</strong><br>
+
+<callout type="chat">Use Playwright to get the weather in New York City.</callout>

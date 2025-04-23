@@ -1,0 +1,38 @@
+<p>The <a href="https://github.com/nickclyde/duckduckgo-mcp-server">DuckDuckGo MCP</a> enables Cursor to perform web searches using the DuckDuckGo search engine, giving it access to up-to-date information beyond its training data. This powerful server allows the AI to find recent documentation, solutions to coding problems, and current information to enhance its assistance, all while respecting user privacy. This stage will guide you through setting up and utilizing this MCP in your Cursor workflow.</p>
+
+<alert>
+There are a lot of MCPs that enable web search capabilities. We will use DuckDuckGo MCP because it's easy to set up and doesn't require an API key.
+</alert>
+
+<strong style="font-size: 15px;">Features:</strong><br>
+- Web Search: Search DuckDuckGo with advanced rate limiting and result formatting<br>
+- Content Fetching: Retrieve and parse webpage content with intelligent text extraction<br>
+- Rate Limiting: Built-in protection against rate limits for both search and content fetching<br>
+- Error Handling: Comprehensive error handling and logging<br>
+- LLM-Friendly Output: Results formatted specifically for large language model consumption<br><br>
+
+<strong style="font-size: 15px;">Key Use Cases</strong><br>
+- Researching current documentation and specifications<br>
+- Finding solutions to error messages and bugs<br>
+- Accessing recent framework and library updates<br>
+- Retrieving and parsing content from specific websites<br>
+- Staying current with technical information beyond training data<br><br>
+
+<strong style="font-size: 15px;">Setup Instructions:</strong><br>
+
+<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "ddg-search": {
+      "command": "uvx",
+      "args": ["duckduckgo-mcp-server"]
+    }
+  }
+}</callout>
+
+<strong style="font-size: 15px;">Practical Example: Web Search</strong><br>
+
+<callout type="chat">
+Use DuckDuckGo to find the current weather in New York City.
+</callout>
