@@ -1,0 +1,82 @@
+<p>Now that we understand the MCP architecture and have experimented with the Playwright MCP server, let's create our own custom MCP server from scratch. We'll build a simple Echo MCP server that will help us understand the core components of an MCP server.</p>
+
+<strong style="font-size: 15px;">Understanding the Tools</strong><br>
+
+<p>For this stage, we'll use two main tools:</p>
+
+<strong>MCP Python Package:</strong><br>
+- <a href="https://github.com/modelcontextprotocol/python-sdk">Official Python SDK for building MCP servers</a><br>
+- Provides a standardized way to expose resources, tools, and prompts to LLMs<br>
+- Handles the protocol communication so we can focus on implementing functionality<br><br>
+
+<strong>uv Package Manager:</strong><br>
+- Modern Python package installer and resolver<br>
+- Significantly faster than pip for installing packages<br>
+- Better dependency resolution and virtual environment management<br><br>
+
+<p>Using these tools together will allow us to quickly create a functional MCP server with minimal boilerplate code.</p>
+
+<strong style="font-size: 15px;">Setting Up the Environment</strong><br>
+
+<p>Let's start by installing the required packages:</p>
+
+<callout type="chat">
+Instal mcp[cli] package.
+Use only uv package manager to install the mcp package.
+Install uv if needed. 
+Use virtual environment. 
+Use python 3.12.
+Create requirements.txt.
+</callout>
+
+<checkable-item title="Packages are installed"></checkable-item>
+
+<strong style="font-size: 15px;">Creating the Echo MCP Server</strong><br>
+
+<p>Now, let's create our Echo MCP server. This will be a simple server that demonstrates the main components of an MCP server: resources and tools.</p>
+
+<callout type="chat">Create a file named echo_server.py with the following content:
+
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("Echo")
+
+@mcp.resource("echo://{message}")
+def echo_resource(message: str) -> str:
+    """Echo a message as a resource"""
+    return f"Resource echo: {message}"
+
+@mcp.tool()
+def echo_tool(message: str) -> str:
+    """Echo a message as a tool"""
+    return f"Tool echo: {message}"
+
+if __name__ == "__main__":
+    mcp.run(transport='stdio')
+</callout>
+
+<checkable-item title="echo_server.py file created"></checkable-item>
+<checkable-item title="Content of echo_server.py file is the same as in the prompt"></checkable-item>
+
+<strong style="font-size: 15px;">Understanding the MCP Components</strong><br>
+
+<p>There are core primitives that we implement in our server:</p>
+
+<strong>1. Resources (@mcp.resource):</strong><br>
+- How you expose data to LLMs<br>
+- Similar to GET endpoints in a REST API<br>
+- Provide data without performing significant computation<br>
+- Should not have side effects<br>
+- Accessed via URI patterns like "echo://{message}"<br>
+- In our example, the resource returns the message with a "Resource echo:" prefix<br><br>
+
+<strong>2. Tools (@mcp.tool):</strong><br>
+- Let LLMs take actions through your server<br>
+- Expected to perform computation and have side effects<br>
+- Called directly by the AI when it needs to execute a specific function<br>
+- Examples include making API calls, updating data, or triggering workflows<br>
+- In our example, the tool returns the message with a "Tool echo:" prefix<br><br>
+
+<p>The MCP Python SDK makes it easy to implement these components using decorators, as shown in our echo server example.</p>
+
+<p>In the next step we will add our MCP server to the Cursor configuration and test it.</p>

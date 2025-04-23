@@ -1,0 +1,43 @@
+<p>Now that we have our Playwright MCP server up and running, let's dive deeper into the MCP architecture, transport formats, and explore more advanced features of the Playwright MCP server.</p>
+
+<strong style="font-size: 15px;">MCP Architecture in Depth</strong><br>
+
+<p>MCP follows a client-server architecture with these components:</p>
+
+- <strong>MCP Hosts</strong>: Programs like Cursor IDE that want to access data through MCP<br>
+- <strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers<br>
+- <strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized protocol<br>
+- <strong>Data Sources</strong>: Your computer's files, databases, services, or remote APIs that MCP servers can access<br><br>
+
+<p>Think of MCP like a USB-C port for AI applications - it provides a standardized way to connect AI models to different data sources and tools. MCP servers act as bridges between the AI and external capabilities, expanding what you can accomplish with AI assistance in your development workflow.</p>
+
+<a href="https://modelcontextprotocol.io/introduction" target="_blank">General MCP architecture from official MCP documentation</a>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-architecture.png" alt="MCP Architecture" style="max-width: 100%; margin: 10px 0;"><br>
+
+<strong style="font-size: 15px;">Transport Formats: SSE vs STDIO</strong><br>
+
+<p>MCP servers can communicate with Cursor using two different transport formats:</p>
+
+<strong>SSE (Server-Sent Events):</strong><br>
+- Used for web-based connections<br>
+- Enables real-time, one-way communication from server to client<br>
+- Better for services that run as standalone web servers<br>
+- Good for cloud-hosted or remote services<br><br>
+
+<strong>STDIO (Standard Input/Output):</strong><br>
+- Used for local processes<br>
+- Communications happen through standard input/output streams<br>
+- Simpler setup for local tools and commands<br>
+- More efficient for tools that run directly on your machine<br><br>
+
+<p>You can get more details about the difference between SSE and STDIO from AI:</p>
+<callout type="chat">
+  Explain the difference between SSE and STDIO for MCP servers in very simple terms
+</callout>
+
+<p>
+  The choice between SSE and STDIO depends on the nature of the service and how it's deployed. Most local MCP servers use STDIO for simplicity.
+  We will use STDIO for MCP servers in this tutorial.
+</p>
+
+<p>We're done with boring theory. Let's have fun building a custom MCP server!</p>

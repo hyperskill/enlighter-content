@@ -1,0 +1,129 @@
+<p>In this stage, we'll learn the basics of MCP servers in Cursor and set up our first server using Playwright. This will allow us to interact with web browsers directly from Cursor's AI chat.</p>
+
+<strong style="font-size: 15px;">What is MCP?</strong><br>
+
+<p>MCP (Model Context Protocol) is an open protocol that allows AI models in Cursor to interact with external tools and services. With MCP servers, the AI can perform actions beyond just generating text, such as:</p>
+
+- Controlling applications<br>
+- Accessing external APIs and data sources<br>
+- Running specific commands on your system<br>
+- Browsing websites and taking screenshots<br><br>
+
+<strong style="font-size: 15px;">MCP Setup Options</strong><br>
+
+<p>There are three ways to configure MCP servers in Cursor:</p>
+
+<strong>1. In Cursor Settings:</strong><br>
+- Access through Settings → MCP Servers<br>
+- Configure global MCP servers available in all projects<br>
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-settings.png" alt="Cursor MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+
+<strong>2. Project-specific setup:</strong><br>
+- Create a <code>.cursor/mcp.json</code> file in your project root<br>
+- Servers defined here are only available in this specific project<br>
+
+<strong>3. Global configuration:</strong><br>
+- Create a <code>~/.cursor/mcp.json</code> file<br>
+- Servers defined here are available in all your projects<br><br>
+
+<strong style="font-size: 15px;">MCP Configuration Format</strong><br>
+
+<p>The configuration format in <code>mcp.json</code> files follows this structure:</p>
+
+<pre>{
+  "mcpServers": {
+    "serverName": {
+      "command": "executable",
+      "args": ["arg1", "arg2"],
+      "env": { "ENV_VAR": "value" },
+      "transport": "stdio" // or "sse"
+    }
+  }
+}</pre>
+
+<p>Where:</p>
+
+- <code>serverName</code>: The name you'll use to reference this server<br>
+- <code>command</code>: The executable to run<br>
+- <code>args</code>: Command line arguments<br>
+- <code>env</code>: Environment variables<br>
+- <code>transport</code>: Communication protocol (usually "stdio")<br><br>
+
+<strong style="font-size: 15px;">Setting Up Playwright MCP</strong><br>
+
+<p>For our first MCP server, we'll use Playwright, which allows the AI to control a web browser. Let's set it up:</p>
+
+<alert>
+<p>First, create a <code>.cursor</code> directory in your project root if it doesn't exist yet:</p>
+
+<callout type="chat">Create a .cursor directory in my project root if it doesn't exist.</callout>
+
+<p>Now, create a <code>mcp.json</code> file inside the <code>.cursor</code> directory with the following content:</p>
+
+<callout type="chat">Create a file at .cursor/mcp.json with the following content:
+
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--headless"
+      ]
+    }
+  }
+}
+</callout>
+
+<details>
+<summary>Windows Configuration</summary>
+    <callout type="chat">Create a file at .cursor/mcp.json with the following content:
+
+    {
+      "mcpServers": {
+        "playwright": {
+          "command": "cmd /c npx",
+          "args": [
+            "-y",
+            "@executeautomation/playwright-mcp-server"
+          ]
+        }
+      }
+    }
+    </callout>
+</details>
+
+</alert>
+
+<ul interactive>
+	<li title=".cursor/mcp.json is created"></li>
+	<li title=".cursor/mcp.json is configured as defined above"></li>
+</ul>
+
+<p>After the file is created, check the settings to see the new MCP server:</p>
+
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//playwright-mcp-enabled.png" alt="Cursor MCP Settings" style="max-width: 100%; margin: 10px 0;"><br>
+
+<p>Click on "Disabled" button to enable the server. After that, you should see the green checkmark on the server name as shown above.</p>
+
+<alert>Enabling the server might take time. If you see the server is not enabled, wait for a few seconds and click on Refresh button in settings.</alert>
+
+<checkable-item title="Playwright MCP is enabled"></checkable-item>
+
+<strong style="font-size: 15px;">Testing Our Playwright Setup</strong><br>
+
+<p>Now that we've set up our Playwright MCP server, let's test it by asking the AI to use it to check the weather in New York.</p>
+
+<callout type="chat">Using the playwright MCP tools, navigate to accuweather.com and check the current temperature in New York City. Take a screenshot of the weather page.</callout>
+
+<checkable-item title="Chat uses Playwright MCP server to navigate in browser">
+</checkable-item>
+
+<p>If everything is set up correctly, the AI should be able to use the Playwright tools to open a browser, navigate to a weather website, and retrieve the current weather information for New York City.</p>
+
+<alert>Browsing with Playwright is not so fast. Give it a time to do the task.</alert>
+
+<strong style="font-size: 15px;">What's Next?</strong><br>
+
+<p>In the next stage, we'll dive deeper into MCP architecture, transport formats, and will build a custom MCP server.</p>
