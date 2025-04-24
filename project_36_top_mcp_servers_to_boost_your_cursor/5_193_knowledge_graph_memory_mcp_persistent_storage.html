@@ -1,6 +1,6 @@
 <p>The <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/memory">Knowledge Graph Memory MCP</a> is a tool that provides persistent memory capabilities using a local knowledge graph. This powerful server enables Cursor to remember information about users and projects across chat sessions, creating a more personalized and contextually aware experience. This stage will guide you through setting up and utilizing this MCP in your Cursor workflow.</p>
 
-<strong style="font-size: 15px;">Features:</strong><br>
+<h5>Features:</h5>
 - Store information in a structured knowledge graph<br>
 - Create and manage entities with unique identifiers and types<br>
 - Define relationships between entities<br>
@@ -8,18 +8,18 @@
 - Search and retrieve stored knowledge<br>
 - Maintain context across multiple chat sessions<br><br>
 
-<strong style="font-size: 15px;">Key Use Cases</strong><br>
+<h5>Key Use Cases</h5>
 - Personalized user interactions<br>
 - Long-term project context maintenance<br>
 - Storing coding standards and preferences<br>
 - Building comprehensive knowledge of project requirements<br>
 - Tracking relationships between project components<br><br>
 
-<strong style="font-size: 15px;">Setup Instructions</strong><br>
+<h5>Setup Instructions</h5>
 
 <p>You can set up the Knowledge Graph Memory MCP using either NPX or Docker. Choose the method that best suits your environment:</p>
 
-<strong style="font-size: 15px;">NPX Setup</strong><br>
+<h5>NPX Setup</h5>
 <callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
 
 {
@@ -34,7 +34,7 @@
   }
 }</callout>
 
-<strong style="font-size: 15px;">Docker Setup</strong><br>
+<h5>Docker Setup</h5>
 <callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
 
 {
@@ -72,7 +72,7 @@
   }
 }</callout>
 
-<strong style="font-size: 15px;">Practical Example: Knowledge Management</strong><br>
+<h5>Practical Example: Knowledge Management</h5>
 
 <callout type="chat">Create a knowledge graph about our project team. Store that John is a frontend developer who knows React and TypeScript. Sarah is a backend developer who works with Node.js. They are both working on the e-commerce project that started in January 2023.</callout>
 
@@ -80,23 +80,23 @@
 
 <callout type="chat">What do you know about my team? Check your memory</callout>
 
-<strong style="font-size: 15px;">Core Knowledge Graph Concepts</strong><br>
+<h5>Core Knowledge Graph Concepts</h5>
 
 <p>The Knowledge Graph Memory MCP organizes information using three primary components:</p>
 
-<strong style="font-size: 15px;">Entities</strong><br>
+<h5>Entities</h5>
 - Primary nodes in the knowledge graph<br>
 - Each has a unique name (identifier)<br>
 - Defined by an entity type (e.g., "person", "organization", "project")<br>
 - Contains a list of observations (discrete pieces of information)<br>
 
-<strong style="font-size: 15px;">Relations</strong><br>
+<h5>Relations</h5>
 - Directed connections between entities<br>
 - Always stored in active voice<br>
 - Describe how entities interact or relate to each other<br>
 - Consist of a source entity, target entity, and relation type<br>
 
-<strong style="font-size: 15px;">Observations</strong><br>
+<h5>Observations</h5>
 - Discrete pieces of information about an entity<br>
 - Stored as strings attached to specific entities<br>
 - Should be atomic (one fact per observation)<br>

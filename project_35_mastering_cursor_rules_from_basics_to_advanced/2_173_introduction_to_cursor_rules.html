@@ -1,6 +1,6 @@
 <p>Before we dive deeper into project rules, let's set up some important global configurations. Cursor doesn't always automatically fetch rules, so we need to set up both modern and legacy ways to ensure our rules are always applied.</p>
 
-<strong style="font-size: 15px;">Global Rule in Settings</strong><br>
+<h5>Global Rule in Settings</h5>
 
 <p>First, let's add a global rule in Cursor settings:</p>
 
@@ -36,7 +36,7 @@ PROCEED ONLY AFTER APPLYING ALL RULES.
 REMEMBER: EVEN MID-CONVERSATION, FETCH RULES AGAIN!
 </code><br><br>
 
-<strong style="font-size: 15px;">Legacy Rules Setup</strong><br>
+<h5>Legacy Rules Setup</h5>
 
 <p>While Cursor uses the .cursor/rules directory, the legacy .cursorrules can still help us. We can force Cursor to fetch rules by adding the following content to .cursorrules file:</p>
 
@@ -73,7 +73,7 @@ REMEMBER: EVEN MID-CONVERSATION, FETCH RULES AGAIN!
     .cursorrules file is deprecated and will be removed in future versions. But .cursorrules still works for now and forcing Cursor to use .mdc rules there makes the difference. That’s the point!
 </alert>
 
-<strong style="font-size: 15px;">Why Two Approaches?</strong><br>
+<h5>Why Two Approaches?</h5>
 
 <p>This dual setup ensures maximum reliability:</p>
 
@@ -84,7 +84,7 @@ REMEMBER: EVEN MID-CONVERSATION, FETCH RULES AGAIN!
 <alert>Important: Cursor doesn't always automatically fetch rules during conversations - LLMs are imperfect. 
     This setup ensures rules are consistently applied by explicitly telling Cursor when to fetch and apply them.</alert>
 
-<strong style="font-size: 15px;">Completion Checklist</strong><br>
+<h5>Completion Checklist</h5>
 
 <ul interactive>
     <li title="Check global rule">

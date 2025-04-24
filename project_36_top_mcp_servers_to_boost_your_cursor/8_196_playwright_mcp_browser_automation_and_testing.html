@@ -2,13 +2,13 @@
 
 <p>The <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP</a> is a powerful server that brings Microsoft's Playwright browser automation capabilities to Cursor. This extensive toolkit enables precise control over web browsers, allowing for sophisticated web interactions, testing, and automation.</p>
 
-<strong style="font-size: 15px;">Features:</strong><br>
+<h5>Features:</h5>
 - Comprehensive browser control with multiple interaction modes<br>
 - Keyboard and mouse control for complex interactions<br>
 - Screenshot capabilities with customization options<br>
 - Tab and window management for multi-page workflows<br><br>
 
-<strong style="font-size: 15px;">Key Use Cases</strong><br>
+<h5>Key Use Cases</h5>
 - Automated web testing and verification<br>
 - Complex form filling and submission<br>
 - Web scraping with precise element targeting<br>
@@ -17,11 +17,11 @@
 
 <warning>Cursor can handle limited amount of tools slots. If you encounter a problem that new MCPs do not connect due to restrictions, turn off unnecessary ones to free up tools slots.</warning>
 
-<strong style="font-size: 15px;">Setup Instructions</strong><br>
+<h5>Setup Instructions</h5>
 
 <p>You can set up the Playwright MCP using NPX, which is the recommended method:</p>
 
-<strong style="font-size: 15px;">NPX Setup</strong><br>
+<h5>NPX Setup</h5>
 <callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
 
 {
@@ -52,16 +52,16 @@
 }
 </callout>
 
-<strong style="font-size: 15px;">Interaction Modes</strong><br>
+<h5>Interaction Modes</h5>
 
 <p>Playwright MCP offers two primary interaction modes:</p>
 
-<strong style="font-size: 15px;">1. Snapshot Mode (Default)</strong><br>
+<h5>1. Snapshot Mode (Default)</h5>
 - Uses accessibility snapshots for better performance<br>
 - More reliable for structured content<br>
 - Preferred for most automation tasks<br>
 
-<strong style="font-size: 15px;">2. Vision Mode</strong><br>
+<h5>2. Vision Mode</h5>
 - Uses screenshots for visual-based interactions<br>
 - Better for visually complex interfaces<br>
 - Enable with the --vision flag:<br>
@@ -81,6 +81,6 @@
 }
 </callout>
 
-<strong style="font-size: 15px;">Practical Example: Web Automation</strong><br>
+<h5>Practical Example: Web Automation</h5>
 
 <callout type="chat">Use Playwright to get the weather in New York City.</callout>
