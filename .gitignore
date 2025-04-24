@@ -32,3 +32,5 @@ var/
 # OS specific files
 .DS_Store
 Thumbs.db
+
+supabase_docs.md
