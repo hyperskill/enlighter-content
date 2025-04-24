@@ -1,6 +1,6 @@
 <p>In this stage, we'll create a special Cursor rule that provides detailed descriptions of all our MCP tools. This helps the AI make better decisions about which tool to call for specific tasks.</p>
 
-<strong style="font-size: 15px;">Why Tool Descriptions Matter</strong><br>
+<h5>Why Tool Descriptions Matter</h5>
 
 <p>When you have multiple MCP servers with different capabilities, the AI needs context to decide which one is most appropriate for a given task. Without specific guidance, the AI might choose the wrong tool or mix incompatible tools together.</p>
 
@@ -10,7 +10,7 @@
 - Understand the strengths and limitations of each tool<br>
 - Avoid unnecessary tool calls<br>
 
-<strong style="font-size: 15px;">Understanding Cursor Rules</strong><br>
+<h5>Understanding Cursor Rules</h5>
 
 <p>Cursor rules are special documentation files that provide guidance to the AI about your codebase, workflows, or tools. They're stored in the `.cursor/rules` directory.</p>
 
@@ -26,7 +26,7 @@
 
 <p>If you want to learn more about Cursor rules, check out the <a href="https://enlightby.ai/projects/35" target="_blank">Cursor Rules Tutorial</a>.</p>
 
-<strong style="font-size: 15px;">Creating a Tool Descriptions Rule</strong><br>
+<h5>Creating a Tool Descriptions Rule</h5>
 
 <p>Let's create a rule file that describes our MCP tools:</p>
 
@@ -85,10 +85,10 @@ Make sure the rule file is created at .cursor/rules/mcp-tools.mdc
 
 <checkable-item title="MCP tools rule file created">
 Make sure the rule has "Always apply" option enabled:
-<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//always-apply-rule.png" alt="MCP tools rule always apply">
+<p><img style="margin: auto; display: block; max-width: 800px;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//always-apply-rule.png" alt="MCP tools rule always apply" title="MCP tools rule always apply"></p>
 </checkable-item>
 
-<strong style="font-size: 15px;">Benefits of Tool Description Rules</strong><br>
+<h5>Benefits of Tool Description Rules</h5>
 
 <p>With our tool description rule in place, we should see several improvements:</p>
 
@@ -98,6 +98,6 @@ Make sure the rule has "Always apply" option enabled:
 
 <p>You can expand this rule as you add more MCP tools to your environment, ensuring the AI always has the context it needs to make intelligent decisions.</p>
 
-<strong style="font-size: 15px;">What's Next?</strong><br>
+<h5>What's Next?</h5>
 
 <p>In the final stage we will take a look at what we have learned and will explore some resources to make your Cursor MCPs setup even stronger.</p>
