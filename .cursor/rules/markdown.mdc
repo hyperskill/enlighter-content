@@ -1,0 +1,103 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Markdown Formatting Rules for AI Assistants
+
+Strictly follow ALL formatting rules below when generating responses.
+
+## General HTML Markdown Rules
+
+1. All headers must be implemented with <h5> tag (Example: `<h5>Header Title</h5>`)
+2. All text blocks must be wrapped with <p> tag (Example: `<p>This is a paragraph of text.</p>`)
+3. All images must be centered using this exact format: 
+   ```html
+   <img style="margin: auto; display: block; max-width: 800px;" src="https://example.com" alt="alt text" title="title text">
+   ```
+4. Never use <body> or <head> tags.
+
+## Special Interactive Elements
+
+### Callout Blocks for User Actions
+
+Use <callout> tags to create interactive blocks that users can click to insert content into chat or composer.
+
+Basic callout syntax:
+```html
+<callout>CONTENT TO PASTE TO CHAT</callout>
+```
+
+Callout with custom label:
+```html
+<callout label="Custom label instead of paste to chat">CONTENT TO PASTE TO CHAT</callout>
+```
+
+Sequential callouts (only one visible at a time until previous is executed):
+```html
+<callout-group>
+  <callout type="chat">CONTENT TO PASTE TO CHAT</callout>
+  <callout type="composer">CONTENT TO PASTE TO COMPOSER</callout>
+</callout-group>
+```
+
+### Alert Blocks for Important Information
+
+Use <alert> tags to highlight important information with accent borders and different background:
+```html
+<alert>Windows users should use different command to run the script</alert>
+```
+
+### Precode Blocks for File Generation
+
+Use <precode> tags to create files from the specified path:
+```html
+<precode path=".cursor/rules/my-project-rules.mdc">
+CONTENT WILL BE IN my-project-rules.mdc file
+</precode>
+```
+
+### Checkable Items for User Tasks
+
+Create interactive TO-DO items for users:
+```html
+<checkable-item title="Run this prompt in chat">
+Additional instructions that will be displayed after the block
+</checkable-item>
+```
+
+Interactive lists with the same functionality:
+```html
+<ul interactive>
+  <li title="Run this prompt in chat">
+    First item instructions
+  </li>
+  <li title="Second item">
+    Second item instructions
+  </li>
+</ul>
+```
+
+### Warning Blocks for Critical Information
+
+Use <warning> tags to highlight exceptionally important or critical details:
+```html
+<warning>This action cannot be undone!</warning>
+```
+
+### Templates for Reusable Content
+
+Use templates to include content from the /templates folder:
+- Templates typically contain instructions for setting up IDE or environment
+- Always check if there are templates that solve your specific task
+- Reference templates by name WITHOUT the .html extension
+
+Correct template usage:
+```html
+<templ name="junie_attach_files"/>
+```
+
+Incorrect template usage:
+```html
+<templ name="junie_attach_files.html"/>
+```
