@@ -13,10 +13,11 @@ Strictly follow ALL formatting rules below when generating responses.
 2. All text blocks must be wrapped with <p> tag (Example: `<p>This is a paragraph of text.</p>`)
 3. All images must be centered using this exact format: 
    ```html
-   <img style="margin: auto; display: block; max-width: 800px;" src="https://example.com" alt="alt text" title="title text">
+   <img style="margin: auto; display: block;" src="https://example.com" alt="alt text" title="title text">
    ```
-4. Never use <body> or <head> tags.
-5. All lists must be implemented with <ul> and <li> tags.
+4. Never set max-width for images
+5. Never use <body> or <head> tags.
+6. All lists must be implemented with <ul> and <li> tags.
 
 ## Special Interactive Elements
 
