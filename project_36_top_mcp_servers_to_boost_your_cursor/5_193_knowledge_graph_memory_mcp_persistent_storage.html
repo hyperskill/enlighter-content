@@ -1,19 +1,23 @@
 <p>The <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/memory">Knowledge Graph Memory MCP</a> is a tool that provides persistent memory capabilities using a local knowledge graph. This powerful server enables Cursor to remember information about users and projects across chat sessions, creating a more personalized and contextually aware experience. This stage will guide you through setting up and utilizing this MCP in your Cursor workflow.</p>
 
 <h5>Features:</h5>
-- Store information in a structured knowledge graph<br>
-- Create and manage entities with unique identifiers and types<br>
-- Define relationships between entities<br>
-- Add and manage observations (discrete pieces of information)<br>
-- Search and retrieve stored knowledge<br>
-- Maintain context across multiple chat sessions<br><br>
+<ul>
+<li>Store information in a structured knowledge graph</li>
+<li>Create and manage entities with unique identifiers and types</li>
+<li>Define relationships between entities</li>
+<li>Add and manage observations (discrete pieces of information)</li>
+<li>Search and retrieve stored knowledge</li>
+<li>Maintain context across multiple chat sessions</li>
+</ul><br>
 
 <h5>Key Use Cases</h5>
-- Personalized user interactions<br>
-- Long-term project context maintenance<br>
-- Storing coding standards and preferences<br>
-- Building comprehensive knowledge of project requirements<br>
-- Tracking relationships between project components<br><br>
+<ul>
+<li>Personalized user interactions</li>
+<li>Long-term project context maintenance</li>
+<li>Storing coding standards and preferences</li>
+<li>Building comprehensive knowledge of project requirements</li>
+<li>Tracking relationships between project components</li>
+</ul><br>
 
 <h5>Setup Instructions</h5>
 
@@ -85,19 +89,21 @@
 <p>The Knowledge Graph Memory MCP organizes information using three primary components:</p>
 
 <h5>Entities</h5>
-- Primary nodes in the knowledge graph<br>
-- Each has a unique name (identifier)<br>
-- Defined by an entity type (e.g., "person", "organization", "project")<br>
-- Contains a list of observations (discrete pieces of information)<br>
-
-<h5>Relations</h5>
-- Directed connections between entities<br>
-- Always stored in active voice<br>
-- Describe how entities interact or relate to each other<br>
-- Consist of a source entity, target entity, and relation type<br>
-
-<h5>Observations</h5>
-- Discrete pieces of information about an entity<br>
-- Stored as strings attached to specific entities<br>
-- Should be atomic (one fact per observation)<br>
-- Can be added or removed independently<br>
+<ul>
+<li>Primary nodes in the knowledge graph</li>
+<li>Each has a unique name (identifier)</li>
+<li>Defined by an entity type (e.g., "person", "organization", "project")</li>
+<li>Contains a list of observations (discrete pieces of information)</li>
+</ul><h5>Relations</h5>
+<ul>
+<li>Directed connections between entities</li>
+<li>Always stored in active voice</li>
+<li>Describe how entities interact or relate to each other</li>
+<li>Consist of a source entity, target entity, and relation type</li>
+</ul><h5>Observations</h5>
+<ul>
+<li>Discrete pieces of information about an entity</li>
+<li>Stored as strings attached to specific entities</li>
+<li>Should be atomic (one fact per observation)</li>
+<li>Can be added or removed independently</li>
+</ul>

@@ -4,27 +4,32 @@
 
 <p>MCP (Model Context Protocol) is an open protocol that allows AI models in Cursor to interact with external tools and services. With MCP servers, the AI can perform actions beyond just generating text, such as:</p>
 
-- Controlling applications<br>
-- Accessing external APIs and data sources<br>
-- Running specific commands on your system<br>
-- Browsing websites and taking screenshots<br><br>
+<ul>
+<li>Controlling applications</li>
+<li>Accessing external APIs and data sources</li>
+<li>Running specific commands on your system</li>
+<li>Browsing websites and taking screenshots</li>
+</ul><br>
 
 <h5>MCP Setup Options</h5>
 
 <p>There are three ways to configure MCP servers in Cursor:</p>
 
 <strong>1. In Cursor Settings:</strong><br>
-- Access through Settings → MCP Servers<br>
-- Configure global MCP servers available in all projects<br>
-<p><img style="margin: auto; display: block; max-width: 800px;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-settings.png" alt="Cursor MCP Settings" title="Cursor MCP Settings"></p><br>
+<ul>
+<li>Access through Settings → MCP Servers</li>
+<li>Configure global MCP servers available in all projects</li>
+</ul><p><img style="margin: auto; display: block; max-width: 800px;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-settings.png" alt="Cursor MCP Settings" title="Cursor MCP Settings"></p><br>
 
 <strong>2. Project-specific setup:</strong><br>
-- Create a <code>.cursor/mcp.json</code> file in your project root<br>
-- Servers defined here are only available in this specific project<br>
-
-<strong>3. Global configuration:</strong><br>
-- Create a <code>~/.cursor/mcp.json</code> file<br>
-- Servers defined here are available in all your projects<br><br>
+<ul>
+<li>Create a <code>.cursor/mcp.json</code> file in your project root</li>
+<li>Servers defined here are only available in this specific project</li>
+</ul><strong>3. Global configuration:</strong><br>
+<ul>
+<li>Create a <code>~/.cursor/mcp.json</code> file</li>
+<li>Servers defined here are available in all your projects</li>
+</ul><br>
 
 <h5>MCP Configuration Format</h5>
 
@@ -43,11 +48,13 @@
 
 <p>Where:</p>
 
-- <code>serverName</code>: The name you'll use to reference this server<br>
-- <code>command</code>: The executable to run<br>
-- <code>args</code>: Command line arguments<br>
-- <code>env</code>: Environment variables<br>
-- <code>transport</code>: Communication protocol (usually "stdio")<br><br>
+<ul>
+<li><code>serverName</code>: The name you'll use to reference this server</li>
+<li><code>command</code>: The executable to run</li>
+<li><code>args</code>: Command line arguments</li>
+<li><code>env</code>: Environment variables</li>
+<li><code>transport</code>: Communication protocol (usually "stdio")</li>
+</ul><br>
 
 <h5>Setting Up Playwright MCP</h5>
 

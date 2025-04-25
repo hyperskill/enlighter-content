@@ -6,23 +6,23 @@
 
 <p>By creating a rule with detailed tool descriptions, we provide the AI with the necessary context to:</p>
 
-- Make better decisions about which tool to use<br>
-- Understand the strengths and limitations of each tool<br>
-- Avoid unnecessary tool calls<br>
-
-<h5>Understanding Cursor Rules</h5>
+<ul>
+<li>Make better decisions about which tool to use</li>
+<li>Understand the strengths and limitations of each tool</li>
+<li>Avoid unnecessary tool calls</li>
+</ul><h5>Understanding Cursor Rules</h5>
 
 <p>Cursor rules are special documentation files that provide guidance to the AI about your codebase, workflows, or tools. They're stored in the `.cursor/rules` directory.</p>
 
 <p>Rules can define:</p>
 
-- Best practices for your project<br>
-- Information about specific files or directories<br>
-- Tool descriptions and usage guidelines<br>
-- Code style preferences<br>
-- Architectural patterns<br>
-
-<p>The AI references these rules when generating code or making decisions about which tools to use.</p>
+<ul>
+<li>Best practices for your project</li>
+<li>Information about specific files or directories</li>
+<li>Tool descriptions and usage guidelines</li>
+<li>Code style preferences</li>
+<li>Architectural patterns</li>
+</ul><p>The AI references these rules when generating code or making decisions about which tools to use.</p>
 
 <p>If you want to learn more about Cursor rules, check out the <a href="https://enlightby.ai/projects/35" target="_blank">Cursor Rules Tutorial</a>.</p>
 
@@ -38,43 +38,55 @@ This rule provides detailed descriptions of the available MCP tools to help the 
 
 The Echo MCP server provides simple echo functionality for testing and debugging. It has two main components:
 
-- **echo_resource**: Returns a message with "Resource echo:" prefix
-- **echo_tool**: Returns a message with "Tool echo:" prefix
+<ul>
+<li>**echo_resource**: Returns a message with "Resource echo:" prefix</li>
+<li>**echo_tool**: Returns a message with "Tool echo:" prefix</li>
+</ul>
 
 Use Echo MCP when:
-- You're testing MCP connectivity
-- You need a simple response for debugging purposes
-- You want to verify that your MCP configuration is working
+<ul>
+<li>You're testing MCP connectivity</li>
+<li>You need a simple response for debugging purposes</li>
+<li>You want to verify that your MCP configuration is working</li>
+</ul>
 
 ## Playwright MCP
 
 The Playwright MCP server provides browser automation capabilities. It allows you to:
 
-- Navigate to URLs
-- Take screenshots
-- Click elements
-- Fill forms
-- Extract content from web pages
+<ul>
+<li>Navigate to URLs</li>
+<li>Take screenshots</li>
+<li>Click elements</li>
+<li>Fill forms</li>
+<li>Extract content from web pages</li>
+</ul>
 
 Use Playwright MCP when:
-- You need to interact with web pages programmatically
-- You want to extract information from websites
-- You need to automate browser actions (clicks, form filling, navigation)
-- You need to take screenshots of specific elements
-- You're testing a web application with predetermined steps
-- You require frame-by-frame control over browser actions
+<ul>
+<li>You need to interact with web pages programmatically</li>
+<li>You want to extract information from websites</li>
+<li>You need to automate browser actions (clicks, form filling, navigation)</li>
+<li>You need to take screenshots of specific elements</li>
+<li>You're testing a web application with predetermined steps</li>
+<li>You require frame-by-frame control over browser actions</li>
+</ul>
 
 ## When to Use Which Tool
 
-- **Echo**: For testing and debugging MCP connectivity
-- **Playwright**: For precise, step-by-step browser automation when you know exactly what actions to take
+<ul>
+<li>**Echo**: For testing and debugging MCP connectivity</li>
+<li>**Playwright**: For precise, step-by-step browser automation when you know exactly what actions to take</li>
+</ul>
 
 Example tasks for Playwright:
-- "Take a screenshot of the login button on example.com"
-- "Click the submit button after filling out the form"
-- "Check if element #results-container is visible"
-- "Fill in the registration form with test data"
-- "Navigate through a multi-step checkout process"
+<ul>
+<li>"Take a screenshot of the login button on example.com"</li>
+<li>"Click the submit button after filling out the form"</li>
+<li>"Check if element #results-container is visible"</li>
+<li>"Fill in the registration form with test data"</li>
+<li>"Navigate through a multi-step checkout process"</li>
+</ul>
 
 Make sure to create the `.cursor/rules` directory if it doesn't exist. Always apply the rule for every request. 
 </callout>
@@ -92,11 +104,11 @@ Make sure the rule has "Always apply" option enabled:
 
 <p>With our tool description rule in place, we should see several improvements:</p>
 
-- More appropriate tool selection for specific tasks<br>
-- Better explanations from the AI about why it's choosing a particular tool<br>
-- More efficient workflows as the AI can choose the optimal tool without trial and error<br>
-
-<p>You can expand this rule as you add more MCP tools to your environment, ensuring the AI always has the context it needs to make intelligent decisions.</p>
+<ul>
+<li>More appropriate tool selection for specific tasks</li>
+<li>Better explanations from the AI about why it's choosing a particular tool</li>
+<li>More efficient workflows as the AI can choose the optimal tool without trial and error</li>
+</ul><p>You can expand this rule as you add more MCP tools to your environment, ensuring the AI always has the context it needs to make intelligent decisions.</p>
 
 <h5>What's Next?</h5>
 

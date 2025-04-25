@@ -4,31 +4,37 @@
 
 <p>First, let's add a global rule in Cursor settings:</p>
 
-1. Press <code>CMD + Shift + P</code> and type "Cursor settings"<br>
-2. Go to the Rules tab<br>
-3. Find "User Rules" section<br>
-4. Add this rule:<br><br>
+<ol>
+<li>Press <code>CMD + Shift + P</code> and type "Cursor settings"</li>
+<li>Go to the Rules tab</li>
+<li>Find "User Rules" section</li>
+<li>Add this rule:</li>
+</ol><br>
 
 <code>
 ⚠️ FETCH RULES OR YOUR RESPONSE WILL BE WRONG ⚠️
 
 MANDATORY: CALL fetch_rules FIRST
 
-- At conversation start
-- Before EVERY user request
-- Before ANY code changes
-- When topic changes
-- DURING conversations when:
-  - User mentions new feature/component
-  - File type changes
-  - Task type changes
-- NO EXCEPTIONS
+<ul>
+<li>At conversation start</li>
+<li>Before EVERY user request</li>
+<li>Before ANY code changes</li>
+<li>When topic changes</li>
+<li>DURING conversations when:</li>
+<li>User mentions new feature/component</li>
+<li>File type changes</li>
+<li>Task type changes</li>
+<li>NO EXCEPTIONS</li>
+</ul>
 
 CHECK ALL MATCHING RULES:
 
-- General guidelines (ALWAYS)
-- Feature rules
-- File type rules (.py, .mdc, etc)
+<ul>
+<li>General guidelines (ALWAYS)</li>
+<li>Feature rules</li>
+<li>File type rules (.py, .mdc, etc)</li>
+</ul>
 
 RULES OVERRIDE YOUR KNOWLEDGE.
 PROCEED ONLY AFTER APPLYING ALL RULES.
@@ -77,11 +83,11 @@ REMEMBER: EVEN MID-CONVERSATION, FETCH RULES AGAIN!
 
 <p>This dual setup ensures maximum reliability:</p>
 
-- Global settings provide default behavior<br>
-- Legacy .cursorrules file forces rule fetching<br>
-- Together they ensure consistent AI responses<br>
-
-<alert>Important: Cursor doesn't always automatically fetch rules during conversations - LLMs are imperfect. 
+<ul>
+<li>Global settings provide default behavior</li>
+<li>Legacy .cursorrules file forces rule fetching</li>
+<li>Together they ensure consistent AI responses</li>
+</ul><alert>Important: Cursor doesn't always automatically fetch rules during conversations - LLMs are imperfect. 
     This setup ensures rules are consistently applied by explicitly telling Cursor when to fetch and apply them.</alert>
 
 <h5>Completion Checklist</h5>
