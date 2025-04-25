@@ -1,9 +1,9 @@
 <p>Junie knows how to create files and a whole application. Let's start small, ask it to create a file in the root of your project that describes in detail how the application works. We have prepared this file for you, you will need to edit it a bit in the future.</p>
 
 <callout label="Execute prompt in code mode of Junie" type="chat">
- Create a file named task-description.md in the project folder. Add the following content to it:
+Create a file named task-description.md in the project folder. Add the following content to it:
 
- ## CREDENTIALS AND CONSTANTS
+## CREDENTIALS AND CONSTANTS
 
 ZENDESK API URL: 
 ZENDESK API KEY: 
@@ -14,25 +14,23 @@ EMBEDDINGS MODEL: all-MiniLM-L6-v2 from Huggingface
 
 ## APP REQUIREMENTS
 
-<ol>
-<li>Download resolved ticket descriptions from Zendesk API</li>
-<li>Build database for RAG. Database must have two columns: question and answer. Extract questions and answers based on a conversation - every ticket has a list of comments.</li>
-<li>Answers are made by user with id=111</li>
-<li>Build a RAG with Langchain based on answered ticket comments</li>
-<li>Download open tickets from Zendesk API</li>
-<li>Recommend answers to open tickets based on RAG. Ensure system prompt includes both question and answer.</li>
-<li>Send recommended answers as non-public comments to related tickets in Zendesk API</li>
-<li>Get updated tickets from Zendesk API and print to the console</li>
-<li>Do not fix exact versions of python packages. Let pip resolve it by itself</li>
-<li>Use embeddings from langchain-huggingface</li>
-<li>Test the solution BY YOURSELF by running the app in console:</li>
-</ol>
+1. Download resolved ticket descriptions from Zendesk API
+2. Build database for RAG. Database must have two columns: question and answer. Extract questions and answers based on a conversation - every ticket has a list of comments.
+3. Answers are made by user with id=111
+4. Build a RAG with Langchain based on answered ticket comments
+5. Download open tickets from Zendesk API
+6. Recommend answers to open tickets based on RAG. Ensure system prompt includes both question and answer.
+7. Send recommended answers as non-public comments to related tickets in Zendesk API
+8. Get updated tickets from Zendesk API and print to the console
+9. Do not fix exact versions of python packages. Let pip resolve it by itself
+10. Use embeddings from langchain-huggingface
+11. Test the solution BY YOURSELF by running the app in console:
+
+
     11.1 The app receives question as input and shows ONLY an answer
     11.2 RAG built properly: system prompt includes question(s) and answer(s)
     11.3 RAG built properly: an answer based on included question(s) and answer(s)
-<ol>
-<li>Fix all errors</li>
-<li>Never change credentials</li>
-</ol>
+12. Fix all errors
+13. Never change credentials
 </callout>
 <p>We have already set up some fields and a prompt for you. In the next few lessons, we will fill in all the information needed and explain the prompt.</p>
