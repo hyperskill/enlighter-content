@@ -5,14 +5,18 @@
 <p>For this stage, we'll use two main tools:</p>
 
 <strong>MCP Python Package:</strong><br>
-- <a href="https://github.com/modelcontextprotocol/python-sdk">Official Python SDK for building MCP servers</a><br>
-- Provides a standardized way to expose resources, tools, and prompts to LLMs<br>
-- Handles the protocol communication so we can focus on implementing functionality<br><br>
+<ul>
+<li><a href="https://github.com/modelcontextprotocol/python-sdk">Official Python SDK for building MCP servers</a></li>
+<li>Provides a standardized way to expose resources, tools, and prompts to LLMs</li>
+<li>Handles the protocol communication so we can focus on implementing functionality</li>
+</ul><br>
 
 <strong>uv Package Manager:</strong><br>
-- Modern Python package installer and resolver<br>
-- Significantly faster than pip for installing packages<br>
-- Better dependency resolution and virtual environment management<br><br>
+<ul>
+<li>Modern Python package installer and resolver</li>
+<li>Significantly faster than pip for installing packages</li>
+<li>Better dependency resolution and virtual environment management</li>
+</ul><br>
 
 <p>Using these tools together will allow us to quickly create a functional MCP server with minimal boilerplate code.</p>
 
@@ -63,19 +67,23 @@ if __name__ == "__main__":
 <p>There are core primitives that we implement in our server:</p>
 
 <strong>1. Resources (@mcp.resource):</strong><br>
-- How you expose data to LLMs<br>
-- Similar to GET endpoints in a REST API<br>
-- Provide data without performing significant computation<br>
-- Should not have side effects<br>
-- Accessed via URI patterns like "echo://{message}"<br>
-- In our example, the resource returns the message with a "Resource echo:" prefix<br><br>
+<ul>
+<li>How you expose data to LLMs</li>
+<li>Similar to GET endpoints in a REST API</li>
+<li>Provide data without performing significant computation</li>
+<li>Should not have side effects</li>
+<li>Accessed via URI patterns like "echo://{message}"</li>
+<li>In our example, the resource returns the message with a "Resource echo:" prefix</li>
+</ul><br>
 
 <strong>2. Tools (@mcp.tool):</strong><br>
-- Let LLMs take actions through your server<br>
-- Expected to perform computation and have side effects<br>
-- Called directly by the AI when it needs to execute a specific function<br>
-- Examples include making API calls, updating data, or triggering workflows<br>
-- In our example, the tool returns the message with a "Tool echo:" prefix<br><br>
+<ul>
+<li>Let LLMs take actions through your server</li>
+<li>Expected to perform computation and have side effects</li>
+<li>Called directly by the AI when it needs to execute a specific function</li>
+<li>Examples include making API calls, updating data, or triggering workflows</li>
+<li>In our example, the tool returns the message with a "Tool echo:" prefix</li>
+</ul><br>
 
 <p>The MCP Python SDK makes it easy to implement these components using decorators, as shown in our echo server example.</p>
 

@@ -83,19 +83,21 @@ Make sure the packages are installed successfully.
 
 <callout label="Execute prompt in code mode of Junie" type="chat">Create a file named browser_use_mcp.py. I need code that:
 
-1. Creates an MCP server named "Browser-use"
-2. Implements a tool called "browser_use_tool" that takes a "task" (str) parameter
-3. Uses browser-use library with ChatOpenAI (gpt-4o-mini as model) to create an agent
-4. Returns the final result from the agent
-5. MCP implements only one tool: browser_use_tool
-6. Use the following code to create the agent: 
+<ol>
+<li>Creates an MCP server named "Browser-use"</li>
+<li>Implements a tool called "browser_use_tool" that takes a "task" (str) parameter</li>
+<li>Uses browser-use library with ChatOpenAI (gpt-4o-mini as model) to create an agent</li>
+<li>Returns the final result from the agent</li>
+<li>MCP implements only one tool: browser_use_tool</li>
+<li>Use the following code to create the agent:</li>
 agent = Agent(
     task=task,
     llm=ChatOpenAI(model="gpt-4o-mini"),
     browser=browser,
 )
-7. Use browser = Browser(config=config) to create a browser instance
-8. Use the following code to perform the task:
+<li>Use browser = Browser(config=config) to create a browser instance</li>
+<li>Use the following code to perform the task:</li>
+</ol>
 
 result = await agent.run(max_steps=20)
 return result.final_result()

@@ -8,22 +8,28 @@
 Create a new rule file called rule-visibility.mdc in .cursor/rules folder, set the rule type to “always”, add the following content:
 rule-visibility
 
-1. Display applied rules at AI action 
-2. ONLY if action uses rule. Do not display rules unrelated to an action 
+<ol>
+<li>Display applied rules at AI action</li>
+<li>ONLY if action uses rule. Do not display rules unrelated to an action</li>
+</ol>
 
 # Rule Visibility
 
 This rule ensures transparency by displaying a list of all rules that are currently being applied at every AI action.
 
 ## Requirements
-- At the beginning of each response, list all rules that are being applied
-- Format the list as a bulleted list with rule names and descriptions
-- Include this rule in the list
-- Apply this rule to all files and all actions
+<ul>
+<li>At the beginning of each response, list all rules that are being applied</li>
+<li>Format the list as a bulleted list with rule names and descriptions</li>
+<li>Include this rule in the list</li>
+<li>Apply this rule to all files and all actions</li>
+</ul>
 
 ## Application
-- Apply this rule for every edit, search, or response
-- This rule should always be applied, regardless of context 
+<ul>
+<li>Apply this rule for every edit, search, or response</li>
+<li>This rule should always be applied, regardless of context</li>
+</ul>
 </callout>
 
 <p>This visibility rule will act as a diagnostic tool, helping us understand exactly which rules Cursor is applying during each interaction.</p>
@@ -55,9 +61,11 @@ Create a new file called test_visibility.py with a simple function that prints "
 
 <p>In the chat response, you should have noticed:</p>
 
-- A list of rules being applied<br>
-- Specific mention of the coding-standards rule<br>
-- Possibly other rules you've created<br><br>
+<ul>
+<li>A list of rules being applied</li>
+<li>Specific mention of the coding-standards rule</li>
+<li>Possibly other rules you've created</li>
+</ul><br>
 
 <p>This visibility helps us confirm that our rules are working as expected and gives us insight into Cursor's rule application process.</p>
 
@@ -81,9 +89,11 @@ Create a new file called test_visibility.py with a simple function that prints "
 
 <p>This visibility rule demonstrates one of the aspects of Cursor's rule system - the ability to create even meta-tools that improve your workflow with AI. By making rule application visible, you can:</p>
 
-- Debug rule conflicts<br>
-- Verify that critical rules are being applied<br>
-- Understand how Cursor prioritizes different rules<br>
-- Optimize your rule setup for better results<br><br>
+<ul>
+<li>Debug rule conflicts</li>
+<li>Verify that critical rules are being applied</li>
+<li>Understand how Cursor prioritizes different rules</li>
+<li>Optimize your rule setup for better results</li>
+</ul><br>
 
 Next, we'll explore how to use referencing in rules. 

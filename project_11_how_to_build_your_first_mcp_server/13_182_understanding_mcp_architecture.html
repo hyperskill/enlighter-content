@@ -4,10 +4,12 @@
 
 <p>MCP follows a client-server architecture with these components:</p>
 
-- <strong>MCP Hosts</strong>: Programs like Cursor IDE that want to access data through MCP<br>
-- <strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers<br>
-- <strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized protocol<br>
-- <strong>Data Sources</strong>: Your computer's files, databases, services, or remote APIs that MCP servers can access<br><br>
+<ul>
+<li><strong>MCP Hosts</strong>: Programs like Cursor IDE that want to access data through MCP</li>
+<li><strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers</li>
+<li><strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized protocol</li>
+<li><strong>Data Sources</strong>: Your computer's files, databases, services, or remote APIs that MCP servers can access</li>
+</ul><br>
 
 <p>Think of MCP like a USB-C port for AI applications - it provides a standardized way to connect AI models to different data sources and tools. MCP servers act as bridges between the AI and external capabilities, expanding what you can accomplish with AI assistance in your development workflow.</p>
 
@@ -19,16 +21,20 @@
 <p>MCP servers can communicate with Cursor using two different transport formats:</p>
 
 <strong>SSE (Server-Sent Events):</strong><br>
-- Used for web-based connections<br>
-- Enables real-time, one-way communication from server to client<br>
-- Better for services that run as standalone web servers<br>
-- Good for cloud-hosted or remote services<br><br>
+<ul>
+<li>Used for web-based connections</li>
+<li>Enables real-time, one-way communication from server to client</li>
+<li>Better for services that run as standalone web servers</li>
+<li>Good for cloud-hosted or remote services</li>
+</ul><br>
 
 <strong>STDIO (Standard Input/Output):</strong><br>
-- Used for local processes<br>
-- Communications happen through standard input/output streams<br>
-- Simpler setup for local tools and commands<br>
-- More efficient for tools that run directly on your machine<br><br>
+<ul>
+<li>Used for local processes</li>
+<li>Communications happen through standard input/output streams</li>
+<li>Simpler setup for local tools and commands</li>
+<li>More efficient for tools that run directly on your machine</li>
+</ul><br>
 
 <p>You can get more details about the difference between SSE and STDIO from AI:</p>
 <callout type="chat">
