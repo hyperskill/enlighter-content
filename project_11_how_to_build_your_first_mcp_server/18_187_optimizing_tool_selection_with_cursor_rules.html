@@ -38,55 +38,41 @@ This rule provides detailed descriptions of the available MCP tools to help the 
 
 The Echo MCP server provides simple echo functionality for testing and debugging. It has two main components:
 
-<ul>
-<li>**echo_resource**: Returns a message with "Resource echo:" prefix</li>
-<li>**echo_tool**: Returns a message with "Tool echo:" prefix</li>
-</ul>
+1.**echo_resource**: Returns a message with "Resource echo:" prefix
+2.**echo_tool**: Returns a message with "Tool echo:" prefix
 
 Use Echo MCP when:
-<ul>
-<li>You're testing MCP connectivity</li>
-<li>You need a simple response for debugging purposes</li>
-<li>You want to verify that your MCP configuration is working</li>
-</ul>
+- You're testing MCP connectivity
+- You need a simple response for debugging purposes
+- You want to verify that your MCP configuration is working
 
 ## Playwright MCP
 
 The Playwright MCP server provides browser automation capabilities. It allows you to:
-
-<ul>
-<li>Navigate to URLs</li>
-<li>Take screenshots</li>
-<li>Click elements</li>
-<li>Fill forms</li>
-<li>Extract content from web pages</li>
-</ul>
+1. Navigate to URLs
+2. Take screenshots
+3. Click elements
+4. Fill forms
+5. Extract content from web pages
 
 Use Playwright MCP when:
-<ul>
-<li>You need to interact with web pages programmatically</li>
-<li>You want to extract information from websites</li>
-<li>You need to automate browser actions (clicks, form filling, navigation)</li>
-<li>You need to take screenshots of specific elements</li>
-<li>You're testing a web application with predetermined steps</li>
-<li>You require frame-by-frame control over browser actions</li>
-</ul>
+1. You need to interact with web pages programmatically
+2. You want to extract information from websites
+3. You need to automate browser actions (clicks, form filling, navigation)
+4. You need to take screenshots of specific elements
+5. You're testing a web application with predetermined steps
+6. You require frame-by-frame control over browser actions
 
 ## When to Use Which Tool
-
-<ul>
-<li>**Echo**: For testing and debugging MCP connectivity</li>
-<li>**Playwright**: For precise, step-by-step browser automation when you know exactly what actions to take</li>
-</ul>
+1. **Echo**: For testing and debugging MCP connectivity
+2. **Playwright**: For precise, step-by-step browser automation when you know exactly what actions to take
 
 Example tasks for Playwright:
-<ul>
-<li>"Take a screenshot of the login button on example.com"</li>
-<li>"Click the submit button after filling out the form"</li>
-<li>"Check if element #results-container is visible"</li>
-<li>"Fill in the registration form with test data"</li>
-<li>"Navigate through a multi-step checkout process"</li>
-</ul>
+1. "Take a screenshot of the login button on example.com"
+2. "Click the submit button after filling out the form"
+3. "Check if element #results-container is visible"
+4. "Fill in the registration form with test data"
+5. "Navigate through a multi-step checkout process"
 
 Make sure to create the `.cursor/rules` directory if it doesn't exist. Always apply the rule for every request. 
 </callout>
@@ -95,7 +81,7 @@ Make sure to create the `.cursor/rules` directory if it doesn't exist. Always ap
 Make sure the rule file is created at .cursor/rules/mcp-tools.mdc
 </checkable-item>
 
-<checkable-item title="MCP tools rule file created">
+<checkable-item title="Always apply option is enabled">
 Make sure the rule has "Always apply" option enabled:
 <p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//always-apply-rule.png" alt="MCP tools rule always apply" title="MCP tools rule always apply"></p>
 </checkable-item>
