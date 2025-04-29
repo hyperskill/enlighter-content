@@ -1,0 +1,78 @@
+name: Validate and Sync Content
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "project_*/*.html"
+      - "templates/*.html"
+      - ".github/workflows/main.yml" # This file itself
+      - ".github/scripts/validate-content.js"
+      - ".github/scripts/sync_templates.py"
+      - ".github/scripts/sync_content.py"
+
+jobs:
+  validate:
+    runs-on: arc-runners-small
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Install dependencies (Node)
+        # Assuming package.json is at the root and contains necessary deps for validation script
+        run: npm install
+
+      - name: Validate HTML content
+        run: node .github/scripts/validate-content.js
+
+  sync-templates:
+    runs-on: arc-runners-small
+    needs: validate # Depends on the 'validate' job succeeding
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies (Python)
+        run: |
+          python -m pip install --upgrade pip
+          pip install supabase
+
+      - name: Sync templates to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python .github/scripts/sync_templates.py
+
+  sync-content:
+    runs-on: arc-runners-small
+    needs: validate # Depends on the 'validate' job succeeding
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies (Python)
+        run: |
+          python -m pip install --upgrade pip
+          pip install supabase
+
+      - name: Sync stage content to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python .github/scripts/sync_content.py
