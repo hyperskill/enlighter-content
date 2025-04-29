@@ -1,34 +1,47 @@
-<p>In this stage, we'll explore one more feature of Cursor Rules: files referencing and rule inheritance. This feature allows for sophisticated rule organization and reuse.</p>
+<p>
+  In this stage, we'll explore one more feature of Cursor Rules: files referencing and rule
+  inheritance. This feature allows for sophisticated rule organization and reuse.
+</p>
 
 <h5>Rule Inheritance</h5>
 
-<p>One of the powerful features of Cursor Rules is the ability for one rule to reference and build upon another. This allows you to create a hierarchy of rules, with specialized rules inheriting from more general ones.</p>
+<p>
+  One of the powerful features of Cursor Rules is the ability for one rule to reference and build
+  upon another. This allows you to create a hierarchy of rules, with specialized rules inheriting
+  from more general ones.
+</p>
 
-<p>Rule inheritance is particularly useful for code style rules, where you might have general coding standards that apply to all code, and then more specific standards for different languages, folders, or components.</p>
+<p>
+  Rule inheritance is particularly useful for code style rules, where you might have general coding
+  standards that apply to all code, and then more specific standards for different languages,
+  folders, or components.
+</p>
 
 <p>Let's refine our coding standards by creating a hierarchy of rules:</p>
 
 <callout type="chat">
-Create two new rule files:
-
-1. class-standards.mdc - A rule that requires every class to have the comment "# this is class defined by learner"
-2. function-standards.mdc - A rule that requires every function to have the comment "# this is function defined by learner"
-
-
-
-Then, update coding-standards.mdc to reference these two rules with @ sign, creating an inheritance relationship.
-Don't forget to fill description and globs for each new rule.
+  Create two new rule files: 1. class-standards.mdc - A rule that requires every class to have the
+  comment "# this is class defined by learner" 2. function-standards.mdc - A rule that requires
+  every function to have the comment "# this is function defined by learner" Then, update
+  coding-standards.mdc to reference these two rules with @ sign, creating an inheritance
+  relationship. Don't forget to fill description and globs for each new rule.
 </callout>
 
 <alert>
-If you're tired of checking that description and globs are filled (since Cursor sometimes forgets about them), this is a perfect opportunity to create a rule that handles this automatically!
-We leave this as an exercise for you.
+  If you're tired of checking that description and globs are filled (since Cursor sometimes forgets
+  about them), this is a perfect opportunity to create a rule that handles this automatically! We
+  leave this as an exercise for you.
 </alert>
 
-<p>With this setup, our coding-standards rule now inherits from both class-standards and function-standards. This means that when coding-standards is applied, it will also apply the rules from the two referenced rules.</p>
+<p>
+  With this setup, our coding-standards rule now inherits from both class-standards and
+  function-standards. This means that when coding-standards is applied, it will also apply the rules
+  from the two referenced rules.
+</p>
 
 <alert>
-    Check that reference with @ sign is applied correctly. AI-generated references are not always interpreted correctly. Fix it manually if needed.
+  Check that reference with @ sign is applied correctly. AI-generated references are not always
+  interpreted correctly. Fix it manually if needed.
 </alert>
 
 <h5>Testing Rule Inheritance</h5>
@@ -36,26 +49,29 @@ We leave this as an exercise for you.
 <p>Let's create a test file to see our inheritance in action:</p>
 
 <callout type="chat">
-Create a file called test_inheritance.py in the src directory with:
-1. A simple class
-2. A method inside the class
-3. A standalone function
+  Create a file called test_inheritance.py in the src directory with: 1. A simple class 2. A method
+  inside the class 3. A standalone function
 </callout>
 
-<p>When you examine the generated file, you should see that both the class and function comments have been added, demonstrating that our rule inheritance is working correctly.</p>
+<p>
+  When you examine the generated file, you should see that both the class and function comments have
+  been added, demonstrating that our rule inheritance is working correctly.
+</p>
 
 <h5>Verifying Inheritance</h5>
 
 <ul interactive>
-    <li title="Check class comment">
-        Verify that the class in test_inheritance.py has the comment "# this is class defined by learner"<br>
-    </li>
-    <li title="Check function comment">
-        Verify that the function in test_inheritance.py has the comment "# this is function defined by learner"<br>
-    </li>
-    <li title="Check rule references">
-        Confirm that coding-standards.mdc properly references the other two rule files<br>
-    </li>
+  <li title="Check class comment">
+    Verify that the class in test_inheritance.py has the comment "# this is class defined by
+    learner"
+  </li>
+  <li title="Check function comment">
+    Verify that the function in test_inheritance.py has the comment "# this is function defined by
+    learner"
+  </li>
+  <li title="Check rule references">
+    Confirm that coding-standards.mdc properly references the other two rule files
+  </li>
 </ul>
 
 <h5>The Power of Rule Inheritance</h5>
@@ -63,10 +79,13 @@ Create a file called test_inheritance.py in the src directory with:
 <p>Rule inheritance offers several benefits:</p>
 
 <ul>
-<li>Modular rule organization</li>
-<li>Reuse of common rule patterns</li>
-<li>Easier maintenance of complex rule systems</li>
-<li>Clearer separation of concerns</li>
-</ul><br>
+  <li>Modular rule organization</li>
+  <li>Reuse of common rule patterns</li>
+  <li>Easier maintenance of complex rule systems</li>
+  <li>Clearer separation of concerns</li>
+</ul>
 
-<p>By breaking down your rules into smaller, more focused components and then combining them through inheritance, you can create sophisticated rule systems that are both powerful and maintainable.</p>
+<p>
+  By breaking down your rules into smaller, more focused components and then combining them through
+  inheritance, you can create sophisticated rule systems that are both powerful and maintainable.
+</p>

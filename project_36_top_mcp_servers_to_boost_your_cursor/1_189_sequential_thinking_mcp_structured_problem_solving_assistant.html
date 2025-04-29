@@ -1,99 +1,122 @@
-<p>The <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking">Sequential Thinking MCP</a> is a tool that helps break down complex problems into manageable steps, enabling a more structured and reflective approach to problem-solving. This stage will guide you through understanding and implementing this MCP in your Cursor workflow.</p>
+<p>
+  The
+  <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking"
+    >Sequential Thinking MCP</a
+  >
+  is a tool that helps break down complex problems into manageable steps, enabling a more structured
+  and reflective approach to problem-solving. This stage will guide you through understanding and
+  implementing this MCP in your Cursor workflow.
+</p>
 
 <h5>Features:</h5>
-<p>
 <ul>
-<li>Breaking down complex problems into sequential steps</li>
-<li>Revising and refining thoughts as understanding deepens</li>
-<li>Creating alternative reasoning paths through branching</li>
-<li>Dynamically adjusting the thinking process</li>
-<li>Generating and verifying solution hypotheses</li>
+  <li>Breaking down complex problems into sequential steps</li>
+  <li>Revising and refining thoughts as understanding deepens</li>
+  <li>Creating alternative reasoning paths through branching</li>
+  <li>Dynamically adjusting the thinking process</li>
+  <li>Generating and verifying solution hypotheses</li>
 </ul>
-</p>
 
 <h5>Key Use Cases</h5>
-<p>
 <ul>
-<li>Complex system design planning</li>
-<li>Project architecture decisions</li>
-<li>Code refactoring planning</li>
+  <li>Complex system design planning</li>
+  <li>Project architecture decisions</li>
+  <li>Code refactoring planning</li>
 </ul>
-</p>
 
 <h5>Prerequisites</h5>
 
-<p>Before setting up any MCP servers, you'll need to ensure you have the necessary tools installed on your system:</p>
+<p>
+  Before setting up any MCP servers, you'll need to ensure you have the necessary tools installed on
+  your system:
+</p>
 
 <h5>NPX Installation</h5>
-<p>Throughout this project, we'll primarily use NPX to install and run MCP servers. NPX is included with Node.js and npm, which you'll need to install if you don't have them already:</p>
+<p>
+  Throughout this project, we'll primarily use NPX to install and run MCP servers. NPX is included
+  with Node.js and npm, which you'll need to install if you don't have them already:
+</p>
 
-<callout type="chat">Install npx, node, and npm.
-
-Verify your installation by running:
-```
-node --version
-npm --version
-npx --version
-```
-
-All three commands should display version numbers if the installation was successful.</callout>
+<callout type="chat"
+  >Install npx, node, and npm. Verify your installation by running: ``` node --version npm --version
+  npx --version ``` All three commands should display version numbers if the installation was
+  successful.</callout
+>
 
 <h5>Docker (Optional)</h5>
-<p>Some MCP servers provide Docker installation options, which can be useful for containerized environments or if you prefer isolation. Throughout this project, we'll show Docker configuration examples alongside NPX options.</p>
+<p>
+  Some MCP servers provide Docker installation options, which can be useful for containerized
+  environments or if you prefer isolation. Throughout this project, we'll show Docker configuration
+  examples alongside NPX options.
+</p>
 
-<p>If you choose to use Docker, you'll need to install Docker Desktop or Docker Engine on your system. Installation instructions vary by operating system and are beyond the scope of this project. Please refer to the <a href="https://docs.docker.com/get-docker/">official Docker documentation</a> for installation guidance.</p>
+<p>
+  If you choose to use Docker, you'll need to install Docker Desktop or Docker Engine on your
+  system. Installation instructions vary by operating system and are beyond the scope of this
+  project. Please refer to the
+  <a href="https://docs.docker.com/get-docker/">official Docker documentation</a> for installation
+  guidance.
+</p>
 
 <h5>Setup Instructions</h5>
 
-<p>You can set up the Sequential Thinking MCP using either npm or Docker. Choose the method that best suits your environment:</p>
+<p>
+  You can set up the Sequential Thinking MCP using either npm or Docker. Choose the method that best
+  suits your environment:
+</p>
 
 <h5>NPM Setup</h5>
-<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
-
-{
-  "mcpServers": {
-    "sequential-thinking": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
-    }
-  }
-}</callout>
+<callout type="chat"
+  >Create or edit a file .cursor/mcp.json to include the following MCP setup: { "mcpServers": {
+  "sequential-thinking": { "command": "npx", "args": [ "-y",
+  "@modelcontextprotocol/server-sequential-thinking" ] } } }</callout
+>
 
 <h5>Docker Setup</h5>
-<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup:
-
-{
-  "mcpServers": {
-    "sequentialthinking": {
-      "command": "docker",
-      "args": [
-        "run",
-        "--rm",
-        "-i",
-        "mcp/sequentialthinking"
-      ]
-    }
-  }
-}
+<callout type="chat"
+  >Create or edit a file .cursor/mcp.json to include the following MCP setup: { "mcpServers": {
+  "sequentialthinking": { "command": "docker", "args": [ "run", "--rm", "-i",
+  "mcp/sequentialthinking" ] } } }
 </callout>
 
 <p>After setting up the mcp.json, go to Settings and enable the MCP server:</p>
-<p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//36-enable-mcp.png" alt="MCP Settings" title="MCP Settings"></p>
+<p>
+  <img
+    style="margin: auto; display: block"
+    src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//36-enable-mcp.png"
+    alt="MCP Settings"
+    title="MCP Settings"
+  />
+</p>
 
 <p>Make sure there is a green checkmark next to the MCP server that shows it is enabled.</p>
 
-<p>You can also enable the MCP server by clicking the "Enable" button on the notification that appears after you save the mcp.json file:</p>
-<p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//36-enable-mcp-notification.png" alt="MCP Settings" title="MCP Enable Notification"></p>
+<p>
+  You can also enable the MCP server by clicking the "Enable" button on the notification that
+  appears after you save the mcp.json file:
+</p>
+<p>
+  <img
+    style="margin: auto; display: block"
+    src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//36-enable-mcp-notification.png"
+    alt="MCP Settings"
+    title="MCP Enable Notification"
+  />
+</p>
 
-<warning>In the next stages we won't mention enabling the MCP server again. Make sure to enable a MCP server every time after setting up the mcp.json file.</warning>
+<warning
+  >In the next stages we won't mention enabling the MCP server again. Make sure to enable a MCP
+  server every time after setting up the mcp.json file.</warning
+>
 
 <h5>Practical Example: System Design Planning</h5>
 
 <callout type="chat">
-  Let's plan the architecture for a new user authentication microservice. Use sequential thinking to break down the key components and considerations
+  Let's plan the architecture for a new user authentication microservice. Use sequential thinking to
+  break down the key components and considerations
 </callout>
 
-<p>Let's use the Sequential Thinking MCP to plan the architecture of a new microservice. This example demonstrates how the MCP helps break down complex planning into manageable steps.</p>
+<p>
+  Let's use the Sequential Thinking MCP to plan the architecture of a new microservice. This example
+  demonstrates how the MCP helps break down complex planning into manageable steps.
+</p>
