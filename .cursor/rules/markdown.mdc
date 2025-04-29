@@ -15,9 +15,8 @@ Strictly follow ALL formatting rules below when generating responses.
    ```html
    <img style="margin: auto; display: block;" src="https://example.com" alt="alt text" title="title text">
    ```
-4. Never set max-width for images
-5. Never use <body> or <head> tags.
-6. All lists must be implemented with <ul> and <li> tags.
+4. Never use <body> or <head> tags.
+5. All lists must be implemented with <ul>, <ol> and <li> tags.
 
 ## Special Interactive Elements
 
