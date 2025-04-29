@@ -34,3 +34,4 @@ var/
 Thumbs.db
 
 supabase_docs.md
+node_modules

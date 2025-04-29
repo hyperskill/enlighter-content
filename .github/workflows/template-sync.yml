@@ -1,17 +1,17 @@
 name: Template Sync
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Validate Content"]
+    types:
+      - completed
     branches:
       - master
-    paths:
-      - 'templates/*.html'
-      - '.github/workflows/template-sync.yml'
-      - '.github/scripts/sync_templates.py'
 
 jobs:
   sync:
     runs-on: arc-runners-small
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |

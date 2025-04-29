@@ -1,0 +1,29 @@
+name: Validate Content
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "project_*/*.html"
+      - "templates/*.html"
+      - ".github/workflows/validate-content.yml"
+      - ".github/scripts/validate-content.js"
+
+jobs:
+  validate:
+    runs-on: arc-runners-small
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate HTML content
+        run: node .github/scripts/validate-content.js

@@ -1,0 +1,2 @@
+node .github/scripts/validate-content.js
+npx lint-staged

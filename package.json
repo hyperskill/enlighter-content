@@ -1,0 +1,18 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@xmldom/xmldom": "^0.9.8",
+    "glob": "^11.0.2"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "3.5.3"
+  },
+  "scripts": {
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.html": "prettier --write --ignore-unknown"
+  }
+}
