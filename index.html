@@ -179,19 +179,107 @@
             const previewIframe = document.getElementById('preview-iframe');
             
             let projects = [];
+            let hashLoaded = false;
             
             // Setup iframe onload handler
             previewIframe.onload = function() {
-                // When iframe loads initially, no need to send content yet
-                if (previewIframe.dataset.contentLoaded === 'true') {
-                    const content = previewIframe.dataset.content || '%CONTENT%';
-                    previewIframe.contentWindow.postMessage({
-                        type: 'update-content',
-                        content: content
-                    }, '*');
-                }
-                previewIframe.dataset.contentLoaded = 'true';
+                setTimeout(() => {
+                    loadPreview();
+                }, 1000);
             };
+            
+            // Update URL hash
+            function updateHash(projectIndex, stageIndex) {
+                if (projectIndex !== undefined && stageIndex !== undefined) {
+                    window.location.hash = `project=${projectIndex}&stage=${stageIndex}`;
+                } else if (projectIndex !== undefined) {
+                    window.location.hash = `project=${projectIndex}`;
+                } else {
+                    window.location.hash = '';
+                }
+            }
+            
+            // Parse URL hash
+            function parseHash() {
+                if (!window.location.hash) return {};
+                
+                const hash = window.location.hash.substring(1);
+                const params = {};
+                
+                hash.split('&').forEach(part => {
+                    const [key, value] = part.split('=');
+                    if (key && value) {
+                        params[key] = value;
+                    }
+                });
+                
+                return params;
+            }
+            
+            // Restore state from hash
+            async function restoreFromHash() {
+                const params = parseHash();
+                
+                if (params.project) {
+                    const projectIndex = params.project;
+                    
+                    // Wait for projects to be loaded
+                    if (projects.length === 0) {
+                        // Projects not loaded yet, wait for them
+                        return false;
+                    }
+                    
+                    // Set project select
+                    if (projectIndex >= 0 && projectIndex < projects.length) {
+                        projectSelect.value = projectIndex;
+                        
+                        // Populate stage select
+                        populateStageSelect(projectIndex);
+                        
+                        // Set stage if available
+                        if (params.stage) {
+                            const stageIndex = params.stage;
+                            const stages = projects[projectIndex].stages;
+                            
+                            if (stageIndex >= 0 && stageIndex < stages.length) {
+                                stageSelect.value = stageIndex;
+                                loadPreview();
+                                return true;
+                            }
+                        } else {
+                            // Auto-select first stage if no stage in hash
+                            stageSelect.value = "0";
+                            loadPreview();
+                            return true;
+                        }
+                    }
+                }
+                
+                return false;
+            }
+            
+            // Populate stage select
+            function populateStageSelect(projectIndex) {
+                stageSelect.innerHTML = '';
+                
+                if (!projectIndex) {
+                    stageSelect.innerHTML = '<option value="">First select a project</option>';
+                    return;
+                }
+                
+                const stages = projects[projectIndex].stages;
+                
+                if (stages.length === 0) {
+                    stageSelect.innerHTML = '<option value="">No stages found</option>';
+                } else {
+                    stages.forEach((stage, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = `${stage.order}. ${stage.title}`;
+                        stageSelect.appendChild(option);
+                    });
+                }
+            }
             
             // Fetch projects and stages
             async function fetchProjects() {
@@ -212,6 +300,11 @@
                             option.textContent = project.name;
                             projectSelect.appendChild(option);
                         });
+                        
+                        // Try to restore from hash after projects are loaded
+                        if (!hashLoaded) {
+                            hashLoaded = await restoreFromHash();
+                        }
                     }
                 } catch (error) {
                     console.error('Error fetching projects:', error);
@@ -227,6 +320,9 @@
                 if (!projectIndex || !stageIndex) {
                     return;
                 }
+                
+                // Update hash
+                updateHash(projectIndex, stageIndex);
                 
                 const project = projects[projectIndex];
                 const stage = project.stages[stageIndex];
@@ -261,25 +357,14 @@
             // Update stages when project changes
             projectSelect.addEventListener('change', function() {
                 const projectIndex = this.value;
-                stageSelect.innerHTML = '';
                 
-                if (!projectIndex) {
-                    stageSelect.innerHTML = '<option value="">First select a project</option>';
-                    return;
-                }
+                // Update hash with just project
+                updateHash(projectIndex);
                 
-                const stages = projects[projectIndex].stages;
+                // Populate stage select
+                populateStageSelect(projectIndex);
                 
-                if (stages.length === 0) {
-                    stageSelect.innerHTML = '<option value="">No stages found</option>';
-                } else {
-                    stages.forEach((stage, index) => {
-                        const option = document.createElement('option');
-                        option.value = index;
-                        option.textContent = `${stage.order}. ${stage.title}`;
-                        stageSelect.appendChild(option);
-                    });
-                    
+                if (projectIndex && projects[projectIndex].stages.length > 0) {
                     // Automatically select the first stage
                     stageSelect.value = "0";
                     
@@ -293,6 +378,11 @@
             
             // Refresh file list button
             refreshButton.addEventListener('click', fetchProjects);
+            
+            // Handle hash change
+            window.addEventListener('hashchange', function() {
+                restoreFromHash();
+            });
             
             // Initial fetch
             fetchProjects();
