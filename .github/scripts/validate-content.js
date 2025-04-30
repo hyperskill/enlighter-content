@@ -7,8 +7,7 @@ const parser = new DOMParser({
 });
 
 function findHtmlFiles() {
-    const files = glob.sync('./**/*.html');
-    return files
+    return glob.sync('./{project_**,templates}/**/*.html');
 }
 
 const htmlFiles = findHtmlFiles();
@@ -21,7 +20,7 @@ for (const file of htmlFiles) {
 
     const content = readFileSync(filePath, 'utf8');
     try {
-        const doc = parser.parseFromString('<html>' + content + '</html>', 'text/html');    
+        parser.parseFromString('<html>' + content + '</html>', 'text/html');    
     } catch (error) {
         errors.push(`Error parsing ${file}: ${error.message}`);
     }
