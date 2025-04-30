@@ -8,6 +8,20 @@
     npm install
     ```
 
+## Content preview server
+
+Start web preview server:
+
+```bash
+npm start
+```
+
+1. Access the web interface by opening a browser to http://localhost:3333
+2. Select a project from the dropdown
+3. Select a stage within that project
+4. The content will automatically load in the iframe
+5. Use the "Refresh File List" button to update the project and stage list
+
 ## Cursor Setup
 
 1.  **Install Prettier Extension:** Open VS Code, go to the Extensions view (Ctrl+Shift+X or Cmd+Shift+X), search for "Prettier - Code formatter", and install it.

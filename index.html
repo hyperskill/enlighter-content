@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Preview</title>
+    <style>
+        :root {
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #252526;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --border-color: #3e3e42;
+            --accent-color: #0e639c;
+            --accent-hover: #1177bb;
+            --button-color: #2c7ad6;
+            --button-hover: #3889e4;
+            --refresh-button: #6435c9;
+            --refresh-hover: #7145d9;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: 100vh;
+            overflow: hidden;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .sidebar {
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .content {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-primary);
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        h2 {
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        select option {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        label {
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .iframe-container {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-primary);
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: var(--bg-primary);
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        button {
+            background-color: var(--button-color);
+            color: var(--text-primary);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+        }
+        
+        .refresh-button {
+            background-color: var(--refresh-button);
+        }
+        
+        .refresh-button:hover {
+            background-color: var(--refresh-hover);
+        }
+        
+        #current-selection {
+            padding: 10px;
+            border-radius: 4px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            white-space: pre-line;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>Course Navigator</h1>
+        <div>
+            <label for="project-select">Select Project:</label>
+            <select id="project-select">
+                <option value="">Loading projects...</option>
+            </select>
+        </div>
+        
+        <div>
+            <label for="stage-select">Select Stage:</label>
+            <select id="stage-select">
+                <option value="">First select a project</option>
+            </select>
+        </div>
+        
+        <button id="refresh-button" class="refresh-button">Refresh File List</button>
+        
+        <div>
+            <h2>Current Selection:</h2>
+            <div id="current-selection">None selected</div>
+        </div>
+    </div>
+    
+    <div class="content">
+        <div class="iframe-container">
+            <iframe id="preview-iframe" src="https://enlightby.ai/preview"></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectSelect = document.getElementById('project-select');
+            const stageSelect = document.getElementById('stage-select');
+            const refreshButton = document.getElementById('refresh-button');
+            const currentSelection = document.getElementById('current-selection');
+            const previewIframe = document.getElementById('preview-iframe');
+            
+            let projects = [];
+            
+            // Setup iframe onload handler
+            previewIframe.onload = function() {
+                // When iframe loads initially, no need to send content yet
+                if (previewIframe.dataset.contentLoaded === 'true') {
+                    const content = previewIframe.dataset.content || '%CONTENT%';
+                    previewIframe.contentWindow.postMessage({
+                        type: 'update-content',
+                        content: content
+                    }, '*');
+                }
+                previewIframe.dataset.contentLoaded = 'true';
+            };
+            
+            // Fetch projects and stages
+            async function fetchProjects() {
+                try {
+                    const response = await fetch('/api/files');
+                    projects = await response.json();
+                    
+                    // Clear and populate project select
+                    projectSelect.innerHTML = '';
+                    
+                    if (projects.length === 0) {
+                        projectSelect.innerHTML = '<option value="">No projects found</option>';
+                    } else {
+                        projectSelect.innerHTML = '<option value="">Select a project</option>';
+                        projects.forEach((project, index) => {
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.textContent = project.name;
+                            projectSelect.appendChild(option);
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error fetching projects:', error);
+                    projectSelect.innerHTML = '<option value="">Error loading projects</option>';
+                }
+            }
+            
+            // Load preview based on selected project and stage
+            async function loadPreview() {
+                const projectIndex = projectSelect.value;
+                const stageIndex = stageSelect.value;
+                
+                if (!projectIndex || !stageIndex) {
+                    return;
+                }
+                
+                const project = projects[projectIndex];
+                const stage = project.stages[stageIndex];
+                
+                // Update current selection
+                currentSelection.textContent = `Project: ${project.name}\nStage: ${stage.stage}`;
+                
+                try {
+                    // Fetch the actual HTML content using the API
+                    const response = await fetch(`/api/content?path=${encodeURIComponent(stage.path)}`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch content: ${response.statusText}`);
+                    }
+                    
+                    const htmlContent = await response.text();
+                    
+                    // Store the content in the iframe's dataset
+                    previewIframe.dataset.content = htmlContent;
+                    
+                    // If the iframe is already loaded, send a message immediately
+                    if (previewIframe.contentWindow) {
+                        previewIframe.contentWindow.postMessage({
+                            type: 'update-content',
+                            content: htmlContent
+                        }, '*');
+                    }
+                } catch (error) {
+                    console.error('Error loading HTML content:', error);
+                }
+            }
+            
+            // Update stages when project changes
+            projectSelect.addEventListener('change', function() {
+                const projectIndex = this.value;
+                stageSelect.innerHTML = '';
+                
+                if (!projectIndex) {
+                    stageSelect.innerHTML = '<option value="">First select a project</option>';
+                    return;
+                }
+                
+                const stages = projects[projectIndex].stages;
+                
+                if (stages.length === 0) {
+                    stageSelect.innerHTML = '<option value="">No stages found</option>';
+                } else {
+                    stages.forEach((stage, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = `${stage.order}. ${stage.title}`;
+                        stageSelect.appendChild(option);
+                    });
+                    
+                    // Automatically select the first stage
+                    stageSelect.value = "0";
+                    
+                    // Trigger the loadPreview function to load content
+                    loadPreview();
+                }
+            });
+            
+            // Load preview when stage is selected
+            stageSelect.addEventListener('change', loadPreview);
+            
+            // Refresh file list button
+            refreshButton.addEventListener('click', fetchProjects);
+            
+            // Initial fetch
+            fetchProjects();
+        });
+    </script>
+</body>
+</html> 
