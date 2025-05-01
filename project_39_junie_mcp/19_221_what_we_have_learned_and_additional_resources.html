@@ -69,7 +69,7 @@
 
 <p>Let's create our browser-use MCP server. First, we need to install the required packages:</p>
 
-<callout label="Execute prompt in code mode of Junie" type="chat">
+<callout label="Execute prompt using Code mode in Junie" type="composer">
 Install browser-use and langchain-openai Python packages into project's virtual environment. Do not install it globally.
 </callout>
 
@@ -81,7 +81,7 @@ Make sure the packages are installed successfully.
 
 <p>Now, let's create our browser-use MCP server. Ask the AI to generate the code:</p>
 
-<callout label="Execute prompt in code mode of Junie" type="chat">Create a file named browser_use_mcp.py. I need code that:
+<callout label="Execute prompt using Code mode in Junie" type="composer">Create a file named browser_use_mcp.py. I need code that:
 1. Creates an MCP server named "Browser-use"
 2. Implements a tool called "browser_use_tool" that takes a "task" (str) parameter
 3. Uses browser-use library with ChatOpenAI (gpt-4o-mini as model) to create an agent
@@ -105,7 +105,7 @@ Use browser-use and langchain-openai packages. Make the MCP server the same way 
 
 <p>After you create the file, run the server in development mode:</p>
 
-<callout label="Execute prompt in code mode of Junie" type="chat">
+<callout label="Execute prompt using Code mode in Junie" type="composer">
 Run 'mcp dev browser_use_mcp.py' in terminal to start the Browser-use MCP server in development mode. Keep it running in terminal. Ensure the required packages are installed in virtual environment and check if mcp dev command started without errors.
 </callout>
 
@@ -125,7 +125,7 @@ Connect to the server in the MCP Inspector and click "List Tools" to verify the 
     But if you get stuck, you can use the reference implementation below.
     <details>
         <summary>Reference Browser-use MCP Implementation</summary>
-        <callout label="Execute prompt in code mode of Junie" type="chat">
+        <callout label="Execute prompt using Code mode in Junie" type="composer">
             Create a file named browser_use_mcp.py with the following code:
 
 from langchain_openai import ChatOpenAI
