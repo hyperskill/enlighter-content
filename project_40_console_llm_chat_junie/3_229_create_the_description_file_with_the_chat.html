@@ -1,9 +1,9 @@
-<p>Junie knows how to create files and a whole application. Let's start small, ask it to create a file in the root of your project that describes in detail how the application works. We have prepared this file for you, you will need to edit it a bit in the future.</p>
+<p>Junie knows how to create files and even entire applications. Let's start small – ask it to create a file in the root of your project that describes in detail how the application works. We've prepared a draft of this file for you, and you'll be editing it a bit later.</p>
 
 <p>
-<checkable-item title="Run this command in chat with Junie in Code Mode">
+<checkable-item title="Run following prompt">
 
-<callout label="Execute prompt in code mode of Junie" type="chat">
+<callout label="Execute prompt using Code mode in Junie" type="composer">
 Create a file named task-description.txt in the root of my project. Add the following content to it:
 The application is simple console chatbot that allows user to ask questions and get answers.
 
@@ -34,7 +34,7 @@ The application is simple console chatbot that allows user to ask questions and 
         Usually, Junie is quite good at navigating the project on his own but if you want Junie to be laser-focused, you can hit the <strong>"+" button</strong> to attach specific files or folders. This is how you give Junie access to custom parts of your project—like your README, API guidelines, or folder structures.
       </p>
       <p>
-        <img style="margin: auto; display: block; " src="https://ucarecdn.com/e9ada323-f819-4557-b031-101d6eb23ea9/" alt="Adding files to context" title="Adding files to context">
+        <img style="margin: auto; display: block; width: 500px;" src="https://ucarecdn.com/e9ada323-f819-4557-b031-101d6eb23ea9/" alt="Adding files to context" title="Adding files to context">
       </p>
       <p>You can attach:</p>
     
@@ -49,10 +49,10 @@ The application is simple console chatbot that allows user to ask questions and 
 </alert>
 
 <p>
-<checkable-item title="Run this command in chat with Junie in Ask Mode">
+<checkable-item title="Run following prompt">
 <warning>Don't forget to add task-description.txt file to the context.</warning>
-<callout label="Execute prompt in ask mode of Junie" type="chat" include-file="task-description.txt">
+<callout label="Execute prompt using Ask mode in Junie" type="chat" include-file="task-description.txt">
 Explain to me all the technical terms and details in the task-description.txt file the way one would explain to a teenager with poor computer skills. Use metaphors and analogies. Make me understand how the application works, what different parts of it are responsible for, what libraries perform what role.
 </callout>
 </checkable-item>
-</p> 
+</p>
