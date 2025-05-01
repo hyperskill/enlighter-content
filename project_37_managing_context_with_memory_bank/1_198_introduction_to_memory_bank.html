@@ -1,0 +1,157 @@
+<p>Today we'll learn about Memory Bank - a powerful approach to maintaining context with AI coding assistants like Cursor.</p>
+
+<h5>What You'll Learn</h5>
+
+<ul>
+<li>How to set up a Memory Bank for your projects</li>
+<li>The structure and purpose of each core file</li>
+<li>How to maintain and update your Memory Bank</li>
+<li>How to build a real project using Memory Bank</li>
+</ul>
+
+<h5>What is Memory Bank?</h5>
+
+<p>Memory Bank is a structured documentation system that allows Cursor to maintain context across sessions. It transforms Cursor from a stateless assistant into a persistent development partner that can effectively "remember" your project details over time.</p>
+
+<p>When working with AI coding, you've likely encountered this common limitation: the AI has no memory of your previous conversations once you start a new session. This means:</p>
+
+<ul>
+<li>You need to re-explain your project repeatedly</li>
+<li>The AI can't recall decisions you made together</li>
+<li>You lose continuity in complex projects</li>
+<li>Each session starts from scratch</li>
+</ul>
+
+<h5>How Memory Bank Solves This Problem</h5>
+
+<p>Memory Bank addresses this limitation through a systematic approach to documentation:</p>
+
+<ul>
+<li><strong>Structured Documentation</strong>: A hierarchy of markdown files that build a complete picture of your project</li>
+<li><strong>Context Preservation</strong>: Key information is stored in a format that's easy for both you and Cursor to reference</li>
+<li><strong>Continuous Updates</strong>: Documentation evolves as your project progresses</li>
+</ul>
+
+<h5>Memory Bank is Not Magic</h5>
+
+<p>It's important to understand that Memory Bank isn't a magical feature that gives Cursor perfect memory. It's a methodical approach to documentation that you maintain.</p>
+
+<p>In the next stage, we'll dive deeper into the Memory Bank concept, exploring the file hierarchy and how the different components work together to maintain context.</p>
+
+<h5>Setting Up Memory Bank</h5>
+
+<p>
+    To set up Memory Bank we will use <a href="https://github.com/ipospelov/mcp-memory-bank">Memory Bank MCP Server</a>. 
+    It's a simple way to create a Memory Bank for your projects automatically based on provided context.
+</p>
+
+<p>First of all, we need to install uv and uvx tools to run Memory Bank MCP Server.</p>
+
+<callout label="Install uv and uvx tool">
+    Install uv and uvx tool if it's not installed yet
+</callout>
+
+<p>Then, we need to configure Memory Bank MCP Server.</p>
+
+<callout label="Create mcp.json config with Memory Bank MCP Server">
+1. Create .cursor folder in project if it doesn't exist.
+2. Create mcp.json file in .cursor folder with the following content:
+
+{
+    "mcpServers": {
+        "mcp-memory-bank": {
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/ipospelov/mcp-memory-bank",
+                "mcp_memory_bank"
+            ]
+        }
+    }
+}
+
+If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServers" array.
+</callout>
+
+<p>Now, we need to enable Memory Bank MCP Server in Cursor settings. Go to Cursor settings:</p>
+<p>
+    <ul>
+        <li>For Mac: Cursor → Settings → Cursor Settings → MCP Servers or CMD⌘ + Shift + P → Cursor Settings → MCP Servers</li>
+        <li>For Windows: Settings → Cursor Settings → MCP Servers or CTRL + Shift + P → Cursor Settings → MCP Servers</li>
+    </ul>
+</p>
+
+
+<p>After that, you should see the green checkmark on the server name as shown below:</p>
+
+<img style="margin: auto; display: block;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket/37-1-mcp-setup.png" alt="Memory Bank MCP Server Enabled" title="Memory Bank MCP Server Enabled">
+
+<h5>Alternative ways to setup Memory Bank MCP Server</h5>
+
+<p>Skip this section if you already have Memory Bank MCP Server configured with uvx.</p>
+
+<details>
+    <summary>Setup with Docker</summary>
+    <callout label="Ask Cursor to setup Memory Bank MCP Server with Docker">
+1. Create .cursor folder in project if it doesn't exist.
+2. Create mcp.json file in .cursor folder with the following content:
+
+{
+    "mcpServers": {
+        "memory-bank": {
+        "command": "docker",
+        "args": [
+            "run",
+            "-i",
+            "--rm",
+            "19283744/mcp-memory-bank:latest"
+        ]
+        }
+    }
+}
+
+If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServers" array.
+    </callout>
+</details>
+
+<details>
+    <summary>Setup with Smithery</summary>
+    <p>MCP Server deployment is available on <a href="https://smithery.ai/server/@ipospelov/mcp-memory-bank">Smithery</a> platform.</p>
+    <callout label="Ask Cursor to setup Memory Bank MCP Server with Smithery">
+1. Create .cursor folder in project if it doesn't exist.
+2. Create mcp.json file in .cursor folder with the following content:
+
+{
+    "mcpServers": {
+        "memory-bank": {
+        "command": "npx",
+        "args": [
+            "-y",
+            "@smithery/cli@latest",
+            "run",
+            "@ipospelov/mcp-memory-bank",
+            "--key",
+            "your_smithery_key"
+        ]
+        }
+    }
+}
+
+If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServers" array.
+    </callout>
+
+<warning>Don't forget to add your Smithery API key instead of "your_smithery_key" to the mcp.json file.</warning>
+</details>
+
+<h5>What's next?</h5>
+
+<p>Outcome of this stage:</p>
+
+<checkable-item title=".cursor/mcp.json is created">
+</checkable-item>
+<checkable-item title="mcp.json file has Memory Bank MCP Server configuration">
+</checkable-item>
+<checkable-item title="Memory Bank MCP Server is enabled in Cursor settings">
+</checkable-item>
+
+<p>Next, we will create and configure Memory Bank files.</p>

@@ -1,97 +1,79 @@
-<p>Now that we understand the Memory Bank concept, let's start creating our files. We'll begin with the most important file: projectbrief.md.</p>
+<p>In this stage, we will create our Snake game.</p>
 
-<h5>Setting Up the Rules Directory</h5>
+<h5>Convert instructions for Memory Bank into Cursor rule</h5>
 
-<p>First, let's create a directory for our Memory Bank rules:</p>
+<p>To make Memory Bank work better, let's convert instructions for Memory Bank into native .mdc Cursor rule.</p>
 
-<callout type="composer">
-Create a directory structure for our Memory Bank rules:
+<p>If you aren't familiar with Cursor rules, you can learn more in <a href="https://enlightby.ai/projects/35">Mastering Cursor Rules: From Basics to Advanced</a> project.</p>
 
-mkdir -p .cursor/rules/memory-bank
+<p>Let's ask Cursor to create a rule based on memory_bank_instructions.md file. We will also delete memory_bank_instructions.md file after the rule is created.</p>
+
+<callout label="Ask Cursor to create a rule based on memory_bank_instructions.md file">
+1. Create folder .cursor/rules if it doesn't exist
+2. Create memory_bank_instructions.mdc in .cursor/rules
+3. Copy @memory_bank_instructions.md content into memory_bank_instructions.mdc with cat tool
+4. Set 'always apply: true' for memory_bank_instructions.mdc - it's part of hidden markdown of .mdc files
+5. Delete @memory_bank_instructions.md file
 </callout>
 
-<h5>Creating projectbrief.md</h5>
+<warning>
+  Sometimes, Cursor may not create the rule correctly. If this happens, you can create the rule manually by copying the content of memory_bank_instructions.md file into memory_bank_instructions.mdc file.
+  Don't forget to set 'always apply: true' for memory_bank_instructions.mdc file.
+</warning>
 
-<p>Now, let's create the projectbrief.md file for our TodoMaster app:</p>
+<checkable-item title="memory_bank_instructions.mdc file is created"></checkable-item>
+<checkable-item title="memory_bank_instructions.mdc file is not empty"></checkable-item>
+<checkable-item title="memory_bank_instructions.mdc file is set to always apply"></checkable-item>
+<checkable-item title="Old .md file is deleted"></checkable-item>
 
-<callout type="composer">
-Create a file at .cursor/rules/memory-bank/projectbrief.md with the following content:
+<p>Let's also delete snake_game.md file since we don't need it anymore - it's replaced by Memory Bank files.</p>
 
----
-description: Project Brief for TodoMaster
-globs: *.js, *.html, *.css
-alwaysApply: true
----
-
-# Project Brief: TodoMaster
-
-## Overview
-TodoMaster is a simple web application that helps users organize and track their tasks.
-
-## Core Requirements
-- Create, edit, and delete tasks
-- Organize tasks into categories
-- Set due dates and priorities
-- Mark tasks as complete
-
-## Goals
-- Provide a clean, intuitive interface
-- Make task management quick and efficient
-- Help users stay organized
-
-## Scope
-- Web-based application
-- Single-user focus
-- Local storage for data persistence
-- NOT included: user accounts, sharing features
-
-## Success Criteria
-- Users can manage tasks in under 3 clicks
-- All data persists between sessions
-- Interface works on both desktop and mobile
+<callout label="Ask Cursor to delete snake_game.md file">
+  Delete snake_game.md file
 </callout>
 
-<p>This file establishes the foundation of our TodoMaster project. It defines:</p>
+<checkable-item title="snake_game.md file is deleted"></checkable-item>
 
-<ul>
-<li><strong>What</strong> we're building (a task management app)</li>
-<li><strong>Core features</strong> (task CRUD, categories, priorities)</li>
-<li><strong>Goals</strong> (clean interface, efficiency)</li>
-<li><strong>Scope</strong> (what's included and what's not)</li>
-<li><strong>Success criteria</strong> (how we'll know it's working well)</li>
-</ul><br>
+<h5>Create Snake game with Memory Bank</h5>
 
-<h5>Understanding the Rule Format</h5>
+<p>The funniest part of the project is now coming. We will create a Snake game with Memory Bank.</p>
 
-<p>Notice the metadata at the top of the file:</p>
+<p>Let's ask Cursor to create Snake game based on rules and memory bank files.</p>
 
-```
----
-description: Project Brief for TodoMaster
-globs: *.js, *.html, *.css
-alwaysApply: true
----
-```
+<p>We even don't need to specify the name of the app - Cursor will create it based on the rules and memory bank files.</p>
 
-<p>This tells Cursor:</p>
-<ul>
-<li>What this rule is for (description)</li>
-<li>Which files it applies to (globs)</li>
-<li>That it should always be applied (alwaysApply)</li>
-</ul><br>
+<callout label="Ask Cursor to create Snake game based on rules and memory bank files">
+Please build an app based on your rules and memory bank
+</callout>
 
-<h5>Completion Checklist</h5>
+<p>The process takes some time. After Cursor has finished, let's ask it to run the app.</p>
 
-<ul interactive>
-    <li title="Create rules directory">
-        Create the .cursor/rules/memory-bank directory<br>
-    </li>
-    <li title="Create projectbrief.md">
-        Create the projectbrief.md file with the provided content<br>
-    </li>
-    <li title="Verify file creation">
-        Check that the file was created successfully<br>
-    </li>
-</ul>
+<callout label="Ask Cursor to run the app">
+Run the app and show me the address where it is running
+</callout>
 
-<p>In the next stage, we'll create the productContext.md file to explain why our TodoMaster app exists and who it's for.</p>
+<p>Let's open the address in the browser using provided link and see the result.</p>
+
+<checkable-item title="Snake game is running"></checkable-item>
+
+<p>One of the most important features of Memory Bank is that it can self-update - check the changes in progress.md file and activeContext.md file.</p>
+
+<p>You can also ask Cursor to update it's state:</p>
+
+<callout label="Ask Cursor to update Memory Bank">
+Update memory bank
+</callout>
+
+<checkable-item title="Memory Bank is updated - progress.md and activeContext.md files are updated"></checkable-item>
+
+<h5>What's next?</h5>
+
+<p>In next stages, we will show how Memory Bank works while building new features - leaderboar and difficulty levels.</p>
+
+
+
+
+
+
+
+
