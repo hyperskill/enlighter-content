@@ -1,90 +1,49 @@
-<p>Now that we have our project brief, let's create the productContext.md file. This file explains why our TodoMaster app exists and who it's designed for.</p>
+<p>In this stage, we will add new features to our game - leaderboard and difficulty levels.</p>
 
-<h5>Understanding Product Context</h5>
+<h5>Create leaderboard</h5>
 
-<p>The productContext.md file answers these key questions:</p>
-<ul>
-<li>Why does this project exist?</li>
-<li>What problems does it solve?</li>
-<li>Who are the users?</li>
-<li>How should the product work from a user perspective?</li>
-</ul><br>
+<p>Let's show how Memory Bank works while building new features - leaderboard.</p>
 
-<h5>Creating productContext.md</h5>
-
-<p>Let's create the productContext.md file for our TodoMaster app:</p>
-
-<callout type="composer">
-Create a file at .cursor/rules/memory-bank/productContext.md with the following content:
-
----
-description: Product Context for TodoMaster
-globs: *.js, *.html, *.css
-alwaysApply: true
----
-
-# Product Context: TodoMaster
-
-## Problem Statement
-Many people struggle to keep track of their tasks and responsibilities. Paper lists get lost, and complex task management systems have steep learning curves. TodoMaster solves this by providing a simple, digital solution for task management.
-
-## User Personas
-
-### Busy Professional (Alex)
-- Has multiple responsibilities and deadlines
-- Needs to prioritize tasks effectively
-- Wants a quick way to see what's due soon
-- Values simplicity and efficiency
-
-### Student (Jamie)
-- Juggles assignments across different courses
-- Needs to organize tasks by subject/category
-- Wants to track progress on longer projects
-- Uses primarily on mobile devices
-
-## User Journeys
-
-### Task Creation
-1. User opens TodoMaster
-2. Clicks "Add Task" button
-3. Enters task details (title, category, due date, priority)
-4. Clicks "Save" to add the task to their list
-
-### Task Management
-1. User views their task list
-2. Filters or sorts tasks as needed
-3. Marks completed tasks with a single click
-4. Edits or deletes tasks as required
-
-## Value Proposition
-TodoMaster provides a clean, intuitive interface for managing tasks without the complexity of enterprise solutions or the limitations of paper lists.
+<callout label="Ask Cursor to create leaderboard">
+    Create leaderboard for the game. Store leaderboard in browser local storage
 </callout>
 
-<p>This file provides important context about:</p>
+<p>After the job is done, let's ask Cursor to run the app.</p>
 
-<ul>
-<li>The <strong>problem</strong> our app solves</li>
-<li>The <strong>users</strong> we're designing for</li>
-<li>How users will <strong>interact</strong> with our app</li>
-<li>The <strong>value</strong> our app provides</li>
-</ul><br>
+<callout label="Ask Cursor to run the app">
+    Run the app and show me the address where it is running
+</callout>
 
-<h5>Why This Matters</h5>
+<checkable-item title="Leaderboard is created"></checkable-item>
 
-<p>The productContext.md file helps Cursor understand the "why" behind our project. This context is crucial for generating appropriate suggestions and code that align with our user needs.</p>
+<p>Take a look at changes in Memory Bank files: you can probably see updates in progress.md, activeContext.md, productContext.md and projectbrief.md files.</p>
 
-<h5>Completion Checklist</h5>
+<h5>Create difficulty levels</h5>
 
-<ul interactive>
-    <li title="Create productContext.md">
-        Create the productContext.md file with the provided content<br>
-    </li>
-    <li title="Review user personas">
-        Review the user personas to ensure they represent your target users<br>
-    </li>
-    <li title="Check user journeys">
-        Verify that the user journeys cover the main interactions with the app<br>
-    </li>
-</ul>
+<p>Let's add difficulty levels to the game.</p>
 
-<p>In the next stage, we'll create the systemPatterns.md file to define how our TodoMaster app will be built technically.</p>
+<callout label="Ask Cursor to create difficulty levels">
+Create difficulty levels for the game. There should be 3 levels: easy, medium and hard with different speeds of the snake
+</callout>
+
+<p>After the job is done, let's ask Cursor to run the app.</p>
+
+<callout label="Ask Cursor to run the app">
+    Run the app and show me the address where it is running
+</callout>  
+
+<checkable-item title="Difficulty levels are created"></checkable-item>
+
+<p>The power of Memory Bank is that every change is recorded and you don't need to explain project's context every time you started new session.</p>
+
+<p>Let's ask Cursor to show what's are the next steps:</p>
+
+<callout label="Ask Cursor to show what's are the next steps">
+    What's are the next steps in my project?
+</callout>
+
+<checkable-item title="Next steps are shown"></checkable-item>
+
+<p>This way you can iterate over your project and add new features keeping the context of the project without any additional effort. Isn't it great?</p>
+
+<p>Let's move further to the final stage of the project.</p>

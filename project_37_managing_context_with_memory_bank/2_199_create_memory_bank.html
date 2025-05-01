@@ -1,0 +1,156 @@
+<p>In this stage, we will create and configure Memory Bank files.</p>
+
+<p>We will create a simple Snake game to demonstrate how Memory Bank works.</p>
+
+<h5>Create a file with project requirements</h5>
+
+<p>First of all, we will create a brief explanation of the project in free form. Don't overthink this step - we just need to provide a general idea of the project without any strict structure.</p>
+
+<p>This file will be used to generate Memory Bank files.</p>
+
+<callout label="Ask Cursor to create 'snake_game.md' file with the following content:">
+Create 'snake_game.md' file with the following content:
+
+Project: Browser-based Snake Game (MVP)
+
+1. Purpose & Scope
+Purpose: deliver a minimal, fully playable Snake game in a modern browser.
+Only includes the essential features needed for a functional Snake game; excludes all optional enhancements.
+
+2. MVP Features
+•	Game Initialization
+•	Snake of length 3 appears centered on a 20×20 grid.
+•	One food item spawns at a random empty cell.
+•	Core Game Loop
+•	Game updates every 150 ms by default.
+•	Each tick: move snake, detect collisions, render state.
+•	Controls & Direction Handling
+•	Arrow keys (and/or WASD) change direction.
+•	Disallow 180° reversals (e.g. left → right).
+•	Collision Detection & Game Over
+•	Hitting a wall or the snake’s own body triggers “Game Over.”
+•	On game over: pause loop, show overlay with final score, disable input until restart.
+•	Scoring Display
+•	Current score (number of food eaten) updates in real time above or beside the canvas.
+•	Restart Functionality
+•	“Restart” button resets the game to its initial state without reloading the page.
+•	Browser Compatibility
+•	Support latest two major versions of Chrome, Firefox, Edge and Safari.
+
+3. Functional Requirements
+•	FR-1: Initialize game state with snake length = 3 at grid center and one food item.
+•	FR-2: Implement a game loop that runs at a configurable interval (default 150 ms).
+•	FR-3: Capture and queue keyboard events for direction changes; prevent direct reversals.
+•	FR-4: On each tick:
+1.	Move snake head one cell in current direction.
+2.	Check for wall or self-collision → if so, trigger game-over flow.
+3.	If head lands on food: increment score, grow snake by one segment, spawn new food.
+4.	Render updated snake, food, and score.
+•	FR-5: Display a “Game Over” overlay with final score and a clickable “Restart” button.
+•	FR-6: Reset all state (snake position/length, score, food) when “Restart” is clicked.
+
+4. Non-Functional Requirements
+•	Canvas scales to fit viewport while preserving cell aspect ratio.
+•	Use ES6+ modules; separate game logic from rendering; include inline documentation.
+•	All interactive elements reachable via keyboard; minimal ARIA labels on buttons.
+
+5. Acceptance Criteria
+•	Player can move the snake using keyboard; snake cannot reverse direction 180°.
+•	Snake grows when eating food; score increments accordingly.
+•	Colliding with wall or self immediately stops the game and displays final score.
+•	“Restart” immediately resets and restarts gameplay.
+•	Works smoothly in Chrome, Firefox, Edge, and Safari without console errors.
+</callout>
+
+<checkable-item title="snake_game.md file is created">
+  Make sure that 'snake_game.md' file is created in the project directory.
+</checkable-item>
+
+<h5>Use 'snake_game.md' file to create Memory Bank files</h5>
+
+<p>Now, we will use 'snake_game.md' file to create Memory Bank files.</p>
+
+<callout label="Ask Cursor to create Memory Bank files">
+Based on @snake_game.md and your MCP tools, build a Memory Bank files
+</callout>
+
+<p>You will see the process of creating Memory Bank files in the chat: step by step it will create 7 files filled with content based on our requirements in @snake_game.md file:</p>
+
+<img src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket/37-2-files-creation.png" alt="Memory Bank files creation" />
+
+<checkable-item title="memory_bank folder is created"></checkable-item>
+<checkable-item title="Memory Bank files are created">
+  Make sure that 7 files are created in the project directory:
+  <ul>
+    <li>projectbrief.md</li>
+    <li>productContext.md</li>
+    <li>systemPatterns.md</li>
+    <li>techContext.md</li>
+    <li>activeContext.md</li>
+    <li>progress.md</li>
+    <li>memory_bank_instructions.md</li>
+  </ul>
+</checkable-item>
+
+<h5>Now let's overview created Memory Bank files</h5>
+
+<ol>
+  <strong>projectbrief.md</strong>
+  <li>The foundation document</li>
+  <li>Defines core requirements and goals</li>
+  <li>Serves as the source of truth for project scope</li>
+  <li>Created first and rarely changes</li>
+  <br />
+
+  <strong>productContext.md</strong>
+  <li>The "why" of your project</li>
+  <li>Explains why the project exists</li>
+  <li>Describes user needs and problems solved</li>
+  <li>Outlines user experience goals</li>
+  <br />
+
+  <strong>systemPatterns.md</strong>
+  <li>The "how" of your project</li>
+  <li>Documents system architecture</li>
+  <li>Records key technical decisions</li>
+  <li>Describes design patterns and component relationships</li>
+  <br />
+
+  <strong>techContext.md</strong>
+  <li>The tools and technologies</li>
+  <li>Lists technologies and frameworks used</li>
+  <li>Documents development setup</li>
+  <li>Records technical constraints</li>
+  <br />
+
+  <strong>activeContext.md</strong>
+  <li>The current state</li>
+  <li>Documents what you're working on right now</li>
+  <li>Records recent changes and next steps</li>
+  <li>Updated most frequently</li>
+  <br />
+
+  <strong>progress.md</strong>
+  <li>The project status</li>
+  <li>Tracks completed and in-progress features</li>
+  <li>Lists known issues</li>
+  <li>Records the evolution of project decisions</li>
+  <br />
+
+  <strong>memory_bank_instructions.md</strong>
+  <li>Instructions for Memory Bank</li>
+  <li>Describes how to use Memory Bank</li>
+  <li>Stays static and doesn't change</li>
+</ol>
+
+<h5>What's next?</h5>
+
+<p>In the next stage, we will use Memory Bank files to build a Snake game.</p>
+
+
+
+
+
+
+
+
