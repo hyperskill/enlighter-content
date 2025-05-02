@@ -6,9 +6,9 @@ This repository contains educational content for [Enlighter](https://enlightby.a
 
 ## 📚 Documentation
 
-* [Content markdown documentation](https://docs.google.com/document/d/1i8C5gUZSSsArFpDyg735-QBMmDlO1lKwxBrUJLq53BM/)
-* Markdown documentation as Cursor's native rule in `.cursor/rules/markdown.mdc`
-* Content structure as Cursor's native rule in `.cursor/rules/content_builder_instructions.mdc`
+1. [Content markdown documentation](https://docs.google.com/document/d/1i8C5gUZSSsArFpDyg735-QBMmDlO1lKwxBrUJLq53BM/)
+2. Markdown documentation as Cursor's rule in `.cursor/rules/markdown.mdc`
+3. Content structure as Cursor's rule in `.cursor/rules/content_builder_instructions.mdc`
 
 ---
 
@@ -22,11 +22,11 @@ Each project follows this structure:
 | Stage html file   | `<order_num>_<STAGE_ID>_<stage_title_snake>.html` | `3_256_set_up_backend.html` |
 
 **Key points:**
-* Each project consists of 5-15 sequential learning stages
-* Stages should take ≤20 minutes to complete
-* Each stage should contain ≤400 lines of content
-* More details on content structure can be found in `.cursor/rules/content_builder_instructions.mdc`
-* New projects and stages IDs have to be mocked with `ID`, for example `project_ID_realtime_chat`.
+1. Each project consists of 5-15 sequential learning stages
+2. Stages should take ≤20 minutes to complete
+3. Each stage should contain ≤400 lines of content
+4. More details on content structure can be found in `.cursor/rules/content_builder_instructions.mdc`
+5. New projects and stages IDs have to be mocked with `ID`, for example `project_ID_realtime_chat`.
 
 ---
 
