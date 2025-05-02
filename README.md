@@ -1,6 +1,6 @@
-# 🌟 Enlighter Content Repository
+# 🌟 Enlighter Content
 
-This repository contains educational content for the [Enlighter](https://enlightby.ai) - a platform to learn Vibe Coding.
+This repository contains educational content for [Enlighter](https://enlightby.ai) - a platform to learn Vibe Coding.
 
 ---
 
@@ -26,7 +26,7 @@ Each project follows this structure:
 * Stages should take ≤20 minutes to complete
 * Each stage should contain ≤400 lines of content
 * More details on content structure can be found in `.cursor/rules/content_builder_instructions.mdc`
-* New projects and stages IDs have to be mocked with `ID`, for example `project_ID_realtime_chat` 
+* New projects and stages IDs have to be mocked with `ID`, for example `project_ID_realtime_chat`.
 
 ---
 
@@ -40,7 +40,7 @@ Each project follows this structure:
    ```bash
    npm install
    ```
-   
+
 3. **Start the preview server with:**
    ```bash
    npm start
@@ -59,13 +59,16 @@ Each project follows this structure:
 
 1. **Follow Structure Guidelines**  
    Create content according to the markdown rules and project structure.
-   Use `<callout>` blocks for AI assistant interactions
+   Use `<callout>` blocks for AI assistant interactions.
+
+2. **Write Clear Instructions**  
+   Ensure your content provides clear, step-by-step instructions for learners.
 
 3. **Test Your Content**  
-   Verify formatting and functionality using the preview server
+   Verify formatting and functionality using the preview server.
 
 4. **Keep Content Focused**  
-   Ensure each project is concise and accomplishes a specific learning goal
+   Ensure each project is concise and accomplishes a specific learning goal.
 
 5. **Specify metadata**
 
@@ -74,8 +77,8 @@ Each project follows this structure:
    - Project description (2-3 sentences)
    - Short description (1 sentence)
    - Categories. For example: `Cursor IDE, Vibe Coding, RAG`
-   - Target IDE: [Cursor](https://www.cursor.com) or [JetBrain Junie](https://www.jetbrains.com/junie/)
-   
+   - Target IDE: [Cursor](https://www.cursor.com) or [JetBrains Junie](https://www.jetbrains.com/junie/)
+
    For stages:
    - Stage name
 
