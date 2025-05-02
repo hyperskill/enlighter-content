@@ -12,17 +12,27 @@
 1. Create folder .cursor/rules if it doesn't exist
 2. Create memory_bank_instructions.mdc in .cursor/rules
 3. Copy @memory_bank_instructions.md content into memory_bank_instructions.mdc with cat tool
-4. Set 'always apply: true' for memory_bank_instructions.mdc - it's part of hidden markdown of .mdc files
+4. Set 'alwaysApply: true' for memory_bank_instructions.mdc - it's part of hidden markdown of .mdc files
+
+To set 'alwaysApply: true' for memory_bank_instructions.mdc file, add following text in the beginning of the file:
+---
+description: How to use Memory Bank
+globs: *
+alwaysApply: true
+---
+
 5. Delete @memory_bank_instructions.md file
 </callout>
 
 <warning>
-Sometimes, Cursor may not create the rule correctly. If this happens, you can create the rule manually by copying the content of memory_bank_instructions.md file into memory_bank_instructions.mdc file. Don't forget to set 'always apply: true' for memory_bank_instructions.mdc file.
+Sometimes, Cursor may not create the rule correctly. If this happens, you can create the rule manually by copying the content of memory_bank_instructions.md file into memory_bank_instructions.mdc file. Don't forget to set "Rule type: Always" for memory_bank_instructions.mdc file.
 </warning>
 
 <checkable-item title="memory_bank_instructions.mdc file is created"></checkable-item>
 <checkable-item title="memory_bank_instructions.mdc file is not empty"></checkable-item>
-<checkable-item title="memory_bank_instructions.mdc file is set to always apply"></checkable-item>
+<checkable-item title="memory_bank_instructions.mdc file is set to always apply">
+  <img style="margin: auto; display: block;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket/37-3-always-apply.png" alt="memory_bank_instructions.mdc file is set to always apply" />
+</checkable-item>
 <checkable-item title="Old .md file is deleted"></checkable-item>
 
 <p>Let's also delete snake_game.md file since we don't need it anymore - it's replaced by Memory Bank files.</p>
@@ -46,6 +56,8 @@ Please build an app based on your rules and memory bank
 </callout>
 
 <p>The process takes some time. After Cursor has finished, let's ask it to run the app.</p>
+
+<warning>When you ask Cursor to run the app, pay attention to the command line where Cursor is running the app - it may ask you to install some packages or do some other actions required for the app to run.</warning>
 
 <callout label="Ask Cursor to run the app">
 Run the app and show me the address where it is running
