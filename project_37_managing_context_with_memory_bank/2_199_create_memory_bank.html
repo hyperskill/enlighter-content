@@ -28,12 +28,12 @@ Only includes the essential features needed for a functional Snake game; exclude
 •	Arrow keys (and/or WASD) change direction.
 •	Disallow 180° reversals (e.g. left → right).
 •	Collision Detection & Game Over
-•	Hitting a wall or the snake’s own body triggers “Game Over.”
+•	Hitting a wall or the snake's own body triggers "Game Over."
 •	On game over: pause loop, show overlay with final score, disable input until restart.
 •	Scoring Display
 •	Current score (number of food eaten) updates in real time above or beside the canvas.
 •	Restart Functionality
-•	“Restart” button resets the game to its initial state without reloading the page.
+•	"Restart" button resets the game to its initial state without reloading the page.
 •	Browser Compatibility
 •	Support latest two major versions of Chrome, Firefox, Edge and Safari.
 
@@ -46,8 +46,8 @@ Only includes the essential features needed for a functional Snake game; exclude
 2.	Check for wall or self-collision → if so, trigger game-over flow.
 3.	If head lands on food: increment score, grow snake by one segment, spawn new food.
 4.	Render updated snake, food, and score.
-•	FR-5: Display a “Game Over” overlay with final score and a clickable “Restart” button.
-•	FR-6: Reset all state (snake position/length, score, food) when “Restart” is clicked.
+•	FR-5: Display a "Game Over" overlay with final score and a clickable "Restart" button.
+•	FR-6: Reset all state (snake position/length, score, food) when "Restart" is clicked.
 
 4. Non-Functional Requirements
 •	Canvas scales to fit viewport while preserving cell aspect ratio.
@@ -58,7 +58,7 @@ Only includes the essential features needed for a functional Snake game; exclude
 •	Player can move the snake using keyboard; snake cannot reverse direction 180°.
 •	Snake grows when eating food; score increments accordingly.
 •	Colliding with wall or self immediately stops the game and displays final score.
-•	“Restart” immediately resets and restarts gameplay.
+•	"Restart" immediately resets and restarts gameplay.
 •	Works smoothly in Chrome, Firefox, Edge, and Safari without console errors.
 </callout>
 
@@ -96,56 +96,73 @@ Based on @snake_game.md and MCP tools, build a Memory Bank files
   </ul>
 </checkable-item>
 
-<h5>Now let's overview created Memory Bank files</h5>
+<h5>Overview Memory Bank files</h5>
 
+<p>
 <ol>
-  <strong>projectbrief.md</strong>
-  <li>The foundation document</li>
-  <li>Defines core requirements and goals</li>
-  <li>Serves as the source of truth for project scope</li>
-  <li>Created first and rarely changes</li>
-  <br />
+  <li><strong>projectbrief.md</strong>
+    <ul>
+      <li>The foundation document</li>
+      <li>Defines core requirements and goals</li>
+      <li>Serves as the source of truth for project scope</li>
+      <li>Created first and rarely changes</li>
+    </ul>
+  </li>
 
-  <strong>productContext.md</strong>
-  <li>The "why" of your project</li>
-  <li>Explains why the project exists</li>
-  <li>Describes user needs and problems solved</li>
-  <li>Outlines user experience goals</li>
-  <br />
+  <li><strong>productContext.md</strong>
+    <ul>
+      <li>The "why" of your project</li>
+      <li>Explains why the project exists</li>
+      <li>Describes user needs and problems solved</li>
+      <li>Outlines user experience goals</li>
+    </ul>
+  </li>
 
-  <strong>systemPatterns.md</strong>
-  <li>The "how" of your project</li>
-  <li>Documents system architecture</li>
-  <li>Records key technical decisions</li>
-  <li>Describes design patterns and component relationships</li>
-  <br />
+  <li><strong>systemPatterns.md</strong>
+    <ul>
+      <li>The "how" of your project</li>
+      <li>Documents system architecture</li>
+      <li>Records key technical decisions</li>
+      <li>Describes design patterns and component relationships</li>
+    </ul>
+  </li>
 
-  <strong>techContext.md</strong>
-  <li>The tools and technologies</li>
-  <li>Lists technologies and frameworks used</li>
-  <li>Documents development setup</li>
-  <li>Records technical constraints</li>
-  <br />
+  <li><strong>techContext.md</strong>
+    <ul>
+      <li>The tools and technologies</li>
+      <li>Lists technologies and frameworks used</li>
+      <li>Documents development setup</li>
+      <li>Records technical constraints</li>
+    </ul>
+  </li>
 
-  <strong>activeContext.md</strong>
-  <li>The current state</li>
-  <li>Documents what you're working on right now</li>
-  <li>Records recent changes and next steps</li>
-  <li>Updated most frequently</li>
-  <br />
+  <li><strong>activeContext.md</strong>
+    <ul>
+      <li>The current state</li>
+      <li>Documents what you're working on right now</li>
+      <li>Records recent changes and next steps</li>
+      <li>Updated most frequently</li>
+    </ul>
+  </li>
 
-  <strong>progress.md</strong>
-  <li>The project status</li>
-  <li>Tracks completed and in-progress features</li>
-  <li>Lists known issues</li>
-  <li>Records the evolution of project decisions</li>
-  <br />
+  <li><strong>progress.md</strong>
+    <ul>
+      <li>The project status</li>
+      <li>Tracks completed and in-progress features</li>
+      <li>Lists known issues</li>
+      <li>Records the evolution of project decisions</li>
+    </ul>
+  </li>
 
-  <strong>memory_bank_instructions.md</strong>
-  <li>Instructions for Memory Bank</li>
-  <li>Describes how to use Memory Bank</li>
-  <li>Stays static and doesn't change</li>
+  <li><strong>memory_bank_instructions.md</strong>
+    <ul>
+      <li>Instructions for Memory Bank</li>
+      <li>Describes how to use Memory Bank</li>
+      <li>Stays static and doesn't change</li>
+    </ul>
+  </li>
 </ol>
+</p>
 
 <h5>What's next?</h5>
 
