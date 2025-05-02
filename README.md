@@ -45,13 +45,11 @@ Each project follows this structure:
    ```bash
    npm start
    ```
-
-**Viewing Your Content:**
-1. Open your browser on [http://localhost:3333](http://localhost:3333)
-2. Select a project from the dropdown menu
-3. Choose a stage within that project
-4. The content will load automatically in the preview iframe
-5. Use "Refresh File List" to update when you add/modify projects or stages
+4. Open your browser at [http://localhost:3333](http://localhost:3333)
+5. Select a project from the dropdown menu
+6. Choose a stage within that project
+7. The content will load automatically in the preview frame
+8. Use "Refresh File List" to update when you add/modify projects or stages
 
 ---
 
