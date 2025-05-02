@@ -25,12 +25,3 @@ npm start
 3. Select a stage within that project
 4. The content will automatically load in the iframe
 5. Use the "Refresh File List" button to update the project and stage list
-
-## Cursor Setup
-
-1.  **Install Prettier Extension:** Open VS Code, go to the Extensions view (Ctrl+Shift+X or Cmd+Shift+X), search for "Prettier - Code formatter", and install it.
-2.  **Set Prettier as Default Formatter:**
-    - Open VS Code settings (File > Preferences > Settings or Cmd+,).
-    - Search for "Default Formatter".
-    - Select "Prettier - Code formatter" (esbenp.prettier-vscode) from the dropdown list.
-    - (Optional) Enable "Format On Save": Search for "Format On Save" and check the box. This will automatically format your code with Prettier every time you save a file.
