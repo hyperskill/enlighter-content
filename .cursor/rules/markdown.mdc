@@ -95,10 +95,10 @@ Use templates to include content from the /templates folder:
 
 Correct template usage:
 ```html
-<templ name="junie_attach_files"/>
+<content-template name="junie_attach_files"/>
 ```
 
 Incorrect template usage:
 ```html
-<templ name="junie_attach_files.html"/>
+<content-template name="junie_attach_files.html"/>
 ```
