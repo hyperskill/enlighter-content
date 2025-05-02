@@ -1,5 +1,9 @@
 # Project Setup
 
+## Documentation
+
+* [Content Markup Rules](https://docs.google.com/document/d/1i8C5gUZSSsArFpDyg735-QBMmDlO1lKwxBrUJLq53BM/)
+
 ## Local Environment Setup
 
 1.  **Install Node.js:** Ensure you have Node.js installed. You can download it from [https://nodejs.org/](https://nodejs.org/). We recommend using the latest LTS version.
