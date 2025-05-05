@@ -3,42 +3,46 @@
 <h5>MCP Architecture in Depth</h5>
 
 <p>MCP follows a client-server architecture with these components:</p>
-
 <ul>
 <li><strong>MCP Hosts</strong>: Programs like Cursor IDE that want to access data through MCP</li>
 <li><strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers</li>
 <li><strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized protocol</li>
 <li><strong>Data Sources</strong>: Your computer's files, databases, services, or remote APIs that MCP servers can access</li>
-</ul><br>
+</ul>
 
 <p>Think of MCP like a USB-C port for AI applications - it provides a standardized way to connect AI models to different data sources and tools. MCP servers act as bridges between the AI and external capabilities, expanding what you can accomplish with AI assistance in your development workflow.</p>
 
-<a href="https://modelcontextprotocol.io/introduction" target="_blank">General MCP architecture from official MCP documentation</a>
-<p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-architecture.png" alt="MCP Architecture" title="MCP Architecture"></p><br>
+<p><a href="https://modelcontextprotocol.io/introduction" target="_blank">General MCP architecture from official MCP documentation</a></p>
+<p><img style="margin: auto; display: block;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-architecture.png" alt="MCP Architecture" title="MCP Architecture"></p>
 
 <h5>Transport Formats: SSE vs STDIO</h5>
 
 <p>MCP servers can communicate with Cursor using two different transport formats:</p>
 
-<strong>SSE (Server-Sent Events):</strong><br>
+<p><strong>SSE (Server-Sent Events):</strong></p>
 <ul>
 <li>Used for web-based connections</li>
 <li>Enables real-time, one-way communication from server to client</li>
 <li>Better for services that run as standalone web servers</li>
 <li>Good for cloud-hosted or remote services</li>
-</ul><br>
+</ul>
 
-<strong>STDIO (Standard Input/Output):</strong><br>
+<p><strong>STDIO (Standard Input/Output):</strong></p>
 <ul>
 <li>Used for local processes</li>
 <li>Communications happen through standard input/output streams</li>
 <li>Simpler setup for local tools and commands</li>
 <li>More efficient for tools that run directly on your machine</li>
-</ul><br>
+</ul>
 
-<p>You can get more details about the difference between SSE and STDIO from AI:</p>
-<callout type="chat">
-  Explain the difference between SSE and STDIO for MCP servers in very simple terms
+<p>Let's download MCP documentation and ask Junie to explain the difference between SSE and STDIO based on the documentation:</p>
+<callout type="composer">
+  Download file content of https://modelcontextprotocol.io/llms-full.txt to mcp_documentation.txt. Use only terminal, do not create other scripts.
+</callout>
+
+<p>Now you can get more details about the difference between SSE and STDIO from AI:</p>
+<callout type="chat" include-file="mcp_documentation.txt">
+  Explain the difference between SSE and STDIO for MCP servers in very simple terms based on the content of @mcp_documentation.txt
 </callout>
 
 <p>

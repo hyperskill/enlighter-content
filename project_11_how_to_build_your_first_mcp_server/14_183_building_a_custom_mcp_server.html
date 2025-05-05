@@ -4,19 +4,19 @@
 
 <p>For this stage, we'll use two main tools:</p>
 
-<strong>MCP Python Package:</strong><br>
+<p><strong>MCP Python Package:</strong></p>
 <ul>
 <li><a href="https://github.com/modelcontextprotocol/python-sdk">Official Python SDK for building MCP servers</a></li>
 <li>Provides a standardized way to expose resources, tools, and prompts to LLMs</li>
 <li>Handles the protocol communication so we can focus on implementing functionality</li>
-</ul><br>
+</ul>
 
-<strong>uv Package Manager:</strong><br>
+<p><strong>uv Package Manager:</strong></p>
 <ul>
 <li>Modern Python package installer and resolver</li>
 <li>Significantly faster than pip for installing packages</li>
 <li>Better dependency resolution and virtual environment management</li>
-</ul><br>
+</ul>
 
 <p>Using these tools together will allow us to quickly create a functional MCP server with minimal boilerplate code.</p>
 
@@ -59,14 +59,14 @@ if __name__ == "__main__":
     mcp.run(transport='stdio')
 </callout>
 
-<checkable-item title="echo_server.py file created"></checkable-item>
-<checkable-item title="Content of echo_server.py file is the same as in the prompt"></checkable-item>
+<checkable-item title="<code>echo_server.py</code> file created"></checkable-item>
+<checkable-item title="Content of <code>echo_server.py</code> file is the same as in the prompt"></checkable-item>
 
 <h5>Understanding the MCP Components</h5>
 
 <p>There are core primitives that we implement in our server:</p>
 
-<strong>1. Resources (@mcp.resource):</strong><br>
+<p><strong>1. Resources (@mcp.resource):</strong></p>
 <ul>
 <li>How you expose data to LLMs</li>
 <li>Similar to GET endpoints in a REST API</li>
@@ -74,16 +74,16 @@ if __name__ == "__main__":
 <li>Should not have side effects</li>
 <li>Accessed via URI patterns like "echo://{message}"</li>
 <li>In our example, the resource returns the message with a "Resource echo:" prefix</li>
-</ul><br>
+</ul>
 
-<strong>2. Tools (@mcp.tool):</strong><br>
+<p><strong>2. Tools (@mcp.tool):</strong></p>
 <ul>
 <li>Let LLMs take actions through your server</li>
 <li>Expected to perform computation and have side effects</li>
 <li>Called directly by the AI when it needs to execute a specific function</li>
 <li>Examples include making API calls, updating data, or triggering workflows</li>
 <li>In our example, the tool returns the message with a "Tool echo:" prefix</li>
-</ul><br>
+</ul>
 
 <p>The MCP Python SDK makes it easy to implement these components using decorators, as shown in our echo server example.</p>
 
