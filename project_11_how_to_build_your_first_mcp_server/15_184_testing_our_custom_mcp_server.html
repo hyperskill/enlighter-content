@@ -2,7 +2,7 @@
 
 <h5>Adding the Echo Server to MCP Configuration</h5>
 
-<p>First, we need to add our custom MCP server to Cursor's project configuration. The same as before, we need to add the server to the .cursor/mcp.json file.</p>
+<p>First, we need to add our custom MCP server to Cursor's project configuration. The same as before, we need to add the server to the <code>.cursor/mcp.json</code> file.</p>
 
 <callout type="chat">Create or update the .cursor/mcp.json file with the following content:
 
@@ -28,25 +28,26 @@ Make sure the path to echo_server.py is correct relative to your project root.</
 
 <p>Open Cursor settings, navigate to "MCP Servers" in the settings panel and verify Echo server is listed and enabled. Click on Refresh button if yellow checkmark is shown.</p>
 
-<p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//enabled-custom-mcp.png" alt="MCP settings" title="MCP settings"></p>
+<p><img style="margin: auto; display: block; width: 800px;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//enabled-custom-mcp.png" alt="MCP settings" title="MCP settings"></p>
 
 <checkable-item title="Echo server is enabled and has green checkmark in MCP settings"></checkable-item>
 
 <p>If your servers are not listed or enabled:</p>
 
 <ol>
-    <li>Make sure the .cursor/mcp.json file is in the correct location<br></li>
-    <li>Check that the file paths in the configuration are correct<br></li>
-    <li>Verify that the echo_server.py file exists and has the correct content<br></li>
+    <li>Make sure the <code>.cursor/mcp.json</code> file is in the correct location</li>
+    <li>Check that the file paths in the configuration are correct</li>
+    <li>Verify that the <code>echo_server.py</code> file exists and has the correct content</li>
 </ol>
 
 <alert>
-  Please note that we use Python from virtual environment. Make sure the configuration of Echo server in .cursor/mcp.json uses the correct path to the python executable.
+  <p>
+  Please note that we use Python from virtual environment. Make sure the configuration of Echo server in <code>.cursor/mcp.json</code> uses the correct path to the python executable.
   If it is not the case, ask AI to help you to fix it:
+  </p>
   <callout type="chat">
     Fix the configuration of Echo server in .cursor/mcp.json to use python executable from my virtual environment. Also check that the path to echo_server.py is correct absolute path.
   </callout>
-
 </alert>
 
 <h5>Testing the Echo Tool</h5>
@@ -59,7 +60,7 @@ Make sure the path to echo_server.py is correct relative to your project root.</
 <checkable-item title="Echo tool response has format 'Tool echo: {message}'"></checkable-item>
 
 <p>Expected result would look like this:</p>
-<p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//echo-tool-expected-call.png" alt="Echo tool result" title="Echo tool result"></p>
+<p><img style="margin: auto; display: block;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//echo-tool-expected-call.png" alt="Echo tool result" title="Echo tool result"></p>
 
 <alert>
   If you encounter issues like "Client closed" or "Cannot connect to server" try to ask AI to help you to fix them:

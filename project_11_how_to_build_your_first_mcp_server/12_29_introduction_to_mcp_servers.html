@@ -9,33 +9,35 @@
 <li>Accessing external APIs and data sources</li>
 <li>Running specific commands on your system</li>
 <li>Browsing websites and taking screenshots</li>
-</ul><br>
+</ul>
 
 <h5>MCP Setup Options</h5>
 
 <p>There are three ways to configure MCP servers in Cursor:</p>
 
-<strong>1. In Cursor Settings:</strong><br>
+<p><strong>1. In Cursor Settings:</strong></p>
 <ul>
 <li>Access through Settings → MCP Servers</li>
 <li>Configure global MCP servers available in all projects</li>
-</ul><p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-settings.png" alt="Cursor MCP Settings" title="Cursor MCP Settings"></p><br>
+</ul>
+<p><img style="margin: auto; display: block; width: 800px;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//mcp-settings.png" alt="Cursor MCP Settings" title="Cursor MCP Settings"></p>
 
-<strong>2. Project-specific setup:</strong><br>
+<p><strong>2. Project-specific setup:</strong></p>
 <ul>
 <li>Create a <code>.cursor/mcp.json</code> file in your project root</li>
 <li>Servers defined here are only available in this specific project</li>
-</ul><strong>3. Global configuration:</strong><br>
+</ul>
+<p><strong>3. Global configuration:</strong></p>
 <ul>
 <li>Create a <code>~/.cursor/mcp.json</code> file</li>
 <li>Servers defined here are available in all your projects</li>
-</ul><br>
+</ul>
 
 <h5>MCP Configuration Format</h5>
 
 <p>The configuration format in <code>mcp.json</code> files follows this structure:</p>
 
-<pre>{
+<pre><code>{
   "mcpServers": {
     "serverName": {
       "command": "executable",
@@ -44,7 +46,7 @@
       "transport": "stdio" // or "sse"
     }
   }
-}</pre>
+}</code></pre>
 
 <p>Where:</p>
 
@@ -54,7 +56,7 @@
 <li><code>args</code>: Command line arguments</li>
 <li><code>env</code>: Environment variables</li>
 <li><code>transport</code>: Communication protocol (usually "stdio")</li>
-</ul><br>
+</ul>
 
 <h5>Setting Up Playwright MCP</h5>
 
@@ -104,13 +106,13 @@
 </alert>
 
 <ul interactive>
-	<li title=".cursor/mcp.json is created"></li>
-	<li title=".cursor/mcp.json is configured as defined above"></li>
+	<li title="<code>.cursor/mcp.json</code> is created"></li>
+	<li title="<code>.cursor/mcp.json</code> is configured as defined above"></li>
 </ul>
 
 <p>After the file is created, check the settings to see the new MCP server:</p>
 
-<p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//11-1-playwright-enabled.png" alt="Cursor MCP Settings" title="Cursor MCP Settings"></p><br>
+<p><img style="margin: auto; display: block;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//11-1-playwright-enabled.png" alt="Cursor MCP Settings" title="Cursor MCP Settings"></p>
 
 <p>Click on the toggle button to enable the server. After that, you should see the green checkmark on the server name as shown above.</p>
 
