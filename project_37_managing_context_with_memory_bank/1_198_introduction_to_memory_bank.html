@@ -74,22 +74,20 @@ If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServe
 </callout>
 
 <p>Now, we need to enable Memory Bank MCP Server in Cursor settings. Go to Cursor settings:</p>
-<p>
-    <ul>
-        <li>For Mac: Cursor → Settings → Cursor Settings → MCP Servers or CMD⌘ + Shift + P → Cursor Settings → MCP Servers</li>
-        <li>For Windows: Settings → Cursor Settings → MCP Servers or CTRL + Shift + P → Cursor Settings → MCP Servers</li>
-    </ul>
-</p>
-
+<ul>
+    <li>For Mac: Cursor → Settings → Cursor Settings → MCP Servers or <code>CMD⌘ + Shift + P</code> → Cursor Settings → MCP Servers</li>
+    <li>For Windows: Settings → Cursor Settings → MCP Servers or <code>CTRL + Shift + P</code> → Cursor Settings → MCP Servers</li>
+</ul>
 
 <p>After that, you should see the green checkmark on the server name as shown below:</p>
 
-<img style="margin: auto; display: block;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket/37-1-mcp-setup.png" alt="Memory Bank MCP Server Enabled" title="Memory Bank MCP Server Enabled">
+<p><img style="margin: auto; display: block;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket/37-1-mcp-setup.png" alt="Memory Bank MCP Server Enabled" title="Memory Bank MCP Server Enabled"></p>
 
 <h5>Alternative ways to setup Memory Bank MCP Server</h5>
 
 <p>Skip this section if you already have Memory Bank MCP Server configured with uvx.</p>
 
+<alert>
 <details>
     <summary>Setup with Docker</summary>
     <callout label="Ask Cursor to setup Memory Bank MCP Server with Docker">
@@ -113,7 +111,9 @@ If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServe
 If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServers" array.
     </callout>
 </details>
+</alert>
 
+<alert>
 <details>
     <summary>Setup with Smithery</summary>
     <p>MCP Server deployment is available on <a href="https://smithery.ai/server/@ipospelov/mcp-memory-bank">Smithery</a> platform.</p>
@@ -142,14 +142,14 @@ If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServe
 
 <warning>Don't forget to add your Smithery API key instead of "your_smithery_key" to the mcp.json file.</warning>
 </details>
-
+</alert>
 <h5>What's next?</h5>
 
 <p>Outcome of this stage:</p>
 
-<checkable-item title=".cursor/mcp.json is created">
+<checkable-item title="<code>.cursor/mcp.json</code> is created">
 </checkable-item>
-<checkable-item title="mcp.json file has Memory Bank MCP Server configuration">
+<checkable-item title="<code>mcp.json</code> file has Memory Bank MCP Server configuration">
 </checkable-item>
 <checkable-item title="Memory Bank MCP Server is enabled in Cursor settings">
 </checkable-item>
