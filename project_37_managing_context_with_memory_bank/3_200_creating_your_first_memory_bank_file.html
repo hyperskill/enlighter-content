@@ -6,13 +6,13 @@
 
 <p>If you aren't familiar with Cursor rules, you can learn more in <a href="https://enlightby.ai/projects/35">Mastering Cursor Rules: From Basics to Advanced</a> project.</p>
 
-<p>Let's ask Cursor to create a rule based on memory_bank_instructions.md file. We will also delete memory_bank_instructions.md file after the rule is created.</p>
+<p>Let's ask Cursor to create a rule based on <code>memory_bank_instructions.md</code> file. We will also delete <code>memory_bank_instructions.md</code> file after the rule is created.</p>
 
 <callout label="Ask Cursor to create a rule based on memory_bank_instructions.md file">
 1. Create folder .cursor/rules if it doesn't exist
 2. Create memory_bank_instructions.mdc in .cursor/rules
 3. Copy @memory_bank_instructions.md content into memory_bank_instructions.mdc with cat tool
-4. Set 'alwaysApply: true' for memory_bank_instructions.mdc - it's part of hidden markdown of .mdc files
+4. Set 'alwaysApply: true' for memory_bank_instructions.mdc – it's part of hidden markdown of .mdc files
 
 To set 'alwaysApply: true' for memory_bank_instructions.mdc file, add following text in the beginning of the file:
 ---
@@ -27,23 +27,23 @@ It's hidden markdown of .mdc files so don't worry if it's not visible, proceed w
 </callout>
 
 <warning>
-Sometimes, Cursor may not create the rule correctly. If this happens, you can create the rule manually by copying the content of memory_bank_instructions.md file into memory_bank_instructions.mdc file. Don't forget to set "Rule type: Always" for memory_bank_instructions.mdc file.
+Sometimes, Cursor may not create the rule correctly. If this happens, you can create the rule manually by copying the content of <code>memory_bank_instructions.md</code> file into <code>memory_bank_instructions.mdc</code> file. Don't forget to set "Rule type: Always" for <code>memory_bank_instructions.mdc</code> file.
 </warning>
 
-<checkable-item title="memory_bank_instructions.mdc file is created"></checkable-item>
-<checkable-item title="memory_bank_instructions.mdc file is not empty"></checkable-item>
-<checkable-item title="memory_bank_instructions.mdc file is set to always apply">
-  <img style="margin: auto; display: block;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket/37-3-always-apply.png" alt="memory_bank_instructions.mdc file is set to always apply" />
+<checkable-item title="<code>memory_bank_instructions.mdc</code> file is created"></checkable-item>
+<checkable-item title="<code>memory_bank_instructions.mdc</code> file is not empty"></checkable-item>
+<checkable-item title="<code>memory_bank_instructions.mdc</code> file is set to always apply">
+  <img style="margin: auto; display: block; width: 600px;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket/37-3-always-apply.png" alt="memory_bank_instructions.mdc file is set to always apply" />
 </checkable-item>
-<checkable-item title="Old .md file is deleted"></checkable-item>
+<checkable-item title="Old <code>.md</code> file is deleted"></checkable-item>
 
-<p>Let's also delete snake_game.md file since we don't need it anymore - it's replaced by Memory Bank files.</p>
+<p>Let's also delete <code>snake_game.md</code> file since we don't need it anymore – it's replaced by Memory Bank files.</p>
 
 <callout label="Ask Cursor to delete snake_game.md file">
   Delete snake_game.md file
 </callout>
 
-<checkable-item title="snake_game.md file is deleted"></checkable-item>
+<checkable-item title="<code>snake_game.md</code> file is deleted"></checkable-item>
 
 <h5>Create Snake game with Memory Bank</h5>
 
@@ -51,7 +51,7 @@ Sometimes, Cursor may not create the rule correctly. If this happens, you can cr
 
 <p>Let's ask Cursor to create Snake game based on rules and memory bank files.</p>
 
-<p>We even don't need to specify the name of the app - Cursor will create it based on the rules and memory bank files.</p>
+<p>We even don't need to specify the name of the app – Cursor will create it based on the rules and memory bank files.</p>
 
 <callout label="Ask Cursor to create Snake game based on rules and memory bank files">
 Please build an app based on your rules and memory bank
@@ -59,7 +59,7 @@ Please build an app based on your rules and memory bank
 
 <p>The process takes some time. After Cursor has finished, let's ask it to run the app.</p>
 
-<warning>When you ask Cursor to run the app, pay attention to the command line where Cursor is running the app - it may ask you to install some packages or do some other actions required for the app to run.</warning>
+<warning>When you ask Cursor to run the app, pay attention to the command line where Cursor is running the app – it may ask you to install some packages or do some other actions required for the app to run.</warning>
 
 <callout label="Ask Cursor to run the app">
 Run the app and show me the address where it is running
@@ -69,7 +69,7 @@ Run the app and show me the address where it is running
 
 <checkable-item title="Snake game is running"></checkable-item>
 
-<p>One of the most important features of Memory Bank is that it can self-update - check the changes in progress.md file and activeContext.md file.</p>
+<p>One of the most important features of Memory Bank is that it can self-update – check the changes in <code>progress.md</code> file and <code>activeContext.md</code> file.</p>
 
 <p>You can also ask Cursor to update it's state:</p>
 
@@ -77,16 +77,8 @@ Run the app and show me the address where it is running
 Update memory bank
 </callout>
 
-<checkable-item title="Memory Bank is updated - progress.md and activeContext.md files are updated"></checkable-item>
+<checkable-item title="Memory Bank is updated – <code>progress.md</code> and <code>activeContext.md</code> files are updated"></checkable-item>
 
 <h5>What's next?</h5>
 
-<p>In next stages, we will show how Memory Bank works while building new features - leaderboard and difficulty levels.</p>
-
-
-
-
-
-
-
-
+<p>In next stages, we will show how Memory Bank works while building new features – leaderboard and difficulty levels.</p>
