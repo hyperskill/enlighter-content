@@ -1,8 +1,8 @@
 <p>You are ready to generate the application.</p>
 <p>First, let's check:</p>
 <ol interactive>
-<li title="You have enabled YOLO mode"></li>
-<li title="Your Chat is in 'agent' mode"></li>
+<li title="You have enabled <code>auto-run</code> mode"></li>
+<li title="Your Chat is in <code>agent</code> mode"></li>
 </ol>
 
 <p>If yes, it is enough to run this prompt:</p>
@@ -16,6 +16,7 @@ Create an app based on requirements @project-rules.txt. Make every piece of func
 <callout type="chat" include-file="project-rules.txt">
 Run this application. If an error occurred, try to fix it and then run the application again.</callout>
 
+<alert>
 <details>
 <summary>What if it doesn't work?</summary>
 <div>
@@ -26,3 +27,4 @@ Run this application. If an error occurred, try to fix it and then run the appli
 <p>In this case, please open a new Chat and continue fixing the app. Don't forget to check if <code>project-rules.txt</code> is added to make the Chat context work properly.</p>
 </div>
 </details>
+</alert>
