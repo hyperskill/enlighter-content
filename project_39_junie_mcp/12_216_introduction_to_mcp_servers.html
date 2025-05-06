@@ -88,13 +88,13 @@
   <li title="After the file is configured, restart Claude Desktop"></li>
 </ul>
 
-<p>Now you will see hammer icon:</p>
+<p>Now you should see Playwright MCP server under chat settings button:</p>
 
-<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/81a01572-665b-4ced-95d3-a37efbe302ce/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Settings" title="Claude MCP Settings"></p>
+<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/95696c77-c009-4a2b-85ea-43f7b69ccd73/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Settings" title="Claude MCP Settings"></p>
 
-<p>Click on the hammer icon to see available tools:</p>
+<p>Click on the Playwright MCP list element to see available tools:</p>
 
-<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/0f89021c-98e0-411e-9994-3b2b8c3a627b/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Tools" title="Claude MCP Tools"></p>
+<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/4b3a0cfa-4b06-4baf-aacb-4d79275468a2/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Tools" title="Claude MCP Tools"></p>
 
 <checkable-item title="Playwright MCP tools are listed"></checkable-item>
 
@@ -102,14 +102,15 @@
 
 <p>Now that we've set up our Playwright MCP server, let's test it by asking the AI to use it to check the weather in New York.</p>
 
-<callout label="Ask chat in Claude Desktop" type="chat">
-  Using the playwright MCP tools, navigate to weather.com and check the current temperature in New York City.
-</callout>
-
-<checkable-item title="Claude Desktop uses Playwright MCP server to navigate in browser">
+<checkable-item title="Execute following prompt in <strong>Claude Desktop</strong>">
 </checkable-item>
+<pre><code>Using the playwright MCP tools, navigate to weather.com and check the current temperature in New York City.</code></pre>
+
+<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/42d3c466-369b-4a79-b752-bd3bd618382b/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Tools" title="Claude MCP Tools"></p>
 
 <p>If everything is set up correctly, the AI should be able to use the Playwright tools to open a browser, navigate to Wikipedia and answer the question.</p>
+<checkable-item title="Claude Desktop uses Playwright MCP server to navigate in browser">
+</checkable-item>
 
 <alert>Browsing with Playwright is not so fast. Give it a time to do the task.</alert>
 
