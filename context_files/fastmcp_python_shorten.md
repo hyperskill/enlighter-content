@@ -1,41 +1,36 @@
-# Building an MCP Server with Python & UV
-
----
+# Building an MCP Server with Python & UV
 
 ## What Is MCP?
 
-Model Context Protocol (MCP) is a **client‑server protocol** that lets host applications (IDEs, chats, desktop assistants) stream **context, prompts, tools, and resources** to language models.
-**Goal:** decouple “where the user works” (host) from “where the AI context lives” (server).
+Model Context Protocol (MCP) is a **client-server protocol** that lets host applications (IDEs, chats, desktop assistants) stream **context, prompts, tools, and resources** to language models.
 
 | Term       | Role                                                 |
 | ---------- | ---------------------------------------------------- |
-| **Host**   | End‑user app (e.g. Claude Desktop, VS Code)          |
-| **Client** | 1‑per‑connection wrapper inside the host             |
+| **Host**   | End-user app (e.g. Claude Desktop, VS Code)          |
+| **Client** | 1-per-connection wrapper inside the host             |
 | **Server** | Python process you write; supplies prompts/resources |
-
-*Transport layer* carries **JSON‑RPC 2.0** messages over **stdio** (local) or **HTTP + SSE** (remote).
 
 ## Message & Error Basics
 
-Every request/response is JSON‑RPC 2.0.  Standard error codes:
+Every request/response is JSON-RPC 2.0. Standard error codes:
 
-```ts
-ParseError      = -32700
-InvalidRequest  = -32600
-MethodNotFound  = -32601
-InvalidParams   = -32602
-InternalError   = -32603
-```
+| Error Code      | Value   |
+| --------------- | ------- |
+| ParseError      | -32700  |
+| InvalidRequest  | -32600  |
+| MethodNotFound  | -32601  |
+| InvalidParams   | -32602  |
+| InternalError   | -32603  |
 
-## Project Setup with UV/UVX
+## Project Setup with UV/UVX
 
 ```bash
-mkdir my‑mcp‑srv && cd $_
+mkdir my-mcp-srv && cd $_
 uv init                 # pyproject.toml + venv
-uv add mcp              # install python‑mcp package
+uv add mcp              # install python-mcp package
 ```
 
-> **Tip:** `uv` is a package manager and runner. `uvx` launches console‑scripts from virtual envs.
+> **Tip:** `uv` is a package manager and runner. `uvx` launches console-scripts from virtual envs.
 
 ## Server Example
 
@@ -74,7 +69,7 @@ if __name__ == "__main__":
     main()
 ```
 
-Add an entry‑point in `pyproject.toml` so `uvx` can find it:
+Add an entry-point in `pyproject.toml` so `uvx` can find it:
 
 ```toml
 [project.scripts]
@@ -95,7 +90,6 @@ uvx --from . server
 @mcp.prompt()
 def review_code(code: str) -> str:
     return f"Please review this code:\n\n{code}"
-
 ```
 
 A client calls `prompts/get` with arguments; you return a list of `PromptMessage` objects (role+content) that will feed the LLM.
@@ -127,9 +121,11 @@ if __name__ == "__main__":
 
 Run it with:
 
-`python server.py`
+```bash
+python server.py
 # or
-`mcp run server.py`
+mcp run server.py
+```
 
 ## Debugging & Inspector
 
@@ -146,24 +142,13 @@ Create `mcp.json` next to the host app config:
   "mcpServers": {
     "demo": {
       "command": "uvx",
-      "args": ["--from", "/abs/path/to/my‑mcp‑srv", "server"]
+      "args": ["--from", "/abs/path/to/my-mcp-srv", "server"]
     }
   }
 }
 ```
 
-## Best Practices
-
-1. **Name things clearly** – prompts, URIs, errors.
-2. **Validate params**; return `InvalidParams` if missing.
-3. **Cache** expensive resource reads.
-4. **Version** prompt templates when you change wording.
-5. **Log** every request/response at `debug`; redact secrets.
-6. **Unit‑test** endpoints with `asyncio` & `pytest`.
-
----
-
-### Full Docs
+## Full Docs
 
 * MCP Spec & examples: https://modelcontextprotocol.io/llms.txt
 * Inspector: https://modelcontextprotocol.io/docs/tools/inspector.md
