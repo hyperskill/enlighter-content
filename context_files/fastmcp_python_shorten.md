@@ -32,12 +32,14 @@ uv add mcp              # install python-mcp package
 
 `uv init` command creates a default project and sets up the necessary structure to manage your Python dependencies, it includes:
 
+```
 my_project/
 │
 ├── pyproject.toml      # Main config file for dependencies and settings
 ├── README.md           # Project description and documentation 
 └── src/                # Main source code directory
     └── __init__.py     # Initializes src as a Python package
+```
 
 ## Server Example
 
@@ -99,11 +101,9 @@ def review_code(code: str) -> str:
     return f"Please review this code:\n\n{code}"
 ```
 
-A client calls `prompts/get` with arguments; you return a list of `PromptMessage` objects (role+content) that will feed the LLM.
-
 ## Resources
 
-Resources expose **files, logs, API data** to the model.
+Resources are how you expose data to LLMs. They're similar to GET endpoints in a REST API - they provide data but shouldn't perform significant computation or have side effects:
 
 ```python
 @mcp.resource("users://{user_id}/profile")
@@ -112,18 +112,18 @@ def get_user_profile(user_id: str) -> str:
     return f"Profile data for user {user_id}"
 ```
 
-* URI scheme is arbitrary; just keep it stable.
-* Use `resources/subscribe` + `notifications/resources/updated` for live data.
-
 ### Run MCP Server with UV
 
 Use `--from` option to run from alternative sources:
 
-`uvx --from path_to_package your_package_name` where `your_package_name` is defined in pyproject.toml
+```bash
+uvx --from path_to_package your_package_name
+``` 
+where `your_package_name` is defined in pyproject.toml
 
 ## Run MCP Server from GitHub with uv
 
-`uvx --from git+https://github.com/username/you_repo_name your_package_name`
+```uvx --from git+https://github.com/username/you_repo_name your_package_name```
 
 ## Debugging & Inspector
 
