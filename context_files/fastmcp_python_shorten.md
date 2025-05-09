@@ -30,7 +30,14 @@ uv init                 # pyproject.toml + venv
 uv add mcp              # install python-mcp package
 ```
 
-> **Tip:** `uv` is a package manager and runner. `uvx` launches console-scripts from virtual envs.
+`uv init` command creates a default project and sets up the necessary structure to manage your Python dependencies, it includes:
+
+my_project/
+│
+├── pyproject.toml      # Main config file for dependencies and settings
+├── README.md           # Project description and documentation 
+└── src/                # Main source code directory
+    └── __init__.py     # Initializes src as a Python package
 
 ## Server Example
 
@@ -84,7 +91,7 @@ uvx --from . server
 
 ## Prompts
 
-*Prompts* are **reusable templates** exposed by the server and surfaced by the client (slash commands, buttons, etc.).
+Prompts are **reusable templates** exposed by the server and surfaced by the client (slash commands, buttons, etc.).
 
 ```python
 @mcp.prompt()
@@ -108,24 +115,15 @@ def get_user_profile(user_id: str) -> str:
 * URI scheme is arbitrary; just keep it stable.
 * Use `resources/subscribe` + `notifications/resources/updated` for live data.
 
-## Running your code
+### Run MCP Server with UV
 
-```python
-from mcp.server.fastmcp import FastMCP
+Use `--from` option to run from alternative sources:
 
-mcp = FastMCP("My App")
+`uvx --from path_to_package your_package_name` where `your_package_name` is defined in pyproject.toml
 
-if __name__ == "__main__":
-    mcp.run()
-```
+## Run MCP Server from GitHub with uv
 
-Run it with:
-
-```bash
-python server.py
-# or
-mcp run server.py
-```
+`uvx --from git+https://github.com/username/you_repo_name your_package_name`
 
 ## Debugging & Inspector
 
