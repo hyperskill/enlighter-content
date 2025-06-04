@@ -82,6 +82,46 @@ This MCP helps to automatically create memory bank files in your project.<br><br
 
 <p>You can also set up the Memory Bank MCP manually with <a href="https://github.com/aidecentralized/nanda-servers/tree/main/mcp-setup-helper">GitHub repository</a>.</p>
 
+<h5>Running the Server</h5>
+
+<p>You can run the server using the provided script:</p>
+<pre><code>
+#!/bin/bash
+
+# Install dependencies if needed
+if [ ! -d "venv" ]; then
+    echo "Creating virtual environment..."
+    python -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+else
+    source venv/bin/activate
+fi
+
+# Run the server
+echo "Starting Memory Bank Helper MCP Server..."
+python server.py
+</code></pre>
+<p>Or manually:</p>
+<pre><code>
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python server.py
+</code></pre>
+<p>The server will be available at http://localhost:8080/sse.</p>
+
+<h5>MCP .json setup example</h5>
+<callout type="chat">
+{
+  "mcpServers": {
+    "memory-bank": {
+      "url": "http://localhost:8080/sse"
+    }
+  }
+}
+</callout>
+
 <h5>Practical Example: Using Memory Bank in Cursor</h5>
 
 <callout type="chat">Create a memory bank for TODO list app with your tools</callout>
