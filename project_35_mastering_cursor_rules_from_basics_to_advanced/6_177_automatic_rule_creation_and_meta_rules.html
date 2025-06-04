@@ -9,7 +9,7 @@
 <p>We'll create a rule that ensures all rules are properly located in the .cursor/rules directory:</p>
 
 <callout type="chat">
-Create a new rule file called rules-location.mdc in .cursor/rules folder, set the rule type to “always”, add the following content:
+Create a new rule file called rules-location.mdc in .cursor/rules folder, add the following content:
 
 # Cursor Rules Location
 
@@ -18,13 +18,9 @@ Locate all rules in .cursor/rules
 Apply this rule for every edit or create rule
 </callout>
 
-<p>In this prompt, we ask you to set the Rule Type for the file to “always”. As a result, the rule should have the option “alwaysApply” with the value “true”. We need to talk more about what this means.</p>
+<p>Here we want to set the Rule Type for the file to “Always” as we want to apply this rule to every request. We recommend to set it manually in Cursor as the most reliable way to set the rule type.</p>
 
-<h5>Understanding alwaysApply</h5>
-
-<p><code>alwaysApply: true</code> setting is a powerful feature that makes a rule apply to <em>every</em> request, regardless of context.</p>
-
-<h5>When to Use alwaysApply</h5>
+<h5>When to Use "Always" (alwaysApply: true)</h5>
 
 <p>The alwaysApply setting is most useful for:</p>
 

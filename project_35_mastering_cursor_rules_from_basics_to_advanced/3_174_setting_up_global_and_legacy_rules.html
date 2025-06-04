@@ -11,43 +11,34 @@
 <li><code>Manual</code> - the agent will apply the rule only if you mention the rule in the request using the <code>@</code> symbols</li>
 </ul>
 
+<alert>⚠️ “Always” applied rules consume extra tokens on every call — we recommend to keep them short (&lt;≈ 500 lines) or Cursor may truncate them.</alert>
+
 <p>The Cursor interface hides the textual definition of these rules, but if you open an .mdc file in another editor, you will see options at the beginning of the file that specify these settings:</p>
+
+<p>
+    <ul>
+        <li><code>alwaysApply</code> <em>(Boolean)</em> - set to <code>true</code> to make the rule type <strong>Always</strong> (injected into every AI request). Leave as <code>false</code> when the rule should load conditionally (Auto-Attached, Agent-Requested, or Manual).</li>
+        <li><code>globs</code> <em>(String[])</em> - an array of file-path patterns that trigger an <strong>Auto-Attached</strong> rule. Supports wildcards (<code>*</code>, <code>**</code>) and negation (<code>!tests/**</code>).</li>
+        <li><code>description</code> <em>(String)</em> - a one-line summary the agent matches on. Mandatory for <strong>Agent-Requested</strong> rules and recommended for all rules to improve relevance.</li>
+    </ul>
+</p>
 
 <div>
 <p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//rules-04.png" alt="" title=""></p>
 </div>
 
 <p>
-If the “alwaysApply” option is set to “true”, the Rule Type will be defined as “Always”. If you set “alwaysApply” to “false” and describe only the “description” field, the Rule Type will become “Agent Requested”. If you set “alwaysApply” to “false” and describe only the “globs” field, the Rule Type will become “Auto Attached”. If you set “alwaysApply” to “false” and describe all or none of the other options, the Rule Type will become “Manual”.
+    If <code>alwaysApply: true</code> the rule type is Always (loaded on every request).
+    If <code>alwaysApply: false</code> and you supply a <code>globs</code> array, it’s Auto-Attached (loads only when the active file matches).
+    If <code>alwaysApply: false</code> with no globs, Cursor treats it as Agent-Requested—the agent decides to load it when the <code>description</code> seems relevant (so keep that line concise and descriptive).
+    Any other combination defaults to Manual; you must reference it in chat with <code>@RuleName</code> to load it.
 </p>
 
-<p>To set the Rule Type with a simple query to the agent, describe this mapping as a global rule for the cursor. In the <code>User Rules</code> input field inside Cursor Settings and inside the <code>.cursorrules</code> file, add this line:</p>
+<p>The hidden markup of the rules files make it hard for agents to change them via agent command. To reliably set the rule type we recommend to do it via Cursor UI.</p>
 
-<alert>
-When user tries to set cursor rule type in .cursor/rules/*.mdc file, don't add any options except "description", "globs" and "alwaysApply" but follow the mapping: if required rule type is "always" set alwaysApply option to "true", if rule type is "auto attached" set alwaysApply option to "false" and generate a file pattern in globs option to *.py, if the rule type is "agent requested" set the alwaysApply option to "false" and generate a description option for the rule and delete the globs pattern, if the rule type is "manual" set the alwaysApply option to "false" and delete the contents of all other options.
-</alert>
+<p>Now let's set the Rule Type for the <code>@coding-standards.mdc</code> file to Auto Attached with pattern <code>**/*.py</code>:</p>
 
-<div>
-<p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//rules-02.png" alt="" title=""></p>
-</div>
-
-<div>
-<p><img style="margin: auto; display: block; " src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//rules-03.png" alt="" title=""></p>
-</div>
-
-<p>You can now manage Rule Types through the agent. For example, this prompt:</p>
-
-<callout type="chat">
-    Set the Rule Type for the @coding-standards.mdc file to always
-</callout>
-
-<p>Or more appropriate for python language standards:</p>
-
-<callout type="chat">
-    Set the Rule Type for the @coding-standards.mdc file to Auto Attached with pattern **/*.py
-</callout>
-
-<p>Using the setting from the second prompt allows the rule to be applied only to Python files.</p>
+<p>Using these setting allows the rule to be applied only to Python files.</p>
 
 <strong style="font-size: 15px;">If you need other files, you can list them too. Here are examples:</strong>
 
@@ -63,10 +54,10 @@ When user tries to set cursor rule type in .cursor/rules/*.mdc file, don't add a
 
 <ul interactive>
     <li title="Check global rules">
-        The mapping for the Rule Type control is described in global rule<br>
     </li>
-    <li title="Check agent">
-        Rule Type can be overridden through the agent<br>
+</ul>
+<ul interactive>
+    <li title="Check @coding-standards.mdc set to Auto Attached with pattern **/*.py">
     </li>
 </ul>
 
