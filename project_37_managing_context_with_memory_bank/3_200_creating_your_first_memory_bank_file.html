@@ -10,36 +10,19 @@
 1. Create folder .cursor/rules if it doesn't exist
 2. Create memory_bank_instructions.mdc in .cursor/rules
 3. Copy @memory_bank_instructions.md content into memory_bank_instructions.mdc with cat tool
-4. Set 'alwaysApply: true' for memory_bank_instructions.mdc – it's part of hidden markdown of .mdc files
-
-To set 'alwaysApply: true' for memory_bank_instructions.mdc file, add following text in the beginning of the file:
----
-description: How to use Memory Bank
-globs: *
-alwaysApply: true
----
-
-It's hidden markdown of .mdc files so don't worry if it's not visible, proceed without recreating file.
-
-5. Delete @memory_bank_instructions.md file
+4. Delete @memory_bank_instructions.md file
 </callout>
 
 <warning><p>Sometimes, Cursor may not create the rule correctly. If this happens, you can create the rule manually by copying the content of <code>memory_bank_instructions.md</code> file into <code>memory_bank_instructions.mdc</code> file. Don't forget to set "Rule type: Always" for <code>memory_bank_instructions.mdc</code> file.</p></warning>
 
 <checkable-item title="<code>memory_bank_instructions.mdc</code> file is created"></checkable-item>
 <checkable-item title="<code>memory_bank_instructions.mdc</code> file is not empty"></checkable-item>
-<checkable-item title="<code>memory_bank_instructions.mdc</code> file is set to always apply">
+<checkable-item title="<code>memory_bank_instructions.mdc</code> rule type is set to Always">
   <img style="margin: auto; display: block; width: 600px;" src="https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket/37-3-always-apply.png" alt="memory_bank_instructions.mdc file is set to always apply" />
 </checkable-item>
 <checkable-item title="Old <code>.md</code> file is deleted"></checkable-item>
 
-<p>Let's also delete <code>snake_game.md</code> file since we don't need it anymore – it's replaced by Memory Bank files.</p>
-
-<callout label="Ask Cursor to delete snake_game.md file">
-  Delete snake_game.md file
-</callout>
-
-<checkable-item title="<code>snake_game.md</code> file is deleted"></checkable-item>
+<p>We can also delete <code>snake_game.md</code> file since we don't need it anymore – it's replaced by Memory Bank files.</p>
 
 <h5>Create Snake game with Memory Bank</h5>
 
@@ -48,7 +31,7 @@ It's hidden markdown of .mdc files so don't worry if it's not visible, proceed w
 <p>We even don't need to specify any details – Cursor will create it based on the rules and memory bank files.</p>
 
 <callout label="Ask Cursor to create Snake game based on rules and memory bank files">
-Please build an app based on your rules and memory bank
+Please build an app based on your existing rules and memory bank files
 </callout>
 
 <p>The process takes some time. After Cursor has finished, let's ask it to run the app.</p>
