@@ -5,7 +5,7 @@
 <p>One challenge when working with multiple rules is knowing which ones are actually being applied at any given moment. Let's create a rule that will show us a list of all rules being used during each AI action.</p>
 
 <callout type="chat">
-Create a new rule file called rule-visibility.mdc in .cursor/rules folder, set the rule type to “always”, add the following content:
+Create a new rule file called rule-visibility.mdc in .cursor/rules folder, add the following content:
 rule-visibility
 
 1. Display applied rules at AI action 
@@ -28,22 +28,15 @@ This rule ensures transparency by displaying a list of all rules that are curren
 - This rule should always be applied, regardless of context 
 </callout>
 
-<p>This visibility rule will act as a diagnostic tool, helping us understand exactly which rules Cursor is applying during each interaction.</p>
+<p>Set the rule type to “Always”. This visibility rule will act as a diagnostic tool, helping us understand exactly which rules Cursor is applying during each interaction.</p>
 
 <h5>Verifying Our Setup</h5>
 
 <ul interactive>
     <li title="Check rule creation">
-        Verify that rule-visibility.mdc was created with the correct settings (alwaysApply set to true)<br>
+        Verify that rule-visibility.mdc was created and the rule type is set to “Always”<br>
     </li>
 </ul>
-
-<p>If the rule type is not set to "always", ask chat to modify the rule to have these settings:</p>
-
-<callout type="chat">
-    Set the rule type to rule-visibility rule (rule-visibility.mdc) to “always”.
-</callout>
-<br>
 
 <h5>Testing Rule Application</h5>
 
@@ -91,5 +84,3 @@ Create a new file called test_visibility.py with a simple function that prints "
 <li>Understand how Cursor prioritizes different rules</li>
 <li>Optimize your rule setup for better results</li>
 </ul><br>
-
-Next, we'll explore how to use referencing in rules. 
