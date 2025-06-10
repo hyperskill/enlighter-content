@@ -1,0 +1,65 @@
+<p>Your Echo MCP server is working great locally, but now it's time to share it with the world! In this stage, we'll learn how to package, deploy, and publish your MCP server using various methods including Docker, PyPI, and the Smithery registry.</p>
+
+<h5>Preparing Your Server for Distribution</h5>
+
+<p>Before we deploy or publish our Echo server, let's make sure it's properly structured for distribution:</p>
+
+<callout type="chat">
+Create a proper project structure for the echo server for publishing MCP server to github.
+Create the directory echo-mcp-server, and create essential files, such as README.md and .gitignore
+</callout>
+
+
+<checkable-item title="Directory echo-mcp-server is created with proper documentation in README"></checkable-item>
+
+<h5>Dockerizing Your Echo Server</h5>
+
+<p>Docker provides a consistent environment for running your MCP server across different systems. Let's create a Docker image:</p>
+
+<callout type="chat">
+Create a Dockerfile for the echo server, build the docker image and test it locally: echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | docker run -i --rm echo-mcp-server:latest | jq
+</callout>
+
+<checkable-item title="Docker image builds successfully"></checkable-item>
+<checkable-item title="Docker container responds to JSON-RPC requests"></checkable-item>
+
+<p>Now let's see if our Docker Image works correctly when used in Cursor:</p>
+
+<callout type="chat">
+Update .cursor/mcp.json to use the Docker version of the Echo MCP server:
+
+{
+  "mcpServers": {
+    "echo-docker": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "echo-mcp-server:latest"]
+    }
+  }
+}
+</callout>
+
+<checkable-item title="Docker Echo MCP server is configured in .cursor/mcp.json"></checkable-item>
+
+Check the MCP settings in Cursor to ensure the Docker Echo server is enabled and has a green checkmark.
+Run a test command to verify the Docker Echo server is working, as you did before.
+
+<h5>Publishing to Smithery Registry</h5>
+
+<p>Smithery has become the go-to registry for discovering MCP servers. Let's publish our Echo server there:</p>
+
+<p>First, create an account at <a href="https://smithery.ai" target="_blank">smithery.ai</a></p>
+
+<p>Prepare your server metadata:</p>
+
+<callout type="chat">
+Create a smithery.yaml file to configure smithery project: @https://smithery.ai/docs/build/project-config 
+</callout>
+
+<p>The publishing process on Smithery is straightforward through their web interface. Your server will be immediately discoverable by thousands of developers.</p>
+
+<checkable-item title="Account created on Smithery"></checkable-item>
+<checkable-item title="Server metadata prepared"></checkable-item>
+
+<h5>What's Next?</h5>
+
+<p>Congratulations! You now know how to test, deploy, and publish MCP servers. Your Echo server can now be used by developers worldwide. Continue exploring the MCP ecosystem and building more sophisticated servers that solve real-world problems!</p>

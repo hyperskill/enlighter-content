@@ -1,0 +1,80 @@
+<p>Now that we've explored the development mode and web-based Inspector, let's dive into more advanced testing methods and learn how to install MCP servers directly from repositories. This will help you test servers programmatically and use the vast ecosystem of existing MCP servers.</p>
+
+<h5>Testing with MCP CLI</h5>
+
+<p>While the MCP Inspector provides a great visual interface, sometimes you need to test your servers programmatically or as part of automated workflows. MCP servers communicate using JSON-RPC 2.0 protocol over standard input/output, which means we can test them directly from the command line.</p>
+
+<p>Let's start by testing our Echo server using basic CLI commands:</p>
+
+<callout type="chat">
+Create a new terminal window and run these commands to test the echo server:
+
+First, make sure you're in the project directory with the virtual environment activated
+
+# List available tools
+echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | python echo_server.py
+
+</callout>
+
+<p>You should see the echo_tool in the response. </p>
+
+<p>The output might be hard to read. Let's use `jq` to format it nicely:</p>
+
+<callout type="chat">
+Install jq if it's not installed yet:
+- macOS: brew install jq
+- Ubuntu/Debian: sudo apt-get install jq
+- Windows: Download from https://stedolan.github.io/jq/download/
+
+Then run:
+echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | python echo_server.py | jq
+</callout>
+
+<checkable-item title="Tools list command returns formatted JSON with echo_tool"></checkable-item>
+
+<h5>Creating Test Scripts</h5>
+
+<p>Let's create a comprehensive test script for our Echo server that tests all its capabilities:</p>
+
+<callout type="chat">
+Create a file named test_echo_mcp.sh with the context as specified below.
+
+#!/bin/bash
+
+echo "Testing Echo MCP Server"
+echo "======================"
+
+# Test 1: List tools
+echo -e "\n1. Listing available tools:"
+echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | python echo_server.py | jq '.result.tools[].name'
+
+# Test 2: Call echo_tool
+echo -e "\n2. Calling echo_tool with message:"
+echo '{"jsonrpc":"2.0","method":"tools/call","id":2,"params":{"name":"echo_tool","arguments":{"message":"Hello from CLI test!"}}}' | python echo_server.py | jq '.result.content[0].text'
+
+# Test 3: List resources
+echo -e "\n3. Listing available resources:"
+echo '{"jsonrpc":"2.0","method":"resources/list","id":3}' | python echo_server.py | jq '.result.resources'
+
+# Test 4: Read a resource
+echo -e "\n4. Reading echo resource:"
+echo '{"jsonrpc":"2.0","method":"resources/read","id":4,"params":{"uri":"echo://testing-resources"}}' | python echo_server.py | jq '.result.contents[0].text'
+
+echo -e "\nAll tests completed!"
+</callout>
+
+<p>Now run the test script:</p>
+
+<checkable-item title="The file with the test scripts created successfully"></checkable-item>
+
+<callout type="chat">
+Run the test script and verify all tests pass:
+./test_echo_mcp.sh
+</callout>
+
+<checkable-item title="Test script executes successfully"></checkable-item>
+<checkable-item title="All four tests show expected outputs"></checkable-item>
+
+<alert>
+If any test fails, check the error messages and ensure your Echo server is running correctly. You can also use the MCP Inspector to debug issues visually.
+</alert>
