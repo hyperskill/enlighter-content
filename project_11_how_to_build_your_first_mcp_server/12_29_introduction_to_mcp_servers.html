@@ -133,6 +133,55 @@
 
 <alert>Browsing with Playwright is not so fast. Give it a time to do the task.</alert>
 
+<h5>Alternative: Installing Playwright MCP via UV</h5>
+
+<p>Besides using <code>npx</code>, you can also install and run MCP servers using UV, which provides better dependency management and faster execution. Let's explore how to use Playwright MCP with UV:</p>
+
+<callout type="chat">
+  Check if UV is installed or install it if necessary.
+</callout>
+
+<checkable-item title="UV is installed and available in terminal"></checkable-item>
+
+<h5>Benefits of Using UV for MCP Servers</h5>
+
+<p>Using UV instead of npx provides several advantages:</p>
+
+<ul>
+<li><strong>Faster startup:</strong> UV caches packages more efficiently than npm</li>
+<li><strong>Better isolation:</strong> Each tool runs in its own virtual environment</li>
+<li><strong>Version pinning:</strong> You can specify exact versions or commits from GitHub</li>
+<li><strong>Direct from source:</strong> Install servers directly from GitHub without publishing to npm</li>
+</ul>
+
+<p>For example, let's update the configuration to use duckduckgo MCP server via <code>uv</code></p>
+
+<callout type="chat">
+Install duckduckgo MCP server using UV from https://github.com/nickclyde/duckduckgo-mcp-server.git
+</callout>
+
+Once the installation is complete, you can update your <code>.cursor/mcp.json</code> file to use the UV command:
+
+<callout type="chat">Edit a file .cursor/mcp.json to include the following MCP setup:
+
+"duckduckgo": {
+      "command": "uv",
+      "args": [
+        "tool",
+        "run",
+        "duckduckgo-mcp-server"
+      ]
+    }
+</callout>
+
+<checkable-item title="Updated .cursor/mcp.json to use duckduckgo with UV"></checkable-item>
+
+<h5>Practical Example: Web Search</h5>
+
+<callout type="chat">
+Use DuckDuckGo to find the current weather in New York City.
+</callout>
+
 <h5>What's Next?</h5>
 
 <p>In the next stage, we'll dive deeper into MCP architecture, transport formats, and will build a custom MCP server.</p>
