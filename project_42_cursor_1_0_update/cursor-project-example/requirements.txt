@@ -1,0 +1,19 @@
+# Requirements for Iris Dataset Analysis Jupyter Notebook
+# Core data manipulation and analysis
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Machine learning and datasets
+scikit-learn>=1.0.0
+
+# Data visualization
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# Jupyter notebook support
+jupyter>=1.0.0
+notebook>=6.4.0
+ipykernel>=6.0.0
+
+# Optional: For better notebook experience
+jupyterlab>=3.0.0 
