@@ -1,0 +1,69 @@
+<p>The <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking">Sequential Thinking MCP</a> is a tool that helps break down complex problems into manageable steps, enabling a more structured and reflective approach to problem-solving. This stage will guide you through understanding and implementing this MCP in your Windsurf workflow.</p>
+
+<h5>Features:</h5>
+<p>
+<ul>
+<li>Breaking down complex problems into sequential steps</li>
+<li>Revising and refining thoughts as understanding deepens</li>
+<li>Creating alternative reasoning paths through branching</li>
+<li>Dynamically adjusting the thinking process</li>
+<li>Generating and verifying solution hypotheses</li>
+</ul>
+</p>
+
+<h5>Key Use Cases</h5>
+<p>
+<ul>
+<li>Complex system design planning</li>
+<li>Project architecture decisions</li>
+<li>Code refactoring planning</li>
+</ul>
+</p>
+
+<h5>Setup Instructions</h5>
+
+<alert>✅ Sequential Thinking MCP is availabe in Windsurf plugin store.</alert>
+
+<p>You can set up the Sequential Thinking MCP using either npm or Docker. Choose the method that best suits your environment:</p>
+
+<h5>NPM Setup</h5>
+
+<callout type="chat" label="Add the following code to your mcp_config.json file">
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    }
+  }
+}
+</callout>
+
+<h5>Docker Setup</h5>
+
+<callout type="chat" label="Add the following code to your mcp_config.json file">
+{
+  "mcpServers": {
+    "sequentialthinking": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "mcp/sequentialthinking"
+      ]
+    }
+  }
+}
+</callout>
+
+<h5>Practical Example: System Design Planning</h5>
+
+<p>Let's use the Sequential Thinking MCP to plan the architecture of a new microservice. This example demonstrates how the MCP helps break down complex planning into manageable steps.</p>
+
+<callout type="chat">
+Let's plan the architecture for a new user authentication microservice. Use sequential thinking to break down the key components and considerations
+</callout>
