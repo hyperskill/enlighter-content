@@ -9,6 +9,12 @@ url = os.environ.get("SUPABASE_URL")
 key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(url, key)
 
+# GitHub repository information
+# Default to 'enlighter-content' repository if not specified
+GITHUB_REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "hyperskill")
+GITHUB_REPO_NAME = os.environ.get("GITHUB_REPOSITORY", "enlighter-content").split("/")[-1]
+GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "master")
+
 def extract_info_from_filename(filename):
     """Extract stage ID, order number, and title from filename."""
     # Pattern: <order_num>_<id>_<title>.html
@@ -38,11 +44,18 @@ def get_stage_from_supabase(stage_id):
         return response.data[0]
     return None
 
-def update_stage_in_supabase(stage_id, description):
-    """Update stage description in Supabase."""
+def get_github_file_url(file_path):
+    """Construct GitHub URL for a file."""
+    return f"https://github.com/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/blob/{GITHUB_BRANCH}/{file_path}"
+
+def update_stage_in_supabase(stage_id, description, github_file_url):
+    """Update stage description and GitHub URL in Supabase."""
     response = (
         supabase.table("stages")
-        .update({"description": description})
+        .update({
+            "description": description,
+            "github_file_url": github_file_url
+        })
         .eq("id", stage_id)
         .execute()
     )
@@ -54,6 +67,7 @@ def main():
     print(f"Found {len(html_files)} HTML files")
     
     updated_count = 0
+    github_url_updated_count = 0
     skipped_count = 0
     not_found_count = 0
     
@@ -78,17 +92,24 @@ def main():
         # Read HTML content from file
         with open(html_file, 'r', encoding='utf-8') as f:
             file_content = f.read()
-        
+
+        # Get GitHub URL for this file
+        github_file_url = get_github_file_url(html_file)
+
         # Compare content
         if file_content != stage['description']:
             print(f"Updating stage {stage_id} ({stage['title']})")
-            update_stage_in_supabase(stage_id, file_content)
+            update_stage_in_supabase(stage_id, file_content, github_file_url)
             updated_count += 1
         else:
             print(f"No changes for stage {stage_id} ({stage['title']})")
-    
+            # Update GitHub URL even if content hasn't changed
+            update_stage_in_supabase(stage_id, stage['description'], github_file_url)
+            github_url_updated_count += 1
+
     print("\nSummary:")
-    print(f"- Updated: {updated_count}")
+    print(f"- Updated content: {updated_count}")
+    print(f"- Updated GitHub URLs only: {github_url_updated_count}")
     print(f"- Skipped (invalid filename): {skipped_count}")
     print(f"- Not found in Supabase: {not_found_count}")
     print(f"- Total processed: {len(html_files)}")
