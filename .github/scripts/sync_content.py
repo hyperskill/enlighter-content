@@ -13,7 +13,7 @@ supabase = create_client(url, key)
 # Default to 'enlighter-content' repository if not specified
 GITHUB_REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "hyperskill")
 GITHUB_REPO_NAME = os.environ.get("GITHUB_REPOSITORY", "enlighter-content").split("/")[-1]
-GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "master")
+GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 
 def extract_info_from_filename(filename):
     """Extract stage ID, order number, and title from filename."""
