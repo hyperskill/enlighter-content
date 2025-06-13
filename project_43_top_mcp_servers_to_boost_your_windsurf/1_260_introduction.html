@@ -1,0 +1,102 @@
+<h5>Welcome to: Top MCP Servers to Boost Your Windsurf course!</h5>
+
+<p>Here, you'll learn how to use MCPs to supercharge your Windsurf abilities.</p>
+
+<h5>What are MCP Servers?</h5>
+
+<p>MCP (Model Context Protocol) servers are modular tools that connect to your AI Agent and provide it with additional context and tools to achieve better results in writing code, debugging, and more.</p>
+
+<h5>What You'll Learn</h5>
+
+<ul>
+  <li>How to install MCP servers in Windsurf</li>
+  <li>Various types of MCP installations</li>
+  <li>Top MCP servers to boost your productivity and results in Windsurf</li>
+  <li>How to find new MCP servers and tools for your needs</li>
+</ul>
+
+<h5>Windsurf Plugin Store</h5>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/1d783df1-8cf1-485d-a3eb-0ed539986fdf/" alt="Windsurf Plugin Store" title="Windsurf Plugin Store"></p>
+
+<p>Windsurf plugin store is a collection of MCP servers and tools that you can easily add to your Windsurf with one click. If MCP server is available in the plugin store, we will mention it in the description and recommend you to install it from the plugin store.</p>
+
+<p>However, not all of MCP servers in our list are available in the plugin store. That's why we will also show you how to install MCP servers manually.</p>
+
+<h5>Prerequisites</h5>
+
+<p>Before setting up any MCP servers, you'll need to ensure you have the necessary tools installed on your system:</p>
+
+<h5>NPX Installation</h5>
+
+<p>Throughout this project, we'll primarily use NPX to install and run MCP servers. NPX is included with Node.js and npm, which you'll need to install if you don't have them already:</p>
+
+<callout type="chat">Install npx, node, and npm.
+
+Verify your installation by running:
+```
+node --version
+npm --version
+npx --version
+```
+
+All three commands should display version numbers if the installation was successful.</callout>
+
+<h5>UV and UVX Installation</h5>
+
+<p>Some of MCP servers require uv and uvx tools to run. You can install them by running the following command:</p>
+
+<callout label="Ask Cascade to install uv and uvx tool">
+    Install uv and uvx tool if it's not installed yet
+</callout>
+
+<h5>Docker (Optional)</h5>
+
+<p>Some MCP servers provide Docker installation options, which can be useful for containerized environments or if you prefer isolation. Throughout this project, we'll show Docker configuration examples alongside NPX options.</p>
+
+<p>If you choose to use Docker, you'll need to install Docker Desktop or Docker Engine on your system. Installation instructions vary by operating system and are beyond the scope of this project. Please refer to the <a href="https://docs.docker.com/get-docker/">official Docker documentation</a> for installation guidance.</p>
+
+<h5>Manual MCP Server Installation</h5> 
+
+<p>Let's see how to install any MCP Server manually. We will use Memory Bank MCP Server as an example.</p>
+
+<p>Open Windsurf settings:</p>
+<ul>
+    <li>For Mac: Windsurf → Settings → Windsurf Settings or <code>CMD⌘ + ,</code></li>
+    <li>For Windows: Settings → Windsurf Settings or <code>CTRL + ,</code></li>
+</ul>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/81850e19-5f75-4a2d-b1b2-d376b93b1c1b/" alt="Windsurf Settings" title="Windsurf Settings"></p>
+
+<p>Then open <code>Cascade</code> tab and press the <code>manage plugins</code> button. You should see the following screen:</p>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/7058d3b8-6c3b-421d-94d1-c9b65e3121a6/" alt="Windsurf Plugins" title="Windsurf Plugins"></p>
+
+<p>Now press <code>View raw config</code> button and add Memory Bank MCP to the list of MCP servers:</p>
+
+<callout label="Copy Memory Bank MCP Server config and paste it into the mcp_config.json file">
+{
+    "mcpServers": {
+        "mcp-memory-bank": {
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/ipospelov/mcp-memory-bank",
+                "mcp_memory_bank"
+            ]
+        }
+    }
+}
+</callout>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/3809e27e-62f4-4752-9b31-c99dbaa72cf9/" alt="Windsurf MCP config" title="Windsurf MCP config"></p>
+
+<p>After that, you should see the Memory Bank MCP Server in the list of your plugins with the following tools:</p>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/8c5ddbd2-bb5d-4593-8388-3114a719ee43/" alt="Windsurf MCP enabled" title="Windsurf MCP enabled"></p>
+
+<p>Well done! You have installed Memory Bank MCP Server manually.</p>
+
+<h5>Limitations</h5>
+
+<warning>Having too many MCP servers and tools added to Windsurf can confuse Cascade Agent and make it less reliable in choosing correct tools. That's why Windsurf currently has a limit of 100 tools. Make sure to only enable the MCP servers and tools that you really need for your current project.</warning>

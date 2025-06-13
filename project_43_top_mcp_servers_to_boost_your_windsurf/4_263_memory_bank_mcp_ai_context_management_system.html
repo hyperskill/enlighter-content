@@ -1,0 +1,89 @@
+<p>The <a href="https://ui.nanda-registry.com/servers/fe9c7d80-7f3f-495f-8406-7ef7a5667495">Memory Bank MCP</a> provides a structured way to maintain project context for AI assistants. By organizing project information into categorized markdown files, Memory Bank helps Windsurf better understand your project's goals, architecture, and current focus. This stage will guide you through setting up and effectively utilizing the Memory Bank MCP in your Windsurf workflow.</p>
+
+<h5>Features:</h5>
+<ul>
+<li>Organize project context in hierarchical markdown files</li>
+<li>Maintain persistent knowledge between Windsurf sessions</li>
+<li>Retrieve specific context information on demand</li>
+<li>Generate template files based on project needs</li>
+<li>Analyze project summaries for better context organization</li>
+</ul><br>
+
+<h5>Key Use Cases</h5>
+<ul>
+<li>Long-term project development with consistent AI assistance</li>
+<li>Complex projects requiring detailed context understanding</li>
+<li>Team collaboration where contextual knowledge needs sharing</li>
+<li>Projects with evolving requirements and architecture</li>
+</ul><br>
+
+
+<p>Memory Bank organizes project context into six core markdown files:</p>
+
+<ol>
+<li><strong>projectbrief.md</strong></li>
+<ul>
+<li>Foundation document with core requirements</li>
+<li>Defines project scope, goals, and success criteria</li>
+<li>Created first and rarely changes</li>
+</ul><br>
+
+<li><strong>productContext.md</strong></li>
+<ul>
+<li>The "why" of your project</li>
+<li>Explains user needs and problems being solved</li>
+<li>Outlines user experience goals</li>
+</ul><br>
+
+<li><strong>systemPatterns.md</strong></li>
+<ul>
+<li>The "how" of your project</li>
+<li>Documents system architecture and design patterns</li>
+<li>Records key technical decisions</li>
+</ul><br>
+
+<li><strong>techContext.md</strong></li>
+<ul>
+<li>Tools and technologies</li>
+<li>Lists frameworks, libraries, and development tools</li>
+<li>Documents technical constraints</li>
+</ul><br>
+
+<li><strong>activeContext.md</strong></li>
+<ul>
+<li>Current project state</li>
+<li>Describes what you're working on now</li>
+<li>Records recent changes and next steps</li>
+</ul><br>
+
+<li><strong>progress.md</strong></li>
+<ul>
+<li>Project status tracking</li>
+<li>Lists completed features and known issues</li>
+<li>Records the evolution of project decisions</li>
+</ul></ol><br>
+
+This MCP helps to automatically create memory bank files in your project.<br><br>
+
+<h5>Setup Instructions</h5>
+
+<callout label="Copy Memory Bank MCP Server config and paste it into the mcp_config.json file">
+  {
+      "mcpServers": {
+          "mcp-memory-bank": {
+              "command": "uvx",
+              "args": [
+                  "--from",
+                  "git+https://github.com/ipospelov/mcp-memory-bank",
+                  "mcp_memory_bank"
+              ]
+          }
+      }
+  }
+</callout>
+
+<h5>Practical Example: Using Memory Bank in Windsurf</h5>
+
+<callout type="chat">Create a memory bank for TODO list app. Use Memory Bank MCP.</callout>
+
+<p>This example demonstrates how to leverage the Memory Bank MCP to provide rich context to Windsurf, enabling more informed AI assistance throughout your development process.</p> 
