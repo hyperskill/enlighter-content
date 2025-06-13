@@ -1,0 +1,104 @@
+<h5>BugBot: Your AI-Powered Code Reviewer</h5>
+
+<p>BugBot is Cursor 1.0's automatic code review feature that analyzes your pull requests and identifies potential bugs, security issues, and code quality problems before they reach production.</p>
+
+<h5>How BugBot Works</h5>
+
+<p>BugBot integrates seamlessly with your GitHub workflow:</p>
+
+<ol>
+  <li>When you create a pull request, BugBot automatically analyzes your code changes</li>
+  <li>It identifies potential issues including bugs, security vulnerabilities, and code smells</li>
+  <li>BugBot leaves detailed comments directly on your GitHub PR with specific suggestions</li>
+  <li>You can click "Fix in Cursor" to jump back to your editor with a pre-filled prompt</li>
+</ol>
+
+<p>BugBot is trained to identify various categories of problems:</p>
+
+<ul>
+  <li><strong>Logic Errors</strong> - Incorrect conditions, infinite loops, unreachable code</li>
+  <li><strong>Security Vulnerabilities</strong> - SQL injection, XSS, insecure data handling</li>
+  <li><strong>Performance Issues</strong> - Inefficient algorithms, memory leaks, blocking operations</li>
+  <li><strong>Code Quality</strong> - Naming conventions, code duplication, architectural concerns</li>
+  <li><strong>Type Safety</strong> - Null pointer exceptions, type mismatches, unsafe casts</li>
+</ul>
+
+<!-- <img style="margin: auto; display: block;" src="https://placeholder-image-url.com/bugbot-github-comments.png" alt="BugBot GitHub Comments" title="BugBot comments on a GitHub pull request"> -->
+
+<h5>Setting Up BugBot</h5>
+
+<p>Getting started with BugBot is straightforward:</p>
+
+<ol>
+  <li>Go to Cursor Dashboard Settings, and navigate to the <href>https://www.cursor.com/dashboard?tab=integrations</href> </li>
+  <li>Connect your GitHub account in the Cursor settings</li>
+  <li>Enable BugBot under the "AI Assistants" section</li>
+  <li>Configure your repositories and sensitivity levels as needed</li>
+</ol>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/6f478304-b77c-45dd-a855-4fbe613ab4da/" alt="">
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/b5c1ba13-2981-4806-9362-dc8727608af2/" alt="">
+
+<p>After installing, you’ll see a list of available installations and their enabled repositories. You can enable or disable BugBot per repository. BugBot will only run on your personal Pull Requests.</p>
+
+<callout>Create a new repository for this project and enable it in the BugBot menu:</callout>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/eeee2ce7-38c4-4735-9bcf-653b7ed189c1/" alt="BugBot Repository Setup" title="Setting up BugBot for a new repository">
+
+<p>Once connected, BugBot will automatically start reviewing your pull requests. You can configure which repositories to monitor and set review sensitivity levels.</p>
+
+<h5>Hands-On Example</h5>
+
+<p>Now let's see BugBot in action with a simple example:</p>
+
+<callout type="chat">
+Push the current project to a new repository [INSERT YOUR REPO NAME].
+</callout>
+
+<ol interactive>
+<li title="You have created a repo, and it has the project files in it"></li>
+</ol>
+
+<p>Now let's introduce some bugs to our jupyter notebook to see if the BugBot will be able to catch them: </p>
+
+<callout type="chat">
+Add some critical bugs to the code in the notebook.
+</callout>
+
+<p>Once the code is updated, let's do the pull request:</p>
+
+<callout type="chat">
+Perform a pull request to the main branch of the repository.
+</callout>
+
+<p>After creating the pull request, BugBot will analyze the changes and provide feedback. The process of analysing the diffs with the BugBot may take time, you will be notified as it is finished.</p>
+
+<p>Here is an example of a BugBot comment on a pull request:</p>
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/7909bda3-5557-482f-aaad-c451dca77972/" alt="BugBot GitHub Comments" title="BugBot comments on a GitHub pull request">
+
+<warning>BugBot may not catch every bug, and while it's a helpful instrument for quality assurance, it doesn't replace proper testing practices. Instead, think of it as a safety net that helps detect last-minute issues.</warning>
+
+
+<h5>Best Practices with BugBot and personalisation</h5>
+
+<p>In the Cursor Dashboard you can set up the BugBot, as it is convenient to you:</p>
+<ul>
+  <li>Whether to use <code>bugbot run</code> in PR comment to call BugBot</li>
+  <li>Whether to run BugBot once per Pull Request and ignore new commits</li>
+  <li>You can hide "No Bugs Found" comments, if you don't find them useful</li>
+</ul>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/e1f473c2-c01f-48fe-bb37-ed0dab048f44/" alt="BugBot Settings" title="BugBot settings in Cursor Dashboard">
+
+<p>To get the most out of BugBot:</p>
+
+<ul>
+  <li>Review BugBot's suggestions thoughtfully - it provides context for each issue</li>
+  <li>Use the "Fix in Cursor" button to quickly address problems</li>
+  <li>Customize BugBot's sensitivity based on your project's needs</li>
+  <li>Integrate BugBot reviews into your team's code review process</li>
+</ul>
+
+<warning>While BugBot is highly accurate, always review its suggestions before implementing fixes to ensure they align with your project's specific requirements.</warning>
+
+<p>BugBot represents a significant step forward in automated code quality assurance. In the next section, we'll explore the Background Agent feature that brings powerful remote AI assistance to your development workflow.</p> 
