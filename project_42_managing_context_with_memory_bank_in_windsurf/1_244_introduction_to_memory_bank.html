@@ -1,0 +1,121 @@
+<p>Today we'll learn about Memory Bank - a powerful approach to maintaining context with AI powered IDEs like Windsurf and its AI Agent - Cascade.</p>
+
+<h5>What You'll Learn</h5>
+
+<ul>
+<li>How to set up a Memory Bank for your projects</li>
+<li>The structure and purpose of each core file</li>
+<li>How to maintain and update your Memory Bank</li>
+<li>How to build a real project using Memory Bank</li>
+</ul>
+
+<h5>What is Memory Bank?</h5>
+
+<p>Memory Bank is a structured documentation system that helps Cascade maintain context across sessions. It transforms Cascade from a stateless assistant into a persistent development partner that can effectively "remember" your project details over time.</p>
+
+<p>When working with AI coding, you've likely encountered this common limitation: the AI has no memory of your previous conversations once you start a new session. This means:</p>
+
+<ul>
+<li>You need to re-explain your project repeatedly</li>
+<li>The AI can't recall decisions you made together</li>
+<li>You lose continuity in complex projects</li>
+<li>Each session starts from scratch</li>
+</ul>
+
+<h5>How Memory Bank Solves This Problem</h5>
+
+<p>Memory Bank addresses this limitation through a systematic approach to documentation that complements Cascade's native Memories system:</p>
+
+<ul>
+<li><strong>Structured Documentation</strong>: A hierarchy of markdown files that build a complete picture of your project.</li>
+<li><strong>Context Preservation</strong>: Key information is stored in a format that's easy for both you and Cascade to reference.</li>
+<li><strong>Continuous Updates</strong>: Documentation evolves as your project progresses.</li>
+</ul>
+
+<h5>Memory Bank is Not Magic</h5>
+
+<p>It's important to understand that Memory Bank isn't a magical feature that gives AI Agent perfect memory. It's a methodical approach to documentation that you maintain to enhance the AI's understanding. 
+Cascade already has powerful features like code indexing and its "Memories" system to retain context.
+Our Memory Bank structure will supercharge these capabilities.</p>
+
+<h5>Setting Up Memory Bank</h5>
+
+<p>
+    To set up Memory Bank we will use <a href="https://github.com/ipospelov/mcp-memory-bank">Memory Bank MCP Server</a>. 
+    It's a simple way to create a Memory Bank for your projects automatically based on provided context.
+</p>
+
+<p>First of all, we need to install uv and uvx tools to run Memory Bank MCP Server.</p>
+
+<callout label="Ask Cascade to install uv and uvx tool">
+    Install uv and uvx tool if it's not installed yet
+</callout>
+
+<p>Then, we need to configure Memory Bank MCP Server.</p>
+
+<p>Open Windsurf settings:</p>
+<ul>
+    <li>For Mac: Windsurf → Settings → Windsurf Settings or <code>CMD⌘ + ,</code></li>
+    <li>For Windows: Settings → Windsurf Settings or <code>CTRL + ,</code></li>
+</ul>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/81850e19-5f75-4a2d-b1b2-d376b93b1c1b/" alt="Windsurf Settings" title="Windsurf Settings"></p>
+
+<p>Then open <code>Cascade</code> tab and press the <code>manage plugins</code> button. You should see the following screen:</p>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/7058d3b8-6c3b-421d-94d1-c9b65e3121a6/" alt="Windsurf Plugins" title="Windsurf Plugins"></p>
+
+<p>Now press <code>View raw config</code> button and add Memory Bank MCP to the list of MCP servers:</p>
+
+<callout label="Copy Memory Bank MCP Server config and paste it into the mcp_config.json file">
+{
+    "mcpServers": {
+        "mcp-memory-bank": {
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/ipospelov/mcp-memory-bank",
+                "mcp_memory_bank"
+            ]
+        }
+    }
+}
+</callout>
+
+<p>Alternatively, you can use Docker to run Memory Bank MCP Server.</p>
+
+<alert>
+    <details>
+        <summary>Setup with Docker</summary>
+        <callout label="Copy Memory Bank MCP Server config and paste it into the mcp_config.json file">
+    {
+        "mcpServers": {
+            "memory-bank": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "19283744/mcp-memory-bank:latest"
+            ]
+            }
+        }
+    }
+        </callout>
+    </details>
+</alert>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/3809e27e-62f4-4752-9b31-c99dbaa72cf9/" alt="Windsurf MCP config" title="Windsurf MCP config"></p>
+
+<p>After that, you should see the Memory Bank MCP Server in the list of your plugins with the following tools:</p>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/8c5ddbd2-bb5d-4593-8388-3114a719ee43/" alt="Windsurf MCP enabled" title="Windsurf MCP enabled"></p>
+
+<h5>What's next?</h5>
+
+<p>Outcome of this stage:</p>
+
+<checkable-item title="Memory Bank MCP Server is enabled inside plugins list in Windsurf settings">
+</checkable-item>
+
+<p>In the next stage, we'll dive deeper into the Memory Bank concept, exploring the file hierarchy and how the different components work together to maintain context.</p>
