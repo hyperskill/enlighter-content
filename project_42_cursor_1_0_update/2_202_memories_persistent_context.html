@@ -1,0 +1,97 @@
+<h5>Memories: AI That Remembers Your Project</h5>
+
+<p>Cursor 1.0 introduces Memories, a breakthrough feature that allows the AI to remember important facts, decisions, and context from your conversations, creating a persistent knowledge base for each project.</p>
+
+<h5>How Memories Work</h5>
+
+<p>Memories create a persistent context layer that enhances your AI interactions:</p>
+
+<ul>
+  <li><strong>Automatic Learning</strong> - AI identifies and stores important information from conversations</li>
+  <li><strong>Project-Specific</strong> - Each project maintains its own memory bank</li>
+  <li><strong>Individual Storage</strong> - Memories are stored per user, ensuring privacy</li>
+  <li><strong>Smart Retrieval</strong> - Relevant memories are automatically referenced in future conversations</li>
+</ul>
+
+You can think of memories as a more persistent version of the chat history, or as a way to automatically create cursor rules from your conversations with Agent.
+
+<h5>Enabling Memories</h5>
+
+<p>Memories is currently in beta and requires manual activation:</p>
+
+<callout>Go to Settings → Rules and enable the Memories feature. This will activate automatic memory collection and retrieval for your projects.</callout>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/41c2bd64-ae84-46b8-919e-b442977a8c71/" alt="" title="">
+
+<h5>Memories in Action: Creating memories for Jupyter Notebooks</h5>
+
+<p>Another important update of Cursor 1.0 is that it brings the power of AI agents directly into Jupyter notebooks, improving data science and research workflows. The agent can now create, edit, and manage multiple notebook cells automatically.</p>
+
+<p>The Jupyter integration introduces several capabilities:</p>
+
+<ul>
+  <li><strong>Multi-cell Operations</strong> - Agent can create and modify multiple cells in sequence</li>
+  <li><strong>Context Awareness</strong> - Understands the flow of data and variables across cells</li>
+  <li><strong>Code Generation</strong> - Generates analysis code, visualizations, and data processing pipelines</li>
+  <li><strong>Sonnet Model Support</strong> - Currently optimized for Claude Sonnet models</li>
+</ul>
+
+<alert>Currently, Jupyter notebook support is optimized for Sonnet models. Make sure you're using a compatible model for the best experience.</alert>
+
+<p>Make sure to change the model to Claude 4 Sonnet for this task</p>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/dd3bf171-4d29-4880-bf1f-999b6f4e60d8/" alt="" title="">
+
+<ol interactive>
+  <li title="Memories are enabled"></li>
+  <li title="The model is set to Claude 4 Sonnet"></li>
+</ol>
+
+
+
+<!-- <p>Using the AI ag notebooks is seamless within Cursor:</p>ent in Jupyter -->
+
+<h5>Practical Example: Data Analysis Pipeline</h5>
+
+<p>Let's see the Agent in action with a comprehensive data analysis example:</p>
+
+<callout type="chat">
+
+  Generate a jupyter notebook with the code, that analyses the classical iris dataset.
+
+  Draw the plot of label distribution.
+  
+  Important: when you visualizing any distributions, always draw barplot AND piechart.
+  
+  When you draw the plots in python, please always use pastel colormap.
+
+</callout>
+
+<p>Watch as the agent creates multiple cells in the notebook:</p>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/b152948d-e3b5-4d83-a581-bb87f7dc547f/" alt="" title="">
+
+<ol interactive>
+  <li title="The notebook is created"></li>
+</ol>
+
+<p>You may notice that the Agent is updating the memory while processing your request: </p>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/f6ffa7ad-cfa5-4bfd-80e5-a6b432252211/" alt="" title="">
+
+<p>If the memories haven't been created/updated yet, you can ask the agent in a more explicit way:</p>
+
+<callout type="chat">
+  Please remember my preferences related to visualizations.
+</callout>
+
+<p>The memories created by the agent are stored in the Rules tab of the Settings. You can see the memories, and delete them if you want.</p>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/39514e43-7c2e-4074-8bcb-57ab8b54bd52/" alt="" title="">
+
+<p><checkable-item title="The memories are stored in the Rules tab of the Settings."></checkable-item></p>
+
+
+<warning>Always review what information is being stored in memories, especially when working with sensitive projects or proprietary information.</warning>
+
+<p>Memories represent a significant step toward truly intelligent AI assistance that understands your projects deeply. Next, we'll explore the enhanced MCP server integration that brings powerful external tools into your workflow.</p> 
