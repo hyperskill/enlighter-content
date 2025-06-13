@@ -2,8 +2,6 @@ name: Validate and Sync Content
 
 on:
   push:
-    branches:
-      - main
     paths:
       - "project_*/*.html"
       - "templates/*.html"
@@ -14,6 +12,7 @@ on:
 
 jobs:
   validate:
+    name: Validate HTML Content
     runs-on: arc-runners-small
     steps:
       - name: Checkout code
@@ -32,6 +31,7 @@ jobs:
         run: node .github/scripts/validate-content.js
 
   sync-templates:
+    name: Sync Templates to Supabase
     if: github.ref == 'refs/heads/main'
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
@@ -56,6 +56,7 @@ jobs:
         run: python .github/scripts/sync_templates.py
 
   sync-content:
+    name: Sync Stage Content to Supabase
     if: github.ref == 'refs/heads/main'
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
