@@ -1,0 +1,1029 @@
+TITLE: Defining Computational Tools with FastMCP in Python
+DESCRIPTION: This snippet demonstrates how to define tools using the `@mcp.tool()` decorator. Tools allow LLMs to perform actions, execute computations, and have side effects. Examples include a synchronous function for BMI calculation and an asynchronous function for fetching weather data using `httpx`.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_8
+
+LANGUAGE: python
+CODE:
+```
+import httpx
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("My App")
+
+@mcp.tool()
+def calculate_bmi(weight_kg: float, height_m: float) -> float:
+    """Calculate BMI given weight in kg and height in meters"""
+    return weight_kg / (height_m**2)
+
+@mcp.tool()
+async def fetch_weather(city: str) -> str:
+    """Fetch current weather for a city"""
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"https://api.weather.com/{city}")
+        return response.text
+```
+
+----------------------------------------
+
+TITLE: Implementing OAuth Authentication for MCP Client in Python
+DESCRIPTION: This snippet demonstrates how to set up OAuth authentication for an MCP client using the Python SDK. It includes a custom in-memory token storage implementation and shows how to initialize `OAuthClientProvider` and use it with `streamablehttp_client` and `ClientSession` to establish an authenticated session.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_30
+
+LANGUAGE: python
+CODE:
+```
+from mcp.client.auth import OAuthClientProvider, TokenStorage
+from mcp.client.session import ClientSession
+from mcp.client.streamable_http import streamablehttp_client
+from mcp.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
+
+class CustomTokenStorage(TokenStorage):
+    """Simple in-memory token storage implementation."""
+
+    async def get_tokens(self) -> OAuthToken | None:
+        pass
+
+    async def set_tokens(self, tokens: OAuthToken) -> None:
+        pass
+
+    async def get_client_info(self) -> OAuthClientInformationFull | None:
+        pass
+
+    async def set_client_info(self, client_info: OAuthClientInformationFull) -> None:
+        pass
+
+async def main():
+    # Set up OAuth authentication
+    oauth_auth = OAuthClientProvider(
+        server_url="https://api.example.com",
+        client_metadata=OAuthClientMetadata(
+            client_name="My Client",
+            redirect_uris=["http://localhost:3000/callback"],
+            grant_types=["authorization_code", "refresh_token"],
+            response_types=["code"],
+        ),
+        storage=CustomTokenStorage(),
+        redirect_handler=lambda url: print(f"Visit: {url}"),
+        callback_handler=lambda: ("auth_code", None),
+    )
+
+    # Use with streamable HTTP client
+    async with streamablehttp_client(
+        "https://api.example.com/mcp", auth=oauth_auth
+    ) as (read, write, _):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+            # Authenticated session ready
+```
+
+----------------------------------------
+
+TITLE: Defining Reusable Prompts with FastMCP in Python
+DESCRIPTION: This snippet shows how to define reusable prompt templates using the `@mcp.prompt()` decorator. Prompts help LLMs interact with the server effectively by providing structured input. Examples include a simple code review prompt and a multi-message debug error prompt using `base.Message` types.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_9
+
+LANGUAGE: python
+CODE:
+```
+from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp.prompts import base
+
+mcp = FastMCP("My App")
+
+@mcp.prompt()
+def review_code(code: str) -> str:
+    return f"Please review this code:\n\n{code}"
+
+@mcp.prompt()
+def debug_error(error: str) -> list[base.Message]:
+    return [
+        base.UserMessage("I'm seeing this error:"),
+        base.UserMessage(error),
+        base.AssistantMessage("I'll help debug that. What have you tried so far?"),
+    ]
+```
+
+----------------------------------------
+
+TITLE: Utilizing the Context Object in FastMCP Tools in Python
+DESCRIPTION: This snippet illustrates how the `Context` object provides tools and resources access to advanced MCP capabilities. It shows an asynchronous tool that processes multiple files, logs information using `ctx.info()`, reports progress using `ctx.report_progress()`, and reads resource data using `ctx.read_resource()`.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_11
+
+LANGUAGE: python
+CODE:
+```
+from mcp.server.fastmcp import FastMCP, Context
+
+mcp = FastMCP("My App")
+
+@mcp.tool()
+async def long_task(files: list[str], ctx: Context) -> str:
+    """Process multiple files with progress tracking"""
+    for i, file in enumerate(files):
+        ctx.info(f"Processing {file}")
+        await ctx.report_progress(i, len(files))
+        data, mime_type = await ctx.read_resource(f"file://{file}")
+    return "Processing complete"
+```
+
+----------------------------------------
+
+TITLE: Accessing Lifespan Context for Database Query in MCP Server (Python)
+DESCRIPTION: This snippet demonstrates how to access resources initialized during the server's lifespan within a tool handler. It retrieves a 'db' object from the `lifespan_context` via the `server.request_context` and uses it to execute a database query based on provided arguments. This pattern ensures that shared resources are properly managed and accessible throughout the server's operation.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_26
+
+LANGUAGE: python
+CODE:
+```
+@server.call_tool()
+async def query_db(name: str, arguments: dict) -> list:
+    ctx = server.request_context
+    db = ctx.lifespan_context["db"]
+    return await db.query(arguments["query"])
+```
+
+----------------------------------------
+
+TITLE: Mounting Multiple FastMCP Servers in a FastAPI Application
+DESCRIPTION: This `main.py` snippet demonstrates how to integrate and mount multiple FastMCP servers (like the `echo` and `math` servers) within a single FastAPI application. It uses `asynccontextmanager` for managing session lifespans and `app.mount` to expose each server via a specific path.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_20
+
+LANGUAGE: python
+CODE:
+```
+# main.py
+import contextlib
+from fastapi import FastAPI
+from mcp.echo import echo
+from mcp.math import math
+
+# Create a combined lifespan to manage both session managers
+@contextlib.asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with contextlib.AsyncExitStack() as stack:
+        await stack.enter_async_context(echo.mcp.session_manager.run())
+        await stack.enter_async_context(math.mcp.session_manager.run())
+        yield
+
+app = FastAPI(lifespan=lifespan)
+app.mount("/echo", echo.mcp.streamable_http_app())
+app.mount("/math", math.mcp.streamable_http_app())
+```
+
+----------------------------------------
+
+TITLE: Creating a Simple MCP Server with FastMCP
+DESCRIPTION: This Python code defines a basic MCP server using `FastMCP`. It demonstrates how to register a tool (`add`) for performing arithmetic operations and a dynamic resource (`get_greeting`) that provides personalized greetings based on a given name. This server can expose functionality and data to LLM applications.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_3
+
+LANGUAGE: Python
+CODE:
+```
+from mcp.server.fastmcp import FastMCP
+
+# Create an MCP server
+mcp = FastMCP("Demo")
+
+# Add an addition tool
+@mcp.tool()
+def add(a: int, b: int) -> int:
+    """Add two numbers"""
+    return a + b
+
+# Add a dynamic greeting resource
+@mcp.resource("greeting://{name}")
+def get_greeting(name: str) -> str:
+    """Get a personalized greeting"""
+    return f"Hello, {name}!"
+```
+
+----------------------------------------
+
+TITLE: Implementing a Low-Level MCP Server with Prompt Handling (Python)
+DESCRIPTION: This comprehensive example demonstrates setting up a low-level MCP server using the Python SDK. It defines handlers for `list_prompts` and `get_prompt` to manage prompt templates, showcasing how to register server capabilities and run the server over standard I/O. The `run` function initializes the server with specific name, version, and capabilities, making it ready to handle client requests.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_27
+
+LANGUAGE: python
+CODE:
+```
+import mcp.server.stdio
+import mcp.types as types
+from mcp.server.lowlevel import NotificationOptions, Server
+from mcp.server.models import InitializationOptions
+
+# Create a server instance
+server = Server("example-server")
+
+@server.list_prompts()
+async def handle_list_prompts() -> list[types.Prompt]:
+    return [
+        types.Prompt(
+            name="example-prompt",
+            description="An example prompt template",
+            arguments=[
+                types.PromptArgument(
+                    name="arg1", description="Example argument", required=True
+                )
+            ],
+        )
+    ]
+
+@server.get_prompt()
+async def handle_get_prompt(
+    name: str, arguments: dict[str, str] | None
+) -> types.GetPromptResult:
+    if name != "example-prompt":
+        raise ValueError(f"Unknown prompt: {name}")
+
+    return types.GetPromptResult(
+        description="Example prompt",
+        messages=[
+            types.PromptMessage(
+                role="user",
+                content=types.TextContent(type="text", text="Example prompt text"),
+            )
+        ],
+    )
+
+async def run():
+    async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
+        await server.run(
+            read_stream,
+            write_stream,
+            InitializationOptions(
+                server_name="example",
+                server_version="0.1.0",
+                capabilities=server.get_capabilities(
+                    notification_options=NotificationOptions(),
+                    experimental_capabilities={},
+                ),
+            ),
+        )
+
+if __name__ == "__main__":
+    import asyncio
+
+    asyncio.run(run())
+```
+
+----------------------------------------
+
+TITLE: Implementing OAuth 2.0 Authentication with FastMCP in Python
+DESCRIPTION: This snippet demonstrates how to integrate OAuth 2.0 authentication into a FastMCP server by implementing the `OAuthAuthorizationServerProvider` protocol. It configures issuer URL, revocation, and client registration options including valid and default scopes, and required scopes for the application.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_12
+
+LANGUAGE: python
+CODE:
+```
+from mcp import FastMCP
+from mcp.server.auth.provider import OAuthAuthorizationServerProvider
+from mcp.server.auth.settings import (
+    AuthSettings,
+    ClientRegistrationOptions,
+    RevocationOptions,
+)
+
+class MyOAuthServerProvider(OAuthAuthorizationServerProvider):
+    # See an example on how to implement at `examples/servers/simple-auth`
+    ...
+
+mcp = FastMCP(
+    "My App",
+    auth_server_provider=MyOAuthServerProvider(),
+    auth=AuthSettings(
+        issuer_url="https://myapp.com",
+        revocation_options=RevocationOptions(
+            enabled=True,
+        ),
+        client_registration_options=ClientRegistrationOptions(
+            enabled=True,
+            valid_scopes=["myscope", "myotherscope"],
+            default_scopes=["myscope"],
+        ),
+        required_scopes=["myscope"],
+    ),
+)
+```
+
+----------------------------------------
+
+TITLE: Implementing a Basic MCP Echo Server
+DESCRIPTION: This snippet provides a simple implementation of an MCP server named 'Echo' using `FastMCP`. It demonstrates how to define a resource (`echo_resource`), a tool (`echo_tool`), and a prompt (`echo_prompt`), each designed to return an echoed version of the input message, showcasing fundamental MCP server capabilities.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_23
+
+LANGUAGE: python
+CODE:
+```
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("Echo")
+
+@mcp.resource("echo://{message}")
+def echo_resource(message: str) -> str:
+    """Echo a message as a resource"""
+    return f"Resource echo: {message}"
+
+@mcp.tool()
+def echo_tool(message: str) -> str:
+    """Echo a message as a tool"""
+    return f"Tool echo: {message}"
+
+@mcp.prompt()
+def echo_prompt(message: str) -> str:
+    """Create an echo prompt"""
+    return f"Please process this message: {message}"
+```
+
+----------------------------------------
+
+TITLE: Connecting to MCP Server via Stdio Client and Interacting with Capabilities (Python)
+DESCRIPTION: This snippet illustrates how to establish a client connection to an MCP server using the standard I/O (stdio) transport. It defines `StdioServerParameters` to specify the server executable and demonstrates initializing a `ClientSession` to interact with various server capabilities, including listing prompts, resources, and tools, getting specific prompts, reading resources, and calling tools. An optional `sampling_callback` is also shown for handling message creation requests.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_28
+
+LANGUAGE: python
+CODE:
+```
+from mcp import ClientSession, StdioServerParameters, types
+from mcp.client.stdio import stdio_client
+
+# Create server parameters for stdio connection
+server_params = StdioServerParameters(
+    command="python",  # Executable
+    args=["example_server.py"],  # Optional command line arguments
+    env=None,  # Optional environment variables
+)
+
+# Optional: create a sampling callback
+async def handle_sampling_message(
+    message: types.CreateMessageRequestParams,
+) -> types.CreateMessageResult:
+    return types.CreateMessageResult(
+        role="assistant",
+        content=types.TextContent(
+            type="text",
+            text="Hello, world! from model",
+        ),
+        model="gpt-3.5-turbo",
+        stopReason="endTurn",
+    )
+
+async def run():
+    async with stdio_client(server_params) as (read, write):
+        async with ClientSession(
+            read, write, sampling_callback=handle_sampling_message
+        ) as session:
+            # Initialize the connection
+            await session.initialize()
+
+            # List available prompts
+            prompts = await session.list_prompts()
+
+            # Get a prompt
+            prompt = await session.get_prompt(
+                "example-prompt", arguments={"arg1": "value"}
+            )
+
+            # List available resources
+            resources = await session.list_resources()
+
+            # List available tools
+            tools = await session.list_tools()
+
+            # Read a resource
+            content, mime_type = await session.read_resource("file://some/path")
+
+            # Call a tool
+            result = await session.call_tool("tool-name", arguments={"arg1": "value"})
+
+if __name__ == "__main__":
+    import asyncio
+
+    asyncio.run(run())
+```
+
+----------------------------------------
+
+TITLE: Running FastMCP Server in Development Mode with `mcp dev`
+DESCRIPTION: These `mcp dev` commands illustrate how to run a FastMCP server for development and debugging. It shows how to start the server, add Python package dependencies, and mount local code for live changes.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_13
+
+LANGUAGE: bash
+CODE:
+```
+mcp dev server.py
+
+# Add dependencies
+mcp dev server.py --with pandas --with numpy
+
+# Mount local code
+mcp dev server.py --with-editable .
+```
+
+----------------------------------------
+
+TITLE: Implementing an MCP SQLite Explorer Server
+DESCRIPTION: This example demonstrates an MCP server that interacts with an SQLite database. It defines a resource (`get_schema`) to retrieve the database schema and a tool (`query_data`) to execute SQL queries safely, providing a practical illustration of integrating database operations within an MCP server.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_24
+
+LANGUAGE: python
+CODE:
+```
+import sqlite3
+
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("SQLite Explorer")
+
+@mcp.resource("schema://main")
+def get_schema() -> str:
+    """Provide the database schema as a resource"""
+    conn = sqlite3.connect("database.db")
+    schema = conn.execute("SELECT sql FROM sqlite_master WHERE type='table'").fetchall()
+    return "\n".join(sql[0] for sql in schema if sql[0])
+
+@mcp.tool()
+def query_data(sql: str) -> str:
+    """Execute SQL queries safely"""
+    conn = sqlite3.connect("database.db")
+    try:
+        result = conn.execute(sql).fetchall()
+        return "\n".join(str(row) for row in result)
+    except Exception as e:
+        return f"Error: {str(e)}"
+```
+
+----------------------------------------
+
+TITLE: Defining Static and Dynamic Resources with FastMCP in Python
+DESCRIPTION: This snippet illustrates how to define resources using the `@mcp.resource()` decorator. Resources are used to expose data to LLMs, similar to GET endpoints in a REST API. It shows examples for a static configuration resource and a dynamic user profile resource that accepts path parameters.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_7
+
+LANGUAGE: python
+CODE:
+```
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("My App")
+
+@mcp.resource("config://app")
+def get_config() -> str:
+    """Static configuration data"""
+    return "App configuration here"
+
+@mcp.resource("users://{user_id}/profile")
+def get_user_profile(user_id: str) -> str:
+    """Dynamic user data"""
+    return f"Profile data for user {user_id}"
+```
+
+----------------------------------------
+
+TITLE: Configuring Low-Level MCP Server with Lifespan API
+DESCRIPTION: This snippet illustrates how to use the low-level `mcp.server.Server` class for fine-grained control over an MCP server's lifecycle. It demonstrates the implementation of an `asynccontextmanager` for `server_lifespan` to manage resource initialization (e.g., database connection) on startup and cleanup on shutdown, providing full control over server behavior.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_25
+
+LANGUAGE: python
+CODE:
+```
+from contextlib import asynccontextmanager
+from collections.abc import AsyncIterator
+
+from fake_database import Database  # Replace with your actual DB type
+
+from mcp.server import Server
+
+@asynccontextmanager
+async def server_lifespan(server: Server) -> AsyncIterator[dict]:
+    """Manage server startup and shutdown lifecycle."""
+    # Initialize resources on startup
+    db = await Database.connect()
+    try:
+        yield {"db": db}
+    finally:
+        # Clean up on shutdown
+        await db.disconnect()
+
+# Pass lifespan to server
+server = Server("example-server", lifespan=server_lifespan)
+```
+
+----------------------------------------
+
+TITLE: Installing and Setting Up MCP
+DESCRIPTION: This comprehensive guide covers all aspects of installing and setting up MCP for different environments. It includes initializing a project, installing dependencies with different package managers, deploying servers to Claude Desktop, and configuring environment variables.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md
+
+LANGUAGE: bash
+CODE:
+```
+# Initialize a new uv-managed Python project with MCP
+uv init mcp-server-demo
+cd mcp-server-demo
+uv add "mcp[cli]"
+
+# Alternative: Install with pip
+pip install "mcp[cli]"
+
+# Install server for Claude Desktop integration
+mcp install server.py
+
+# Install with custom name
+mcp install server.py --name "My Analytics Server"
+
+# Install with environment variables
+mcp install server.py -v API_KEY=abc123 -v DB_URL=postgres://...
+mcp install server.py -f .env
+
+# Install client dependencies
+cd examples/clients/simple-auth-client
+uv sync --reinstall
+```
+
+----------------------------------------
+
+TITLE: Initializing FastMCP Server with Lifespan and Context in Python
+DESCRIPTION: This snippet demonstrates how to initialize the FastMCP server, configure application lifespan for startup and shutdown operations (e.g., database connection management), and access the type-safe lifespan context within a registered tool. It shows how to pass dependencies and manage resources throughout the application's lifecycle.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_6
+
+LANGUAGE: python
+CODE:
+```
+# Add lifespan support for startup/shutdown with strong typing
+from contextlib import asynccontextmanager
+from collections.abc import AsyncIterator
+from dataclasses import dataclass
+
+from fake_database import Database  # Replace with your actual DB type
+
+from mcp.server.fastmcp import FastMCP
+
+# Create a named server
+mcp = FastMCP("My App")
+
+# Specify dependencies for deployment and development
+mcp = FastMCP("My App", dependencies=["pandas", "numpy"])
+
+@dataclass
+class AppContext:
+    db: Database
+
+@asynccontextmanager
+async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
+    """Manage application lifecycle with type-safe context"""
+    # Initialize on startup
+    db = await Database.connect()
+    try:
+        yield AppContext(db=db)
+    finally:
+        # Cleanup on shutdown
+        await db.disconnect()
+
+# Pass lifespan to server
+mcp = FastMCP("My App", lifespan=app_lifespan)
+
+# Access type-safe lifespan context in tools
+@mcp.tool()
+def query_db() -> str:
+    """Tool that uses initialized resources"""
+    ctx = mcp.get_context()
+    db = ctx.request_context.lifespan_context["db"]
+    return db.query()
+```
+
+----------------------------------------
+
+TITLE: Configuring and Starting MCP Servers with Different Transport Options
+DESCRIPTION: This comprehensive guide shows how to configure and start MCP servers with various transport options. It covers both code configuration using FastMCP and command-line options for different server types (stateful, stateless) and transport protocols (SSE, streamable HTTP).
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md
+
+LANGUAGE: python
+CODE:
+```
+from mcp.server.fastmcp import FastMCP
+
+# Stateful server (maintains session state)
+mcp = FastMCP("StatefulServer")
+
+# Stateless server (no session persistence)
+mcp = FastMCP("StatelessServer", stateless_http=True)
+
+# Stateless server (no session persistence, no sse stream with supported client)
+mcp = FastMCP("StatelessServer", stateless_http=True, json_response=True)
+
+# Run server with specific transport
+mcp.run(transport="streamable-http")  # or "sse" or "stdio"
+```
+
+LANGUAGE: bash
+CODE:
+```
+# Start stateless streamable HTTP server
+uv run mcp-simple-streamablehttp-stateless
+
+# Using custom port
+uv run mcp-simple-streamablehttp-stateless --port 3000
+
+# Custom logging level
+uv run mcp-simple-streamablehttp-stateless --log-level DEBUG
+
+# Enable JSON responses instead of SSE streams
+uv run mcp-simple-streamablehttp-stateless --json-response
+```
+
+----------------------------------------
+
+TITLE: Mounting MCP SSE Server to Starlette ASGI App
+DESCRIPTION: This snippet demonstrates how to integrate a single Model Context Protocol (MCP) SSE server into an existing Starlette ASGI application. It shows mounting the SSE server at the root path '/' and dynamically mounting it as a host, allowing the MCP server to handle requests within the Starlette application's routing.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_21
+
+LANGUAGE: python
+CODE:
+```
+from starlette.applications import Starlette
+from starlette.routing import Mount, Host
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("My App")
+
+# Mount the SSE server to the existing ASGI server
+app = Starlette(
+    routes=[
+        Mount('/', app=mcp.sse_app()),
+    ]
+)
+
+# or dynamically mount as host
+app.router.routes.append(Host('mcp.acme.corp', app=mcp.sse_app()))
+```
+
+----------------------------------------
+
+TITLE: Connecting to MCP Server via Streamable HTTP Client (Python)
+DESCRIPTION: This example demonstrates how to connect to an MCP server using the Streamable HTTP transport. It utilizes `streamablehttp_client` to establish a connection and then creates a `ClientSession` with the obtained read and write streams. The snippet shows how to initialize the session and perform a basic interaction, such as calling a tool, over the HTTP connection.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_29
+
+LANGUAGE: python
+CODE:
+```
+from mcp.client.streamable_http import streamablehttp_client
+from mcp import ClientSession
+
+async def main():
+    # Connect to a streamable HTTP server
+    async with streamablehttp_client("example/mcp") as (
+        read_stream,
+        write_stream,
+        _,
+    ):
+        # Create a session using the client streams
+        async with ClientSession(read_stream, write_stream) as session:
+            # Initialize the connection
+            await session.initialize()
+            # Call a tool
+            tool_result = await session.call_tool("echo", {"message": "hello"})
+```
+
+----------------------------------------
+
+TITLE: Defining a Math Server with FastMCP for Multi-Mount
+DESCRIPTION: This Python file defines a simple 'MathServer' using FastMCP, configured as stateless HTTP. It includes an `add_two` tool that adds 2 to an integer, intended to be mounted alongside other FastMCP servers in a FastAPI application.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_19
+
+LANGUAGE: python
+CODE:
+```
+# math.py
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP(name="MathServer", stateless_http=True)
+
+@mcp.tool(description="A simple add tool")
+def add_two(n: int) -> int:
+    return n + 2
+```
+
+----------------------------------------
+
+TITLE: Mounting Multiple MCP Servers with Custom Paths
+DESCRIPTION: This example illustrates how to mount multiple Model Context Protocol (MCP) servers to a single Starlette ASGI application, each with a distinct custom path. It demonstrates three methods for configuring mount paths: via server settings, directly passing the path to `sse_app`, and passing the path to the `run()` method for direct execution.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_22
+
+LANGUAGE: python
+CODE:
+```
+from starlette.applications import Starlette
+from starlette.routing import Mount
+from mcp.server.fastmcp import FastMCP
+
+# Create multiple MCP servers
+github_mcp = FastMCP("GitHub API")
+browser_mcp = FastMCP("Browser")
+curl_mcp = FastMCP("Curl")
+search_mcp = FastMCP("Search")
+
+# Method 1: Configure mount paths via settings (recommended for persistent configuration)
+github_mcp.settings.mount_path = "/github"
+browser_mcp.settings.mount_path = "/browser"
+
+# Method 2: Pass mount path directly to sse_app (preferred for ad-hoc mounting)
+# This approach doesn't modify the server's settings permanently
+
+# Create Starlette app with multiple mounted servers
+app = Starlette(
+    routes=[
+        # Using settings-based configuration
+        Mount("/github", app=github_mcp.sse_app()),
+        Mount("/browser", app=browser_mcp.sse_app()),
+        # Using direct mount path parameter
+        Mount("/curl", app=curl_mcp.sse_app("/curl")),
+        Mount("/search", app=search_mcp.sse_app("/search")),
+    ]
+)
+
+# Method 3: For direct execution, you can also pass the mount path to run()
+if __name__ == "__main__":
+    search_mcp.run(transport="sse", mount_path="/search")
+```
+
+----------------------------------------
+
+TITLE: Retrieving Resources with MCP Python Client
+DESCRIPTION: This asynchronous Python client example demonstrates how to connect to an MCP server using the stdio transport. It initializes a client session, lists all available resources, and then reads the content of a specific resource, 'file:///greeting.txt'.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-resource/README.md#_snippet_1
+
+LANGUAGE: python
+CODE:
+```
+import asyncio
+from mcp.types import AnyUrl
+from mcp.client.session import ClientSession
+from mcp.client.stdio import StdioServerParameters, stdio_client
+
+async def main():
+    async with stdio_client(
+        StdioServerParameters(command="uv", args=["run", "mcp-simple-resource"])
+    ) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+
+            # List available resources
+            resources = await session.list_resources()
+            print(resources)
+
+            # Get a specific resource
+            resource = await session.read_resource(AnyUrl("file:///greeting.txt"))
+            print(resource)
+
+asyncio.run(main())
+```
+
+----------------------------------------
+
+TITLE: Starting MCP Server with OAuth Support (Bash)
+DESCRIPTION: This command starts an MCP server configured for OAuth authentication using the `mcp-simple-auth` application. It specifies `streamable-http` as the transport type and sets the server's listening port to `3001`.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/clients/simple-auth-client/README.md#_snippet_1
+
+LANGUAGE: bash
+CODE:
+```
+cd path/to/mcp-simple-auth
+uv run mcp-simple-auth --transport streamable-http --port 3001
+```
+
+----------------------------------------
+
+TITLE: Defining an Echo Server with FastMCP for Multi-Mount
+DESCRIPTION: This Python file defines a simple 'EchoServer' using FastMCP, configured as stateless HTTP. It includes a basic `echo` tool that returns the input message, intended to be mounted alongside other FastMCP servers in a FastAPI application.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_18
+
+LANGUAGE: python
+CODE:
+```
+# echo.py
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP(name="EchoServer", stateless_http=True)
+
+@mcp.tool(description="A simple echo tool")
+def echo(message: str) -> str:
+    return f"Echo: {message}"
+```
+
+----------------------------------------
+
+TITLE: Calling 'fetch' Tool with MCP Python Client
+DESCRIPTION: This Python example demonstrates how to connect to the MCP simple tool server using the `stdio_client`, initialize a client session, list available tools, and then call the 'fetch' tool with a specified URL. It uses `asyncio` for asynchronous operations.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-tool/README.md#_snippet_1
+
+LANGUAGE: python
+CODE:
+```
+import asyncio
+from mcp.client.session import ClientSession
+from mcp.client.stdio import StdioServerParameters, stdio_client
+
+async def main():
+    async with stdio_client(
+        StdioServerParameters(command="uv", args=["run", "mcp-simple-tool"])
+    ) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+
+            # List available tools
+            tools = await session.list_tools()
+            print(tools)
+
+            # Call the fetch tool
+            result = await session.call_tool("fetch", {"url": "https://example.com"})
+            print(result)
+
+asyncio.run(main())
+```
+
+----------------------------------------
+
+TITLE: Handling Image Data with FastMCP in Python
+DESCRIPTION: This snippet demonstrates how FastMCP's `Image` class automatically handles image data. It shows a tool that creates a thumbnail from an image file using `PIL` (Pillow) and returns the processed image data wrapped in the `mcp.server.fastmcp.Image` object, specifying its format.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_10
+
+LANGUAGE: python
+CODE:
+```
+from mcp.server.fastmcp import FastMCP, Image
+from PIL import Image as PILImage
+
+mcp = FastMCP("My App")
+
+@mcp.tool()
+def create_thumbnail(image_path: str) -> Image:
+    """Create a thumbnail from an image"""
+    img = PILImage.open(image_path)
+    img.thumbnail((100, 100))
+    return Image(data=img.tobytes(), format="png")
+```
+
+----------------------------------------
+
+TITLE: Interacting with MCP Simple Prompt using Python Client
+DESCRIPTION: This Python example demonstrates how to connect to the MCP Simple Prompt server using the `stdio_client`, initialize a client session, list available prompts, and retrieve the 'simple' prompt with specific context and topic arguments.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-prompt/README.md#_snippet_1
+
+LANGUAGE: python
+CODE:
+```
+import asyncio
+from mcp.client.session import ClientSession
+from mcp.client.stdio import StdioServerParameters, stdio_client
+
+async def main():
+    async with stdio_client(
+        StdioServerParameters(command="uv", args=["run", "mcp-simple-prompt"])
+    ) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+
+            # List available prompts
+            prompts = await session.list_prompts()
+            print(prompts)
+
+            # Get the prompt with arguments
+            prompt = await session.get_prompt(
+                "simple",
+                {
+                    "context": "User is a software developer",
+                    "topic": "Python async programming"
+                },
+            )
+            print(prompt)
+
+asyncio.run(main())
+```
+
+----------------------------------------
+
+TITLE: Testing MCP Server with MCP Inspector
+DESCRIPTION: This command runs the `server.py` in development mode, making it accessible via the MCP Inspector. It's useful for testing and debugging the server's functionality, allowing developers to verify tools and resources before full deployment.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_5
+
+LANGUAGE: Bash
+CODE:
+```
+mcp dev server.py
+```
+
+----------------------------------------
+
+TITLE: Direct Execution of a FastMCP Server in Python
+DESCRIPTION: This Python snippet demonstrates the minimal code required to initialize and run a FastMCP server directly from a Python script. It's suitable for advanced scenarios like custom deployments where `mcp run` or `mcp dev` might not be used.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#_snippet_15
+
+LANGUAGE: python
+CODE:
+```
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("My App")
+
+if __name__ == "__main__":
+    mcp.run()
+```
+
+----------------------------------------
+
+TITLE: Running MCP Server with Different Transport Options (Bash)
+DESCRIPTION: These commands demonstrate how to run an MCP server with different transport protocols. The default is SSE (providing the `/sse` endpoint), but you can explicitly specify SSE or use Streamable HTTP (providing the `/mcp` endpoint) for different streaming mechanisms.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-auth/README.md
+
+LANGUAGE: bash
+CODE:
+```
+# Default (SSE)
+uv run mcp-simple-auth
+
+# Explicit SSE transport
+uv run mcp-simple-auth --transport sse
+
+# Streamable HTTP transport
+uv run mcp-simple-auth --transport streamable-http
+```
+
+----------------------------------------
+
+TITLE: Setting GitHub OAuth Environment Variables (Bash)
+DESCRIPTION: These environment variables are crucial for the MCP server to authenticate with GitHub OAuth. `MCP_GITHUB_GITHUB_CLIENT_ID` holds the client ID of your GitHub OAuth App, and `MCP_GITHUB_GITHUB_CLIENT_SECRET` holds its corresponding secret. Both must be set before running the server.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-auth/README.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+export MCP_GITHUB_GITHUB_CLIENT_ID="your_client_id_here"
+export MCP_GITHUB_GITHUB_CLIENT_SECRET="your_client_secret_here"
+```
+
+----------------------------------------
+
+TITLE: Starting MCP StreamableHttp Server (Bash)
+DESCRIPTION: This snippet demonstrates how to start the MCP StreamableHttp server using the `uv run` command. It shows options for specifying a custom port, setting the logging level, and enabling JSON responses instead of Server-Sent Events (SSE) streams.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-streamablehttp/README.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+# Using custom port
+uv run mcp-simple-streamablehttp --port 3000
+
+# Custom logging level
+uv run mcp-simple-streamablehttp --log-level DEBUG
+
+# Enable JSON responses instead of SSE streams
+uv run mcp-simple-streamablehttp --json-response
+```
+
+----------------------------------------
+
+TITLE: Running MCP Servers and Clients with Various Configurations
+DESCRIPTION: This comprehensive guide shows how to run MCP servers and clients with different configurations. It covers running servers directly, using different transports (stdio, SSE, streamable HTTP), specifying custom ports, and configuring clients with environment variables.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md
+
+LANGUAGE: bash
+CODE:
+```
+# Direct server execution
+python server.py
+# or using the CLI
+mcp run server.py
+
+# Starting specific server types with default transport (stdio)
+uv run mcp-simple-resource
+uv run mcp-simple-prompt
+uv run mcp-simple-tool
+
+# Using SSE transport with custom port
+uv run mcp-simple-resource --transport sse --port 8000
+uv run mcp-simple-prompt --transport sse --port 8000
+uv run mcp-simple-tool --transport sse --port 8000
+
+# Running clients with different configurations
+# Default configuration
+uv run mcp-simple-auth-client
+
+# With custom server port
+MCP_SERVER_PORT=3001 uv run mcp-simple-auth-client
+
+# With specific transport type
+MCP_TRANSPORT_TYPE=sse uv run mcp-simple-auth-client
+```
+
+----------------------------------------
+
+TITLE: Running MCP Server with Default SSE Transport (Bash)
+DESCRIPTION: This command starts the MCP server using `uv run` and the `mcp-simple-auth` application. By default, it will use Server-Sent Events (SSE) as the transport protocol, making the `/sse` endpoint available.
+SOURCE: https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-auth/README.md#_snippet_1
+
+LANGUAGE: bash
+CODE:
+```
+uv run mcp-simple-auth
+```
+
+----------------------------------------
