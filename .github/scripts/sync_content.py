@@ -50,7 +50,11 @@ def create_project_in_supabase(project_id, title):
         .insert({
             "id": project_id,
             "title": title,
-            "description": title  # Using title as description to satisfy not-null constraint
+            "description": title,  # Using title as description to satisfy not-null constraint
+            "enabled": False,  # Default value in schema
+            "visible": False,  # Default value in schema
+            "available_in_web": False,  # Default value in schema
+            "ides": "cursor"  # Default value in schema
         })
         .execute()
     )
@@ -102,7 +106,7 @@ def update_stage_in_supabase(stage_id, description, github_file_url):
     )
     return response
 
-def create_stage_in_supabase(stage_id, title, description, github_file_url, project_id):
+def create_stage_in_supabase(stage_id, title, description, github_file_url, project_id, order_num):
     """Create a new stage in Supabase."""
     response = (
         supabase.table("stages")
@@ -111,7 +115,8 @@ def create_stage_in_supabase(stage_id, title, description, github_file_url, proj
             "title": title,
             "description": description,
             "github_file_url": github_file_url,
-            "project_id": project_id
+            "project_id": project_id,
+            "order_num": order_num
         })
         .execute()
     )
@@ -171,13 +176,13 @@ def main():
 
         if not stage:
             # Create new stage if it doesn't exist
-            print(f"Creating new stage with ID {stage_id} ({file_info['title']})")
             if project_info:
-                create_stage_in_supabase(stage_id, file_info['title'], file_content, github_file_url, project_info['id'])
+                print(f"Creating new stage with ID {stage_id} ({file_info['title']})")
+                create_stage_in_supabase(stage_id, file_info['title'], file_content, github_file_url, project_info['id'], file_info['order_num'])
+                created_count += 1
             else:
-                print(f"Warning: Could not determine project ID for stage {stage_id}, stage will not be linked to a project")
-                create_stage_in_supabase(stage_id, file_info['title'], file_content, github_file_url, None)
-            created_count += 1
+                print(f"Error: Could not determine project ID for stage {stage_id}, skipping stage creation")
+                skipped_count += 1
             continue
 
         # Compare content
