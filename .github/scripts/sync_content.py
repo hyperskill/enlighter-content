@@ -49,7 +49,8 @@ def create_project_in_supabase(project_id, title):
         supabase.table("projects")
         .insert({
             "id": project_id,
-            "title": title
+            "title": title,
+            "description": title  # Using title as description to satisfy not-null constraint
         })
         .execute()
     )
