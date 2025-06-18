@@ -1,0 +1,92 @@
+<p>The <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP</a> is a powerful server that brings Microsoft's Playwright browser automation capabilities to GitHub Copilot. This extensive toolkit enables precise control over web browsers, allowing for sophisticated web interactions, testing, and automation.</p>
+
+<h5>Features:</h5>
+<ul>
+<li>Comprehensive browser control with multiple interaction modes</li>
+<li>Keyboard and mouse control for complex interactions</li>
+<li>Screenshot capabilities with customization options</li>
+<li>Tab and window management for multi-page workflows</li>
+</ul><br>
+
+<h5>Key Use Cases</h5>
+<ul>
+<li>Automated web testing and verification</li>
+<li>Complex form filling and submission</li>
+<li>Web scraping with precise element targeting</li>
+<li>Multi-step workflow automation</li>
+<li>Cross-browser compatibility testing</li>
+</ul><br>
+
+<warning>GitHub Copilot can handle a limited amount of tool slots. If you encounter a problem that new MCPs do not connect due to restrictions, turn off unnecessary ones to free up tool slots.</warning>
+
+<h5>Setup Instructions</h5>
+
+<p>You can set up the Playwright MCP using NPX, which is the recommended method:</p>
+
+<h5>NPX Setup</h5>
+<callout type="chat" label="Ask Copilot">Create or edit a file .vscode/mcp.json to include the following MCP setup:
+
+{
+  "servers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}
+If mcp.json file is already created, just add "playwright" object to the "servers" array and don't remove existing servers.
+</callout>
+
+<p>For headless browser operation (no visible browser window), use:</p>
+
+<callout type="chat" label="Ask Copilot">Create or edit a file .vscode/mcp.json to include the following MCP setup:
+
+{
+  "servers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--headless"
+      ]
+    }
+  }
+}
+If mcp.json file is already created, just add "playwright" object to the "servers" array and don't remove existing servers.
+</callout>
+
+<h5>Interaction Modes</h5>
+
+<p>Playwright MCP offers two primary interaction modes:</p>
+
+<h5>1. Snapshot Mode (Default)</h5>
+<ul>
+<li>Uses accessibility snapshots for better performance</li>
+<li>More reliable for structured content</li>
+<li>Preferred for most automation tasks</li>
+</ul><h5>2. Vision Mode</h5>
+<ul>
+<li>Uses screenshots for visual-based interactions</li>
+<li>Better for visually complex interfaces</li>
+<li>Enable with the --vision flag:</li>
+</ul><callout type="chat" label="Ask Copilot">Create or edit a file .vscode/mcp.json to include the following MCP setup:
+    
+{
+  "servers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--vision"
+      ]
+    }
+  }
+}
+If mcp.json file is already created, just add "playwright" object to the "servers" array and don't remove existing servers.
+</callout>
+
+<h5>Practical Example: Web Automation</h5>
+
+<callout type="chat" label="Ask Copilot">Use Playwright MCP to get the weather in New York City.</callout>

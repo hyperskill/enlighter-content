@@ -1,0 +1,44 @@
+<p>The <a href="https://github.com/nickclyde/duckduckgo-mcp-server">DuckDuckGo MCP</a> enables GitHub Copilot to perform web searches using the DuckDuckGo search engine, giving it access to up-to-date information beyond its training data. This powerful server allows the AI to find recent documentation, solutions to coding problems, and current information to enhance its assistance, all while respecting user privacy. This stage will guide you through setting up and utilizing this MCP in your GitHub Copilot workflow.</p>
+
+<alert>
+There are a lot of MCPs that enable web search capabilities. We will use DuckDuckGo MCP because it's easy to set up and doesn't require an API key.
+</alert>
+
+<h5>Features:</h5>
+<ul>
+<li>Web Search: Search DuckDuckGo with advanced rate limiting and result formatting</li>
+<li>Content Fetching: Retrieve and parse webpage content with intelligent text extraction</li>
+<li>Rate Limiting: Built-in protection against rate limits for both search and content fetching</li>
+<li>Error Handling: Comprehensive error handling and logging</li>
+<li>LLM-Friendly Output: Results formatted specifically for large language model consumption</li>
+</ul><br>
+
+<h5>Key Use Cases</h5>
+<ul>
+<li>Researching current documentation and specifications</li>
+<li>Finding solutions to error messages and bugs</li>
+<li>Accessing recent framework and library updates</li>
+<li>Retrieving and parsing content from specific websites</li>
+<li>Staying current with technical information beyond training data</li>
+</ul><br>
+
+<h5>Setup Instructions:</h5>
+
+<callout type="chat" label="Ask Copilot">Create or edit a file .vscode/mcp.json to include the following MCP setup:
+
+{
+  "servers": {
+    "ddg-search": {
+      "command": "uvx",
+      "args": ["duckduckgo-mcp-server"]
+    }
+  }
+}
+If mcp.json file is already created, just add "ddg-search" object to the "servers" array and don't remove existing servers.
+</callout>
+
+<h5>Practical Example: Web Search</h5>
+
+<callout type="chat" label="Ask Copilot">
+Use DuckDuckGo to find the current weather in New York City.
+</callout>

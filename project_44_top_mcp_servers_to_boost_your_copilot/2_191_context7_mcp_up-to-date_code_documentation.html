@@ -1,0 +1,59 @@
+<p>The <a href="https://github.com/upstash/context7">Context7 MCP</a> is a powerful tool that provides up-to-date, version-specific documentation and code examples directly into your LLM's context. It helps overcome the limitations of LLMs relying on outdated or generic information about the libraries you use.</p>
+
+<h5>Benefits:</h5>
+<ul>
+<li>Fetches current documentation and code examples from the source.</li>
+<li>Prevents outdated code examples and hallucinated APIs.</li>
+<li>Avoids generic answers based on old package versions.</li>
+<li>Enables you to write prompts naturally and get working code answers.</li>
+</ul><br>
+
+<h5>Key Use Cases</h5>
+<ul>
+<li>Get accurate code for specific library versions.</li>
+<li>Quickly understand how to use new or unfamiliar libraries.</li>
+<li>Reduce time spent debugging code generated from outdated information.</li>
+<li>Improve the reliability of AI-assisted coding.</li>
+</ul><br>
+
+<h5>Setup Instructions</h5>
+
+<p>You can set up the Context7 MCP for your GitHub Copilot workflow. This setup allows GitHub Copilot to leverage Context7 for more accurate code generation.</p>
+
+<p>For a local server connection (recommended for development and courses):</p>
+
+<callout type="chat" label="Ask Copilot">
+Create or edit a file .vscode/mcp.json to include the following MCP setup for Context7:
+{
+  "servers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    }
+  }
+}
+If mcp.json file is already created, just add "context7" object to the "servers" array and don't remove existing servers.
+</callout>
+
+<p>Alternatively, for a remote server connection (if you prefer not to run a local server):</p>
+<callout type="chat" label="Ask Copilot">Create or edit a file .vscode/mcp.json to include the following MCP setup for Context7:
+
+{
+  "servers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
+}
+If mcp.json file is already created, just add "context7" object to the "servers" array and don't remove existing servers.
+</callout>
+
+<h5>Practical Example: Using Context7 in a Prompt</h5>
+
+<p>To use Context7, simply add <code>use context7</code> to your prompt in GitHub Copilot. For example:</p>
+<callout type="chat" label="Ask Copilot">How to implement authentication in a Flask app using Authlib. Use context7</callout>
+<br>
+<callout type="chat" label="Ask Copilot">Create a basic Next.js project with app router. Use context7</callout>
+
+
+<p>Context7 will then fetch the relevant up-to-date documentation and examples to help the AI generate a more accurate and reliable response.</p>
