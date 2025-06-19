@@ -1,0 +1,98 @@
+<h5>Welcome to: Managing Context with Memory Bank in GitHub Copilot</h5>
+
+<p>In this course, you will learn how to harness the Memory Bank methodology to give GitHub Copilot long-term knowledge of your project. By the end, you'll have a persistent context system that supercharges Copilot&#39;s assistance across sessions.</p>
+
+<h5>What You&#39;ll Learn</h5>
+<ul>
+  <li>Why context persistence matters when working with AI coding assistants</li>
+  <li>How the Memory Bank folder structure works</li>
+  <li>Installing and enabling the Memory Bank MCP Server inside GitHub Copilot</li>
+  <li>Maintaining and evolving your Memory Bank over the life-cycle of a project</li>
+</ul>
+
+<h5>What is Memory Bank?</h5>
+
+<p>Memory Bank is a structured documentation system that helps GitHub Copilot maintain context across sessions. It transforms Copilot from a stateless assistant into a persistent development partner that can effectively "remember" your project details over time.</p>
+
+<p>When working with AI coding, you've likely encountered this common limitation: the AI has no memory of your previous conversations once you start a new session. This means:</p>
+
+<ul>
+<li>You need to re-explain your project repeatedly</li>
+<li>The AI can't recall decisions you made together</li>
+<li>You lose continuity in complex projects</li>
+<li>Each session starts from scratch</li>
+</ul>
+
+<h5>How Memory Bank Solves This Problem</h5>
+
+<p>Memory Bank addresses this limitation through a systematic approach to documentation:</p>
+
+<ul>
+<li><strong>Structured Documentation</strong>: A hierarchy of markdown files that build a complete picture of your project.</li>
+<li><strong>Context Preservation</strong>: Key information is stored in a format that's easy for both you and Copilot to reference.</li>
+<li><strong>Continuous Updates</strong>: Documentation evolves as your project progresses.</li>
+</ul>
+
+<h5>Memory Bank is Not Magic</h5>
+
+<p>It's important to understand that Memory Bank isn't a magical feature that gives Copilot perfect memory. It's a methodical approach to documentation that you maintain that enhances Copilot's context management capabilities.</p>
+
+<h5>Setting Up Memory Bank</h5>
+
+<p>
+    To set up Memory Bank we will use <a href="https://github.com/ipospelov/mcp-memory-bank">Memory Bank MCP Server</a>. 
+    It's a simple way to create a Memory Bank for your projects automatically based on provided context.
+</p>
+
+<p>First of all, we need to install uv and uvx tools to run Memory Bank MCP Server.</p>
+
+<callout label="Ask Cascade to install uv and uvx tool">
+    Install uv and uvx tool if it's not installed yet
+</callout>
+
+<p>Then, we need to configure Memory Bank MCP Server.</p>
+
+<h5>Enable the Memory Bank MCP Server</h5>
+
+<p>To configure an MCP server for a specific workspace, we should create a .vscode/mcp.json file in your workspace folder.</p>
+
+<p>To save some time we can ask Copilot to create a mcp.json file with the right configuration for the MCP server we want to install. We will use it as the main way to configure MCP servers in our course.</p>
+
+<callout label="Create mcp.json config with Memory Bank MCP Server">
+Create or edit .vscode/mcp.json and add:
+{
+  "servers": {
+    "mcp-memory-bank": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/ipospelov/mcp-memory-bank",
+        "mcp_memory_bank"
+      ]
+    }
+  }
+}
+If mcp.json file is already created, just add "mcp-memory-bank" object to the "servers" array and don't remove existing servers.
+</callout>
+
+<p>If everything went smoothly, you should see the following file created in your workspace folder by Copilot:</p>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/509dd774-d83f-45a6-b66d-31ee403d2d55/" alt="GitHub Copilot MCP config" title="GitHub Copilot MCP config"></p>
+
+<p>If you look closely, there is the menu above <code>"mcp-memory-bank":</code> line. Press <code>Start</code> button to enable the MCP server and it should say <code>Running</code> now.</p>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/0bde4482-43b2-498d-a66a-e54397c69a41/" alt="GitHub Copilot MCP enabled" title="GitHub Copilot MCP enabled"></p>
+
+<p>Well done! You have installed Memory Bank MCP Server manually.</p>
+
+<h5>Limitations</h5>
+
+<warning>MCP will work only in Agent mode. We recommend to use it throughout this lesson.</warning>
+
+<warning>Having too many MCP servers and tools added can confuse  GitHub Copilot and make it less reliable in choosing correct tools. Make sure to only enable the MCP servers and tools that you really need for your current project.</warning>
+
+<h5>Outcome</h5>
+
+<checkable-item title="Memory Bank MCP Server is enabled in GitHub Copilot"></checkable-item>
+
+<p>In the next stage, we'll dive deeper into the Memory Bank concept, exploring the file hierarchy and how the different components work together to maintain context.</p> 
