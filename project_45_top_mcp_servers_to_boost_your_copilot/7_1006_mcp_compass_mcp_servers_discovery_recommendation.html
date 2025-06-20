@@ -1,0 +1,47 @@
+<p>The <a href="https://github.com/liuyoshio/mcp-compass">MCP Compass</a> enables GitHub Copilot to discover and recommend appropriate Model Context Protocol servers based on your needs. This intelligent discovery tool helps you find the right MCPs for specific tasks through natural language queries, making it easier to navigate the growing ecosystem of MCP services.</p>
+
+<h5>Features:</h5>
+<ul>
+<li>Find MCP services using natural language queries</li>
+<li>Get detailed information about available MCPs</li>
+<li>Receive recommendations based on your specific needs</li>
+<li>Stay up-to-date with the latest MCP services</li>
+<li>Learn how to use and configure different MCPs</li>
+</ul><br>
+
+<h5>Key Use Cases</h5>
+<ul>
+<li>Discovering MCPs for specific programming tasks</li>
+<li>Learning about alternative tools for your workflow</li>
+<li>Finding the right combination of MCPs for a project</li>
+<li>Exploring the capabilities of the MCP ecosystem</li>
+</ul><br>
+
+<h5>Setup Instructions</h5>
+
+<p>Setting up MCP Compass is straightforward with NPX:</p>
+
+<h5>Configuration</h5>
+<callout type="chat" label="Ask Copilot">Create or edit a file .vscode/mcp.json to include the following MCP setup:
+
+{
+  "servers": {
+    "mcp-compass": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@liuyoshio/mcp-compass"
+      ]
+    }
+  }
+}
+If mcp.json file is already created, just add "mcp-compass" object to the "servers" array and don't remove existing servers.
+</callout>
+
+<h5>Practical Example: Finding Task-Specific MCPs</h5>
+
+<callout type="chat" label="Ask Copilot">I need an MCP that can help me with web browsing and research. Can you recommend what's available and how to set it up? Use Compass MCP</callout>
+
+<p>Now let's find MCPs for a more specific development task:</p>
+
+<callout type="chat" label="Ask Copilot">What MCPs would you recommend for a project that involves working with GitHub repositories and needs persistent memory across sessions? Use Compass MCP</callout>
