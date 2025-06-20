@@ -1,0 +1,95 @@
+<h5>Welcome to: Top MCP Servers to Boost Your GitHub Copilot course!</h5>
+
+<p>Here, you'll learn how to use MCPs to supercharge your GitHub Copilot abilities.</p>
+
+<h5>What are MCP Servers?</h5>
+
+<p>MCP (Model Context Protocol) servers are modular tools that connect to your AI Agent and provide it with additional context and tools to achieve better results in writing code, debugging, and more.</p>
+
+<h5>What You'll Learn</h5>
+
+<ul>
+  <li>How to install MCP servers in GitHub Copilot</li>
+  <li>Various types of MCP installations</li>
+  <li>Top MCP servers to boost your productivity and results in GitHub Copilot</li>
+  <li>How to find new MCP servers and tools for your needs</li>
+</ul>
+
+<h5>Prerequisites</h5>
+
+<p>Before setting up any MCP servers, you'll need to ensure you have the necessary tools installed on your system:</p>
+
+<h5>NPX Installation</h5>
+
+<p>Throughout this project, we'll primarily use NPX to install and run MCP servers. NPX is included with Node.js and npm, which you'll need to install if you don't have them already:</p>
+
+<callout type="chat" label="Ask Copilot">Install npx, node, and npm.
+
+Verify your installation by running:
+```
+node --version
+npm --version
+npx --version
+```
+
+All three commands should display version numbers if the installation was successful.
+</callout>
+
+<h5>UV and UVX Installation</h5>
+
+<p>Some of MCP servers require uv and uvx tools to run. You can install them by running the following command:</p>
+
+<callout label="Ask Copilot to install uv and uvx tool">
+    Install uv and uvx tool if it's not installed yet
+</callout>
+
+<h5>Docker (Optional)</h5>
+
+<p>Some MCP servers provide Docker installation options, which can be useful for containerized environments or if you prefer isolation. Throughout this project, we'll show Docker configuration examples alongside NPX options.</p>
+
+<p>If you choose to use Docker, you'll need to install Docker Desktop or Docker Engine on your system. Installation instructions vary by operating system and are beyond the scope of this project. Please refer to the <a href="https://docs.docker.com/get-docker/">official Docker documentation</a> for installation guidance.</p>
+
+<h5>Manual MCP Server Installation</h5> 
+
+<p>Let's see how to install any MCP Server manually. We will use Memory Bank MCP Server as an example.</p>
+
+<p>To configure an MCP server for a specific workspace, we should create a .vscode/mcp.json file in your workspace folder.</p>
+
+<p>To save some time we can ask Copilot to create a mcp.json file with the right configuration for the MCP server we want to install. We will use it as the main way to configure MCP servers in our course.</p>
+
+<callout label="Create mcp.json config with Memory Bank MCP Server">
+Create or edit a file .vscode/mcp.json to include the following MCP setup for Memory Bank:
+      {
+          "servers": {
+          "mcp-memory-bank": {
+              "command": "uvx",
+              "args": [
+                  "--from",
+                  "git+https://github.com/ipospelov/mcp-memory-bank",
+                  "mcp_memory_bank"
+              ]
+          }
+      }
+    }   
+If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServers" array.
+</callout>
+
+<p>If everything went smoothly, you should see the following file created in your workspace folder by Copilot:</p>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/509dd774-d83f-45a6-b66d-31ee403d2d55/" alt="GitHub Copilot MCP config" title="GitHub Copilot MCP config"></p>
+
+<p>If you look closely, there is the menu above <code>"mcp-memory-bank":</code> line. Press <code>Start</code> button to enable the MCP server and it should say <code>Running</code> now.</p>
+
+<p><img style="margin: auto; display: block;" src="https://ucarecdn.com/0bde4482-43b2-498d-a66a-e54397c69a41/" alt="GitHub Copilot MCP enabled" title="GitHub Copilot MCP enabled"></p>
+
+<p>Well done! You have installed Memory Bank MCP Server manually.</p>
+
+<p>To configure an MCP server for all your workspaces, you can add the server configuration to your user settings. This allows you to reuse the same server configuration across multiple projects.</p>
+
+<p>Specify the server in the mcp VS Code user settings to enable the MCP server across all workspaces.</p>
+
+<h5>Limitations</h5>
+
+<warning>MCP will work only in Agent mode. We recommend to use it throughout this lesson.</warning>
+
+<warning>Having too many MCP servers and tools added can confuse  GitHub Copilot and make it less reliable in choosing correct tools. Make sure to only enable the MCP servers and tools that you really need for your current project.</warning>
