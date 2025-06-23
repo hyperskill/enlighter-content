@@ -109,14 +109,13 @@ def create_project_in_supabase(project_info):
 
 def update_project_in_supabase(project_id, update_data):
     """Update project in Supabase with data from project.json."""
-    # response = (
-    #     supabase.table("projects")
-    #     .update(update_data)
-    #     .eq("id", project_id)
-    #     .execute()
-    # )
-    # return response
-    print(update_data)
+    response = (
+        supabase.table("projects")
+        .update(update_data)
+        .eq("id", project_id)
+        .execute()
+    )
+    return response
 
 def extract_info_from_filename(filename):
     """Extract stage ID, order number, and title from filename."""
