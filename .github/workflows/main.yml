@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "project_*/*.html"
+      - "project_*/project.json"
       - "templates/*.html"
       - ".github/workflows/main.yml" # This file itself
       - ".github/scripts/validate-content.js"
