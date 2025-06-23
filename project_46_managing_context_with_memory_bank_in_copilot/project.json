@@ -1,0 +1,10 @@
+{
+  "id": 46,
+  "description": "Learn how to use Memory Bank, a structured documentation system that maintains context with AI coding assistants across sessions. Build a Snake game while exploring how Memory Bank helps Copilot remember your project details over time. Master this approach to eliminate repetitive explanations and maintain continuity in your development projects.",
+  "title": "Managing context with Memory Bank for GitHub Copilot",
+  "categories": "Copilot, Memory Bank, Vibe Coding",
+  "cover_url": "https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//37-cover-image.png",
+  "readme": "\n              \n                \n              \n            ",
+  "short_description": "Master Memory Bank - a structured system that helps Copilot remember your project details across sessions - while building a Snake game with persistent AI assistance.",
+  "ides": "copilot"
+}

@@ -1,0 +1,10 @@
+{
+  "id": 33,
+  "description": "This project guides you through a collection of powerful lifehacks to maximize your productivity with Cursor IDE. Each hack is explained with practical examples so you understand the usefulness of each trick. You'll learn how to enable logging to capture errors, adopt TDD to allow your code to self-validate, activate YOLO mode to refine your outputs, effectively use context files, document your backend with a README, index your codebase for better navigation, leverage web search for up-to-date information, and organize your project with tags, custom rules, notepads, and bug-finding tools.",
+  "title": "Cursor's Lifehacks: Mastering the IDE",
+  "categories": "Cursor IDE, Best Practices",
+  "cover_url": "https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//output_8.png",
+  "readme": "\n              \n                \n              \n            ",
+  "short_description": null,
+  "ides": "cursor"
+}
