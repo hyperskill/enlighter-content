@@ -29,7 +29,7 @@ jobs:
     runs-on: arc-runners-small
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -50,7 +50,7 @@ jobs:
     needs: validate # Depends on the 'validate' job succeeding
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -74,7 +74,9 @@ jobs:
     needs: validate # Depends on the 'validate' job succeeding
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -102,62 +104,40 @@ jobs:
             echo "draft_projects_found=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Generate comment body with draft project links
+        if: ${{ github.event_name == 'pull_request' && steps.sync-content.outputs.draft_projects_found == 'true' }}
+        id: generate-comment
+        run: |
+          # Read draft projects data
+          COMMENT_TITLE="## 🚀 Draft Projects Created"
+          COMMENT_BODY="${COMMENT_TITLE}\n\nThe following draft projects have been created in this PR:\n\n"
+
+          while IFS= read -r line; do
+            if [[ $line == DRAFT_PROJECT:* ]]; then
+              # Parse the line: DRAFT_PROJECT:<draft_id>:<original_id>:<title>
+              IFS=':' read -r _ DRAFT_ID ORIGINAL_ID TITLE_REST <<< "$line"
+              # Handle titles that might contain colons
+              TITLE="${line#DRAFT_PROJECT:$DRAFT_ID:$ORIGINAL_ID:}"
+
+              # Add project to comment body
+              COMMENT_BODY+="- [${TITLE}](https://enlightby.ai/projects/${DRAFT_ID}) (Draft ID: ${DRAFT_ID}, Original ID: ${ORIGINAL_ID})\n"
+            fi
+          done < draft_projects.txt
+
+          COMMENT_BODY+="\nThese links will work after the database has been updated."
+
+          # Escape newlines for GitHub Actions output
+          COMMENT_BODY="${COMMENT_BODY//'%'/'%25'}"
+          COMMENT_BODY="${COMMENT_BODY//$'\n'/'%0A'}"
+          COMMENT_BODY="${COMMENT_BODY//$'\r'/'%0D'}"
+
+          echo "comment_body=${COMMENT_BODY}" >> $GITHUB_OUTPUT
+
       - name: Post comment with draft project links
         if: ${{ github.event_name == 'pull_request' && steps.sync-content.outputs.draft_projects_found == 'true' }}
-        uses: actions/github-script@v6
+        uses: mshick/add-pr-comment@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const draftProjectsData = fs.readFileSync('draft_projects.txt', 'utf8');
-            const draftProjects = draftProjectsData.split('\n')
-              .filter(line => line.startsWith('DRAFT_PROJECT:'))
-              .map(line => {
-                const [_, draftId, originalId, ...titleParts] = line.split(':');
-                return {
-                  draftId: draftId,
-                  originalId: originalId,
-                  title: titleParts.join(':')
-                };
-              });
-
-            if (draftProjects.length > 0) {
-              const commentTitle = '## 🚀 Draft Projects Created';
-              let commentBody = `${commentTitle}\n\n`;
-              commentBody += 'The following draft projects have been created in this PR:\n\n';
-
-              draftProjects.forEach(project => {
-                commentBody += `- [${project.title}](https://enlightby.ai/projects/${project.draftId}) (Draft ID: ${project.draftId}, Original ID: ${project.originalId})\n`;
-              });
-
-              commentBody += '\nThese links will work after the database has been updated.';
-
-              // Check if a similar comment already exists
-              const { data: existingComments } = await github.rest.issues.listComments({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo
-              });
-
-              // Look for a comment that starts with the same title
-              const duplicateComment = existingComments.find(comment => 
-                comment.body.startsWith(commentTitle)
-              );
-
-              if (duplicateComment) {
-                console.log('A comment with draft project links already exists. Updating it instead of creating a new one.');
-                await github.rest.issues.updateComment({
-                  comment_id: duplicateComment.id,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: commentBody
-                });
-              } else {
-                await github.rest.issues.createComment({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: commentBody
-                });
-              }
-            }
+          refresh-message-position: true
+          message-id: host
+          message-success: |
+            ${{ steps.generate-comment.outputs.comment_body }}
