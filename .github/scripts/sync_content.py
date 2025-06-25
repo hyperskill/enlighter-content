@@ -3,6 +3,7 @@ import os
 import re
 import glob
 import json
+import subprocess
 from supabase import create_client
 
 # Initialize Supabase client
@@ -26,6 +27,52 @@ IS_PULL_REQUEST = os.environ.get("GITHUB_EVENT_NAME") == "pull_request"
 # This ensures that draft projects and stages have unique IDs in the database
 # and don't conflict with real projects and stages
 DRAFT_ID_PREFIX = -1000000
+
+# IMPORTANT: Draft projects are only created for projects that have been modified in the pull request.
+# This is determined by checking if any files in the project directory have been modified.
+# If a project has not been modified, it will use its original ID, not a draft ID.
+# This ensures that we only create draft projects for projects that are actually being changed,
+# which reduces database clutter and makes it easier to track changes.
+
+def get_modified_projects():
+    """
+    Get the list of project directories that have been modified in the pull request.
+    Returns a set of project directory names (e.g., 'project_10_rag_based_support_agent').
+    """
+    if not IS_PULL_REQUEST:
+        # If not in a pull request, return an empty set
+        return set()
+
+    try:
+        # Get the base branch (usually 'main')
+        base_branch = os.environ.get("GITHUB_BASE_REF", "main")
+
+        # Get the list of modified files between the base branch and the current branch
+        # Using git diff to get the list of modified files
+        cmd = ["git", "diff", "--name-only", f"origin/{base_branch}...HEAD"]
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        modified_files = result.stdout.strip().split('\n')
+
+        # Extract project directories from modified files
+        # Project directories follow the pattern 'project_*'
+        modified_projects = set()
+        for file_path in modified_files:
+            # Skip empty lines
+            if not file_path:
+                continue
+
+            # Extract project directory from file path
+            # Example: 'project_10_rag_based_support_agent/file.html' -> 'project_10_rag_based_support_agent'
+            match = re.match(r'(project_[^/]+)/', file_path)
+            if match:
+                modified_projects.add(match.group(1))
+
+        print(f"Modified projects in this PR: {', '.join(modified_projects) if modified_projects else 'None'}")
+        return modified_projects
+    except Exception as e:
+        print(f"Error getting modified projects: {e}")
+        # If there's an error, return an empty set to be safe
+        return set()
 
 def read_project_json(project_dir):
     """Read project information from project.json file."""
@@ -58,12 +105,18 @@ def extract_project_info_from_dirname(dirname):
     # Get the project ID
     project_id = int(project_json['id'])
 
+    # Get the list of modified projects in the pull request
+    modified_projects = get_modified_projects()
+
     # If we're in a pull request context and the project ID is positive,
+    # and the project directory is in the list of modified projects,
     # generate a draft ID to avoid overlap with real projects
-    if IS_PULL_REQUEST and project_id > 0:
+    if IS_PULL_REQUEST and project_id > 0 and os.path.basename(dirname) in modified_projects:
         # Use the draft ID prefix plus the original ID to ensure uniqueness
         project_id = DRAFT_ID_PREFIX + project_id
         print(f"Draft project detected in pull request. Original ID: {project_json['id']}, Draft ID: {project_id}")
+    elif IS_PULL_REQUEST and project_id > 0:
+        print(f"Project {dirname} not modified in this PR, using original ID: {project_id}")
 
     return {
         'id': project_id,
@@ -146,12 +199,23 @@ def extract_info_from_filename(filename):
     order_num_int = int(order_num)
     stage_id_int = int(stage_id)
 
+    # Get the project directory from the filename
+    # Example: 'project_10_rag_based_support_agent/1_37_go_ahead_and_sign_up_for_a_zendesk_mock.html'
+    # -> 'project_10_rag_based_support_agent'
+    project_dir = os.path.dirname(filename)
+
+    # Get the list of modified projects in the pull request
+    modified_projects = get_modified_projects()
+
     # If we're in a pull request context and the stage ID is positive,
+    # and the project directory is in the list of modified projects,
     # generate a draft ID to avoid overlap with real stages
-    if IS_PULL_REQUEST and stage_id_int > 0:
+    if IS_PULL_REQUEST and stage_id_int > 0 and os.path.basename(project_dir) in modified_projects:
         # Use the draft ID prefix plus the original ID to ensure uniqueness
         stage_id_int = DRAFT_ID_PREFIX + stage_id_int
         print(f"Draft stage detected in pull request. Original ID: {stage_id}, Draft ID: {stage_id_int}")
+    elif IS_PULL_REQUEST and stage_id_int > 0:
+        print(f"Stage {filename} not in modified project, using original ID: {stage_id_int}")
 
     return {
         'order_num': order_num_int,
