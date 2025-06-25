@@ -243,7 +243,7 @@ def get_stage_from_supabase(stage_id):
 
 def get_github_file_url(file_path):
     """Construct GitHub URL for a file."""
-    return f"https://github.com/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/blob/{GITHUB_BRANCH}/{file_path}"
+    return f"https://github.com/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/blob/main/{file_path}"
 
 def update_stage_in_supabase(stage_id, description, github_file_url, title, next_button_title):
     """Update stage description and GitHub URL in Supabase."""
