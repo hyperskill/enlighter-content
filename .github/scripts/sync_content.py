@@ -279,12 +279,21 @@ def main():
     project_dirs = glob.glob("project_*")
     print(f"Found {len(project_dirs)} project directories")
 
+    # Counters for non-draft entities
     updated_count = 0
-    skipped_count = 0
-    not_found_count = 0
     created_count = 0
     created_projects_count = 0
     updated_projects_count = 0
+
+    # Counters for draft entities
+    updated_count_draft = 0
+    created_count_draft = 0
+    created_projects_count_draft = 0
+    updated_projects_count_draft = 0
+
+    # Common counters
+    skipped_count = 0
+    not_found_count = 0
     total_html_files = 0
 
     # Track created draft projects for PR comments
@@ -315,7 +324,12 @@ def main():
                 is_draft = project_id < 0
                 print(f"Creating new project with ID {project_id} ({project_info['title']}), is_draft={is_draft}")
                 create_project_in_supabase(project_info)
-                created_projects_count += 1
+
+                # Increment the appropriate counter based on whether the project is a draft
+                if is_draft:
+                    created_projects_count_draft += 1
+                else:
+                    created_projects_count += 1
 
                 # If this is a draft project in a PR, track it for PR comment
                 if IS_PULL_REQUEST and project_id < 0:
@@ -350,7 +364,12 @@ def main():
                     changed_fields = list(update_data.keys())
                     print(f"Updating project with ID {project_id} ({project_info['title']}) - Changed fields: {', '.join(changed_fields)}")
                     update_project_in_supabase(project_id, update_data)
-                    updated_projects_count += 1
+
+                    # Increment the appropriate counter based on whether the project is a draft
+                    if project_id < 0:
+                        updated_projects_count_draft += 1
+                    else:
+                        updated_projects_count += 1
 
             processed_projects.add(project_id)
 
@@ -398,7 +417,12 @@ def main():
                 if project_info:
                     print(f"Creating new stage with ID {stage_id} ({title})")
                     create_stage_in_supabase(stage_id, title, file_content, github_file_url, project_info['id'], file_info['order_num'], next_button_title)
-                    created_count += 1
+
+                    # Increment the appropriate counter based on whether the stage is a draft
+                    if stage_id < 0:
+                        created_count_draft += 1
+                    else:
+                        created_count += 1
                 else:
                     print(f"Error: Could not determine project ID for stage {stage_id}, skipping stage creation")
                     skipped_count += 1
@@ -429,15 +453,32 @@ def main():
 
                 update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title)
 
-                updated_count += 1
+                # Increment the appropriate counter based on whether the stage is a draft
+                if stage_id < 0:
+                    updated_count_draft += 1
+                else:
+                    updated_count += 1
             else:
                 print(f"No changes for stage {stage_id} ({stage.get('title', '')})")
 
     print("\nSummary:")
+
+    # Regular entities
+    print("\nRegular entities:")
     print(f"- Updated content: {updated_count}")
     print(f"- Created new stages: {created_count}")
     print(f"- Created new projects: {created_projects_count}")
     print(f"- Updated existing projects: {updated_projects_count}")
+
+    # Draft entities
+    print("\nDraft entities:")
+    print(f"- Updated content: {updated_count_draft}")
+    print(f"- Created new stages: {created_count_draft}")
+    print(f"- Created new projects: {created_projects_count_draft}")
+    print(f"- Updated existing projects: {updated_projects_count_draft}")
+
+    # Common statistics
+    print("\nCommon statistics:")
     print(f"- Skipped (invalid filename): {skipped_count}")
     print(f"- Not found in Supabase: {not_found_count}")
     print(f"- Total processed: {total_html_files}")
