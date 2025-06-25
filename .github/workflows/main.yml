@@ -10,6 +10,7 @@ on:
       - ".github/scripts/validate-content.js"
       - ".github/scripts/sync_templates.py"
       - ".github/scripts/sync_content.py"
+  workflow_dispatch:
 
 jobs:
   validate:
