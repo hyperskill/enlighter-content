@@ -296,11 +296,8 @@ def main():
     not_found_count = 0
     total_html_files = 0
 
-    # Track created draft projects for PR comments
-    created_draft_projects = []
-
-    # Keep track of processed projects to avoid duplicate checks
-    processed_projects = set()
+    # Track all draft projects for PR comments
+    all_draft_projects = []
 
     # Get the list of modified projects in the pull request once
     modified_projects = get_modified_projects()
@@ -314,10 +311,17 @@ def main():
         # Extract project information from directory name
         project_info = extract_project_info_from_dirname(project_dir, is_draft=IS_PULL_REQUEST)
 
-        if project_info and project_info['id'] not in processed_projects:
+        if project_info:
             # Check if project exists in Supabase
             project_id = project_info['id']
             project = get_project_from_supabase(project_id)
+            if IS_PULL_REQUEST:
+                original_id = -project_id - DRAFT_ID_PREFIX
+                all_draft_projects.append({
+                    "draft_id": project_id,
+                    "original_id": original_id,
+                    "title": project_info['title']
+                })
 
             if not project:
                 # Create new project if it doesn't exist
@@ -330,15 +334,6 @@ def main():
                     created_projects_count_draft += 1
                 else:
                     created_projects_count += 1
-
-                # If this is a draft project in a PR, track it for PR comment
-                if IS_PULL_REQUEST and project_id < 0:
-                    original_id = -project_id - DRAFT_ID_PREFIX
-                    created_draft_projects.append({
-                        "draft_id": project_id,
-                        "original_id": original_id,
-                        "title": project_info['title']
-                    })
             else:
                 # Check if project data in Supabase differs from project.json
                 update_data = {}
@@ -370,8 +365,6 @@ def main():
                         updated_projects_count_draft += 1
                     else:
                         updated_projects_count += 1
-
-            processed_projects.add(project_id)
 
         # Find all HTML files in this project directory
         html_files = glob.glob(f"{project_dir}/*.html")
@@ -483,10 +476,10 @@ def main():
     print(f"- Not found in Supabase: {not_found_count}")
     print(f"- Total processed: {total_html_files}")
 
-    # Output created draft projects for GitHub Actions
-    if IS_PULL_REQUEST and created_draft_projects:
-        print("\nCreated draft projects:")
-        for project in created_draft_projects:
+    # Output all draft projects for GitHub Actions
+    if all_draft_projects:
+        print("\nDraft projects:")
+        for project in all_draft_projects:
             # Format: DRAFT_PROJECT:<draft_id>:<original_id>:<title>
             print(f"DRAFT_PROJECT:{project['draft_id']}:{project['original_id']}:{project['title']}")
 
