@@ -123,8 +123,6 @@ jobs:
             fi
           done < draft_projects.txt
 
-          COMMENT_BODY+="\nThese links will work after the database has been updated."
-
           # Escape newlines for GitHub Actions output
           COMMENT_BODY="${COMMENT_BODY//'%'/'%25'}"
           COMMENT_BODY="${COMMENT_BODY//$'\n'/'%0A'}"
