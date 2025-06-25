@@ -149,8 +149,8 @@ def update_stage_in_supabase(stage_id, description, github_file_url, title, next
         .update({
             "description": description,
             "github_file_url": github_file_url,
-            # "title": title,
-            # "next_button_title": next_button_title
+            "title": title,
+            "next_button_title": next_button_title
         })
         .eq("id", stage_id)
         .execute()
