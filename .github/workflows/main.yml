@@ -93,6 +93,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PR_NUMBER: ${{ github.event.number }}
         run: |
           python .github/scripts/sync_content.py | tee sync_output.log
 
@@ -138,6 +139,6 @@ jobs:
           message-id: host
           message-success: |
             ## 🚀 Draft Projects Created
-            
+
             The following draft projects have been created in this PR:
             ${{ steps.generate-comment.outputs.comment_body }}

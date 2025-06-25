@@ -21,12 +21,27 @@ GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 # This is used to determine if we need to generate draft IDs for projects and stages
 IS_PULL_REQUEST = os.environ.get("GITHUB_EVENT_NAME") == "pull_request"
 
-# Prefix for draft project and stage IDs to avoid overlap with real projects and stages
-# Using a large negative number as a prefix to ensure no overlap with real IDs
-# For example, if a project has ID 42, its draft ID would be -1000042
+# Get the PR number from the GitHub environment variables
+PR_NUMBER = 0
+if IS_PULL_REQUEST:
+    # The PR number is available in the PR_NUMBER environment variable
+    pr_number_env = os.environ.get("PR_NUMBER", "")
+    if pr_number_env:
+        try:
+            PR_NUMBER = int(pr_number_env)
+        except ValueError:
+            print(f"ERROR: Could not convert PR_NUMBER environment variable '{pr_number_env}' to integer")
+            print("PR_NUMBER must be a valid integer when in a pull request context.")
+            exit(1)
+    else:
+        print("ERROR: PR_NUMBER environment variable not set")
+        print("PR_NUMBER must be set when in a pull request context.")
+        exit(1)
+
+# Draft project and stage IDs use the format: -<id_project><PR_NUMBER:5 digits with leading zeros>
+# For example, if a project has ID 42 and PR_NUMBER is 123, its draft ID would be -42000123
 # This ensures that draft projects and stages have unique IDs in the database
 # and don't conflict with real projects and stages
-DRAFT_ID_PREFIX = -1000000
 
 # IMPORTANT: Draft projects are only created for projects that have been modified in the pull request.
 # This is determined by checking if any files in the project directory have been modified.
@@ -109,16 +124,18 @@ def extract_project_info_from_dirname(dirname, is_draft):
 
     # Get the project ID
     project_id = int(project_json['id'])
+    original_id = project_id  # Store the original ID before potentially converting to draft ID
 
     # If we're in a pull request context and the project ID is positive,
     # and the project directory is in the list of modified projects,
     # generate a draft ID to avoid overlap with real projects
     if is_draft:
-        # Use the draft ID prefix plus the original ID to ensure uniqueness
-        project_id = DRAFT_ID_PREFIX + project_id
+        # Use the new format: -<id_project><PR_NUMBER:5 digits with leading zeros>
+        # For example, if project_id=42 and PR_NUMBER=123, the draft ID would be -42000123
+        project_id = -int(f"{project_id}{PR_NUMBER:05d}")
         print(f"Draft project detected in pull request. Original ID: {project_json['id']}, Draft ID: {project_id}")
 
-    return {
+    result = {
         'id': project_id,
         'title': project_json['title'],
         'description': project_json.get('description', ''),
@@ -128,6 +145,12 @@ def extract_project_info_from_dirname(dirname, is_draft):
         'readme': project_json.get('readme', ''),
         'ides': project_json.get('ides', 'cursor')
     }
+
+    # Store the original ID in the project_info dictionary if this is a draft project
+    if is_draft:
+        result['original_id'] = original_id
+
+    return result
 
 def get_project_from_supabase(project_id):
     """Get project from Supabase by ID."""
@@ -200,8 +223,9 @@ def extract_info_from_filename(filename, is_draft=False):
     stage_id_int = int(stage_id)
 
     if is_draft:
-        # Use the draft ID prefix plus the original ID to ensure uniqueness
-        stage_id_int = DRAFT_ID_PREFIX + stage_id_int
+        # Use the new format: -<id_stage><PR_NUMBER:5 digits with leading zeros>
+        # For example, if stage_id=42 and PR_NUMBER=123, the draft ID would be -42000123
+        stage_id_int = -int(f"{stage_id_int}{PR_NUMBER:05d}")
         print(f"Draft stage detected in pull request. Original ID: {stage_id}, Draft ID: {stage_id_int}")
 
     return {
@@ -316,11 +340,20 @@ def main():
             project_id = project_info['id']
             project = get_project_from_supabase(project_id)
             if IS_PULL_REQUEST:
-                original_id = project_id - DRAFT_ID_PREFIX
+                # Use the original_id from project_info if available, otherwise calculate it
+                if 'original_id' in project_info:
+                    original_id = project_info['original_id']
+                else:
+                    # Extract the original ID from the draft ID
+                    project_id_str = str(-project_id)
+                    # Original ID is all digits except the last 5
+                    original_id = int(project_id_str[:-5])
+
                 all_draft_projects.append({
                     "draft_id": project_id,
                     "original_id": original_id,
-                    "title": project_info['title']
+                    "title": project_info['title'],
+                    "pr_number": PR_NUMBER
                 })
 
             if not project:
@@ -480,8 +513,8 @@ def main():
     if all_draft_projects:
         print("\nDraft projects:")
         for project in all_draft_projects:
-            # Format: DRAFT_PROJECT:<draft_id>:<original_id>:<title>
-            print(f"DRAFT_PROJECT:{project['draft_id']}:{project['original_id']}:{project['title']}")
+            # Format: DRAFT_PROJECT:<draft_id>:<original_id>:<title>:<pr_number>
+            print(f"DRAFT_PROJECT:{project['draft_id']}:{project['original_id']}:{project['title']}:{project['pr_number']}")
 
 if __name__ == "__main__":
     main()
