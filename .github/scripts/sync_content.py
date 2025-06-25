@@ -16,6 +16,17 @@ GITHUB_REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "hyperskill")
 GITHUB_REPO_NAME = os.environ.get("GITHUB_REPOSITORY", "enlighter-content").split("/")[-1]
 GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 
+# Check if we're in a pull request context
+# This is used to determine if we need to generate draft IDs for projects and stages
+IS_PULL_REQUEST = os.environ.get("GITHUB_EVENT_NAME") == "pull_request"
+
+# Prefix for draft project and stage IDs to avoid overlap with real projects and stages
+# Using a large negative number as a prefix to ensure no overlap with real IDs
+# For example, if a project has ID 42, its draft ID would be -1000042
+# This ensures that draft projects and stages have unique IDs in the database
+# and don't conflict with real projects and stages
+DRAFT_ID_PREFIX = -1000000
+
 def read_project_json(project_dir):
     """Read project information from project.json file."""
     project_json_path = os.path.join(project_dir, "project.json")
@@ -44,8 +55,18 @@ def extract_project_info_from_dirname(dirname):
         print("project.json must contain 'id' and 'title' fields.")
         exit(1)
 
+    # Get the project ID
+    project_id = int(project_json['id'])
+
+    # If we're in a pull request context and the project ID is positive,
+    # generate a draft ID to avoid overlap with real projects
+    if IS_PULL_REQUEST and project_id > 0:
+        # Use the draft ID prefix plus the original ID to ensure uniqueness
+        project_id = DRAFT_ID_PREFIX + project_id
+        print(f"Draft project detected in pull request. Original ID: {project_json['id']}, Draft ID: {project_id}")
+
     return {
-        'id': int(project_json['id']),
+        'id': project_id,
         'title': project_json['title'],
         'description': project_json.get('description', ''),
         'short_description': project_json.get('short_description', ''),
@@ -80,6 +101,7 @@ def create_project_in_supabase(project_info):
         "enabled": False,  # Default value in schema
         "visible": False,  # Default value in schema
         "available_in_web": False,  # Default value in schema
+        "is_draft": project_id < 0,  # Set is_draft=true for draft projects (negative IDs)
     }
 
     # Add additional fields from project.json
@@ -119,9 +141,21 @@ def extract_info_from_filename(filename):
         return None
 
     order_num, stage_id, title = match.groups()
+
+    # Convert to integers
+    order_num_int = int(order_num)
+    stage_id_int = int(stage_id)
+
+    # If we're in a pull request context and the stage ID is positive,
+    # generate a draft ID to avoid overlap with real stages
+    if IS_PULL_REQUEST and stage_id_int > 0:
+        # Use the draft ID prefix plus the original ID to ensure uniqueness
+        stage_id_int = DRAFT_ID_PREFIX + stage_id_int
+        print(f"Draft stage detected in pull request. Original ID: {stage_id}, Draft ID: {stage_id_int}")
+
     return {
-        'order_num': int(order_num),
-        'id': int(stage_id),
+        'order_num': order_num_int,
+        'id': stage_id_int,
         'title': title.replace('_', ' ')
     }
 
@@ -201,6 +235,9 @@ def main():
     created_projects_count = 0
     updated_projects_count = 0
 
+    # Track created draft projects for PR comments
+    created_draft_projects = []
+
     # Keep track of processed projects to avoid duplicate checks
     processed_projects = set()
 
@@ -216,9 +253,19 @@ def main():
 
             if not project:
                 # Create new project if it doesn't exist
-                print(f"Creating new project with ID {project_id} ({project_info['title']})")
+                is_draft = project_id < 0
+                print(f"Creating new project with ID {project_id} ({project_info['title']}), is_draft={is_draft}")
                 create_project_in_supabase(project_info)
                 created_projects_count += 1
+
+                # If this is a draft project in a PR, track it for PR comment
+                if IS_PULL_REQUEST and project_id < 0:
+                    original_id = -project_id - DRAFT_ID_PREFIX
+                    created_draft_projects.append({
+                        "draft_id": project_id,
+                        "original_id": original_id,
+                        "title": project_info['title']
+                    })
             else:
                 # Check if project data in Supabase differs from project.json
                 update_data = {}
@@ -328,6 +375,13 @@ def main():
     print(f"- Skipped (invalid filename): {skipped_count}")
     print(f"- Not found in Supabase: {not_found_count}")
     print(f"- Total processed: {len(html_files)}")
+
+    # Output created draft projects for GitHub Actions
+    if IS_PULL_REQUEST and created_draft_projects:
+        print("\nCreated draft projects:")
+        for project in created_draft_projects:
+            # Format: DRAFT_PROJECT:<draft_id>:<original_id>:<title>
+            print(f"DRAFT_PROJECT:{project['draft_id']}:{project['original_id']}:{project['title']}")
 
 if __name__ == "__main__":
     main()
