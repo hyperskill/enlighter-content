@@ -2,6 +2,17 @@ name: Validate and Sync Content
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - "project_*/*.html"
+      - "project_*/project.json"
+      - "templates/*.html"
+      - ".github/workflows/main.yml" # This file itself
+      - ".github/scripts/validate-content.js"
+      - ".github/scripts/sync_templates.py"
+      - ".github/scripts/sync_content.py"
+  pull_request:
     paths:
       - "project_*/*.html"
       - "project_*/project.json"
