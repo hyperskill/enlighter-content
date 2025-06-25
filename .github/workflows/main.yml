@@ -109,8 +109,7 @@ jobs:
         id: generate-comment
         run: |
           # Read draft projects data
-          COMMENT_TITLE="## 🚀 Draft Projects Created"
-          COMMENT_BODY="${COMMENT_TITLE}\n\nThe following draft projects have been created in this PR:\n\n"
+          COMMENT_BODY=""
 
           while IFS= read -r line; do
             if [[ $line == DRAFT_PROJECT:* ]]; then
@@ -140,4 +139,7 @@ jobs:
           refresh-message-position: true
           message-id: host
           message-success: |
+            ## 🚀 Draft Projects Created
+            
+            The following draft projects have been created in this PR:
             ${{ steps.generate-comment.outputs.comment_body }}
