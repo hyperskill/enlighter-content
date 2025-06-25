@@ -55,7 +55,7 @@ def get_modified_projects():
 
         # Get the list of modified files between the base branch and the current branch
         # Using git diff to get the list of modified files
-        cmd = ["git", "diff", "--name-only", f"origin/{base_branch}...HEAD"]
+        cmd = ["git", "diff", "--name-only", f"{base_branch}...HEAD"]
         # Run without check=True to avoid exceptions on non-zero exit codes
         result = subprocess.run(cmd, capture_output=True, text=True)
         if result.returncode != 0:
