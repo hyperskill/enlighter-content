@@ -129,7 +129,7 @@ def get_stage_from_supabase(stage_id):
     """Get stage from Supabase by ID."""
     response = (
         supabase.table("stages")
-        .select("id, title, description")
+        .select("id, title, description, github_file_url, next_button_title")
         .eq("id", stage_id)
         .execute()
     )
@@ -195,7 +195,6 @@ def main():
     print(f"Found {len(html_files)} HTML files")
 
     updated_count = 0
-    github_url_updated_count = 0
     skipped_count = 0
     not_found_count = 0
     created_count = 0
@@ -227,7 +226,7 @@ def main():
                 # Only include fields that are in project_info
                 if 'title' in project_info and project_info['title'] != project.get('title', ''):
                     update_data["title"] = project_info['title']
-                if 'title' in project_info and project_info['title'] != project.get('title', ''):
+                if 'description' in project_info and project_info['description'] != project.get('description', ''):
                     update_data["description"] = project_info['description']
                 if 'short_description' in project_info and project_info['short_description'] != project.get('short_description', ''):
                     update_data["short_description"] = project_info['short_description']
@@ -241,7 +240,9 @@ def main():
                     update_data["ides"] = project_info['ides']
 
                 if update_data:
-                    print(f"Updating project with ID {project_id} ({project_info['title']})")
+                    # Create a list of changed fields for detailed logging
+                    changed_fields = list(update_data.keys())
+                    print(f"Updating project with ID {project_id} ({project_info['title']}) - Changed fields: {', '.join(changed_fields)}")
                     update_project_in_supabase(project_id, update_data)
                     updated_projects_count += 1
 
@@ -296,20 +297,31 @@ def main():
         # Always check if next_button_title has changed, even if metadata is None
         # This ensures we can update next_button_title to null if needed
         next_button_changed = next_button_title != stage.get('next_button_title')
+        # Check if github_file_url has changed
+        github_url_changed = github_file_url != stage.get('github_file_url')
 
-        if content_changed or title_changed or next_button_changed:
-            print(f"Updating stage {stage_id} ({title})")
+        if content_changed or title_changed or next_button_changed or github_url_changed:
+            # Create a list of changed fields for detailed logging
+            changes = []
+            if content_changed:
+                changes.append("content")
+            if title_changed:
+                changes.append("title")
+            if next_button_changed:
+                changes.append("next_button_title")
+            if github_url_changed:
+                changes.append("github_file_url")
+
+            print(f"Updating stage {stage_id} ({title}) - Changed fields: {', '.join(changes)}")
+
             update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title)
+
             updated_count += 1
         else:
             print(f"No changes for stage {stage_id} ({stage.get('title', '')})")
-            # Update GitHub URL even if content hasn't changed
-            update_stage_in_supabase(stage_id, stage['description'], github_file_url)
-            github_url_updated_count += 1
 
     print("\nSummary:")
     print(f"- Updated content: {updated_count}")
-    print(f"- Updated GitHub URLs only: {github_url_updated_count}")
     print(f"- Created new stages: {created_count}")
     print(f"- Created new projects: {created_projects_count}")
     print(f"- Updated existing projects: {updated_projects_count}")
