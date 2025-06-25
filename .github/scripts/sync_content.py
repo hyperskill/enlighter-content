@@ -316,7 +316,7 @@ def main():
             project_id = project_info['id']
             project = get_project_from_supabase(project_id)
             if IS_PULL_REQUEST:
-                original_id = -project_id - DRAFT_ID_PREFIX
+                original_id = project_id - DRAFT_ID_PREFIX
                 all_draft_projects.append({
                     "draft_id": project_id,
                     "original_id": original_id,
