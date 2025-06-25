@@ -150,20 +150,37 @@ def get_github_file_url(file_path):
     """Construct GitHub URL for a file."""
     return f"https://github.com/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/blob/{GITHUB_BRANCH}/{file_path}"
 
-def update_stage_in_supabase(stage_id, description, github_file_url):
+def update_stage_in_supabase(stage_id, description, github_file_url, title, next_button_title):
     """Update stage description and GitHub URL in Supabase."""
     response = (
         supabase.table("stages")
         .update({
             "description": description,
-            "github_file_url": github_file_url
+            "github_file_url": github_file_url,
+            # "title": title,
+            # "next_button_title": next_button_title
         })
         .eq("id", stage_id)
         .execute()
     )
     return response
 
-def create_stage_in_supabase(stage_id, title, description, github_file_url, project_id, order_num):
+def extract_metadata_from_html(file_content):
+    """Extract metadata from HTML file content."""
+    metadata_pattern = r'<!-- Enlighter Metainfo\s*(\{.*?\})\s*-->'
+    match = re.search(metadata_pattern, file_content, re.DOTALL)
+
+    if match:
+        try:
+            metadata_json = match.group(1)
+            metadata = json.loads(metadata_json)
+            return metadata
+        except Exception as e:
+            print(f"Error parsing metadata: {e}")
+
+    return None
+
+def create_stage_in_supabase(stage_id, title, description, github_file_url, project_id, order_num, next_button_title=None):
     """Create a new stage in Supabase."""
     response = (
         supabase.table("stages")
@@ -173,7 +190,8 @@ def create_stage_in_supabase(stage_id, title, description, github_file_url, proj
             "description": description,
             "github_file_url": github_file_url,
             "project_id": project_id,
-            "order_num": order_num
+            "order_num": order_num,
+            "next_button_title": next_button_title
         })
         .execute()
     )
@@ -253,27 +271,46 @@ def main():
         with open(html_file, 'r', encoding='utf-8') as f:
             file_content = f.read()
 
+        # Extract metadata from HTML content
+        metadata = extract_metadata_from_html(file_content)
+
+        # Metadata is mandatory, exit with error if missing
+        if metadata is None:
+            print(f"ERROR: Metadata is missing in file {html_file}")
+            print("Metadata is mandatory, its absence is fatal.")
+            exit(1)
+
+        # Get title and next_button_title from metadata
+        title = metadata.get('title', file_info['title'])
+        next_button_title = metadata.get('next_button_title')
+
         # Get GitHub URL for this file
         github_file_url = get_github_file_url(html_file)
 
         if not stage:
             # Create new stage if it doesn't exist
             if project_info:
-                print(f"Creating new stage with ID {stage_id} ({file_info['title']})")
-                create_stage_in_supabase(stage_id, file_info['title'], file_content, github_file_url, project_info['id'], file_info['order_num'])
+                print(f"Creating new stage with ID {stage_id} ({title})")
+                create_stage_in_supabase(stage_id, title, file_content, github_file_url, project_info['id'], file_info['order_num'], next_button_title)
                 created_count += 1
             else:
                 print(f"Error: Could not determine project ID for stage {stage_id}, skipping stage creation")
                 skipped_count += 1
             continue
 
-        # Compare content
-        if file_content != stage['description']:
-            print(f"Updating stage {stage_id} ({stage['title']})")
-            update_stage_in_supabase(stage_id, file_content, github_file_url)
+        # Compare content or metadata
+        content_changed = file_content != stage['description']
+        title_changed = metadata and title != stage.get('title', '')
+        # Always check if next_button_title has changed, even if metadata is None
+        # This ensures we can update next_button_title to null if needed
+        next_button_changed = next_button_title != stage.get('next_button_title')
+
+        if content_changed or title_changed or next_button_changed:
+            print(f"Updating stage {stage_id} ({title})")
+            update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title)
             updated_count += 1
         else:
-            print(f"No changes for stage {stage_id} ({stage['title']})")
+            print(f"No changes for stage {stage_id} ({stage.get('title', '')})")
             # Update GitHub URL even if content hasn't changed
             update_stage_in_supabase(stage_id, stage['description'], github_file_url)
             github_url_updated_count += 1
