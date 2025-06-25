@@ -28,34 +28,31 @@ def read_project_json(project_dir):
     return None
 
 def extract_project_info_from_dirname(dirname):
-    """Extract project ID and title from directory name or project.json."""
-    # First try to read from project.json
+    """Extract project ID and title from project.json."""
+    # Read from project.json - it's mandatory
     project_json = read_project_json(dirname)
-    if project_json and 'id' in project_json and 'title' in project_json:
-        return {
-            'id': int(project_json['id']),
-            'title': project_json['title'],
-            'description': project_json.get('description', ''),
-            'short_description': project_json.get('short_description', ''),
-            'categories': project_json.get('categories', ''),
-            'cover_url': project_json.get('cover_url', ''),
-            'readme': project_json.get('readme', ''),
-            'ides': project_json.get('ides', 'cursor'),
-            'from_json': True
-        }
 
-    # Fallback to extracting from directory name
-    pattern = r'project_(\d+)_(.+)$'
-    match = re.match(pattern, dirname)
+    # Exit with error if project.json is not found
+    if project_json is None:
+        print(f"ERROR: project.json is missing in directory {dirname}")
+        print("project.json is mandatory, its absence is fatal.")
+        exit(1)
 
-    if not match:
-        return None
+    # Exit with error if required fields are missing
+    if 'id' not in project_json or 'title' not in project_json:
+        print(f"ERROR: project.json in {dirname} is missing required fields (id and/or title)")
+        print("project.json must contain 'id' and 'title' fields.")
+        exit(1)
 
-    project_id, title = match.groups()
     return {
-        'id': int(project_id),
-        'title': title.replace('_', ' '),
-        'from_json': False
+        'id': int(project_json['id']),
+        'title': project_json['title'],
+        'description': project_json.get('description', ''),
+        'short_description': project_json.get('short_description', ''),
+        'categories': project_json.get('categories', ''),
+        'cover_url': project_json.get('cover_url', ''),
+        'readme': project_json.get('readme', ''),
+        'ides': project_json.get('ides', 'cursor')
     }
 
 def get_project_from_supabase(project_id):
@@ -72,7 +69,7 @@ def get_project_from_supabase(project_id):
     return None
 
 def create_project_in_supabase(project_info):
-    """Create a new project in Supabase using project.json data if available."""
+    """Create a new project in Supabase using project.json data."""
     project_id = project_info['id']
     title = project_info['title']
 
@@ -85,20 +82,15 @@ def create_project_in_supabase(project_info):
         "available_in_web": False,  # Default value in schema
     }
 
-    # Add additional fields if available from project.json
-    if project_info.get('from_json', False):
-        project_data.update({
-            "description": project_info.get('description', title),
-            "short_description": project_info.get('short_description', ''),
-            "categories": project_info.get('categories', ''),
-            "cover_url": project_info.get('cover_url', ''),
-            "readme": project_info.get('readme', ''),
-            "ides": project_info.get('ides', 'cursor')
-        })
-    else:
-        # Fallback for minimal data
-        project_data["description"] = title  # Using title as description to satisfy not-null constraint
-        project_data["ides"] = "cursor"  # Default value in schema
+    # Add additional fields from project.json
+    project_data.update({
+        "description": project_info.get('description', title),
+        "short_description": project_info.get('short_description', ''),
+        "categories": project_info.get('categories', ''),
+        "cover_url": project_info.get('cover_url', ''),
+        "readme": project_info.get('readme', ''),
+        "ides": project_info.get('ides', 'cursor')
+    })
 
     response = (
         supabase.table("projects")
@@ -228,7 +220,7 @@ def main():
                 print(f"Creating new project with ID {project_id} ({project_info['title']})")
                 create_project_in_supabase(project_info)
                 created_projects_count += 1
-            elif project_info.get('from_json', False):
+            else:
                 # Check if project data in Supabase differs from project.json
                 update_data = {}
 
