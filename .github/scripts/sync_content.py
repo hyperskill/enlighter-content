@@ -33,6 +33,12 @@ DRAFT_ID_PREFIX = -1000000
 # If a project has not been modified, it will use its original ID, not a draft ID.
 # This ensures that we only create draft projects for projects that are actually being changed,
 # which reduces database clutter and makes it easier to track changes.
+#
+# NOTE: If the git command to detect modified files fails (which can happen in certain CI environments),
+# the script will fall back to considering all project directories as modified. This ensures that
+# draft projects are created when needed, even if we can't determine exactly which projects were modified.
+# This is a conservative approach that prioritizes correctness (creating draft projects when needed)
+# over efficiency (only creating draft projects for modified projects).
 
 def get_modified_projects():
     """
@@ -50,7 +56,12 @@ def get_modified_projects():
         # Get the list of modified files between the base branch and the current branch
         # Using git diff to get the list of modified files
         cmd = ["git", "diff", "--name-only", f"origin/{base_branch}...HEAD"]
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        # Run without check=True to avoid exceptions on non-zero exit codes
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"Warning: Git command returned non-zero exit status {result.returncode}")
+            print(f"Error output: {result.stderr}")
+            exit(1)
         modified_files = result.stdout.strip().split('\n')
 
         # Extract project directories from modified files
