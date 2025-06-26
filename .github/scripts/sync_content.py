@@ -19,7 +19,7 @@ GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 
 # Check if we're in a pull request context
 # This is used to determine if we need to generate draft IDs for projects and stages
-IS_PULL_REQUEST = os.environ.get("GITHUB_EVENT_NAME") == "pull_request"
+IS_PULL_REQUEST = os.environ.get("GITHUB_EVENT_NAME") == "pull_request_target"
 
 # Get the PR number from the GitHub environment variables
 PR_NUMBER = 0

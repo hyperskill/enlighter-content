@@ -47,7 +47,7 @@ jobs:
 
   sync-templates:
     name: Sync Templates to Supabase
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
