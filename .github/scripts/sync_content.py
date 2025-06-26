@@ -3,6 +3,7 @@ import os
 import re
 import glob
 import json
+import subprocess
 from supabase import create_client
 
 # Initialize Supabase client
@@ -20,12 +21,78 @@ GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 # This is used to determine if we need to generate draft IDs for projects and stages
 IS_PULL_REQUEST = os.environ.get("GITHUB_EVENT_NAME") == "pull_request"
 
-# Prefix for draft project and stage IDs to avoid overlap with real projects and stages
-# Using a large negative number as a prefix to ensure no overlap with real IDs
-# For example, if a project has ID 42, its draft ID would be -1000042
+# Get the PR number from the GitHub environment variables
+PR_NUMBER = 0
+if IS_PULL_REQUEST:
+    # The PR number is available in the PR_NUMBER environment variable
+    pr_number_env = os.environ.get("PR_NUMBER", "")
+    if pr_number_env:
+        try:
+            PR_NUMBER = int(pr_number_env)
+        except ValueError:
+            print(f"ERROR: Could not convert PR_NUMBER environment variable '{pr_number_env}' to integer")
+            print("PR_NUMBER must be a valid integer when in a pull request context.")
+            exit(1)
+    else:
+        print("ERROR: PR_NUMBER environment variable not set")
+        print("PR_NUMBER must be set when in a pull request context.")
+        exit(1)
+
+# Draft project and stage IDs use the format: -<id_project><PR_NUMBER:5 digits with leading zeros>
+# For example, if a project has ID 42 and PR_NUMBER is 123, its draft ID would be -42000123
 # This ensures that draft projects and stages have unique IDs in the database
 # and don't conflict with real projects and stages
-DRAFT_ID_PREFIX = -1000000
+
+# IMPORTANT: Draft projects are only created for projects that have been modified in the pull request.
+# This is determined by checking if any files in the project directory have been modified.
+# If a project has not been modified, it will use its original ID, not a draft ID.
+# This ensures that we only create draft projects for projects that are actually being changed,
+# which reduces database clutter and makes it easier to track changes.
+
+def get_modified_projects():
+    """
+    Get the list of project directories that have been modified in the pull request.
+    Returns a set of project directory names (e.g., 'project_10_rag_based_support_agent').
+    """
+    if not IS_PULL_REQUEST:
+        # If not in a pull request, return an empty set
+        return set()
+
+    try:
+        # Get the base branch (usually 'main')
+        base_branch = os.environ.get("GITHUB_BASE_REF", "main")
+
+        # Get the list of modified files between the base branch and the current branch
+        # Using git diff to get the list of modified files
+        cmd = ["git", "diff", "--name-only", f"origin/{base_branch}...HEAD"]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"Error: Git command failed with exit status {result.returncode}")
+            print(f"Error output: {result.stderr}")
+            # Exit with error code 1
+            exit(1)
+        modified_files = result.stdout.strip().split('\n')
+
+        # Extract project directories from modified files
+        # Project directories follow the pattern 'project_*'
+        modified_projects = set()
+        for file_path in modified_files:
+            # Skip empty lines
+            if not file_path:
+                continue
+
+            # Extract project directory from file path
+            # Example: 'project_10_rag_based_support_agent/file.html' -> 'project_10_rag_based_support_agent'
+            match = re.match(r'(project_[^/]+)/', file_path)
+            if match:
+                modified_projects.add(match.group(1))
+
+        print(f"Modified projects in this PR: {', '.join(modified_projects) if modified_projects else 'None'}")
+        return modified_projects
+    except Exception as e:
+        print(f"Error getting modified projects: {e}")
+        # Exit with error code 1
+        exit(1)
 
 def read_project_json(project_dir):
     """Read project information from project.json file."""
@@ -38,7 +105,7 @@ def read_project_json(project_dir):
             print(f"Error reading project.json for {project_dir}: {e}")
     return None
 
-def extract_project_info_from_dirname(dirname):
+def extract_project_info_from_dirname(dirname, is_draft):
     """Extract project ID and title from project.json."""
     # Read from project.json - it's mandatory
     project_json = read_project_json(dirname)
@@ -57,15 +124,18 @@ def extract_project_info_from_dirname(dirname):
 
     # Get the project ID
     project_id = int(project_json['id'])
+    original_id = project_id  # Store the original ID before potentially converting to draft ID
 
     # If we're in a pull request context and the project ID is positive,
+    # and the project directory is in the list of modified projects,
     # generate a draft ID to avoid overlap with real projects
-    if IS_PULL_REQUEST and project_id > 0:
-        # Use the draft ID prefix plus the original ID to ensure uniqueness
-        project_id = DRAFT_ID_PREFIX + project_id
+    if is_draft:
+        # Use the new format: -<id_project><PR_NUMBER:5 digits with leading zeros>
+        # For example, if project_id=42 and PR_NUMBER=123, the draft ID would be -42000123
+        project_id = -int(f"{project_id}{PR_NUMBER:05d}")
         print(f"Draft project detected in pull request. Original ID: {project_json['id']}, Draft ID: {project_id}")
 
-    return {
+    result = {
         'id': project_id,
         'title': project_json['title'],
         'description': project_json.get('description', ''),
@@ -75,6 +145,12 @@ def extract_project_info_from_dirname(dirname):
         'readme': project_json.get('readme', ''),
         'ides': project_json.get('ides', 'cursor')
     }
+
+    # Store the original ID in the project_info dictionary if this is a draft project
+    if is_draft:
+        result['original_id'] = original_id
+
+    return result
 
 def get_project_from_supabase(project_id):
     """Get project from Supabase by ID."""
@@ -131,7 +207,7 @@ def update_project_in_supabase(project_id, update_data):
     )
     return response
 
-def extract_info_from_filename(filename):
+def extract_info_from_filename(filename, is_draft=False):
     """Extract stage ID, order number, and title from filename."""
     # Pattern: <order_num>_<id>_<title>.html
     pattern = r'(\d+)_(\d+)_(.+)\.html$'
@@ -146,11 +222,10 @@ def extract_info_from_filename(filename):
     order_num_int = int(order_num)
     stage_id_int = int(stage_id)
 
-    # If we're in a pull request context and the stage ID is positive,
-    # generate a draft ID to avoid overlap with real stages
-    if IS_PULL_REQUEST and stage_id_int > 0:
-        # Use the draft ID prefix plus the original ID to ensure uniqueness
-        stage_id_int = DRAFT_ID_PREFIX + stage_id_int
+    if is_draft:
+        # Use the new format: -<id_stage><PR_NUMBER:5 digits with leading zeros>
+        # For example, if stage_id=42 and PR_NUMBER=123, the draft ID would be -42000123
+        stage_id_int = -int(f"{stage_id_int}{PR_NUMBER:05d}")
         print(f"Draft stage detected in pull request. Original ID: {stage_id}, Draft ID: {stage_id_int}")
 
     return {
@@ -174,7 +249,7 @@ def get_stage_from_supabase(stage_id):
 
 def get_github_file_url(file_path):
     """Construct GitHub URL for a file."""
-    return f"https://github.com/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/blob/{GITHUB_BRANCH}/{file_path}"
+    return f"https://github.com/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/blob/main/{file_path}"
 
 def update_stage_in_supabase(stage_id, description, github_file_url, title, next_button_title):
     """Update stage description and GitHub URL in Supabase."""
@@ -224,48 +299,74 @@ def create_stage_in_supabase(stage_id, title, description, github_file_url, proj
     return response
 
 def main():
-    # Find all HTML files in the project directories
-    html_files = glob.glob("project_*/*.html")
-    print(f"Found {len(html_files)} HTML files")
+    # Find all project directories
+    project_dirs = glob.glob("project_*")
+    print(f"Found {len(project_dirs)} project directories")
 
+    # Counters for non-draft entities
     updated_count = 0
-    skipped_count = 0
-    not_found_count = 0
     created_count = 0
     created_projects_count = 0
     updated_projects_count = 0
 
-    # Track created draft projects for PR comments
-    created_draft_projects = []
+    # Counters for draft entities
+    updated_count_draft = 0
+    created_count_draft = 0
+    created_projects_count_draft = 0
+    updated_projects_count_draft = 0
 
-    # Keep track of processed projects to avoid duplicate checks
-    processed_projects = set()
+    # Common counters
+    skipped_count = 0
+    not_found_count = 0
+    total_html_files = 0
 
-    for html_file in html_files:
+    # Track all draft projects for PR comments
+    all_draft_projects = []
+
+    # Get the list of modified projects in the pull request once
+    modified_projects = get_modified_projects()
+
+    for project_dir in project_dirs:
+        # Skip projects not in modified_projects for pull requests
+        if IS_PULL_REQUEST and project_dir not in modified_projects:
+            print(f"Skipping project {project_dir} as it's not in modified_projects")
+            continue
+
         # Extract project information from directory name
-        project_dir = os.path.dirname(html_file)
-        project_info = extract_project_info_from_dirname(project_dir)
+        project_info = extract_project_info_from_dirname(project_dir, is_draft=IS_PULL_REQUEST)
 
-        if project_info and project_info['id'] not in processed_projects:
+        if project_info:
             # Check if project exists in Supabase
             project_id = project_info['id']
             project = get_project_from_supabase(project_id)
+            if IS_PULL_REQUEST:
+                # Use the original_id from project_info if available, otherwise calculate it
+                if 'original_id' in project_info:
+                    original_id = project_info['original_id']
+                else:
+                    # Extract the original ID from the draft ID
+                    project_id_str = str(-project_id)
+                    # Original ID is all digits except the last 5
+                    original_id = int(project_id_str[:-5])
+
+                all_draft_projects.append({
+                    "draft_id": project_id,
+                    "original_id": original_id,
+                    "title": project_info['title'],
+                    "pr_number": PR_NUMBER
+                })
 
             if not project:
                 # Create new project if it doesn't exist
                 is_draft = project_id < 0
                 print(f"Creating new project with ID {project_id} ({project_info['title']}), is_draft={is_draft}")
                 create_project_in_supabase(project_info)
-                created_projects_count += 1
 
-                # If this is a draft project in a PR, track it for PR comment
-                if IS_PULL_REQUEST and project_id < 0:
-                    original_id = -project_id - DRAFT_ID_PREFIX
-                    created_draft_projects.append({
-                        "draft_id": project_id,
-                        "original_id": original_id,
-                        "title": project_info['title']
-                    })
+                # Increment the appropriate counter based on whether the project is a draft
+                if is_draft:
+                    created_projects_count_draft += 1
+                else:
+                    created_projects_count += 1
             else:
                 # Check if project data in Supabase differs from project.json
                 update_data = {}
@@ -291,97 +392,129 @@ def main():
                     changed_fields = list(update_data.keys())
                     print(f"Updating project with ID {project_id} ({project_info['title']}) - Changed fields: {', '.join(changed_fields)}")
                     update_project_in_supabase(project_id, update_data)
-                    updated_projects_count += 1
 
-            processed_projects.add(project_id)
+                    # Increment the appropriate counter based on whether the project is a draft
+                    if project_id < 0:
+                        updated_projects_count_draft += 1
+                    else:
+                        updated_projects_count += 1
 
-        # Extract information from filename
-        file_info = extract_info_from_filename(os.path.basename(html_file))
+        # Find all HTML files in this project directory
+        html_files = glob.glob(f"{project_dir}/*.html")
+        total_html_files += len(html_files)
+        print(f"Found {len(html_files)} HTML files in {project_dir}")
 
-        if not file_info:
-            print(f"Skipping {html_file}: Filename doesn't match expected pattern")
-            skipped_count += 1
-            continue
+        # Process each HTML file in this project directory
+        for html_file in html_files:
+            # Extract information from filename
+            file_info = extract_info_from_filename(html_file, is_draft=IS_PULL_REQUEST)
 
-        # Get stage from Supabase
-        stage_id = file_info['id']
-        stage = get_stage_from_supabase(stage_id)
-
-        # Read HTML content from file
-        with open(html_file, 'r', encoding='utf-8') as f:
-            file_content = f.read()
-
-        # Extract metadata from HTML content
-        metadata = extract_metadata_from_html(file_content)
-
-        # Metadata is mandatory, exit with error if missing
-        if metadata is None:
-            print(f"ERROR: Metadata is missing in file {html_file}")
-            print("Metadata is mandatory, its absence is fatal.")
-            exit(1)
-
-        # Get title and next_button_title from metadata
-        title = metadata.get('title', file_info['title'])
-        next_button_title = metadata.get('next_button_title')
-
-        # Get GitHub URL for this file
-        github_file_url = get_github_file_url(html_file)
-
-        if not stage:
-            # Create new stage if it doesn't exist
-            if project_info:
-                print(f"Creating new stage with ID {stage_id} ({title})")
-                create_stage_in_supabase(stage_id, title, file_content, github_file_url, project_info['id'], file_info['order_num'], next_button_title)
-                created_count += 1
-            else:
-                print(f"Error: Could not determine project ID for stage {stage_id}, skipping stage creation")
+            if not file_info:
+                print(f"Skipping {html_file}: Filename doesn't match expected pattern")
                 skipped_count += 1
-            continue
+                continue
 
-        # Compare content or metadata
-        content_changed = file_content != stage['description']
-        title_changed = metadata and title != stage.get('title', '')
-        # Always check if next_button_title has changed, even if metadata is None
-        # This ensures we can update next_button_title to null if needed
-        next_button_changed = next_button_title != stage.get('next_button_title')
-        # Check if github_file_url has changed
-        github_url_changed = github_file_url != stage.get('github_file_url')
+            # Get stage from Supabase
+            stage_id = file_info['id']
+            stage = get_stage_from_supabase(stage_id)
 
-        if content_changed or title_changed or next_button_changed or github_url_changed:
-            # Create a list of changed fields for detailed logging
-            changes = []
-            if content_changed:
-                changes.append("content")
-            if title_changed:
-                changes.append("title")
-            if next_button_changed:
-                changes.append("next_button_title")
-            if github_url_changed:
-                changes.append("github_file_url")
+            # Read HTML content from file
+            with open(html_file, 'r', encoding='utf-8') as f:
+                file_content = f.read()
 
-            print(f"Updating stage {stage_id} ({title}) - Changed fields: {', '.join(changes)}")
+            # Extract metadata from HTML content
+            metadata = extract_metadata_from_html(file_content)
 
-            update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title)
+            # Metadata is mandatory, exit with error if missing
+            if metadata is None:
+                print(f"ERROR: Metadata is missing in file {html_file}")
+                print("Metadata is mandatory, its absence is fatal.")
+                exit(1)
 
-            updated_count += 1
-        else:
-            print(f"No changes for stage {stage_id} ({stage.get('title', '')})")
+            # Get title and next_button_title from metadata
+            title = metadata.get('title', file_info['title'])
+            next_button_title = metadata.get('next_button_title')
+
+            # Get GitHub URL for this file
+            github_file_url = get_github_file_url(html_file)
+
+            if not stage:
+                # Create new stage if it doesn't exist
+                if project_info:
+                    print(f"Creating new stage with ID {stage_id} ({title})")
+                    create_stage_in_supabase(stage_id, title, file_content, github_file_url, project_info['id'], file_info['order_num'], next_button_title)
+
+                    # Increment the appropriate counter based on whether the stage is a draft
+                    if stage_id < 0:
+                        created_count_draft += 1
+                    else:
+                        created_count += 1
+                else:
+                    print(f"Error: Could not determine project ID for stage {stage_id}, skipping stage creation")
+                    skipped_count += 1
+                continue
+
+            # Compare content or metadata
+            content_changed = file_content != stage['description']
+            title_changed = metadata and title != stage.get('title', '')
+            # Always check if next_button_title has changed, even if metadata is None
+            # This ensures we can update next_button_title to null if needed
+            next_button_changed = next_button_title != stage.get('next_button_title')
+            # Check if github_file_url has changed
+            github_url_changed = github_file_url != stage.get('github_file_url')
+
+            if content_changed or title_changed or next_button_changed or github_url_changed:
+                # Create a list of changed fields for detailed logging
+                changes = []
+                if content_changed:
+                    changes.append("content")
+                if title_changed:
+                    changes.append("title")
+                if next_button_changed:
+                    changes.append("next_button_title")
+                if github_url_changed:
+                    changes.append("github_file_url")
+
+                print(f"Updating stage {stage_id} ({title}) - Changed fields: {', '.join(changes)}")
+
+                update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title)
+
+                # Increment the appropriate counter based on whether the stage is a draft
+                if stage_id < 0:
+                    updated_count_draft += 1
+                else:
+                    updated_count += 1
+            else:
+                print(f"No changes for stage {stage_id} ({stage.get('title', '')})")
 
     print("\nSummary:")
+
+    # Regular entities
+    print("\nRegular entities:")
     print(f"- Updated content: {updated_count}")
     print(f"- Created new stages: {created_count}")
     print(f"- Created new projects: {created_projects_count}")
     print(f"- Updated existing projects: {updated_projects_count}")
+
+    # Draft entities
+    print("\nDraft entities:")
+    print(f"- Updated content: {updated_count_draft}")
+    print(f"- Created new stages: {created_count_draft}")
+    print(f"- Created new projects: {created_projects_count_draft}")
+    print(f"- Updated existing projects: {updated_projects_count_draft}")
+
+    # Common statistics
+    print("\nCommon statistics:")
     print(f"- Skipped (invalid filename): {skipped_count}")
     print(f"- Not found in Supabase: {not_found_count}")
-    print(f"- Total processed: {len(html_files)}")
+    print(f"- Total processed: {total_html_files}")
 
-    # Output created draft projects for GitHub Actions
-    if IS_PULL_REQUEST and created_draft_projects:
-        print("\nCreated draft projects:")
-        for project in created_draft_projects:
-            # Format: DRAFT_PROJECT:<draft_id>:<original_id>:<title>
-            print(f"DRAFT_PROJECT:{project['draft_id']}:{project['original_id']}:{project['title']}")
+    # Output all draft projects for GitHub Actions
+    if all_draft_projects:
+        print("\nDraft projects:")
+        for project in all_draft_projects:
+            # Format: DRAFT_PROJECT:<draft_id>:<original_id>:<title>:<pr_number>
+            print(f"DRAFT_PROJECT:{project['draft_id']}:{project['original_id']}:{project['title']}:{project['pr_number']}")
 
 if __name__ == "__main__":
     main()
