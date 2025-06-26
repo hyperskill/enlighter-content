@@ -1,0 +1,10 @@
+{
+  "id": 11,
+  "description": "Learn how to supercharge Cursor with Model Context Protocol (MCP) servers that enable AI to interact with external tools. This project guides you through creating your first MCP server, configuring MCPs in Cursor, automating browsers with Playwright, building AI-agentic web browsing, and optimizing tool selection with Cursor rules. By the end, you'll be able to extend Cursor's AI capabilities to perform complex tasks like browser automation, web research, and specialized API interactions. All you need is basic familiarity with Cursor IDE to get started.",
+  "title": "How to build your first MCP server",
+  "categories": "Cursor IDE, MCP, Vibe Coding",
+  "cover_url": "https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//output_2.png",
+  "readme": "\n                            \n                                \n                            \n                        ",
+  "short_description": "Learn how to use MCP and why it matters for AI-powered automation",
+  "ides": "cursor"
+}

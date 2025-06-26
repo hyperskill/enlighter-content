@@ -2,21 +2,58 @@ name: Validate and Sync Content
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "project_*/*.html"
+      - "project_*/project.json"
       - "templates/*.html"
       - ".github/workflows/main.yml" # This file itself
       - ".github/scripts/validate-content.js"
       - ".github/scripts/sync_templates.py"
       - ".github/scripts/sync_content.py"
+  pull_request_target:
+    types: [ labeled, synchronize, opened ]
+    paths:
+      - "project_*/*.html"
+      - "project_*/project.json"
+      - "templates/*.html"
+      - ".github/workflows/main.yml" # This file itself
+      - ".github/scripts/validate-content.js"
+      - ".github/scripts/sync_templates.py"
+      - ".github/scripts/sync_content.py"
+  workflow_dispatch:
 
 jobs:
   validate:
     name: Validate HTML Content
+    if: github.event_name != 'pull_request_target' || contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout base branch for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+
+      - name: Checkout current ref for push and workflow_dispatch
+        if: github.event_name != 'pull_request_target'
+        uses: actions/checkout@v4
+
+      - name: Configure git identity
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Fetch head branch for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        run: git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
+
+      - name: Merge head into base for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git merge --no-ff FETCH_HEAD || (echo "Merge conflict detected" && exit 1)
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -32,12 +69,12 @@ jobs:
 
   sync-templates:
     name: Sync Templates to Supabase
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -57,12 +94,37 @@ jobs:
 
   sync-content:
     name: Sync Stage Content to Supabase
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name != 'pull_request_target' || contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout base branch for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 0
+
+      - name: Checkout current ref for push and workflow_dispatch
+        if: github.event_name != 'pull_request_target'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Fetch head branch for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        run: git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
+
+      - name: Merge head into base for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git merge --no-ff FETCH_HEAD || (echo "Merge conflict detected" && exit 1)
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -75,7 +137,56 @@ jobs:
           pip install supabase
 
       - name: Sync stage content to Supabase
+        id: sync-content
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: python .github/scripts/sync_content.py
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          python .github/scripts/sync_content.py | tee sync_output.log
+
+          # Extract draft project information from the output
+          if grep -q "DRAFT_PROJECT:" sync_output.log; then
+            echo "draft_projects_found=true" >> $GITHUB_OUTPUT
+            grep "DRAFT_PROJECT:" sync_output.log > draft_projects.txt
+          else
+            echo "draft_projects_found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate comment body with draft project links
+        if: ${{ github.event_name == 'pull_request_target' && steps.sync-content.outputs.draft_projects_found == 'true' }}
+        id: generate-comment
+        run: |
+          # Read draft projects data
+          COMMENT_BODY=""
+
+          while IFS= read -r line; do
+            if [[ $line == DRAFT_PROJECT:* ]]; then
+              # Parse the line: DRAFT_PROJECT:<draft_id>:<original_id>:<title>
+              IFS=':' read -r _ DRAFT_ID ORIGINAL_ID TITLE_REST <<< "$line"
+              # Handle titles that might contain colons
+              TITLE="${line#DRAFT_PROJECT:$DRAFT_ID:$ORIGINAL_ID:}"
+
+              # Add project to comment body
+              COMMENT_BODY+="- [${TITLE}](https://enlightby.ai/projects/${DRAFT_ID}) (Draft ID: ${DRAFT_ID}, Original ID: ${ORIGINAL_ID})"
+            fi
+          done < draft_projects.txt
+
+          # Escape newlines for GitHub Actions output
+          COMMENT_BODY="${COMMENT_BODY//'%'/'%25'}"
+          COMMENT_BODY="${COMMENT_BODY//$'\n'/'%0A'}"
+          COMMENT_BODY="${COMMENT_BODY//$'\r'/'%0D'}"
+
+          echo "comment_body=${COMMENT_BODY}" >> $GITHUB_OUTPUT
+
+      - name: Post comment with draft project links
+        if: ${{ github.event_name == 'pull_request_target' && steps.sync-content.outputs.draft_projects_found == 'true' }}
+        uses: mshick/add-pr-comment@v2
+        with:
+          refresh-message-position: true
+          message-id: host
+          message-success: |
+            ## 🚀 Draft Projects Created
+
+            The following draft projects have been created in this PR:
+            ${{ steps.generate-comment.outputs.comment_body }}

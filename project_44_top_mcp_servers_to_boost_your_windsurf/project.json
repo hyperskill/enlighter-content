@@ -1,0 +1,10 @@
+{
+  "id": 44,
+  "description": "This project highlights essential Model Context Protocol (MCP) servers that improve your experience in Windsurf. You'll get a breakdown of each server\u2019s purpose, configuration steps, and usage examples \u2014 from automated context syncing to enhanced code navigation. Designed to help you get more out of Windsurf with minimal setup.",
+  "title": "Top MCP Servers for Windsurf",
+  "categories": "Windsurf, MCP, Vibe Coding          ",
+  "cover_url": "https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//36-cover-output-2.png",
+  "readme": "\n              \n                \n              \n            ",
+  "short_description": "Explore key MCP servers that extend and optimize Windsurf",
+  "ides": "Windsurf"
+}

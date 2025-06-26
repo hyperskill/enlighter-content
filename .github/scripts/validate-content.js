@@ -1,5 +1,5 @@
 import { DOMParser } from '@xmldom/xmldom';
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync, readdirSync, existsSync } from 'fs';
 import { glob } from 'glob';
 import path from 'path';
 
@@ -43,6 +43,49 @@ function validateProjectDirectoryFormat() {
     return { invalidDirs };
 }
 
+// Validate project.json files
+function validateProjectJson() {
+    const projectDirs = findProjectDirectories();
+    const missingFiles = [];
+    const invalidFiles = [];
+    const missingFieldsMap = new Map(); // Map to store missing fields for each directory
+
+    for (const dir of projectDirs) {
+        const projectJsonPath = path.join(dir, 'project.json');
+
+        // Check if project.json exists
+        if (!existsSync(projectJsonPath)) {
+            missingFiles.push(dir);
+            continue;
+        }
+
+        // Check if project.json can be parsed and has required fields
+        try {
+            const projectJson = JSON.parse(readFileSync(projectJsonPath, 'utf8'));
+
+            // Define all required fields
+            const requiredFields = ['id', 'title', 'description', 'short_description', 'categories', 'cover_url', 'readme', 'ides'];
+            const missingFields = [];
+
+            // Check for each required field
+            for (const field of requiredFields) {
+                if (!projectJson.hasOwnProperty(field)) {
+                    missingFields.push(field);
+                }
+            }
+
+            if (missingFields.length > 0) {
+                invalidFiles.push(dir);
+                missingFieldsMap.set(dir, missingFields);
+            }
+        } catch (error) {
+            invalidFiles.push(dir);
+        }
+    }
+
+    return { missingFiles, invalidFiles, missingFieldsMap };
+}
+
 // Validate HTML file naming format
 function validateHtmlFileFormat() {
     const htmlFiles = findProjectHtmlFiles();
@@ -58,6 +101,59 @@ function validateHtmlFileFormat() {
     }
 
     return { invalidFiles };
+}
+
+// Extract metadata from HTML content
+function extractMetadataFromHtml(content) {
+    const metadataPattern = /<!-- Enlighter Metainfo\s*(\{.*?\})\s*-->/s;
+    const match = content.match(metadataPattern);
+
+    if (match) {
+        try {
+            return JSON.parse(match[1]);
+        } catch (error) {
+            return null;
+        }
+    }
+
+    return null;
+}
+
+// Validate metadata in HTML files
+function validateHtmlMetadata() {
+    const htmlFiles = findProjectHtmlFiles();
+    const missingMetadata = [];
+    const invalidMetadata = [];
+    const missingFieldsMap = new Map(); // Map to store missing fields for each file
+
+    for (const file of htmlFiles) {
+        const content = readFileSync(file, 'utf8');
+        const metadata = extractMetadataFromHtml(content);
+
+        // Check if metadata exists
+        if (!metadata) {
+            missingMetadata.push(file);
+            continue;
+        }
+
+        // Define all required fields
+        const requiredFields = ['id', 'title', 'next_button_title'];
+        const missingFields = [];
+
+        // Check for each required field
+        for (const field of requiredFields) {
+            if (!metadata.hasOwnProperty(field)) {
+                missingFields.push(field);
+            }
+        }
+
+        if (missingFields.length > 0) {
+            invalidMetadata.push(file);
+            missingFieldsMap.set(file, missingFields);
+        }
+    }
+
+    return { missingMetadata, invalidMetadata, missingFieldsMap };
 }
 
 function extractStageId(filePath) {
@@ -155,6 +251,42 @@ const htmlFileFormatValidation = validateHtmlFileFormat();
 if (htmlFileFormatValidation.invalidFiles.length > 0) {
     for (const file of htmlFileFormatValidation.invalidFiles) {
         errors.push(`Invalid HTML file name format: ${file}. Expected format: <order_num>_<id>_<title>.html where <title> can include letters, numbers, underscores, and hyphens.`);
+    }
+}
+
+// Validate project.json files
+const projectJsonValidation = validateProjectJson();
+if (projectJsonValidation.missingFiles.length > 0) {
+    for (const dir of projectJsonValidation.missingFiles) {
+        errors.push(`Missing project.json file in directory: ${dir}`);
+    }
+}
+if (projectJsonValidation.invalidFiles.length > 0) {
+    for (const dir of projectJsonValidation.invalidFiles) {
+        const missingFields = projectJsonValidation.missingFieldsMap.get(dir);
+        if (missingFields && missingFields.length > 0) {
+            errors.push(`Invalid project.json file in directory: ${dir}. Missing required fields: ${missingFields.join(', ')}.`);
+        } else {
+            errors.push(`Invalid project.json file in directory: ${dir}. File must be valid JSON and contain all required fields.`);
+        }
+    }
+}
+
+// Validate HTML metadata
+const htmlMetadataValidation = validateHtmlMetadata();
+if (htmlMetadataValidation.missingMetadata.length > 0) {
+    for (const file of htmlMetadataValidation.missingMetadata) {
+        errors.push(`Missing metadata in HTML file: ${file}. Each HTML file must have metadata in the format: <!-- Enlighter Metainfo { ... } -->`);
+    }
+}
+if (htmlMetadataValidation.invalidMetadata.length > 0) {
+    for (const file of htmlMetadataValidation.invalidMetadata) {
+        const missingFields = htmlMetadataValidation.missingFieldsMap.get(file);
+        if (missingFields && missingFields.length > 0) {
+            errors.push(`Invalid metadata in HTML file: ${file}. Missing required fields: ${missingFields.join(', ')}.`);
+        } else {
+            errors.push(`Invalid metadata in HTML file: ${file}. Metadata must contain all required fields.`);
+        }
     }
 }
 
