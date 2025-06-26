@@ -1,0 +1,10 @@
+{
+  "id": 42,
+  "description": "This tutorial introduces the key features of Cursor 1.0. You'll learn how Memories retain project context across sessions, how to use AI directly in Jupyter notebooks, how BugBot reviews your code, and how the Background Agent works behind the scenes. It also covers one-click MCP setups and updated chat features, including support for Mermaid diagrams.",
+  "title": "Cursor 1.0 Features Tutorial",
+  "categories": "                                  AI, Developer Tools, Cursor IDE, Python, Jupyter, Debugging                      ",
+  "cover_url": "https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//enl-proj-42.png",
+  "readme": "\n              \n                \n              \n            ",
+  "short_description": "Walk through the latest Cursor 1.0 updates: Memories, Jupyter, BugBot, Background Agent, and more.",
+  "ides": "cursor"
+}

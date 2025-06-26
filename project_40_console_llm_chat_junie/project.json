@@ -1,0 +1,10 @@
+{
+  "id": 40,
+  "description": "Engage in interactive conversations with a Language Learning Model (LLM) directly from your console. This project will guide you through building a simple console-based chat application.",
+  "title": "Console Chat with LLM (Junie)",
+  "categories": "AI, LLM, Python, PyCharm, Junie",
+  "cover_url": "https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//output_6.png",
+  "readme": null,
+  "short_description": "A smooth entry point to AI agents \u2014 build a console-based chatbot step by step",
+  "ides": "junie"
+}

@@ -1,10 +1,9 @@
-TITLE: Implementing an Echo MCP Server with Resources, Tools, and Prompts (TypeScript)
-DESCRIPTION: This example showcases a simple MCP server named "Echo" that defines a resource, a tool, and a prompt. The "echo" resource returns the input message as text, the "echo" tool returns the input message as content, and the "echo" prompt formats the input message into a user message. It demonstrates basic usage of McpServer, ResourceTemplate, and Zod for schema validation.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_9
+# Model Context Protocol - TypeScript SDK
 
-LANGUAGE: typescript
-CODE:
-```
+## Implementing an Echo MCP Server with Resources, Tools, and Prompts
+This example showcases a simple MCP server named "Echo" that defines a resource, a tool, and a prompt. The "echo" resource returns the input message as text, the "echo" tool returns the input message as content, and the "echo" prompt formats the input message into a user message. It demonstrates basic usage of McpServer, ResourceTemplate, and Zod for schema validation.
+
+```typescript
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
@@ -47,15 +46,10 @@ server.prompt(
 );
 ```
 
-----------------------------------------
+## Implementing Simple and Asynchronous MCP Tools
+This example demonstrates how to register tools with an MCP server. It includes a simple 'calculate-bmi' tool that performs a calculation and an asynchronous 'fetch-weather' tool that makes an external API call, showcasing how tools enable LLMs to perform actions and interact with external services.
 
-TITLE: Implementing Simple and Asynchronous MCP Tools (TypeScript)
-DESCRIPTION: This example demonstrates how to register tools with an MCP server. It includes a simple 'calculate-bmi' tool that performs a calculation and an asynchronous 'fetch-weather' tool that makes an external API call, showcasing how tools enable LLMs to perform actions and interact with external services.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_4
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 // Simple tool with parameters
 server.tool(
   "calculate-bmi",
@@ -85,15 +79,10 @@ server.tool(
 );
 ```
 
-----------------------------------------
+## Proxying OAuth Requests Upstream with Model Context Protocol SDK
+This snippet demonstrates how to configure the Model Context Protocol SDK's mcpAuthRouter to proxy OAuth authorization requests to an external provider using ProxyOAuthServerProvider. It shows how to define external OAuth endpoints, implement custom access token validation, and manage client redirect URIs, allowing delegation of OAuth flow while maintaining control.
 
-TITLE: Proxying OAuth Requests Upstream with Model Context Protocol SDK (TypeScript)
-DESCRIPTION: This snippet demonstrates how to configure the Model Context Protocol SDK's mcpAuthRouter to proxy OAuth authorization requests to an external provider using ProxyOAuthServerProvider. It shows how to define external OAuth endpoints, implement custom access token validation, and manage client redirect URIs, allowing delegation of OAuth flow while maintaining control.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_14
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 import express from 'express';
 import { ProxyOAuthServerProvider } from '@modelcontextprotocol/sdk/server/auth/providers/proxyProvider.js';
 import { mcpAuthRouter } from '@modelcontextprotocol/sdk/server/auth/router.js';
@@ -129,15 +118,10 @@ app.use(mcpAuthRouter({
 }))
 ```
 
-----------------------------------------
+## Interacting with MCP Servers using the High-Level Client
+This snippet demonstrates how to use the high-level Client interface to connect to an MCP server and perform various operations. It covers listing prompts and resources, getting specific prompts and resources, and calling tools, showcasing the client's capabilities for interacting with a connected server.
 
-TITLE: Interacting with MCP Servers using the High-Level Client (TypeScript)
-DESCRIPTION: This snippet demonstrates how to use the high-level Client interface to connect to an MCP server and perform various operations. It covers listing prompts and resources, getting specific prompts and resources, and calling tools, showcasing the client's capabilities for interacting with a connected server.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_13
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 
@@ -183,15 +167,10 @@ const result = await client.callTool({
 });
 ```
 
-----------------------------------------
+## Setting Up Streamable HTTP Server with Session Management
+This comprehensive example sets up an Express.js server to handle MCP communication over Streamable HTTP, including session management. It uses `StreamableHTTPServerTransport` to manage client-to-server requests (POST), server-to-client notifications (GET via SSE), and session termination (DELETE), ensuring stateful interactions across requests using session IDs.
 
-TITLE: Setting Up Streamable HTTP Server with Session Management in TypeScript
-DESCRIPTION: This comprehensive example sets up an Express.js server to handle MCP communication over Streamable HTTP, including session management. It uses `StreamableHTTPServerTransport` to manage client-to-server requests (POST), server-to-client notifications (GET via SSE), and session termination (DELETE), ensuring stateful interactions across requests using session IDs.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_7
-
-LANGUAGE: TypeScript
-CODE:
-```
+```typescript
 import express from "express";
 import { randomUUID } from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -278,15 +257,10 @@ app.delete('/mcp', handleSessionRequest);
 app.listen(3000);
 ```
 
-----------------------------------------
+## Creating a Basic MCP Server with Tools and Resources
+This snippet demonstrates how to set up a simple MCP server. It initializes an `McpServer` instance, registers an 'add' tool for basic arithmetic, and defines a dynamic 'greeting' resource. Finally, it connects the server to a `StdioServerTransport` to handle communication via standard input/output.
 
-TITLE: Creating a Basic MCP Server with Tools and Resources (TypeScript)
-DESCRIPTION: This snippet demonstrates how to set up a simple MCP server. It initializes an `McpServer` instance, registers an 'add' tool for basic arithmetic, and defines a dynamic 'greeting' resource. Finally, it connects the server to a `StdioServerTransport` to handle communication via standard input/output.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_1
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
@@ -322,15 +296,10 @@ const transport = new StdioServerTransport();
 await server.connect(transport);
 ```
 
-----------------------------------------
+## Building an MCP Server for SQLite Database Exploration
+This snippet provides a more complex MCP server example that integrates with a SQLite database. It defines a "schema" resource to retrieve the database schema (table SQL definitions) and a "query" tool to execute arbitrary SQL queries against the database. It uses sqlite3 and promisify for asynchronous database operations and includes error handling for queries.
 
-TITLE: Building an MCP Server for SQLite Database Exploration (TypeScript)
-DESCRIPTION: This snippet provides a more complex MCP server example that integrates with a SQLite database. It defines a "schema" resource to retrieve the database schema (table SQL definitions) and a "query" tool to execute arbitrary SQL queries against the database. It uses sqlite3 and promisify for asynchronous database operations and includes error handling for queries.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_10
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import sqlite3 from "sqlite3";
 import { promisify } from "util";
@@ -400,28 +369,17 @@ server.tool(
 );
 ```
 
-----------------------------------------
+## Running Simple Streamable HTTP Server
+This command starts a basic MCP server implementing the Streamable HTTP transport, featuring session management, in-memory event store for resumability, `greet` and `multi-greet` tools, `greeting-template` prompt, static resource exposure, SSE notification support, and session termination via DELETE requests.
 
-
-TITLE: Running Simple Streamable HTTP Server (TypeScript)
-DESCRIPTION: This command starts a basic MCP server implementing the Streamable HTTP transport, featuring session management, in-memory event store for resumability, `greet` and `multi-greet` tools, `greeting-template` prompt, static resource exposure, SSE notification support, and session termination via DELETE requests.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/README.md#_snippet_3
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npx tsx src/examples/server/simpleStreamableHttp.ts
 ```
 
-----------------------------------------
+## Creating Dynamic MCP Servers with Tool Management
+This snippet demonstrates how to create an McpServer that can dynamically enable, disable, update, and remove tools after connection. It shows how listChanged notifications are automatically emitted upon tool state changes, allowing for adaptive server behavior based on user actions or external state.
 
-TITLE: Creating Dynamic MCP Servers with Tool Management (TypeScript)
-DESCRIPTION: This snippet demonstrates how to create an McpServer that can dynamically enable, disable, update, and remove tools after connection. It shows how listChanged notifications are automatically emitted upon tool state changes, allowing for adaptive server behavior based on user actions or external state.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_11
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
@@ -479,15 +437,10 @@ const transport = new StdioServerTransport();
 await server.connect(transport);
 ```
 
-----------------------------------------
+## Setting up a Stateless MCP Server with Express.js
+This snippet demonstrates how to create a stateless Model Context Protocol (MCP) server using Express.js. It sets up a POST endpoint '/mcp' to handle incoming MCP requests, ensuring each request is processed with a new, isolated StreamableHTTPServerTransport and McpServer instance to prevent request ID collisions in concurrent environments. It also defines GET and DELETE endpoints that return 'Method not allowed' errors.
 
-TITLE: Setting up a Stateless MCP Server with Express.js (TypeScript)
-DESCRIPTION: This snippet demonstrates how to create a stateless Model Context Protocol (MCP) server using Express.js. It sets up a POST endpoint '/mcp' to handle incoming MCP requests, ensuring each request is processed with a new, isolated StreamableHTTPServerTransport and McpServer instance to prevent request ID collisions in concurrent environments. It also defines GET and DELETE endpoints that return 'Method not allowed' errors.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_8
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 const app = express();
 app.use(express.json());
 
@@ -555,15 +508,10 @@ app.listen(PORT, () => {
 });
 ```
 
-----------------------------------------
+## Defining Static and Dynamic MCP Resources
+This snippet illustrates how to define both static and dynamic resources on an MCP server. Static resources provide fixed data, while dynamic resources use `ResourceTemplate` to allow URI parameters (like `userId`) to fetch context-specific information for LLMs.
 
-TITLE: Defining Static and Dynamic MCP Resources (TypeScript)
-DESCRIPTION: This snippet illustrates how to define both static and dynamic resources on an MCP server. Static resources provide fixed data, while dynamic resources use `ResourceTemplate` to allow URI parameters (like `userId`) to fetch context-specific information for LLMs.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_3
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 // Static resource
 server.resource(
   "config",
@@ -589,27 +537,17 @@ server.resource(
 );
 ```
 
-----------------------------------------
+## Running Streamable HTTP Client
+This command executes a full-featured interactive client demonstrating connection management, tool and prompt calls, notification handling, resource listing, session termination, and resumability with Last-Event-ID tracking, connecting to a Streamable HTTP server.
 
-TITLE: Running Streamable HTTP Client (TypeScript)
-DESCRIPTION: This command executes a full-featured interactive client demonstrating connection management, tool and prompt calls, notification handling, resource listing, session termination, and resumability with Last-Event-ID tracking, connecting to a Streamable HTTP server.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/README.md#_snippet_0
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npx tsx src/examples/client/simpleStreamableHttp.ts
 ```
 
-----------------------------------------
+## Implementing Server-Side Transport Compatibility for Model Context Protocol SDK
+This snippet shows how a Model Context Protocol server can support both modern StreamableHTTPServerTransport and deprecated SSEServerTransport clients. It sets up Express routes to handle different transport types, including a legacy SSE endpoint and a message endpoint for older clients, ensuring backwards compatibility while encouraging migration to Streamable HTTP.
 
-TITLE: Implementing Server-Side Transport Compatibility for Model Context Protocol SDK (TypeScript)
-DESCRIPTION: This snippet shows how a Model Context Protocol server can support both modern StreamableHTTPServerTransport and deprecated SSEServerTransport clients. It sets up Express routes to handle different transport types, including a legacy SSE endpoint and a message endpoint for older clients, ensuring backwards compatibility while encouraging migration to Streamable HTTP.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_16
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 import express from "express";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
@@ -665,15 +603,10 @@ app.post('/messages', async (req, res) => {
 app.listen(3000);
 ```
 
-----------------------------------------
+## Implementing Client-Side Transport Fallback for Model Context Protocol SDK
+This snippet illustrates how a Model Context Protocol client can attempt to connect using the modern StreamableHTTPClientTransport and gracefully fall back to the deprecated SSEClientTransport if the initial connection fails. This ensures backwards compatibility for clients interacting with servers that might use older transport versions.
 
-TITLE: Implementing Client-Side Transport Fallback for Model Context Protocol SDK (TypeScript)
-DESCRIPTION: This snippet illustrates how a Model Context Protocol client can attempt to connect using the modern StreamableHTTPClientTransport and gracefully fall back to the deprecated SSEClientTransport if the initial connection fails. This ensures backwards compatibility for clients interacting with servers that might use older transport versions.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_15
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
@@ -702,15 +635,10 @@ try {
 }
 ```
 
-----------------------------------------
+## Defining a Code Review Prompt with MCP TypeScript
+This snippet demonstrates how to define a reusable prompt named 'review-code' on an MCP server. It expects a 'code' string as input and constructs a user message for an LLM to review the provided code. This allows for templated interactions with language models.
 
-TITLE: Defining a Code Review Prompt with MCP TypeScript
-DESCRIPTION: This snippet demonstrates how to define a reusable prompt named 'review-code' on an MCP server. It expects a 'code' string as input and constructs a user message for an LLM to review the provided code. This allows for templated interactions with language models.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_5
-
-LANGUAGE: TypeScript
-CODE:
-```
+```typescript
 server.prompt(
   "review-code",
   { code: z.string() },
@@ -726,28 +654,17 @@ server.prompt(
 );
 ```
 
-----------------------------------------
+## Running Simple Streamable HTTP Server with OAuth
+This command starts the simple Streamable HTTP server with an added demonstration of OAuth authentication.
 
-
-TITLE: Running Simple Streamable HTTP Server with OAuth (TypeScript)
-DESCRIPTION: This command starts the simple Streamable HTTP server with an added demonstration of OAuth authentication.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/README.md#_snippet_4
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npx tsx src/examples/server/simpleStreamableHttp.ts --oauth
 ```
 
-----------------------------------------
+## Implementing Low-Level MCP Server with Custom Request Handlers
+This example illustrates how to use the Server class directly for fine-grained control over MCP server behavior. It shows how to define custom request handlers for specific schemas like ListPromptsRequestSchema and GetPromptRequestSchema, providing a flexible way to manage server capabilities.
 
-TITLE: Implementing Low-Level MCP Server with Custom Request Handlers (TypeScript)
-DESCRIPTION: This example illustrates how to use the Server class directly for fine-grained control over MCP server behavior. It shows how to define custom request handlers for specific schemas like ListPromptsRequestSchema and GetPromptRequestSchema, providing a flexible way to manage server capabilities.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_12
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
@@ -801,120 +718,69 @@ const transport = new StdioServerTransport();
 await server.connect(transport);
 ```
 
-----------------------------------------
+## Running Streamable HTTP Client with OAuth
+This command executes an example client that includes OAuth authentication, connecting to a Streamable HTTP server.
 
-TITLE: Running Streamable HTTP Client with OAuth (JavaScript)
-DESCRIPTION: This command executes an example client that includes OAuth authentication, connecting to a Streamable HTTP server.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/README.md#_snippet_1
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npx tsx src/examples/client/simpleOAuthClient.js
 ```
 
-----------------------------------------
+## Running Backwards Compatible Server with Streamable HTTP and SSE
+This command starts a single MCP server instance supporting both Streamable HTTP and deprecated SSE transports, handling requests at `/mcp` (GET/POST/DELETE) and `/sse` (GET) with `/messages` (POST) respectively, tracking session types, and enabling notifications and tool execution across both transport types.
 
-TITLE: Running Backwards Compatible Server with Streamable HTTP and SSE (TypeScript)
-DESCRIPTION: This command starts a single MCP server instance supporting both Streamable HTTP and deprecated SSE transports, handling requests at `/mcp` (GET/POST/DELETE) and `/sse` (GET) with `/messages` (POST) respectively, tracking session types, and enabling notifications and tool execution across both transport types.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/README.md#_snippet_8
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npx tsx src/examples/server/sseAndStreamableHttpCompatibleServer.ts
 ```
 
-----------------------------------------
+## Initializing an MCP Server Instance
+This code initializes a new `McpServer` instance, which serves as the core interface for the Model Context Protocol. It requires a `name` and `version` to identify the server within the MCP ecosystem.
 
-
-TITLE: Initializing an MCP Server Instance (TypeScript)
-DESCRIPTION: This code initializes a new `McpServer` instance, which serves as the core interface for the Model Context Protocol. It requires a `name` and `version` to identify the server within the MCP ecosystem.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_2
-
-LANGUAGE: typescript
-CODE:
-```
+```typescript
 const server = new McpServer({
   name: "My App",
   version: "1.0.0"
 });
 ```
 
-----------------------------------------
+## Running Streamable HTTP Server with Server Notifications
+This command starts a Streamable HTTP server demonstrating server-initiated notifications, including resource list change notifications with dynamically added resources and automatic resource creation on a timed interval.
 
-TITLE: Running Streamable HTTP Server with Server Notifications (TypeScript)
-DESCRIPTION: This command starts a Streamable HTTP server demonstrating server-initiated notifications, including resource list change notifications with dynamically added resources and automatic resource creation on a timed interval.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/README.md#_snippet_6
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npx tsx src/examples/server/standaloneSseWithGetStreamableHttp.ts
 ```
 
-----------------------------------------
+## Running JSON Response Mode Streamable HTTP Server
+This command starts a Streamable HTTP server with JSON response mode enabled, returning responses directly in the body without SSE, and handling unsupported methods with appropriate HTTP status codes.
 
-
-TITLE: Running JSON Response Mode Streamable HTTP Server (TypeScript)
-DESCRIPTION: This command starts a Streamable HTTP server with JSON response mode enabled, returning responses directly in the body without SSE, and handling unsupported methods with appropriate HTTP status codes.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/README.md#_snippet_5
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npx tsx src/examples/server/jsonResponseStreamableHttp.ts
 ```
 
-----------------------------------------
+## Running Deprecated SSE Transport Server
+This command starts a server implementing the deprecated HTTP+SSE transport, primarily for backwards compatibility testing, featuring separate `/mcp` (SSE GET) and `/messages` (client POST) endpoints, and a `start-notification-stream` tool for periodic notifications.
 
-TITLE: Running Deprecated SSE Transport Server (TypeScript)
-DESCRIPTION: This command starts a server implementing the deprecated HTTP+SSE transport, primarily for backwards compatibility testing, featuring separate `/mcp` (SSE GET) and `/messages` (client POST) endpoints, and a `start-notification-stream` tool for periodic notifications.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/src/examples/README.md#_snippet_7
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npx tsx src/examples/server/simpleSseServer.ts
 ```
 
-----------------------------------------
+## Starting Example Server - npm
+This command starts the local development server for the SDK's examples, allowing contributors to interact with the SDK's functionality in a live environment. It's typically run in a separate terminal.
 
-
-
-TITLE: Starting Example Server - npm
-DESCRIPTION: This command starts the local development server for the SDK's examples, allowing contributors to interact with the SDK's functionality in a live environment. It's typically run in a separate terminal.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/CONTRIBUTING.md#_snippet_6
-
-LANGUAGE: Shell
-CODE:
-```
+```bash
 npm run server
 ```
 
-----------------------------------------
+## Running Example Client - npm
+This command executes the client-side application of the SDK's examples, typically connecting to the local server to demonstrate SDK usage. It's used to test the SDK's integration.
 
-TITLE: Running Example Client - npm
-DESCRIPTION: This command executes the client-side application of the SDK's examples, typically connecting to the local server to demonstrate SDK usage. It's used to test the SDK's integration.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/CONTRIBUTING.md#_snippet_7
-
-LANGUAGE: Shell
-CODE:
-```
+```bash
 npm run client
 ```
 
-----------------------------------------
+## Executing Build and Test Commands for MCP TypeScript SDK
+This snippet provides common shell commands for building, linting, and running tests within the MCP TypeScript SDK project. It includes commands for a full build, linting, running all tests, and executing specific test files or patterns using Jest.
 
-
-
-TITLE: Executing Build and Test Commands for MCP TypeScript SDK
-DESCRIPTION: This snippet provides common shell commands for building, linting, and running tests within the MCP TypeScript SDK project. It includes commands for a full build, linting, running all tests, and executing specific test files or patterns using Jest.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/CLAUDE.md#_snippet_0
-
-LANGUAGE: sh
-CODE:
-```
+```bash
 npm run build        # Build ESM and CJS versions
 npm run lint         # Run ESLint
 npm test             # Run all tests
@@ -922,40 +788,23 @@ npx jest path/to/file.test.ts  # Run specific test file
 npx jest -t "test name"        # Run tests matching pattern
 ```
 
-----------------------------------------
+## Installing Dependencies - npm
+This command installs all necessary project dependencies listed in the 'package.json' file, preparing the TypeScript SDK for development and building. It should be run after cloning the repository.
 
-
-
-TITLE: Installing Dependencies - npm
-DESCRIPTION: This command installs all necessary project dependencies listed in the 'package.json' file, preparing the TypeScript SDK for development and building. It should be run after cloning the repository.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/CONTRIBUTING.md#_snippet_1
-
-LANGUAGE: Shell
-CODE:
-```
+```bash
 npm install
 ```
 
-----------------------------------------
+## Installing MCP TypeScript SDK
+This command installs the Model Context Protocol (MCP) TypeScript SDK using npm, making it available for use in your project.
 
-TITLE: Installing MCP TypeScript SDK
-DESCRIPTION: This command installs the Model Context Protocol (MCP) TypeScript SDK using npm, making it available for use in your project.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/README.md#_snippet_0
-
-LANGUAGE: bash
-CODE:
-```
+```bash
 npm install @modelcontextprotocol/sdk
 ```
 
-----------------------------------------
+## Cloning Repository - Git
+This command clones your forked Model Context Protocol TypeScript SDK repository to your local machine, allowing you to begin development. Replace 'YOUR-USERNAME' with your actual GitHub username.
 
-TITLE: Cloning Repository - Git
-DESCRIPTION: This command clones your forked Model Context Protocol TypeScript SDK repository to your local machine, allowing you to begin development. Replace 'YOUR-USERNAME' with your actual GitHub username.
-SOURCE: https://github.com/modelcontextprotocol/typescript-sdk/blob/main/CONTRIBUTING.md#_snippet_0
-
-LANGUAGE: Shell
-CODE:
-```
+```bash
 git clone https://github.com/YOUR-USERNAME/typescript-sdk.git
 ```

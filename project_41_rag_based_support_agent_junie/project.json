@@ -1,0 +1,10 @@
+{
+  "id": 41,
+  "description": "Create a production-ready AI agent to handle support tickets in Zendesk",
+  "title": "RAG-Based Support Agent (Junie)",
+  "categories": "AI, Python, RAG, PyCharm, Junie",
+  "cover_url": "https://ucarecdn.com/6287e912-e9cd-43de-8da9-5e7129ff2ca5/",
+  "readme": null,
+  "short_description": "Create a production-ready AI agent to handle support tickets in Zendesk",
+  "ides": "junie"
+}
