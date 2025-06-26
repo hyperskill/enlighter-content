@@ -30,8 +30,24 @@ jobs:
     if: github.event_name != 'pull_request_target' || contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     steps:
-      - name: Checkout code
+      - name: Checkout base branch for pull_request_target
+        if: github.event_name == 'pull_request_target'
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+
+      - name: Checkout current ref for push and workflow_dispatch
+        if: github.event_name != 'pull_request_target'
+        uses: actions/checkout@v4
+
+      - name: Fetch head branch for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        run: git fetch origin ${{ github.event.pull_request.head.ref }}
+
+      - name: Merge head into base for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git merge --no-ff origin/${{ github.event.pull_request.head.ref }} || (echo "Merge conflict detected" && exit 1)
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -76,10 +92,27 @@ jobs:
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
-      - name: Checkout code
+      - name: Checkout base branch for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 0
+
+      - name: Checkout current ref for push and workflow_dispatch
+        if: github.event_name != 'pull_request_target'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Fetch head branch for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        run: git fetch origin ${{ github.event.pull_request.head.ref }}
+
+      - name: Merge head into base for pull_request_target
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git merge --no-ff origin/${{ github.event.pull_request.head.ref }} || (echo "Merge conflict detected" && exit 1)
 
       - name: Set up Python
         uses: actions/setup-python@v4
