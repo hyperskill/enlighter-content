@@ -1,0 +1,46 @@
+<p>In this section, we will explore Planning Mode in detail. We will cover the common challenges it is designed to address, how it functions as a solution, and then apply it practically by generating a project plan for our "Smart Task Manager" application.</p>
+<h5>The Challenge: Maintaining Context in Complex Projects</h5>
+<p>LLMs are effective at handling self-contained, short-term coding tasks. However, their effectiveness can decrease when dealing with more complex features that span multiple files or require numerous sequential steps. Without a persistent frame of reference, an LLM may struggle to:</p>
+<ul>
+<li><strong>Understand the "Bigger Picture":</strong> The AI may not retain the overall project goals or the reasoning behind previous architectural decisions from one session to the next.</li>
+<li><strong>Track the Current State:</strong> It can be difficult for the AI to know which parts of a feature have been completed and what the immediate next steps should be.</li>
+<li><strong>Avoid Redundant Explanations:</strong> Developers often find themselves repeatedly providing the same contextual information and requirements at the start of each new interaction.</li>
+</ul>
+<p>This "context drift" can lead to inconsistent code and requires significant effort from the developer to keep the AI aligned with the project's direction.</p>
+<h5>The Solution: How Planning Mode Provides Structure</h5>
+<p>Planning Mode is designed to solve this problem by establishing a persistent, shared context between the developer and the AI. It acts as a single source of truth for the project's objectives and progress. Its primary advantages are:</p>
+<ul>
+<li><strong>A Shared Roadmap:</strong> Planning Mode creates and maintains a local <code>plan.md</code> file. This markdown file serves as a living document that outlines project goals, technical specifications, and a checklist of tasks.</li>
+<li><strong>Enhanced AI Collaboration:</strong> The system uses a two-model approach. A powerful, larger reasoning model works in the background to think strategically and manage the long-term plan, while your selected, faster model handles the immediate, short-term coding tasks.</li>
+<li><strong>Improved Project Continuity:</strong> Because the plan is saved locally, both you and Cascade can refer to it at any time. This ensures that even after restarting the IDE, the AI can quickly regain context about the project's status and goals.</li>
+</ul>
+<h5>Practical Application: Creating Our Project Plan</h5>
+<p>Let's apply this by creating the initial plan for our "Smart Task Manager."</p>
+<p><strong>1. Activate Planning Mode</strong></p>
+<p>First, ensure Planning Mode is enabled. You can find the toggle at the bottom right corner of the Windsurf chat panel. Once activated, Cascade will focus on planning the execution steps instead of immediately generating code.</p>
+<p><img style="margin: auto; display: block; width: 600px" src="https://ucarecdn.com/171a22d3-e154-4964-83db-1a44f4c17caa/" alt="Activating Planning Mode" title="Activating Planning Mode"></p>
+<checkable-item title="Planning Mode is enabled."></checkable-item>
+<warning>If you need a quick fix for your code that doesn't require a long-term plan, don't forget to disable Planning Mode by clicking the toggle again.</warning>
+<p><strong>2. Generate the Initial Plan</strong></p>
+<p>Now, we will provide Cascade with a clear, high-level prompt to generate the initial structure of our plan. This prompt should define the project's purpose and its core technology stack.</p>
+<callout label="Ask Cascade to create the project plan">
+Generate a project plan for a "Smart Task Manager" web application. The core technologies will be HTML, CSS, and vanilla JavaScript. The application should allow a user to add new tasks and view a list of existing tasks. Do not write the code yet; focus only on the plan.
+</callout>
+<p>Cascade will now create a <code>plan.md</code> file. This file will be automatically populated with a structured plan, including sections for notes, a task list, and the current goal. Below you can see an example of the <code>plan.md</code> file, but your text may differ slightly due to the nature of LLMs.</p>
+<p><img style="margin: auto; display: block; width: 800px" src="https://ucarecdn.com/a53149f2-ff01-4d59-9f0e-104291f98d0e/" alt="Cascade creating the plan.md file" title="Cascade creating the plan.md file" /></p>
+<checkable-item title="plan.md file is created."></checkable-item>
+<alert>
+<strong>How It Works: "Smart to Plan, Fast to Execute"</strong>
+<p>When Planning Mode is active, Windsurf uses a powerful AI engineering pattern. A large, sophisticated reasoning model is used to analyze the request and create a comprehensive strategic plan (the "smart" part). This model is excellent at breaking down complex tasks. Then, for the actual code generation, a faster, more specialized model can be used to execute the steps in the plan (the "fast" part). This gives you the benefit of high-level strategic thinking combined with efficient code production.</p>
+</alert>
+<p><strong>3. Review and Refine the Plan</strong></p>
+<p>Open the newly created <code>plan.md</code>. You'll notice it has broken down the project into logical tasks. This document is collaborative. You can edit it directly, or you can ask Cascade to refine it further.</p>
+<callout label="Ask Cascade to update the plan">
+Please update the plan. Add a new task to store the created tasks in the browser's local storage.
+</callout>
+<p>Observe that Cascade edits the <code>plan.md</code> file directly. This interactive process ensures the plan remains an accurate reflection of the project requirements as they evolve.</p>
+<h5>Outcome of This Stage and What's Next</h5>
+<p>In this lesson, we have successfully set up a strategic foundation for our project. You have learned how to activate Planning Mode and collaborate with the AI to generate and refine a structured project plan.</p>
+<checkable-item title="A comprehensive <code>plan.md</code> file for the 'Smart Task Manager' now exists.">
+</checkable-item>
+<p>With our roadmap in place, we are ready to begin development. In the next stage, we will execute the first tasks in our plan, asking Cascade to build our application.</p>

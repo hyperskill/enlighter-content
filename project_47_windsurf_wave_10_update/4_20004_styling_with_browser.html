@@ -1,0 +1,53 @@
+<p>In the last lesson, we built our application and viewed it in the Windsurf Browser. As promised, this lesson will focus on the browser's context-aware <strong>toolbar</strong>. We will demonstrate how its specific tools streamline front-end development by allowing the AI to "see" what you see, making tasks like styling and debugging much more efficient.</p>
+<h5>The Challenge: Describing Visuals to an AI</h5>
+<p>A common inefficiency in AI-assisted front-end development is the need to translate visual concepts into text. A developer might write a prompt like, "The title is too small and the button is misaligned to the right of the input box." This requires the AI to interpret a subjective description. The process often involves a lengthy back-and-forth of generating, testing, and describing adjustments, which can be time-consuming.</p>
+<h5>The Solution: Styling with Direct Visual Context</h5>
+<p>The Windsurf Browser mitigates this issue by providing Cascade with direct access to the rendered application. Instead of describing the UI, you can refer to it directly, leading to more accurate and relevant suggestions.</p>
+<h5>The Browser Toolbar: Your Context Toolkit</h5>
+<p>
+To make providing context even more precise, the Windsurf Browser includes a dedicated toolbar with three main tools. These are designed to speed up the testing and debugging of web applications by giving you granular control over what information you share with Cascade.
+</p>
+<img style="margin: auto; display: block; width: 800px" src="https://ucarecdn.com/f480c587-e27c-4a90-a5a6-622f7afef624/" alt="Windsurf Browser Toolbar" title="Windsurf Browser Toolbar">
+<h6>1. Select Element</h6>
+<p>
+<strong>Function:</strong> This tool allows you to click on a specific HTML element directly in the live preview—such as a label, a button, an image, or a particular <code>div</code> container.
+</p>
+<p>
+<strong>When to Use It:</strong> Use this when your question or request relates to a single, specific part of your user interface. When you select an element, Cascade receives detailed information about its HTML structure, applied CSS, and attributes. This is ideal for highly targeted modifications or debugging.
+</p>
+<h6>2. Send Logs</h6>
+<p>
+<strong>Function:</strong> This tool captures and sends the entire content of the browser's developer console—including errors, warnings, and any custom `console.log` outputs—directly to Cascade.
+</p>
+<p>
+<strong>When to Use It:</strong> This tool is invaluable when you are dealing with a non-visual problem. For instance, if you click a button and nothing happens on the screen, there might be a silent JavaScript error in the console. "Send Logs" provides Cascade with the exact error message and stack trace needed to diagnose the issue.
+</p>
+<h6>3. Screenshot</h6>
+<p>
+<strong>Function:</strong> This tool takes a complete snapshot of the current visible area of the browser tab and sends it to Cascade.
+</p>
+<p>
+<strong>When to Use It:</strong> A screenshot is useful when the problem is related to the overall layout, the alignment of multiple elements, or a visual glitch that is hard to describe with words or capture by selecting a single element. It provides broad visual context of how everything looks together at a specific moment.
+</p>
+<h5>Styling the Application</h5>
+<p>Let's see how we can use the browser's context to style the application in action. First, open the Windsurf Browser and choose the "Select Element" tool from the toolbar.</p>
+<p>Navigate your mouse over the "Add Task" button and click on it. The element will be highlighted, and the Windsurf Browser will automatically send the context to Cascade.</p>
+<img style="margin: auto; display: block; width: 800px" src="https://ucarecdn.com/dc99d7f9-d432-4669-a85e-275871c7d9b5/" alt="Selecting an element in the Windsurf Browser" title="Windsurf Browser Element Selection">
+<p>You will see a confirmation in the chat input area stating that an element has been selected. Now we can directly ask Cascade what we want to do with it.</p>
+<img style="margin: auto; display: block; width: 800px" src="https://ucarecdn.com/e3565c54-7615-4f30-879a-23ee935296e6/" alt="Chat input showing a selected element" title="Element Context in Chat">
+<callout label="Ask Cascade to style the selected element">
+Move it below the task field, center it, and change the color to green. Make it disabled if the task field is empty.
+</callout>
+<p>Notice how we don't even need to specify which element we want to change. Cascade already knows!</p>
+<p>Here is what the updated UI might look like.</p>
+<p><img style="margin: auto; display: block; width: 800px" src="https://ucarecdn.com/410eecf6-501f-457b-8b67-fcba64002ce1/" alt="Application showing new CSS styles" title="Styled Application Preview"></p>
+<checkable-item title="The button is now styled and disabled when the task field is empty."></checkable-item>
+<h5>Your Turn: Practice and Experiment</h5>
+<p>Now it's time to get creative and apply what we've learned to make the app look and feel more personal. Experiment with the different toolbar options and styling prompts. For example, try selecting the main container and asking Cascade to add a border and some padding, or select the header and change its font. See how convenient it is to use the browser's context to guide Cascade to do exactly what you want.</p>
+<h5>Outcome of This Stage and What's Next</h5>
+<p>In this lesson, we have made significant progress by making our application both visually appealing and interactive. We have successfully:</p>
+<ul>
+<li>Used the Windsurf Browser's context to modify UI elements.</li>
+<li>Implemented interactive functionality in JavaScript.</li>
+</ul>
+<p>In the final lesson, we will recap everything we've learned.</p>
