@@ -12,7 +12,8 @@ on:
       - ".github/scripts/validate-content.js"
       - ".github/scripts/sync_templates.py"
       - ".github/scripts/sync_content.py"
-  pull_request:
+  pull_request_target:
+    types: [ labeled, synchronize, opened ]
     paths:
       - "project_*/*.html"
       - "project_*/project.json"
@@ -26,6 +27,7 @@ on:
 jobs:
   validate:
     name: Validate HTML Content
+    if: contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     steps:
       - name: Checkout code
@@ -45,7 +47,9 @@ jobs:
 
   sync-templates:
     name: Sync Templates to Supabase
-    if: github.ref == 'refs/heads/main'
+    if: |
+      github.ref == 'refs/heads/main'
+      && contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
@@ -70,6 +74,7 @@ jobs:
 
   sync-content:
     name: Sync Stage Content to Supabase
+    if: contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
@@ -106,7 +111,7 @@ jobs:
           fi
 
       - name: Generate comment body with draft project links
-        if: ${{ github.event_name == 'pull_request' && steps.sync-content.outputs.draft_projects_found == 'true' }}
+        if: ${{ github.event_name == 'pull_request_target' && steps.sync-content.outputs.draft_projects_found == 'true' }}
         id: generate-comment
         run: |
           # Read draft projects data
@@ -132,7 +137,7 @@ jobs:
           echo "comment_body=${COMMENT_BODY}" >> $GITHUB_OUTPUT
 
       - name: Post comment with draft project links
-        if: ${{ github.event_name == 'pull_request' && steps.sync-content.outputs.draft_projects_found == 'true' }}
+        if: ${{ github.event_name == 'pull_request_target' && steps.sync-content.outputs.draft_projects_found == 'true' }}
         uses: mshick/add-pr-comment@v2
         with:
           refresh-message-position: true
