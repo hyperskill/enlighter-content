@@ -27,7 +27,7 @@ on:
 jobs:
   validate:
     name: Validate HTML Content
-    if: contains(github.event.pull_request.labels.*.name, 'safe-to-run')
+    if: github.event_name != 'pull_request_target' || contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     steps:
       - name: Checkout code
@@ -47,9 +47,7 @@ jobs:
 
   sync-templates:
     name: Sync Templates to Supabase
-    if: |
-      github.ref == 'refs/heads/main'
-      && contains(github.event.pull_request.labels.*.name, 'safe-to-run')
+    if: github.ref == 'refs/heads/main'
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
@@ -74,7 +72,7 @@ jobs:
 
   sync-content:
     name: Sync Stage Content to Supabase
-    if: contains(github.event.pull_request.labels.*.name, 'safe-to-run')
+    if: github.event_name != 'pull_request_target' || contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
