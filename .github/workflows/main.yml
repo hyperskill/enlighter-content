@@ -47,9 +47,7 @@ jobs:
 
   sync-templates:
     name: Sync Templates to Supabase
-    if: |
-      github.ref == 'refs/heads/main'
-      && contains(github.event.pull_request.labels.*.name, 'safe-to-run')
+    if: github.ref == 'refs/heads/main'
     runs-on: arc-runners-small
     needs: validate # Depends on the 'validate' job succeeding
     steps:
