@@ -47,7 +47,7 @@ jobs:
       - name: Merge head into base for pull_request_target
         if: github.event_name == 'pull_request_target'
         run: |
-          git merge --no-ff origin/${{ github.event.pull_request.head.ref }} || (echo "Merge conflict detected" && exit 1)
+          git merge --no-ff FETCH_HEAD || (echo "Merge conflict detected" && exit 1
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -112,7 +112,7 @@ jobs:
       - name: Merge head into base for pull_request_target
         if: github.event_name == 'pull_request_target'
         run: |
-          git merge --no-ff origin/${{ github.event.pull_request.head.ref }} || (echo "Merge conflict detected" && exit 1)
+          git merge --no-ff FETCH_HEAD || (echo "Merge conflict detected" && exit 1
 
       - name: Set up Python
         uses: actions/setup-python@v4
