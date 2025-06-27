@@ -168,7 +168,7 @@ jobs:
               TITLE="${line#DRAFT_PROJECT:$DRAFT_ID:$ORIGINAL_ID:}"
 
               # Add project to comment body
-              COMMENT_BODY+="- [${TITLE}](https://enlightby.ai/projects/${DRAFT_ID}) (Draft ID: ${DRAFT_ID}, Original ID: ${ORIGINAL_ID})\n"
+              COMMENT_BODY+="- [${TITLE}](https://enlightby.ai/projects/${DRAFT_ID}) (Draft ID: ${DRAFT_ID}, Original ID: ${ORIGINAL_ID})"
             fi
           done < draft_projects.txt
 

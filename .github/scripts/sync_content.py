@@ -165,7 +165,7 @@ def get_project_from_supabase(project_id):
         return response.data[0]
     return None
 
-def create_project_in_supabase(project_info):
+def create_project_in_supabase(project_info, is_draft):
     """Create a new project in Supabase using project.json data."""
     project_id = project_info['id']
     title = project_info['title']
@@ -176,8 +176,8 @@ def create_project_in_supabase(project_info):
         "title": title,
         "enabled": False,  # Default value in schema
         "visible": False,  # Default value in schema
-        "available_in_web": False,  # Default value in schema
-        "is_draft": project_id < 0,  # Set is_draft=true for draft projects (negative IDs)
+        "available_in_web": is_draft,  # Default value in schema
+        "is_draft": is_draft,  # Set is_draft=true for draft projects (negative IDs)
     }
 
     # Add additional fields from project.json
@@ -360,7 +360,7 @@ def main():
                 # Create new project if it doesn't exist
                 is_draft = project_id < 0
                 print(f"Creating new project with ID {project_id} ({project_info['title']}), is_draft={is_draft}")
-                create_project_in_supabase(project_info)
+                create_project_in_supabase(project_info, is_draft=IS_PULL_REQUEST)
 
                 # Increment the appropriate counter based on whether the project is a draft
                 if is_draft:
