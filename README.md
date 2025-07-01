@@ -55,30 +55,4 @@ Each project follows this structure:
 
 ## 👩‍💻 How to Contribute
 
-1. **Follow Structure Guidelines**  
-   Create content according to the markdown rules and project structure.
-   Use `<callout>` blocks for AI assistant interactions.
-
-2. **Write Clear Instructions**  
-   Ensure your content provides clear, step-by-step instructions for learners.
-
-3. **Test Your Content**  
-   Verify formatting and functionality using the preview server.
-
-4. **Keep Content Focused**  
-   Ensure each project is concise and accomplishes a specific learning goal.
-
-5. **Specify metadata**
-
-   For projects:
-   - Project name
-   - Project description (2-3 sentences)
-   - Short description (1 sentence)
-   - Categories. For example: `Cursor IDE, Vibe Coding, RAG`
-   - Target IDE: [Cursor](https://www.cursor.com) or [JetBrains Junie](https://www.jetbrains.com/junie/)
-
-   For stages:
-   - Stage name
-
-6. **Submit Your Work**  
-   Open a pull request with your changes for review. Write down metadata from previous step to PR's description.
+If you want to contribute a project to Enlighter, please follow our [Contributing Guidelines](CONTRIBUTING.md).
