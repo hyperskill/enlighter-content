@@ -1,0 +1,130 @@
+<!-- Enlighter Metainfo
+{
+  "id": 30003,
+  "title": "Creating our first Agent Card",
+  "next_button_title": "Next"
+}
+-->
+<p>In the previous lessons, we learned the theory behind the A2A protocol. Now, it is time to move from theory to practice. In this section, we will begin the hands-on work of building our first A2A-compatible agents. We will learn how to define an agent's identity and its capabilities using code. This is where the ideas of Agent Cards and Skills become real project files.</p>
+
+<h5>Our Project: The "Creative Collab" Agents</h5>
+
+<p>To learn in a practical way, we will build a project that is more creative than a simple search or weather tool. We will create two different agents that must work together to write a song. This is a perfect example for A2A because it shows how two specialists can collaborate:</p>
+
+<ol>
+    <li><strong>"The Lyricist":</strong> An AI agent whose only skill is to write creative song lyrics based on a theme.</li>
+    <li><strong>"The Composer":</strong> An AI agent that will take the lyrics and suggest a matching musical style and tempo.</li>
+</ol>
+
+<p>This "separation of tasks" is a key benefit of A2A. It allows each agent to focus on what it does best, then pass its work to the next expert in the process.</p>
+
+<h5>Step 1: Setting Up Prerequisites</h5>
+
+<p>First, we must prepare our development environment. This tutorial requires Python. The main SDK we will use is a2a-sdk.</p>
+
+<p>Ask your coding agent to perform the following steps, or you can do it manually using the terminal inside your IDE.</p>
+
+<callout label="Prepare development environment">
+1. Create a requirements.txt file with the following packages: a2a-sdk, google-adk, uvicorn, python-dotenv
+2. Create a virtual environment
+3. Install the requirements.txt dependencies
+4. Create a main.py file
+</callout>
+
+<checkable-item title="The a2a-sdk and google-adk libraries are installed."></checkable-item>
+
+<p>Now our environment is ready. Let's start building our first agent card.</p>
+
+<h5>Step 2: Create an AI Agent</h5>
+
+<p>Let's create a simple agent that can generate lyrics using the google-adk library.</p>
+<pre><code>
+from google.adk import Agent
+
+lyricist_agent = Agent(
+    model='gemini-2.0-flash-001',
+    name='lyricist_agent',
+    description="A creative AI agent that specializes in writing song lyrics.",
+    instruction="You are a lyricist agent. You need to write song lyrics based on the prompt."
+)
+</code>
+</pre>
+
+
+<p>We won't go into the details of how to create an agent, as this is out of the scope of this tutorial. We made it very simple for demonstration purposes; however, you can make it more sophisticated and use any framework you prefer.</p>
+
+<warning>Don't forget to add your Google API key to the .env file if you want to test your agent.</warning>
+
+<h5>Step 3: Defining Our Agent's Skills</h5>
+<p>An <bold>Agent Skill</bold> describes a specific capability an agent can perform. It is a building block that tells other agents what kind of tasks this agent is good for. In the a2a-sdk, we define this using the <code>AgentSkill</code> class, which has the following properties:</p>
+<ul>
+    <li><code>id</code>: A unique identifier for the skill (e.g., 'generate_lyrics').</li>
+    <li><code>name</code>: A short, readable name for the skill.</li>
+    <li><code>description</code>: A sentence explaining what the skill does.</li>
+    <li><code>tags</code>: Keywords that help other agents find this skill.</li>
+    <li><code>examples</code>: Sample prompts to show how the skill can be used.</li>
+</ul>
+<p>Let's define the skill for our "Lyricist" agent in Python:</p>
+<pre><code>from a2a.types import AgentSkill
+
+# Define the skill for generating lyrics
+generate_lyrics_skill = AgentSkill(
+    id='generate_lyrics',
+    name='Generate Song Lyrics',
+    description='Creates creative song lyrics based on a given theme.',
+    tags=['creative', 'music', 'writing', 'lyrics'],
+    examples=[
+        'write a song about exploring the ocean',
+        'give me some lyrics about a city at night'
+    ]
+)</code>
+</pre>
+
+<h5>Step 4: Creating the Agent's Card</h5>
+
+<p>The <bold>Agent Card</bold> is like a digital business card for our agent. It's a public profile that other agents can read to learn how to interact with it. A server usually makes this available at a public URL.</p>
+<p>We define the card using the <code>AgentCard</code> class. It includes basic information and, most importantly, a list of the skills the agent offers.</p>
+<p>Let's create the public-facing Agent Card for "The Lyricist":</p>
+<pre><code>from a2a.types import AgentCard, AgentCapabilities
+
+# This will be the public-facing Agent Card
+lyricist_agent_card = AgentCard(
+    name=lyricist_agent.name,
+    description=lyricist_agent.description,
+    url='http://localhost:9999',  # The address where the agent will run
+    version='1.0.0',
+    defaultInputModes=['text'],
+    defaultOutputModes=['text'],
+    capabilities=AgentCapabilities(streaming=False),
+    skills=[generate_lyrics_skill] # We add the skill we defined above
+)</code>
+</pre>
+
+<p>Here’s a breakdown of the key attributes in the <code>AgentCard</code>:</p>
+<ul>
+    <li><strong>name, description, version:</strong> - identity information based on the agent we created.</li>
+    <li><strong>url:</strong> The endpoint where the A2A service can be reached. We will explain it in the next lesson.</li>
+    <li><strong>capabilities:</strong> Specifies supported A2A features like streaming.</li>
+    <li><strong>defaultInputModes / defaultOutputModes:</strong> Default Media Types for the agent. For example, text or voice.</li>
+    <li><strong>skills:</strong> A list of <code>AgentSkill</code> objects that the agent offers.</li>
+</ul>
+
+<p>This card clearly tells any other agent that "The Lyricist Agent" is available at our local address and that its main skill is the <code>generate_lyrics</code> skill we just created.</p>
+
+<h5>Step 5: Create "The Composer Agent"</h5>
+
+<p>The best way to learn a new skill or information is to immediately apply your knowledge in practice!</p>
+
+<p>Now that you have learned how to create an agent card, you can repeat the process for "The Composer" agent. This agent will take the lyrics and suggest a matching musical style and tempo.</p>
+
+<p>Use a bit of creativity and have fun creating your own agent card!</p>
+
+<h5>Outcome of This Lesson and What's Next</h5>
+
+<p>In this lesson, we have successfully created the complete blueprint for our "Lyricist" agent using the official a2a SDK. We learned how to define its public skills and business card in Python.</p>
+
+<checkable-item title="The 'generate_lyrics_skill' is defined using the AgentSkill class."></checkable-item>
+
+<checkable-item title="The 'lyricist_agent_card' is defined using the AgentCard class."></checkable-item>
+
+<p>We now have a complete plan for our agent. The next step is to bring it to life by deploying it on a server, making it discoverable and ready for collaboration.</p>
