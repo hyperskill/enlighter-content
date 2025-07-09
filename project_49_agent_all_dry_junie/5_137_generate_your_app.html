@@ -1,0 +1,35 @@
+<!-- Enlighter Metainfo
+{
+  "id": 137,
+  "title": "Generate your App",
+  "next_button_title": null
+}
+-->
+<p>You are ready to generate the application.</p>
+<p>First, let's check:</p>
+<ol interactive>
+<li title="You have enabled Brave mode"></li>
+<li title="Your Chat is in 'Code' mode"></li>
+</ol>
+
+<p>If yes, it is enough to run this prompt:</p>
+
+<callout type="chat" include-file="project-rules.txt">
+Create an app based on the requirements in project-rules.txt. Make every piece of functionality testable by running terminal commands. Test the application. Once the application passes all tests, run it.
+</callout>
+
+<p>If the Chat assistant has terminated but the application has not started (you have not seen any messages in the terminal that the application is running at <code>http://localhost:[PORT]</code>), simply enter an additional command in Chat.</p>
+
+<callout type="chat" include-file="project-rules.txt">
+Run this application. If an error occurred, try to fix it and then run the application again.
+</callout>
+
+<details>
+<summary>What if it doesn’t work?</summary>
+<div>
+<p>If the application doesn't build for a very long time, or it builds but doesn't work as expected, try deleting all project files except project-rules.txt and start generating again.</p>
+<p>AI is still not perfect. And a successful result is already very likely, but not mandatory. After several attempts you always get what you need.</p>
+<p>We have also noticed that sometimes the application is created but not launched. In this case, you just have to ask Chat: <code>run my application and fix the errors that occurred at startup</code>.</p>
+
+</div>
+</details>
