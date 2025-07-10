@@ -7,9 +7,9 @@
 -->
 <p>In our last lesson, we created the complete blueprint for our "Lyricist" agent by defining its skills and its public-facing Agent Card. However, this blueprint is just a plan. The agent doesn't have an engine to do the actual work, and it isn't connected to the internet yet. In this lesson, we will solve both of those problems.</p>
 
-<p>First, we will build the agent's "engine" using a class called the <code>AgentExecutor</code>. Then, we will use the a2a-sdk to launch a simple web server, making our agent live and ready to receive requests from other agents.</p>
+<p>First, we will build the agent's "engine" using a class called the <code>AgentExecutor</code>. Then, we will launch a simple web server, making our agent live and ready to receive requests from other agents.</p>
 
-<h5>Step 1: The Agent Executor - The Engine of Your Agent</h5>
+<h5>Step 1: The Agent Executor</h5>
 
 <p>The <strong>Agent Executor</strong> is the core logic that connects the A2A server to our agent's brain. When a request comes in, the server passes it to the executor. The executor's job is to understand the request, ask our agent to perform the work, and then send the result back.</p>
 
@@ -23,8 +23,16 @@
 
 <p>Let's create an executor for our Lyricist agent. This executor will take the incoming text, pass it to the <code>lyricist_agent</code> we created in Lesson 3, and enqueue the result.</p>
 
-<pre><code>from a2a.server.agent_execution import AgentExecutor, RequestContext, EventQueue
-from a2a.server.message_utils import new_agent_text_message
+<pre><code>from a2a.server.apps import A2AStarletteApplication
+from a2a.server.request_handlers import DefaultRequestHandler
+from a2a.server.agent_execution import AgentExecutor, RequestContext
+from a2a.server.events import EventQueue
+from a2a.server.tasks import InMemoryTaskStore
+from a2a.utils import new_agent_text_message
+from a2a.types import (
+    Task,
+    UnsupportedOperationError
+)
 
 # This is our agent's "engine"
 class LyricistAgentExecutor(AgentExecutor):
@@ -44,11 +52,17 @@ class LyricistAgentExecutor(AgentExecutor):
 
         # Send the result back as a new text message
         await event_queue.enqueue_event(new_agent_text_message(result.text))
-</code></pre>
+
+    async def cancel(
+        self, request: RequestContext, event_queue: EventQueue
+    ) -> Task | None:
+        raise ServerError(error=UnsupportedOperationError())
+</code>
+</pre>
 
 <h5>Step 2: Setting Up and Starting the Server</h5>
 
-<p>Now that we have our agent's blueprint (the Agent Card) and its engine (the Agent Executor), we can start our server. The a2a-sdk makes this very easy with the <code>A2AStarletteApplication</code> class, which uses the popular Uvicorn server to run.</p>
+<p>Now that we have our Agent Card and the Agent Executor, we can start our server. The a2a-sdk makes this very easy with the <code>A2AStarletteApplication</code> class, which uses the popular Uvicorn server to run.</p>
 
 <p>We need to do three things:</p>
 <ol>
@@ -67,9 +81,14 @@ from google.adk import Agent
 from a2a.types import AgentSkill, AgentCard, AgentCapabilities
 from a2a.server.apps import A2AStarletteApplication
 from a2a.server.request_handlers import DefaultRequestHandler
-from a2a.server.agent_execution import AgentExecutor, RequestContext, EventQueue
-from a2a.server.message_utils import new_agent_text_message
-from a2a.server.task_store import InMemoryTaskStore
+from a2a.server.agent_execution import AgentExecutor, RequestContext
+from a2a.server.events import EventQueue
+from a2a.server.tasks import InMemoryTaskStore
+from a2a.utils import new_agent_text_message
+from a2a.types import (
+    Task,
+    UnsupportedOperationError
+)
 
 # === Part 1: From Lesson 3 - The Agent's Definition ===
 
@@ -101,18 +120,31 @@ lyricist_agent_card = AgentCard(
     skills=[generate_lyrics_skill]
 )
 
-
 # === Part 2: From Lesson 4 - The Agent's Engine and Server ===
 
-# 4. The Agent's "Engine"
+# This is our agent's "engine"
 class LyricistAgentExecutor(AgentExecutor):
     def __init__(self, agent):
         self.agent = agent
 
-    async def execute(self, context: RequestContext, event_queue: EventQueue) -> None:
+    async def execute(
+        self,
+        context: RequestContext,
+        event_queue: EventQueue,
+    ) -> None:
+        # Get the incoming text from the user's message
         prompt = context.message.text
+        
+        # Ask our agent to generate the lyrics
         result = await self.agent.chat(prompt)
+
+        # Send the result back as a new text message
         await event_queue.enqueue_event(new_agent_text_message(result.text))
+
+    async def cancel(
+        self, request: RequestContext, event_queue: EventQueue
+    ) -> Task | None:
+        raise ServerError(error=UnsupportedOperationError())
 
 # 5. The Server Setup
 if __name__ == '__main__':
@@ -131,7 +163,6 @@ if __name__ == '__main__':
     # Start the server!
     print("Starting Lyricist Agent server on http://localhost:9999")
     uvicorn.run(server.build(), host='0.0.0.0', port=9999)
-
 </code></pre>
 
 <h5>Step 4: Run the Server</h5>
@@ -143,7 +174,7 @@ python main.py
 </callout>
 
 <p>You should see output in your terminal indicating that the Uvicorn server is running. This means your agent is now live and listening for requests on your local machine!</p>
-
+<img style="margin: auto; display: block; width: 800px" src="https://ucarecdn.com/49f65fe2-0242-46bc-b115-024c10b3d402/" title="A2A discovery">
 <h5>Outcome of This Lesson and What's Next</h5>
 
 <p>Congratulations! You have successfully taken your agent from a plan to a live, running application. We have built the agent's core logic with an <code>AgentExecutor</code> and launched a web server to make it accessible.</p>

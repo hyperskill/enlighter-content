@@ -1,0 +1,87 @@
+<!-- Enlighter Metainfo
+{
+  "id": 30005,
+  "title": "Discovering an Agent",
+  "next_button_title": "Next"
+}
+-->
+<p>In this lesson, we will create a simple Python script that acts as a <strong>client</strong>. This client will discover our running Lyricist agent by fetching its public Agent Card. This will demonstrate a core part of agent-to-agent interaction: discovery.</p>
+
+<h5>Step 1: Understanding Agent Discovery</h5>
+
+<p>To communicate with an A2A agent, a client must first discover it. This process involves fetching the agent's public <strong>Agent Card</strong>, a JSON file containing metadata like its name, skills, and how to interact with it. The <code>a2a-sdk</code> provides a convenient <code>A2ACardResolver</code> for this purpose.</p>
+
+<p>The client will perform one main action:</p>
+<ol>
+    <li><strong>Discover the Agent:</strong> The client will fetch the agent's public Agent Card to learn its capabilities and address.</li>
+</ol>
+
+<h5>Step 2: Creating the Client Script</h5>
+
+<p>Now, let's create a new file named <code>client.py</code>. This script will act as our client, discovering our Lyricist agent.</p>
+
+<p>Inside <code>client.py</code>, we will use the <code>A2ACardResolver</code> to connect to the server we built in the last lesson and fetch its public Agent Card.</p>
+
+<pre><code>
+import logging
+import httpx
+
+from a2a.client import A2ACardResolver
+from a2a.types import AgentCard
+
+PUBLIC_AGENT_CARD_PATH = '/.well-known/agent.json'
+
+async def main() -> None:
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)  # Get a logger instance
+
+    lyricist_agent_url = 'http://localhost:9999'
+
+    async with httpx.AsyncClient() as httpx_client:
+        # Initialize A2ACardResolver
+        resolver = A2ACardResolver(
+            httpx_client=httpx_client,
+            base_url=lyricist_agent_url,
+        )
+        logger.info(f'Attempting to fetch public agent card from: {lyricist_agent_url}{PUBLIC_AGENT_CARD_PATH}')
+        public_card = (await resolver.get_agent_card())  # Fetches from default public path
+        logger.info('Successfully fetched public agent card:')
+        logger.info(public_card.model_dump_json(indent=2, exclude_none=True))
+
+if __name__ == '__main__':
+    import asyncio
+
+    asyncio.run(main())
+</code></pre>
+
+<h5>Step 3: Run the Interaction!</h5>
+
+<p>This is the moment where everything comes together. To see the discovery in action, you will need two terminals open.</p>
+
+<ol>
+    <li><strong>In your first terminal:</strong> Make sure your agent server from Lesson 4 is running.
+    <callout label="Terminal 1: Run the Server">
+    python main.py
+    </callout>
+    </li>
+    <li><strong>In your second terminal:</strong> Run the client script we just created.
+    <callout label="Terminal 2: Run the Client">
+    python client.py
+    </callout>
+    </li>
+</ol>
+
+<p>When you run the client, you will see it discover the server and print the public Agent Card of your Lyricist agent. You have just witnessed your first successful agent discovery!</p>
+
+<img style="margin: auto; display: block; width: 800px" src="https://ucarecdn.com/f3779647-3919-4741-9486-218f7185281d/" title="A2A discovery">
+
+<h5>Outcome of This Lesson and What's Next</h5>
+
+<p>Congratulations! You have successfully built a client and used it to discover a live agent. This is a critical step in building agent-to-agent applications and demonstrates a core part of the A2A protocol.</p>
+
+<p>In our final section, we will recap everything we've learned throughout this tutorial and discuss the exciting future that this technology unlocks.</p>
+
+<checkable-item title="An A2A Client was created to discover a live agent."></checkable-item>
+<checkable-item title="The client successfully retrieved the agent's public Agent Card."></checkable-item>
+
+<p>You are now ready to read the final summary of our course.</p>
