@@ -1,7 +1,7 @@
 <!-- Enlighter Metainfo
 {
   "id": 30004,
-  "title": "Making our agents discoverable",
+  "title": "Making Agents Discoverable",
   "next_button_title": "Next"
 }
 -->
@@ -22,6 +22,8 @@
 </ul>
 
 <p>Let's create an executor for our Lyricist agent. This executor will take the incoming text, pass it to the <code>lyricist_agent</code> we created in Lesson 3, and enqueue the result.</p>
+
+<warning><p>Coding agents often struggle to generate code using new libraries like <code>a2a-sdk</code> and <code>google-adk</code>. We recommend to use our code examples or give it as a context to your coding agent for the best results.</p></warning>
 
 <pre><code>from a2a.server.apps import A2AStarletteApplication
 from a2a.server.request_handlers import DefaultRequestHandler
@@ -57,8 +59,7 @@ class LyricistAgentExecutor(AgentExecutor):
         self, request: RequestContext, event_queue: EventQueue
     ) -> Task | None:
         raise ServerError(error=UnsupportedOperationError())
-</code>
-</pre>
+</code></pre>
 
 <h5>Step 2: Setting Up and Starting the Server</h5>
 
@@ -73,8 +74,31 @@ class LyricistAgentExecutor(AgentExecutor):
 
 <h5>Step 3: Putting It All Together in `main.py`</h5>
 
-<p>Let's combine everything we have built in Lesson 3 and Lesson 4 into a single, complete <code>main.py</code> file. This file now contains everything needed to run our agent.</p>
+<p>Let's combine everything we have built in previous lessons into a single, complete <code>main.py</code> file. Add the following code at the end of the file or ask your coding agent to do it for you.</p>
 
+<pre><code># 5. The Server Setup
+if __name__ == '__main__':
+    # Connect the engine to the request handler
+    request_handler = DefaultRequestHandler(
+        agent_executor=LyricistAgentExecutor(agent=lyricist_agent),
+        task_store=InMemoryTaskStore(),
+    )
+
+    # Create the server application with our agent's card and handler
+    server = A2AStarletteApplication(
+        agent_card=lyricist_agent_card,
+        http_handler=request_handler,
+    )
+
+    # Start the server!
+    print("Starting Lyricist Agent server on http://localhost:9999")
+    uvicorn.run(server.build(), host='0.0.0.0', port=9999)
+</code></pre>
+
+
+<alert>
+<details>
+<summary>Full main.py code example</summary>
 <pre><code>
 import uvicorn
 from google.adk import Agent
@@ -89,8 +113,6 @@ from a2a.types import (
     Task,
     UnsupportedOperationError
 )
-
-# === Part 1: From Lesson 3 - The Agent's Definition ===
 
 # 1. The Agent's "Brain"
 lyricist_agent = Agent(
@@ -119,8 +141,6 @@ lyricist_agent_card = AgentCard(
     capabilities=AgentCapabilities(streaming=False),
     skills=[generate_lyrics_skill]
 )
-
-# === Part 2: From Lesson 4 - The Agent's Engine and Server ===
 
 # This is our agent's "engine"
 class LyricistAgentExecutor(AgentExecutor):
@@ -164,6 +184,8 @@ if __name__ == '__main__':
     print("Starting Lyricist Agent server on http://localhost:9999")
     uvicorn.run(server.build(), host='0.0.0.0', port=9999)
 </code></pre>
+</details>
+</alert>
 
 <h5>Step 4: Run the Server</h5>
 
@@ -182,4 +204,4 @@ python main.py
 <checkable-item title="The LyricistAgentExecutor class is created."></checkable-item>
 <checkable-item title="The agent server is running successfully using Uvicorn."></checkable-item>
 
-<p>Our "Lyricist" agent is ready, but it's currently working in isolation. In our final lesson, we will learn how another agent—our "Composer"—can discover and communicate with the Lyricist to create a complete, collaborative piece of work.</p>
+<p>Our "Lyricist" agent is ready, but it's currently working in isolation. In our next lesson, we will learn how another agent—our "Composer"—can discover and communicate with the Lyricist to create a complete, collaborative piece of work.</p> 

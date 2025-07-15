@@ -1,7 +1,7 @@
 <!-- Enlighter Metainfo
 {
   "id": 30003,
-  "title": "Creating our first Agent Card",
+  "title": "Creating First Agent Card",
   "next_button_title": "Next"
 }
 -->
@@ -20,7 +20,7 @@
 
 <h5>Step 1: Setting Up Prerequisites</h5>
 
-<p>First, we must prepare our development environment. This tutorial requires Python. The main SDK we will use is a2a-sdk.</p>
+<p>First, we must prepare our development environment. This tutorial requires Python. The main SDK we will use is <a href="https://a2aproject.github.io/A2A/latest/sdk/python/" target="_blank">a2a-sdk</a> and <a href="https://google.github.io/adk-docs/" target="_blank">google-adk</a>.</p>
 
 <p>Ask your coding agent to perform the following steps, or you can do it manually using the terminal inside your IDE.</p>
 
@@ -38,6 +38,14 @@
 <h5>Step 2: Create an AI Agent</h5>
 
 <p>Let's create a simple agent that can generate lyrics using the google-adk library.</p>
+
+<callout label="Ask your coding agent to create an agent.">
+Using the google-adk library, create a lyricist agent that can generate song lyrics and will use Gemini 2.0 Flash model.
+</callout>
+
+<alert>
+<details>
+<summary>AI Agent code example</summary>
 <pre><code>
 from google.adk import Agent
 
@@ -49,11 +57,12 @@ lyricist_agent = Agent(
 )
 </code>
 </pre>
-
+</details>
+</alert>
 
 <p>We won't go into the details of how to create an agent, as this is out of the scope of this tutorial. We made it very simple for demonstration purposes; however, you can make it more sophisticated and use any framework you prefer.</p>
 
-<warning>Don't forget to add your Google API key to the .env file if you want to test your agent.</warning>
+<warning><p>Don't forget to add your Google API key to the .env file if you want to test your agent. You can get it <a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank">here</a> along with the instructions.</p></warning>
 
 <h5>Step 3: Defining Our Agent's Skills</h5>
 <p>An <bold>Agent Skill</bold> describes a specific capability an agent can perform. It is a building block that tells other agents what kind of tasks this agent is good for. In the a2a-sdk, we define this using the <code>AgentSkill</code> class, which has the following properties:</p>
@@ -65,6 +74,14 @@ lyricist_agent = Agent(
     <li><code>examples</code>: Sample prompts to show how the skill can be used.</li>
 </ul>
 <p>Let's define the skill for our "Lyricist" agent in Python:</p>
+
+<callout label="Ask your coding agent to create an agent's skill.">
+    Using the a2a-sdk library, create a skill for the lyricist agent that can generate song lyrics.
+</callout>
+
+<alert>
+<details>
+<summary>Agent Skill code example</summary>
 <pre><code>from a2a.types import AgentSkill
 
 # Define the skill for generating lyrics
@@ -79,12 +96,22 @@ generate_lyrics_skill = AgentSkill(
     ]
 )</code>
 </pre>
+</details>
+</alert>
 
 <h5>Step 4: Creating the Agent's Card</h5>
 
 <p>The <bold>Agent Card</bold> is like a digital business card for our agent. It's a public profile that other agents can read to learn how to interact with it. A server usually makes this available at a public URL.</p>
 <p>We define the card using the <code>AgentCard</code> class. It includes basic information and, most importantly, a list of the skills the agent offers.</p>
 <p>Let's create the public-facing Agent Card for "The Lyricist":</p>
+
+<callout label="Ask your coding agent to create an agent's card.">
+    Using the a2a-sdk library, create an Agent's card for the lyricist agent.
+</callout>
+
+<alert>
+<details>
+<summary>Agent Card code example</summary>
 <pre><code>from a2a.types import AgentCard, AgentCapabilities
 
 # This will be the public-facing Agent Card
@@ -98,7 +125,9 @@ lyricist_agent_card = AgentCard(
     capabilities=AgentCapabilities(streaming=False),
     skills=[generate_lyrics_skill] # We add the skill we defined above
 )</code>
-</pre>
+</pre>  
+</details>
+</alert>
 
 <p>Here’s a breakdown of the key attributes in the <code>AgentCard</code>:</p>
 <ul>
@@ -127,4 +156,4 @@ lyricist_agent_card = AgentCard(
 
 <checkable-item title="The 'lyricist_agent_card' is defined using the AgentCard class."></checkable-item>
 
-<p>We now have a complete plan for our agent. The next step is to bring it to life by deploying it on a server, making it discoverable and ready for collaboration.</p>
+<p>We now have a complete plan for our agent. The next step is to bring it to life by deploying it on a server, making it discoverable and ready for collaboration.</p> 

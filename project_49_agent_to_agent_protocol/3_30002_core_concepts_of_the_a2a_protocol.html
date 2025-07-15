@@ -1,0 +1,32 @@
+<!-- Enlighter Metainfo
+{
+  "id": 30002,
+  "title": "Under the Hood: A Deep Dive into the A2A Protocol",
+  "next_button_title": "Let's Build!"
+}
+-->
+<p>Now that we understand <em>why</em> a common language for agents is necessary, it's time to look under the hood. This lesson will demystify the Agent-to-Agent (A2A) protocol by breaking down its core components and design principles. We will move from the high-level concept to the specific building blocks you will use to make your agents communicate, providing the foundational knowledge you'll need for the hands-on coding in the next section.</p>
+
+<h5>What is A2A at its Core?</h5>
+
+<p>At its heart, the A2A protocol is a set of rules for communication. It is not a new programming language or a complex framework you need to learn from scratch. Instead, it's a specification that leverages familiar, time-tested web standards like HTTP and JSON. This makes it accessible and relatively straightforward to implement.</p>
+
+<img src="https://ucarecdn.com/4b77baa5-f80c-466c-8f0d-1561d9b8353c/" style="margin: auto; display: block; width: 800px" alt="A2A and MCP" />
+
+<p>A useful analogy is to think of A2A as the universal postal service for AI agents. The postal service doesn't care if you're sending a handwritten letter, a legal document, or a birthday gift. It only cares that the package has a clear address, a recipient, and follows the rules for postage and handling. Similarly, A2A defines a standard way for a "client" agent to send a "task" (the package) to a "remote" agent (the recipient) and get a result back. It provides the "addressing" and "handling" rules so that the agents don't have to worry about the low-level details of their interaction.</p>
+
+<h5>The Core Components: Agent Cards and Skills</h5>
+
+<p>For one agent to be able to talk to another, it first needs to know who the other agent is and what it can do. A2A solves this with two simple but powerful concepts: Agent Cards and Skills.</p>
+
+<ul>
+    <li><strong>The Agent Card: An AI's Business Card</strong><br>The Agent Card is a simple JSON file that acts as a public profile or "business card" for an agent. It's how an agent introduces itself to the world. Other agents can read this card to discover it and understand its capabilities. A typical Agent Card contains essential information like the agent's name, a description of its purpose, the URL where it can be contacted (its endpoint), and the security methods it requires for communication.</li>
+    <li><strong>Skills: An Agent's Capabilities</strong><br>A "skill" is a specific, well-defined capability that an agent offers. Skills are listed within the Agent Card, forming a menu of services that other agents can request. For example, a "Music Theory Agent" might have skills like <code>identify_key_signature</code> or <code>suggest_chord_progressions</code>. Defining capabilities as discrete skills makes it very clear what an agent can and cannot do.</li>
+</ul>
+
+
+<h5>Outcome of This Lesson and Next Steps</h5>
+
+<p>In this lesson, you've learned about the technical foundation of the Agent-to-Agent protocol. You now understand its core components—Agent Cards and Skills.</p>
+
+<p>In the next section, we will explore remaining parts of A2A protocol.</p> 

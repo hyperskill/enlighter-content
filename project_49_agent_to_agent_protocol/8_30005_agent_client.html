@@ -1,7 +1,7 @@
 <!-- Enlighter Metainfo
 {
   "id": 30005,
-  "title": "Discovering an Agent",
+  "title": "Creating an Agent Client",
   "next_button_title": "Next"
 }
 -->
@@ -22,6 +22,13 @@
 
 <p>Inside <code>client.py</code>, we will use the <code>A2ACardResolver</code> to connect to the server we built in the last lesson and fetch its public Agent Card.</p>
 
+<callout label="Ask your coding agent to create a client script">
+Using the a2a-sdk library, create a client.py file that has httpx client and A2ACardResolver to discover the Lyricist agent.
+</callout>
+
+<alert>
+<details>
+<summary>Full client.py code example</summary>
 <pre><code>
 import logging
 import httpx
@@ -53,6 +60,8 @@ if __name__ == '__main__':
 
     asyncio.run(main())
 </code></pre>
+</details>
+</alert>
 
 <h5>Step 3: Run the Interaction!</h5>
 
@@ -84,4 +93,4 @@ if __name__ == '__main__':
 <checkable-item title="An A2A Client was created to discover a live agent."></checkable-item>
 <checkable-item title="The client successfully retrieved the agent's public Agent Card."></checkable-item>
 
-<p>You are now ready to read the final summary of our course.</p>
+<p>You are now ready to read the final summary of our course.</p> 
