@@ -1,0 +1,35 @@
+<!-- Enlighter Metainfo
+{
+  "id": 30008,
+  "title": "A2A and MCP: Complementary Protocols",
+  "next_button_title": "Next"
+}
+-->
+<p>In this lesson we will explore how the Agent-to-Agent (A2A) protocol and the Model Context Protocol (MCP) work <em>together</em> to power collaborative networks of agents. While A2A defines <strong>inter-agent</strong> communication, MCP governs the <strong>intra-agent</strong> tools and context available to each individual agent.</p>
+
+<h5>Why Two Protocols?</h5>
+
+<p>Imagine a "Research Agent" that receives a task from a "Writer Agent" via A2A. To fulfill that task, the Research Agent must access its own knowledge base and specialised tools. MCP provides the standard interface to those internal capabilities, while A2A handles the external hand-off of the task and result.</p>
+
+<ul>
+  <li><strong>A2A – Inter-Agent</strong>: discovery, task negotiation, result delivery.</li>
+  <li><strong>MCP – Intra-Agent</strong>: tool invocation, private data access, long-running workflows.</li>
+</ul>
+
+<p>By cleanly separating these concerns we get a modular architecture where any agent can choose whatever internal MCP tools it likes, yet still speak the same A2A "language" to its peers.</p>
+
+<img src="https://ucarecdn.com/6512e824-2399-4193-87de-7f3d1081913a/" style="margin: auto; display: block; width: 800px" alt="A2A and MCP" />
+
+<h5>Example Flow</h5>
+<ol>
+  <li>The Writer Agent sends a <code>research_topic</code> task (A2A).</li>
+  <li>The Research Agent uses its MCP server to search the web, process PDFs, and summarise findings.</li>
+  <li>When finished, the Research Agent packages the summary into an <em>artifact</em> and returns it via A2A.</li>
+</ol>
+
+<p>This pattern can be repeated and chained, enabling sophisticated multi-step workflows across heterogeneous agents.</p>
+
+<h5>Completion Checklist</h5>
+<checkable-item title="You understand how A2A (inter-agent) and MCP (intra-agent) complement each other."></checkable-item>
+
+<p>With the relationship between these two protocols clarified, we can now continue building our agents’ public identities and skills in the next lesson.</p> 
