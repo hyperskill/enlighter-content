@@ -1,0 +1,77 @@
+<!-- Enlighter Metainfo
+{
+  "id": 20007,
+  "title": "Rules and Activation Modes",
+  "next_button_title": "Next"
+}
+-->
+<p>Now that you understand <em>why</em> rules are useful, let's dive into <em>how</em> they work. In this section, we'll cover the different scopes for rules, the various ways they can be activated, and walk through creating your first global and workspace-specific rules.</p>
+
+<h5>Global vs. Workspace Rules</h5>
+<p>As we covered briefly, rules can exist in two scopes. The distinction is crucial for managing your personal preferences versus project-wide standards.</p>
+<ul>
+    <li><p>Global Rules (<code>global_rules.md</code>): These are your personal, universal guidelines that apply across <em>all</em> your projects. They are perfect for defining your preferred coding style or general instructions you always want Cascade to follow, regardless of the repository you're in. You manage these directly through the Windsurf UI.</p></li>
+    <li><p>Workspace Rules (<code>.windsurf/rules/</code>): These rules live inside a specific project's repository. They are designed for project-specific instructions, such as adhering to a team's style guide, using certain libraries, or understanding the project's architecture. Because they are part of the repository, they can be version-controlled and shared with your entire team.</p></li>
+</ul>
+
+<h5>Creating Your First Global Rule</h5>
+
+<p>The easiest way to get started is through the Cascade interface. Find the <b>Customizations</b> icon in the top-right corner menu (highlighted in the screenshot below).</p>
+
+<img src="https://ucarecdn.com/b15252ed-27e7-4618-8ec9-8ddcd1229b3f/" alt="Customizations icon">
+
+<p>Select the <b>Rules</b> tab and you will see the buttons to create global and workspace rules.</p>
+
+<p>Click on <code>+ Global</code> button and it will open the <code>global_rules.md</code> file in the editor. You can simply start typing to create your first rule.</p>
+
+<p>A good example of a global rule is a guide for your coding style that you want to enforce across all your projects. You can use this to enforce your preferred coding style, such as using f-strings for string formatting, type hinting all function definitions, and keeping lines under 90 characters.</p>
+
+<callout label="Create a Global Rule">
+    # My Python Coding Guidelines
+    - Use f-strings for string formatting.
+    - Type hint all function definitions.
+    - Keep lines under 90 characters.
+</callout>
+
+<warning>Be careful with adding too many global rules. It can cause Cascade to get confused, uses extra context tokens, and can decrease the overall performance.</warning>
+
+<p>Well done, you have created your first global rule. Now let's create a workspace rule for a specific project.</p>
+
+<h5>Creating Your First Workspace Rule</h5>
+
+<p>To create a workspace rule, you need to create a new rule file in the <code>.windsurf/rules/</code> directory. You can do this by clicking the <b>+ Workspace</b> button in the <b>Rules</b> tab as described in the previous section.</p>
+
+<p>Let's add the following rule to the <code>.windsurf/rules/js-docs.md</code> file:</p>
+
+<callout label="Create a Workspace Rule">
+    # JavaScript Documentation Standard
+    - All public functions must have JSDoc comments.
+    - Include a `@description` for the function's purpose.
+    - Use `@param {type} name` for all parameters.
+    - Use `@returns {type}` to describe the return value.
+</callout>
+
+<p>At the top of the file, you will see the activation mode for the rule. Let's dive deeper into what these activation modes are and how to use them.</p>
+
+<h5>Understanding Activation Modes</h5>
+
+<p>Not every rule needs to be active all the time. Windsurf gives you precise control over <em>when</em> a rule should be applied using four distinct activation modes.</p>
+
+<ul>
+    <li><p><b>Always On:</b> The most straightforward mode. The rule is always active and will be applied by Cascade in every relevant context.</p></li>
+    <li><p><b>Manual:</b> The rule is inactive by default but can be manually triggered by typing <code>@</code> in the chat input and selecting the rule by name. This is useful for on-demand instructions.</p></li>
+    <li><p><b>Model Decision:</b> You provide a natural language description of when the rule should be used, and the AI model decides whether to apply it based on the current conversation's context.</p></li>
+    <li><p><b>Glob:</b> The rule is automatically applied to any file that matches a specific file pattern you define (e.g., <code>*.ts</code> or <code>src/components/**/*.jsx</code>). This is extremely powerful for enforcing language- or framework-specific standards.</p></li>
+</ul>
+
+<p>You can set this rule to <code>Always On</code> for now. In the next section, we will explore how to get the most out of different activation modes.</p>
+
+<h5>Completion Checklist</h5>
+
+<ul interactive>
+<li title="First Global and Workspace Rules are created">
+</li>
+</ul>
+<br>
+
+<p>You now know how to create, scope, and activate basic rules. In the next section, we'll explore more advanced use cases, best practices for writing effective rules, and how rules interact with AI-generated Memories.</p>
