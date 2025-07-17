@@ -1,0 +1,180 @@
+<!-- Enlighter Metainfo
+{
+  "id": 2011,
+  "title": "create memory bank",
+  "next_button_title": null
+}
+-->
+<p>In this stage you will generate a working Memory Bank for a simple <em>Snake</em> game. This hands-on example shows how to set up a Memory Bank in Junie</p>
+
+<h5>Create a project brief</h5>
+
+<p>We begin by writing a short, free-form description of the game. Junie will later transform this brief into the full Memory Bank hierarchy, so don&#39;t worry about perfect structure — just outline the essentials.</p>
+
+<callout label="Ask Junie to create 'snake_game.md' file with the following content:">
+  Create 'snake_game.md' file with the following content:
+  
+  Project: Browser-based Snake Game (MVP)
+  
+  1. Purpose & Scope
+  Purpose: deliver a minimal, fully playable Snake game in a modern browser.
+  Only includes the essential features needed for a functional Snake game; excludes all optional enhancements.
+  
+  2. MVP Features
+  •	Game Initialization
+  •	Snake of length 3 appears centered on a 20×20 grid.
+  •	One food item spawns at a random empty cell.
+  •	Core Game Loop
+  •	Game updates every 150 ms by default.
+  •	Each tick: move snake, detect collisions, render state.
+  •	Controls & Direction Handling
+  •	Arrow keys (and/or WASD) change direction.
+  •	Disallow 180° reversals (e.g. left → right).
+  •	Collision Detection & Game Over
+  •	Hitting a wall or the snake's own body triggers "Game Over."
+  •	On game over: pause loop, show overlay with final score, disable input until restart.
+  •	Scoring Display
+  •	Current score (number of food eaten) updates in real time above or beside the canvas.
+  •	Restart Functionality
+  •	"Restart" button resets the game to its initial state without reloading the page.
+  •	Browser Compatibility
+  •	Support latest two major versions of Chrome, Firefox, Edge and Safari.
+  
+  3. Functional Requirements
+  •	FR-1: Initialize game state with snake length = 3 at grid center and one food item.
+  •	FR-2: Implement a game loop that runs at a configurable interval (default 150 ms).
+  •	FR-3: Capture and queue keyboard events for direction changes; prevent direct reversals.
+  •	FR-4: On each tick:
+  1.	Move snake head one cell in current direction.
+  2.	Check for wall or self-collision → if so, trigger game-over flow.
+  3.	If head lands on food: increment score, grow snake by one segment, spawn new food.
+  4.	Render updated snake, food, and score.
+  •	FR-5: Display a "Game Over" overlay with final score and a clickable "Restart" button.
+  •	FR-6: Reset all state (snake position/length, score, food) when "Restart" is clicked.
+  
+  4. Non-Functional Requirements
+  •	Canvas scales to fit viewport while preserving cell aspect ratio.
+  •	Use ES6+ modules; separate game logic from rendering; include inline documentation.
+  •	All interactive elements reachable via keyboard; minimal ARIA labels on buttons.
+  
+  5. Acceptance Criteria
+  •	Player can move the snake using keyboard; snake cannot reverse direction 180°.
+  •	Snake grows when eating food; score increments accordingly.
+  •	Colliding with wall or self immediately stops the game and displays final score.
+  •	"Restart" immediately resets and restarts gameplay.
+  •	Works smoothly in Chrome, Firefox, Edge, and Safari without console errors.
+</callout>
+
+<checkable-item title="<code>snake_game.md</code> file is created">
+  Make sure that <code>snake_game.md</code> file is created in the project directory.
+</checkable-item>
+
+<h5>Memory Bank files creation</h5>
+
+<p>Now, we need to explain to Junie what Memory Bank is, and how to use it in the projects. </p>
+
+<p>Let's ask Junie to analyse the contents of Memory Bank implementation. As the original repo contains code for MCP set-up, we need to explicitly ask Junie to ignore those parts.</p>
+
+<callout label="Ask Junie to aggregate information from Memory Bank repo">
+In the scr/mcp_memory_bank analyse all the .py files, guides and templates - they contain set of instructions, rules and prompts to an LLM-agent, which can help in developing a complex codebase, and managing context in it. Aggregate all these instructions into '.junie/guidelines.md'
+
+Ignore the MCP set-up, let's create a single document explaining how the memory bank should work.
+
+in the '.junie/guidelines.md' file, please include the line on top:
+
+'# Please use Memory Bank system while working on the project. Always refer to the documentation below'
+</callout>
+
+<checkable-item title="Memory Bank Instructions are created in .junie/guidelines.md"></checkable-item>
+
+<p>Now we will use <code>snake_game.md</code> file to create Memory Bank files.</p>
+
+<callout label="Ask Junie to create Memory Bank files">
+ Based on snake_game.md create memory bank files as specified in .junie/guidelines.md
+</callout>
+
+<checkable-item title="Memory Bank files are created"></checkable-item>
+<p>Make sure that 7 files are created in the project directory:</p>
+<ul>
+  <li><code>projectbrief.md</code></li>
+  <li><code>productContext.md</code></li>
+  <li><code>systemPatterns.md</code></li>
+  <li><code>techContext.md</code></li>
+  <li><code>activeContext.md</code></li>
+  <li><code>progress.md</code></li>
+  <li><code>memory_bank_instructions.md</code></li>
+</ul>
+
+<h5>Overview Memory Bank files</h5>
+
+<p>
+<ol>
+  <li><code>projectbrief.md</code>
+  <ul>
+      <li>The foundation document</li>
+      <li>Defines core requirements and goals</li>
+      <li>Serves as the source of truth for project scope</li>
+      <li>Created first and rarely changes</li>
+    </ul>
+  </li>
+
+  <li><code>productContext.md</code>
+    <ul>
+      <li>The "why" of your project</li>
+      <li>Explains why the project exists</li>
+      <li>Describes user needs and problems solved</li>
+      <li>Outlines user experience goals</li>
+    </ul>
+  </li>
+
+  <li><code>systemPatterns.md</code>
+    <ul>
+      <li>The "how" of your project</li>
+      <li>Documents system architecture</li>
+      <li>Records key technical decisions</li>
+      <li>Describes design patterns and component relationships</li>
+    </ul>
+  </li>
+
+  <li><code>techContext.md</code>
+    <ul>
+      <li>The tools and technologies</li>
+      <li>Lists technologies and frameworks used</li>
+      <li>Documents development setup</li>
+      <li>Records technical constraints</li>
+    </ul>
+  </li>
+
+  <li><code>activeContext.md</code>
+    <ul>
+      <li>The current state</li>
+      <li>Documents what you're working on right now</li>
+      <li>Records recent changes and next steps</li>
+      <li>Updated most frequently</li>
+    </ul>
+  </li>
+
+  <li><code>progress.md</code>
+    <ul>
+      <li>The project status</li>
+      <li>Tracks completed and in-progress features</li>
+      <li>Lists known issues</li>
+      <li>Records the evolution of project decisions</li>
+    </ul>
+  </li>
+
+  <li><code>memory_bank_instructions.md</code>
+    <ul>
+      <li>Instructions for Memory Bank</li>
+      <li>Describes how to use Memory Bank</li>
+      <li>Stays static and doesn't change</li>
+    </ul>
+  </li>
+</ol>
+</p>
+
+<p>We can also delete <code>snake_game.md</code> and the files from <code>mcp-memory-bank</code> repo since we don't need it anymore - all the necessary information is presented in Junie guidelines and Memory Bank files</p>
+
+<h5>What's next?</h5>
+
+<p>In the next stage, we will use Memory Bank files to build a Snake game.</p>
