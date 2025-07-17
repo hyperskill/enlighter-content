@@ -1,5 +1,5 @@
 {
-  "id": 48,
+  "id": 49,
   "description": "In this project, we will explore Windsurf's rules from the fundamentals to advanced usage. You will learn how to organize and create rules effectively within the Windsurf IDE. The project is designed to help you understand the structure of Windsurf's rules and build a simple app that showcases their power. We will cover topics such as the differences between global and project rules, the process of creating rules, and best practices in naming and writing rule descriptions.",
   "title": "Mastering Windsurf Rules: From Basics to Advanced",
   "categories": "Windsurf IDE, Rules, Vibe Coding",
