@@ -12,72 +12,72 @@
 <warning>When the chat finishes creating or editing files, you should accept the changes by pressing the "Accept" or "Accept All" button.</warning>
 
 <callout type="composer">
-Create a file named project-rules.txt in the root of my project. Add the following content to it:
-1. Application Architecture:
-   1.1. Use Gradio to create a web-based chatbot interface with:
-       - Text input for user messages
-       - Image upload capability
-       - Chat history display
-       - Image output display for processed images
-   1.2. Implement state management to maintain chat history
-   1.3. Use LangChain framework for agent implementation
-
-2. Core Components:
-   2.1. Image Dryer (image_dryer.py):
-       - Use StableDiffusionImg2ImgPipeline from diffusers package
-       - Use "runwayml/stable-diffusion-v1-5" model
-
-   2.2. Chat Model (chat_model.py):
-       - Use OpenRouter API by passing base url and API key to Langchain's implementation 
-       - Use model "google/gemini-2.0-flash-lite-preview-02-05:free"
-
-   2.3. Drying Agent (drying_agent.py):
-       - Implement dry_item tool
-       - Store current image and result in agent state
-       - Use system prompt focused on drying items
-       - Handle both text-only and image+text interactions
-
-   2.4. Main Application (app.py):
-       - Handle message processing
-       - Manage chat history
-       - Return both text responses and processed images
-
-3. Testing:
-   3.1. Implement automated tests:
-       - Test chat without image
-       - Test chat with image
-       - Test image processing
-       - Save test results to test_results directory
-   3.2. Test the application by yourself running test scripts
-   3.3. Make sure the application processes uploaded images
-
-4. Authentication:
-   4.1. Use OpenRouter API with provided credentials:
-       - API Key:
-       - API Host: https://openrouter.ai/api/v1
-       - Use default entities from Langchain - just pass provided base url and key. DO NOT EXTEND LANGCHAIN'S CLASSES
-
-5. Dependencies:
-   5.1. Required packages:
-       - langchain
-       - gradio
-       - diffusers
-
-6. Environment:
-   6.1. Use Python virtual environment
-   6.2. No fixed package versions required
-
-7. User Experience:
-   7.1. Assistant should:
-       - Ask for item description if not provided
-       - Only process drying-related requests
-       - Maintain conversation context
-       - Show both chat history and processed images
-
-8. Image Processing Guidelines:
-   8.1. Output images:
-       - Focus on dried appearance
-       - Use photorealistic style
+    Create a file named project-rules.txt in the root of my project. Add the following content to it:
+    1. Application Architecture:
+       1.1. Use Gradio to create a web-based chatbot interface with:
+           - Text input for user messages
+           - Image upload capability
+           - Chat history display
+           - Image output display for processed images
+       1.2. Implement state management to maintain chat history
+       1.3. Use LangChain framework for agent implementation
+    
+    2. Core Components:
+       2.1. Watercolor Painter (image_painter.py):
+           - Use StableDiffusionImg2ImgPipeline from diffusers package
+           - Use "stabilityai/stable-diffusion-2-1" model
+    
+       2.2. Chat Model (chat_model.py):
+           - Use OpenRouter API by passing base url and API key to Langchain's implementation 
+           - Use model "google/gemini-2.0-flash-lite-preview-02-05:free"
+    
+       2.3. Watercolor Agent (watercolor_agent.py):
+           - Implement paint_watercolor tool
+           - Store current image and result in agent state
+           - Use system prompt focused on watercolor painting
+           - Handle both text-only and image+text interactions
+    
+       2.4. Main Application (app.py):
+           - Handle message processing
+           - Manage chat history
+           - Return both text responses and processed images
+    
+    3. Testing:
+       3.1. Implement automated tests:
+           - Test chat without image
+           - Test chat with image
+           - Test image processing
+           - Save test results to test_results directory
+       3.2. Test the application by yourself running test scripts
+       3.3. Make sure the application processes uploaded images
+    
+    4. Authentication:
+       4.1. Use OpenRouter API with provided credentials:
+           - API Key: 
+           - API Host: https://openrouter.ai/api/v1
+           - Use default entities from Langchain - just pass provided base url and key. DO NOT EXTEND LANGCHAIN'S CLASSES
+    
+    5. Dependencies:
+       5.1. Required packages:
+           - langchain
+           - gradio
+           - diffusers
+    
+    6. Environment:
+       6.1. Use Python virtual environment
+       6.2. No fixed package versions required
+    
+    7. User Experience:
+       7.1. Assistant should:
+           - Ask for item description if not provided
+           - Only process watercolor painting-related requests
+           - Maintain conversation context
+           - Show both chat history and processed images
+    
+    8. Image Processing Guidelines:
+       8.1. Output images:
+           - Focus on watercolor painting style
+           - Use artistic watercolor appearance
 </callout>
 </checkable-item>
 </p>
