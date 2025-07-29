@@ -1,0 +1,46 @@
+<!-- Enlighter Metainfo
+{
+"id": 40003,
+"title": "Vibe Coding Trick 3: Setting the Rules",
+"next_button_title": null
+}
+-->
+<h5>Introduction</h5>
+<p>We've adopted the "AI Manager Mindset" and created a project plan. Now, before our intern starts working, we need to give them their "Employee Handbook." This handbook contains the ground rules: a clear set of instructions on how to behave, what to do, and what <em>not</em> to do while working on our project.</p>
+<p>Setting rules upfront is a critical management step. It saves countless hours of future frustration by preemptively correcting the AI's common mistakes and aligning its behavior with your specific preferences from the very beginning.</p>
+<h5>The Challenge: The Eager Yet Unsupervised Intern</h5>
+<p>An intern without rules will make their own assumptions, often leading to chaos. When your AI doesn't have clear guidelines, it will exhibit frustrating behaviors based on its default behavior:</p>
+<ul>
+<li><strong>The "Creative" Coder:</strong> You ask the AI to change the color of a button, and it decides to "helpfully" refactor the entire file, introducing subtle bugs in the process. It doesn't know the boundaries of the task.</li>
+<li><strong>The Know-It-All:</strong> The AI defaults to using older versions of libraries it was trained on most extensively (e.g., Tailwind CSS v3), even if you need to use a newer version (v4). It uses what it's most confident in, not what the project requires.</li>
+<li><strong>The Inefficient Worker:</strong> It writes a brand-new function to sort a list, even though a perfectly good sorting function already exists elsewhere in your project. It doesn't know it's supposed to look for existing solutions first.</li>
+<li><strong>The Inconsistent Stylist:</strong> It writes code using tabs in one file and spaces in another, or mixes different naming conventions (like <code>camelCase</code> and <code>snake_case</code>), creating a messy and hard-to-read codebase.</li>
+</ul>
+<p>These aren't malicious actions; they are the result of an unmanaged intern making assumptions. It's our job as the manager to replace those assumptions with clear rules.</p>
+<h5>The Solution: Creating the "Employee Handbook"</h5>
+<p>The solution is to establish a set of project-specific rules that your AI must follow. In modern AI IDEs, this is often done by creating a special file (like <code>rules.md</code> or <code>.cursorrules</code>) or by adding instructions to a "custom instructions" panel in the settings. These rules act as a permanent system prompt, automatically giving your intern its instructions with every request.</p>
+<p>Here are some of the useful rules you can set:</p>
+<ul>
+<li><strong>Rule #1: Plan First, Code Second.</strong> "Explain your plan step-by-step first. Ask for my confirmation before you write any code."</li>
+<li><strong>Rule #2: Simplicity and Focus.</strong> "Do the simplest thing first. Only make the changes I have specifically requested."</li>
+<li><strong>Rule #3: Don't Repeat Yourself (DRY).</strong> "Before writing new code, always check the existing codebase for a solution you can reuse."</li>
+<li><strong>Rule #4: Respect the Tech Stack.</strong> "This project uses [Your Library/Framework, e.g., 'React 18']. Do not use features from other frameworks or older versions."</li>
+</ul>
+<h5>Creating Your Rules</h5>
+<p>In your IDE, create a file named <code>rules.md</code> (or use the equivalent feature) and write a clear set of instructions for your AI.</p>
+<callout label="Create a 'rules.md' file with the following rules">
+# Project Rules 
+Plan First: Before you write or change any code, explain your plan in simple terms. Wait for my "sounds good" or "proceed" confirmation before you start.
+Keep It Simple: Only implement the specific feature I ask for. Do not add extra functionality or refactor code unless I request it.
+One File at a Time: When possible, limit your changes to a single file per request.
+Check for Duplicates: Before writing a new function, check if a similar one already exists in the project.
+Add Comments: Add simple, one-line comments to explain any complex parts of the JavaScript code you write.
+</callout>
+<p>By creating this simple file, you ensure the AI follows these rules before generating any code, which will significantly reduce the number of times you need to correct its work.</p>
+<alert>
+    <p>This is a short overview of the rules. To learn more advanced techniques and how to use them in your IDE, you can check out our special course on this topic, available in Enlighter!</p> 
+</alert>
+<checkable-item title="A 'rules.md' file with project-specific rules is created."></checkable-item>
+<h5>Outcome of This Trick and Next Steps</h5>
+<p>You have now put a crucial system in place for managing your AI. By setting clear ground rules, you have made your intern a more predictable, reliable, and effective teammate, saving yourself from future confusion and rework.</p>
+<p>In the next trick, we will learn a simple method for effective and reliable prompting.</p>

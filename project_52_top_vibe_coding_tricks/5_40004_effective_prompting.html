@@ -1,0 +1,47 @@
+<!-- Enlighter Metainfo
+{
+"id": 40004,
+"title": "Vibe Coding Trick 4: Effective Prompting",
+"next_button_title": null
+}
+-->
+<h5>Introduction</h5>
+<p>Now let's learn how to give instructions effectively. The most common mistake beginners make is asking the AI to do too much at once. The golden rule of prompting is simple: <strong>One prompt, one clear task.</strong></p>
+<h5>The Challenge: The Overloaded Request</h5>
+<p>LLMs are powerful and can often handle multiple instructions in a single prompt. This is tempting, as it feels more efficient. However, combining tasks dramatically increases the risk of errors and unwanted changes.</p>
+<p>When you give a prompt like, "Fix this bug and also change the button color," you create a situation where the AI can fail in several ways:</p>
+<ul>
+<li><strong>It ignores one task:</strong> The AI focuses on fixing the bug but completely forgets to change the color.</li>
+<li><strong>It merges the work incorrectly:</strong> In its attempt to do both, it might edit the same block of code for two different reasons, resulting in a tangled mess that doesn't work at all.</li>
+<li><strong>It causes unintended side effects:</strong> The AI makes a "helpful" assumption to solve both problems at once, but this change breaks something else in your application.</li>
+</ul>
+<p>A multi-task prompt introduces ambiguity. It forces the AI to guess how to prioritize and sequence the work, which is where mistakes happen.</p>
+<h5>The Solution: The Single-Action Prompt</h5>
+<p>The solution is to be a disciplined manager. Treat your project like a checklist and only give the AI the very next item on that list. Your workflow should be a clean, predictable loop: give one task, review the result, then give the next task.</p>
+<p>This approach gives you complete control. It makes it easy to verify that the change was successful and, if it wasn't, to revert it without untangling a web of unrelated edits. It might feel slightly slower, but it is far more reliable and saves immense time in debugging.</p>
+<h5>Practical Application:</h5>
+<p>Let's look at a real-world scenario. The "Add Task" button in our app doesn't work, and we also think it should be styled differently.</p>
+<h6>Unfocused Prompt: Combining Logic and Style</h6>
+<p>This prompt is confusing because it asks the AI to solve a functional problem and a visual one at the same time.</p>
+<callout label="Unfocused Prompt: Don't do this">
+The 'Add Task' button isn't adding tasks to the list when I click it. Fix that bug. Also, change the button's color to a shade of blue and increase its padding to make it bigger.
+</callout>
+<h6>Focused Workflow: Separating Tasks</h6>
+<p>This workflow is clear and controlled. We tackle the logic first, confirm it works, and only then do we address the styling in separate, focused steps.</p>
+<p><strong>Step 1: Fix the Bug</strong></p>
+<callout label="Prompt 1: Focus on Functionality">
+The 'Add Task' button is not adding new tasks to the list. Please analyze the JavaScript file and fix the logic.
+</callout>
+<p><em>(After this, you test the app to confirm the button now works.)</em></p>
+<p><strong>Step 2: Style the Color</strong></p>
+<callout label="Prompt 2: Focus on Color">
+Now that the button works, let's change its appearance. Please update the CSS to give the button a blue background and white text.
+</callout>
+<p><strong>Step 3: Style the Size</strong></p>
+<callout label="Prompt 3: Focus on Sizing">
+Great. Now, increase the button's padding to make it look bigger and more clickable.
+</callout>
+<p>This step-by-step process is predictable, easy to debug, and gives you a clean history of changes.</p>
+<h5>Outcome of This Lesson and Next Steps</h5>
+<p>You have now learned the critical skill of focused prompting. By giving the AI one clear task at a time, you reduce errors, maintain control, and create a more stable and efficient development process.</p>
+<p>Let's learn another trick that will help you get more reliable results.</p>
