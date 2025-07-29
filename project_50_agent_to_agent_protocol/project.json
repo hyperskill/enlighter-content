@@ -3,7 +3,7 @@
   "description": "Master the Agent to Agent (A2A) Protocol and learn how to build interoperable AI agents that can communicate, negotiate and collaborate securely.",
   "title": "Agent to Agent Protocol",
   "categories": "AI Agents, A2A, AI Engineering",
-  "cover_url": "https://ucarecdn.com/f5f4e9c2-0eaf-4b9e-8eef-6f2431cf7c3d/",
+  "cover_url": "https://ucarecdn.com/8fbccc15-9cd9-4346-86b9-fb8d39d8ec06/",
   "readme": "# Agent to Agent Protocol Course\n\nThis course walks you through both the theory and practice of the A2A protocol. By the end you will have built agents that can discover each other, exchange tasks and artifacts, and work together across platforms.\n",
   "short_description": "Learn the open standard for AI-agent interoperability from fundamentals to hands-on implementation.",
   "ides": "cursor, windsurf, junie, vscode"
