@@ -31,7 +31,6 @@ concurrency:
 jobs:
   validate:
     name: Validate HTML Content
-    if: github.event_name != 'pull_request_target' || contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     steps:
       - name: Checkout base branch for pull_request_target
