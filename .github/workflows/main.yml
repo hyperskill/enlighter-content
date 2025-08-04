@@ -70,6 +70,17 @@ jobs:
       - name: Validate HTML content
         run: node .github/scripts/validate-content.js
 
+      - name: Post comment
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: mshick/add-pr-comment@v2
+        with:
+          refresh-message-position: true
+          message-id: host
+          message-failure: |
+            ## Validation is failed
+            
+            Please check [run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
   sync-templates:
     name: Sync Templates to Supabase
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
