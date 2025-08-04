@@ -1,0 +1,69 @@
+<!-- Enlighter Metainfo
+{
+  "id": 20008,
+  "title": "Advanced Rules Techniques",
+  "next_button_title": "Next"
+}
+-->
+<p>You've learned the basics of creating rules in Windsurf. Now it's time to refine your approach. This section covers best practices for writing effective rules, explores the powerful, automated "Memories" system, and walks you through creating and testing more advanced rules.</p>
+
+<h5>Best Practices for Writing Effective Rules</h5>
+
+<p>How you write a rule is just as important as what the rule states. To ensure Cascade can understand and follow your instructions accurately, keep these best practices in mind:</p>
+
+<ul>
+    <li><b>Be Simple, Concise, and Specific</b>: Vague or overly long rules can confuse the AI. Instead of "write good Python code," specify "use type hints for all function definitions."</li>
+    <li><b>Use Clear Formatting</b>: The AI assistant understands Markdown. Using bullet points or numbered lists makes your rules much easier for the AI to parse compared to a long, dense paragraph.</li>
+    <li><b>Create Testable Rules</b>: Include verifiable elements in your rules so you can confirm they're working. For example, adding a specific comment or print statement helps you see when the rule is applied.</li>
+    <li><b>Use Descriptive Naming</b>: Rule filenames should clearly indicate their purpose, like <code>python-style.md</code> or <code>api-documentation.md</code>.</li>
+    <li><b>Think in Layers</b>: Combine different activation modes strategically – use "Always On" for critical universal standards, "Glob" patterns for language-specific rules, and "Manual" for complex procedures you invoke on-demand.</li>
+    <li><b>Start Small, Iterate</b>: Begin with basic rules and gradually add complexity. Monitor how the AI responds and refine based on real usage patterns.</li>
+    <li><b>Performance Awareness</b>: Avoid too many "Always On" rules as they consume tokens on every request and can create conflicting instructions that confuse the AI.</li>
+</ul>
+
+<h5>Step-by-Step Guide: Python Glob Rule &amp; Project-Wide Meta-Rule</h5>
+
+<p>Now with this knowledge in mind, let's build two practical rules and test them in action.</p>
+
+<br>
+
+<ol>
+  <li><b>Create a Python-only Glob Rule</b>
+    <ul>
+      <li>File name: <code>python_style.md</code></li>
+      <li>Activation Mode: <b>Glob</b></li>
+      <li>Glob pattern: <code>**/*.py</code></li>
+      Inside the file, add guidance such as:
+        <ul>
+          <li>Add print statements to all functions to debug them.</li>
+          <li>Use type hints for every function definition.</li>
+          <li>Follow PEP 8 formatting and include docstrings.</li>
+        </ul>
+    </ul>
+  </li>
+  <br>
+  <li><b>Add a Meta-Rule to Debug Rule Usage</b>
+    <ul>
+      <li>File name: <code>test-rules.md</code></li>
+      <li>Activation Mode: <b>Always On</b></li>
+      <li>Description: "Always add tests to newly created functions."</li>
+    </ul>
+  </li>
+  <br>
+  <li><b>Test your setup</b> with the prompt below.</li>
+</ol>
+
+<callout label="Ask Cascade to create a Python file">
+Create a Python file utils/math_tools.py with a function factorial(n: int) -> int that uses recursion. After providing the code, list the rule filenames you applied to answer this request.
+</callout>
+
+<p>Cascade will now apply the rules to the new file and tell you which rules were applied.</p>
+
+<h5>Completion Checklist</h5>
+<ul interactive>
+<li title="Several Rules were applied">
+</li>
+</ul>
+<br>
+
+<p>You are now equipped with the knowledge to write and combine rules like a pro. In the next section, we will explore how to use memories as automated alternative to rules.</p>

@@ -1,0 +1,33 @@
+<!-- Enlighter Metainfo
+{
+  "id": 30009,
+  "title": "How Tasks and Artifacts Work in A2A",
+  "next_button_title": "Next"
+}
+-->
+<p>In this lesson, we will explore how Tasks and Artifacts work in the A2A protocol.</p>
+
+<h5>How it Works: Tasks and Artifacts</h5>
+
+<p>Once a client agent has read another's Agent Card and knows what skills it offers, it can start assigning work. This is done through Tasks and Artifacts.</p>
+
+<ul>
+    <li><strong>Tasks: The Unit of Work</strong><br>A "task" is the fundamental unit of work in the A2A protocol. When one agent wants another to do something, it sends it a task. Every task has a clear lifecycle, moving through states like <code>submitted</code>, <code>working</code>, <code>completed</code>, or <code>failed</code>. This design is robust, supporting both quick, simple requests that can be completed in seconds (synchronous tasks) and more complex, long-running jobs that might take minutes or hours (asynchronous tasks).</li>
+    <li><strong>Artifacts: The Result of the Work</strong><br>When a task is successfully completed, its final output is called an "artifact." An artifact is the tangible result that the client agent receives. If the task was to <code>suggest_chord_progressions</code>, the artifact would be a structured JSON object containing the list of chords. If the task was to <code>generate_logo_image</code>, the artifact would be the image file itself.</li>
+</ul>
+
+<h5>Key Design Principles</h5>
+
+<p>The A2A protocol was built with a few core principles in mind to ensure it fosters a healthy and powerful ecosystem:</p>
+
+<ul>
+    <li><strong>Open and Interoperable:</strong> A2A is an open standard, not a proprietary product. This is crucial because it ensures anyone can build a compatible agent, preventing vendor lock-in and encouraging a diverse marketplace of specialized AIs.</li>
+    <li><strong>Secure by Design:</strong> The protocol was designed for professional, enterprise-grade use from day one. It supports standard authentication and authorization schemes to ensure that agents can communicate with each other securely.</li>
+    <li><strong>Modality Agnostic:</strong> Communication is not limited to just text. The protocol is designed to handle a wide variety of data types, or "modalities." Agents can exchange structured data, files, images, and other media, making it a versatile tool for a broad range of applications.</li>
+</ul>
+
+<h5>Outcome of This Lesson and Next Steps</h5>
+
+<p>In this lesson, you've learned how Tasks and Artifacts enable agents to exchange work products in a predictable lifecycle. With these concepts in hand, you are ready to see how the A2A protocol aligns with another important standard: MCP.</p>
+
+<p>In the next section, we will clarify the relationship between the A2A protocol and another popular protocol: MCP</p> 

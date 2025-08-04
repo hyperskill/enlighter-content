@@ -58,6 +58,13 @@ CONTENT WILL BE IN my-project-rules.mdc file
 </precode>
 ```
 
+### Loadfile Blocks for File Generation
+
+Use <loadfile> tags to create files from the specified url:
+```html
+<loadfile path="docs/uv.md" url="https://raw.githubusercontent.com/hyperskill/enlighter-content/refs/heads/main/microcontexts/astral-sh/uv.md"/>
+```
+
 ### Checkable Items for User Tasks
 
 Create interactive TO-DO items for users:
