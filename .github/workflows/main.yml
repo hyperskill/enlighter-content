@@ -72,7 +72,7 @@ jobs:
 
       - name: Post comment
         if: |
-          always() && github.event_name == 'pull_request_target'
+          failure() && github.event_name == 'pull_request_target'
         uses: mshick/add-pr-comment@v2
         with:
           refresh-message-position: true
