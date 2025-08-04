@@ -1,10 +1,10 @@
 {
   "id": 51,
-  "description": "This project presents the top 10 vibe coding tricks to boost your productivity and creativity in the Cursor IDE. Each stage introduces a unique trick, complete with practical examples and hands-on exercises.",
+  "description": "This project presents the top vibe coding tricks to boost your productivity and get the most out of your AI assistant. Each stage introduces a unique trick, complete with practical examples and hands-on exercises.",
   "title": "Top Vibe Coding Tricks",
-  "categories": "Cursor IDE, Coding Tricks, Productivity, Vibe Coding",
-  "cover_url": "https://pdqqywctjlfcaeeaykvj.supabase.co/storage/v1/object/public/aidl-bucket//51-cover-output.png",
-  "readme": "\n              \n                \n              \n            ",
-  "short_description": "Discover 10 essential coding tricks to level up your Cursor IDE experience.",
-  "ides": "cursor"
+  "categories": "Coding Tricks, Productivity, Vibe Coding",
+  "cover_url": "https://ucarecdn.com/d9bd053c-1f43-44d1-910d-93d4ca8ddc35/",
+  "readme": "",
+  "short_description": "Discover essential tricks and techniques to level up your vibe coding workflow.",
+  "ides": "cursor, windsurf, copilot"
 } 

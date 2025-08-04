@@ -6,27 +6,26 @@
 }
 -->
 <h5>Introduction</h5>
-<p>You all probably heard about the "MCP" (Model Context Protocol) many times by now. And for a good reason, because they allow to give your AI intern a new tools or knowledge to overcome its limitations.</p>
-<p></p>
-<h5>The Challenge: The AI Limiatations and default skillset</h5>
-<p>By default, your AI intern works in a vacuum. It only knows what was in its training data and what's in your current conversation. This creates several major problems:</p>
+<p>Model Context Protocol (MCP) quickly gained popularity, and for a good reason. They supercharge LLMs with new abilities, helping to overcome their limitations and making the lives of vibe coders easier.</p>
+<p>There are many useful MCPs available, and depending on your project, you might need to find a specific one for your needs. Let's explore one common problem and how an MCP can solve it.</p>
 
+<h5>The Challenge: Knowledge Cutoff</h5>
+<p>A significant limitation of Large Language Models (LLMs) is their knowledge cutoff. An AI's training data has a fixed date, meaning it is unaware of any new libraries, API changes, or framework updates that were released after that time.</p>
+<p>This leads to several problems:</p>
 <ul>
-<li><strong>Outdated Knowledge:</strong> The AI's training data has a "knowledge cutoff" date. It doesn't know about new library versions or API changes, leading it to write deprecated or broken code.</li>
-<li><strong>No Project-Wide Awareness:</strong> The AI can't see your entire private GitHub repository. It only knows about the few files you've explicitly shown it, so it can't understand how all the parts of your project fit together.</li>
-<li><strong>Inability to "See" Designs:</strong> You can't ask the AI to build a component from a Figma design, because it has no eyes. You're forced to describe the design in words, which is slow and inaccurate.</li>
+<li><strong>Outdated Code:</strong> The AI may generate code using deprecated functions or old patterns that are no longer best practice.</li>
+<li><strong>Hallucinations:</strong> When asked about a recent technology it doesn't know, the AI might "hallucinate" and invent plausible-sounding but incorrect code, leading to frustrating bugs.</li>
+<li><strong>Wasted Time:</strong> You end up spending valuable time correcting the AI's mistakes, manually looking up documentation, and teaching it the correct way to use a new tool.</li>
 </ul>
 
-<p>When faced with these gaps, the AI is forced to guess or "hallucinate," inventing solutions that are plausible but wrong.</p>
+<h5>The Trick: Use Context7 MCP for Up-to-Date Documentation</h5>
+<p>The solution is to give your AI assistant access to the latest information using the <a href="https://github.com/upstash/context7">Context7 MCP</a> . This tool connects your AI to a server that provides up-to-date documentation for thousands of libraries and frameworks.</p>
+<p>By adding the Context7 MCP, you give your AI intern the latest API documentation, which drastically increases accuracy, improves code quality, and prevents hallucinations.</p>
 
-<h5>The Solution: Equip Your Intern with MCPs</h5>
-
-<p>MCP is a protocol that allows to connect the AI to a special server that provides it with new tools or knowledge designed to work with LLMs.</p>
-
-<p>There are three main types of MCPs you will use:</p>
-
-<p>Using the right MCP ensures your intern is fully equipped and prepared for the task at hand.</p>
+<alert>
+  <p>This is a short overview of the MCPs. To learn how to use them in your IDE and find the most useful ones for your project, you can check out our special course on this topic, available in Enlighter!</p> 
+</alert>
 
 <h5>Outcome of This Lesson and Next Steps</h5>
-<p>You now know how to equip your AI intern with superpowers. By providing direct access to documentation, designs, and your full codebase using MCPs, you enable it to perform a much wider variety of tasks with greater accuracy.</p>
-<p>You are now a fully-equipped AI manager. In the next lessons, we will focus on <strong>Debugging and Iteration</strong>, learning what to do when things get difficult.</p>
+<p>You now know how to overcome the AI's knowledge cutoff by equipping it with the Context7 MCP. This ensures your AI assistant always has access to the most current documentation, allowing it to write better, more accurate code.</p>
+<p>In the next lesson, we will focus on another powerful trick for improving your vibe coding workflow.</p>
