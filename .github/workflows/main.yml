@@ -71,7 +71,8 @@ jobs:
         run: node .github/scripts/validate-content.js
 
       - name: Post comment
-        if: ${{ github.event_name == 'pull_request_target' }}
+        if: |
+          failure() && github.event_name == 'pull_request_target'
         uses: mshick/add-pr-comment@v2
         with:
           refresh-message-position: true
