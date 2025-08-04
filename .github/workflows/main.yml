@@ -31,7 +31,6 @@ concurrency:
 jobs:
   validate:
     name: Validate HTML Content
-    if: github.event_name != 'pull_request_target' || contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     runs-on: arc-runners-small
     steps:
       - name: Checkout base branch for pull_request_target
@@ -70,6 +69,17 @@ jobs:
 
       - name: Validate HTML content
         run: node .github/scripts/validate-content.js
+
+      - name: Post comment
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: mshick/add-pr-comment@v2
+        with:
+          refresh-message-position: true
+          message-id: validation
+          message-failure: |
+            ## Validation is failed
+            
+            Please check [run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
   sync-templates:
     name: Sync Templates to Supabase
@@ -188,7 +198,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           refresh-message-position: true
-          message-id: host
+          message-id: draft
           message-success: |
             ## 🚀 Draft Projects Created
 
