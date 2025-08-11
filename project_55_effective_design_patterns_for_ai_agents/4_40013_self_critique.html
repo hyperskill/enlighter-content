@@ -1,0 +1,84 @@
+<!-- Enlighter Metainfo
+{
+  "id": 55004,
+  "title": "Pattern 3: Self-critique Loop",
+  "next_button_title": "Next"
+}
+-->
+<h5>Self-critique Pattern</h5>
+<p><strong>Problem</strong>: First-pass generations can be mediocre or incorrect. Without review, quality suffers.</p>
+<p><strong>Solution</strong>: Add a critic step that reviews the draft and either proposes improvements or signals completion. Iterate until the critique says "done" or a max loop count is reached.</p>
+
+<h5>When to apply</h5>
+<ul>
+  <li>Content generation (draft → critique → refine).</li>
+  <li>Code generation and refactoring.</li>
+  <li>Factual responses that benefit from reviewer scrutiny.</li>
+</ul>
+
+<h5>Practical example (Google ADK)</h5>
+<p>Use <code>LoopAgent</code> with a critic and a refiner. Provide an explicit exit condition (e.g., an <code>exit_loop</code> tool or a completion phrase).</p>
+
+<alert>
+<details>
+<summary>Iterative refinement with a critic</summary>
+<pre><code>from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
+from google.adk.tools import exit_loop
+
+STATE_DOC = "current_document"
+STATE_CRIT = "criticism"
+COMPLETION_PHRASE = "Looks good."
+
+initial_writer = LlmAgent(
+    name="InitialWriter",
+    model="gemini-2.0-flash",
+    instruction="Write a short draft on the requested topic.",
+    output_key=STATE_DOC,
+)
+
+critic = LlmAgent(
+    name="Critic",
+    model="gemini-2.0-flash",
+    instruction=(
+        "Review state['current_document']. Provide concrete critique if improvements are needed, "
+        f"otherwise output exactly '{COMPLETION_PHRASE}'."
+    ),
+    output_key=STATE_CRIT,
+)
+
+refiner = LlmAgent(
+    name="Refiner",
+    model="gemini-2.0-flash",
+    instruction=(
+        "If the critique equals the completion phrase, call exit_loop. "
+        "Otherwise, apply the critique and output only the revised document.")
+    ,
+    tools=[exit_loop],
+    output_key=STATE_DOC,
+)
+
+refinement_loop = LoopAgent(
+    name="RefineLoop",
+    sub_agents=[critic, refiner],
+    max_iterations=5,
+)
+
+pipeline = SequentialAgent(
+    name="WriteThenRefine",
+    sub_agents=[initial_writer, refinement_loop]
+)
+</code></pre>
+</details>
+</alert>
+
+<warning>To reduce bias, consider using different models or prompting styles for the critic vs. the generator (e.g., higher reasoning model for critique, faster model for drafting).</warning>
+
+<callout label="Ask Cascade: add a self-critique loop">
+Using ADK, implement a writer → critic → refiner loop. Set a max of 3–5 iterations and an explicit completion phrase or an exit tool. Compare outputs with and without critique.
+</callout>
+
+<checkable-item title="My pipeline iterates until critique is satisfied or the loop limit is reached."></checkable-item>
+
+<p>Next, you will integrate a human approval step for high-stakes decisions.</p>
+
+

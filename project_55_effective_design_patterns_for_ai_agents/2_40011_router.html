@@ -1,0 +1,71 @@
+<!-- Enlighter Metainfo
+{
+  "id": 55002,
+  "title": "Pattern 1: Router",
+  "next_button_title": "Next"
+}
+-->
+<h5>Router Pattern</h5>
+<p><strong>Problem</strong>: A single agent becomes a bottleneck when queries span multiple domains (e.g., search, coding, knowledge retrieval). We need a way to route each request to the most suitable specialist.</p>
+<p><strong>Solution</strong>: Use a coordinator agent with child agents or tools, allowing automatic or explicit delegation. ADK supports this with <code>sub_agents</code> and <code>AgentTool</code> for agent-as-a-tool composition.</p>
+
+<h5>When to apply</h5>
+<ul>
+  <li>Multi-domain assistants (coding, search, math, RAG).</li>
+  <li>Customer support triage (billing vs. tech vs. account).</li>
+  <li>Any system where capabilities are clearly separable.</li>
+</ul>
+
+<h5>Practical example (Google ADK)</h5>
+<p>The coordinator delegates to a Search specialist or a Code specialist. This mirrors the ADK pattern of composing agents with <code>sub_agents</code> or wrapping an agent as a tool via <code>AgentTool</code>.</p>
+
+<alert>
+<details>
+<summary>Coordinator with sub-agents (auto routing)</summary>
+<pre><code>from google.adk.agents import Agent
+from google.adk.tools import google_search
+from google.adk.tools.agent_tool import AgentTool
+from google.adk.code_executors import BuiltInCodeExecutor
+
+search_agent = Agent(
+    model='gemini-2.0-flash',
+    name='SearchAgent',
+    instruction="""
+    You are a specialist in Google Search. Use the search tool when needed.
+    """,
+    tools=[google_search],
+)
+
+code_agent = Agent(
+    model='gemini-2.0-flash',
+    name='CodeAgent',
+    instruction="""
+    You are a code execution specialist.
+    """,
+    code_executor=[BuiltInCodeExecutor],
+)
+
+router = Agent(
+    model='gemini-2.0-flash',
+    name='Router',
+    instruction=(
+        "You are a coordinator. Delegate web lookup to SearchAgent and coding tasks "
+        "to CodeAgent. If neither applies, answer directly."
+    ),
+    # Either include as tools (Agent-as-a-Tool) or as sub_agents.
+    tools=[AgentTool(agent=search_agent), AgentTool(agent=code_agent)],
+    # Alternatively: sub_agents=[search_agent, code_agent]
+)
+</code></pre>
+</details>
+</alert>
+
+<callout label="Ask Cascade: build a router with two specialists">
+Using Google ADK, create a coordinator agent named "Router" and two specialists: "SearchAgent" with the Google Search tool and "CodeAgent" with code execution. Demonstrate delegation by asking a search question and a coding request.
+</callout>
+
+<checkable-item title="I can route a search query to SearchAgent and a code task to CodeAgent."></checkable-item>
+
+<p>Next, you will separate planning from execution to balance quality and speed.</p>
+
+

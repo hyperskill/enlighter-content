@@ -1,0 +1,70 @@
+<!-- Enlighter Metainfo
+{
+  "id": 55005,
+  "title": "Pattern 4: Human-in-the-Loop (HITL)",
+  "next_button_title": "Next"
+}
+-->
+<h5>Human-in-the-Loop (HITL) Pattern</h5>
+<p><strong>Problem</strong>: Some actions require a real person to approve (e.g., payments, compliance, medical, legal). Purely autonomous decisions may be risky.</p>
+<p><strong>Solution</strong>: Insert a human approval step using a long-running tool or a remote approval agent. The agent pauses, surfaces the request, and resumes when a decision arrives.</p>
+
+<h5>When to apply</h5>
+<ul>
+  <li>High-stakes or regulated domains.</li>
+  <li>Actions with irreversible impact or financial risk.</li>
+  <li>Auditable processes requiring explicit sign-off.</li>
+</ul>
+
+<h5>Pros and cons</h5>
+<ul>
+  <li><strong>Advantages</strong>: Improves safety, compliance, and trust.</li>
+  <li><strong>Downsides</strong>: Adds latency, requires staffing, may reduce throughput.</li>
+</ul>
+
+<h5>Practical example (Google ADK)</h5>
+<p>Use <code>LongRunningFunctionTool</code> to request approval and resume once a human decision is provided.</p>
+
+<alert>
+<details>
+<summary>Long-running approval tool</summary>
+<pre><code>from typing import Any
+from google.adk.agents import Agent
+from google.adk.tools import LongRunningFunctionTool
+
+def ask_for_approval(purpose: str, amount: float) -> dict[str, Any]:
+    # Create a ticket and notify approver (out-of-band system).
+    return {
+        "status": "pending",
+        "ticket_id": "approval-1",
+        "purpose": purpose,
+        "amount": amount
+    }
+
+def reimburse(purpose: str, amount: float) -> dict[str, Any]:
+    return {"status": "ok", "purpose": purpose, "amount": amount}
+
+approval_tool = LongRunningFunctionTool(func=ask_for_approval)
+
+root = Agent(
+    model="gemini-2.0-flash",
+    name="reimbursement_agent",
+    instruction=(
+        "If amount &lt; $100, call reimburse. Otherwise, call ask_for_approval and wait "
+        "for a human decision, then reimburse or reject accordingly."
+    ),
+    tools=[reimburse, approval_tool],
+)
+</code></pre>
+</details>
+</alert>
+
+<callout label="Ask Cascade: add a human approval step">
+Using ADK, add a long-running approval tool to your agent. Simulate a high amount request and demonstrate that execution pauses until an "approved" decision is supplied.
+</callout>
+
+<checkable-item title="High-amount requests now require explicit human approval."></checkable-item>
+
+<p>In the final stage, you will summarize key takeaways and next steps.</p>
+
+
