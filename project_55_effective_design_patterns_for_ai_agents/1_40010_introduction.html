@@ -1,0 +1,41 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40010,
+  "title": "Introduction to AI Agent Design Patterns",
+  "next_button_title": "Next"
+}
+-->
+<h5>Introduction</h5>
+<p>Welcome to this guide on AI Agent Design Patterns. As artificial intelligence grows more sophisticated, developers are building complex, autonomous systems known as AI agents. These agents can reason, plan, and interact with their environment to accomplish goals. However, creating robust and reliable agents requires more than just a powerful large language model (LLM); it requires thoughtful architecture.</p>
+<p>Just as in traditional software engineering, design patterns have emerged for AI agents. These patterns offer proven, reusable solutions to common challenges in agent development, helping to create systems that are more effective, scalable, and maintainable. This guide will walk you through the most popular and effective design patterns, providing practical explanations and examples to help you build the next generation of intelligent applications.</p>
+
+<h5>Our Study Path</h5>
+
+<p>This journey will equip you with the foundational knowledge to architect sophisticated AI agents. We won't just cover theory; we will provide practical examples and show how these concepts can be implemented. For our hands-on examples, we will refer to Google's Agent Development Kit (ADK), a modern framework designed to simplify the development and deployment of AI agents.</p>
+
+<p>Here’s a look at the patterns we will cover:</p>
+<ul>
+    <li><strong>Pattern 1: The Router</strong><br>Learn how to create agents that can intelligently delegate tasks to the most suitable sub-agent or tool, making your system more modular and efficient.</li>
+    <li><strong>Pattern 2: The Planner</strong><br>Discover how to separate high-level planning from task execution, using powerful models for strategy and faster, cost-effective models for carrying out the steps.</li>
+    <li><strong>Pattern 3: Self-Critique</strong><br>We'll explore how to build agents that can review and improve their own work, leading to more accurate and reliable outputs.</li>
+    <li><strong>Pattern 4: Human-in-the-Loop</strong><br>Understand when and how to insert human oversight into your agent's workflow, ensuring safety, accountability, and trust for critical tasks.</li>
+    <li><strong>Summary & Key Takeaways</strong><br>We'll conclude with a wrap-up of the main concepts, empowering you to apply these patterns in your own projects.</li>
+</ul>
+
+<h5>Setting Up for the Exercises</h5>
+
+<p>To get the most out of the practical examples, you should have a Python environment set up. The primary library we will reference is <a></a>Google's Agent Development Kit (ADK). You can ask your coding agent to install it or do so manually in your terminal.</p>
+
+<callout label="Prepare Your Environment">
+1. Create a virtual environment for your project.
+2. Install the `google-adk` library using pip: `pip install google-adk`
+3. Create .env file with your Google API key ready for interacting with Gemini models.
+</callout>
+
+<warning><p>Don't forget to add your Google API key to the .env file if you want to test your agent. You can get it <a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank">here</a> along with the instructions.</p></warning>
+
+<p>We highly recommend to use MCP context7 for the exercises. It's a powerful tool that will help your AI agnet to write code using correct syntax for libraries like google-adk. If you don't have it, we recommend to check our course on Top 10 MCP to use.</p>
+
+<checkable-item title="The google-adk library is installed."></checkable-item>
+
+<p>The goal of this introduction is to set the stage for our exploration of agentic design patterns. In the next lesson, we will start with our first pattern: the Router.</p>

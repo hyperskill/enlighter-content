@@ -1,0 +1,33 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40015,
+  "title": "Summary and Next Steps",
+  "next_button_title": "Finish"
+}
+-->
+<h5>Summary of Our Journey</h5>
+<p>We have now explored four of the most popular and effective design patterns for building sophisticated AI agents. Our journey has taken us from simple task delegation to complex, self-correcting, and human-supervised workflows. Let's recap what we've learned.</p>
+<p>Our study was broken down into these key architectural patterns:</p>
+<ul>
+    <li><strong>The Router</strong><br>We learned that the Router pattern acts as a simple but powerful traffic controller. It solves the problem of task delegation by classifying an incoming request and sending it to the appropriate specialized tool or sub-agent, leading to more modular and efficient systems.</li>
+    <li><strong>The Planner</strong><br>For complex, multi-step tasks, we saw how the Planner pattern provides a more robust solution. By first generating a step-by-step plan, the agent can tackle complex problems more reliably and efficiently, often using a powerful model for planning and a faster model for execution.</li>
+    <li><strong>Self-Critique (Reflection)</strong><br>We explored how to improve the quality and accuracy of an agent's output by having it review its own work. This iterative loop of generation and critique allows an agent to catch errors and refine its responses, making it significantly more reliable.</li>
+    <li><strong>Human-in-the-Loop</strong><br>Finally, we discussed the critical importance of keeping humans in control for high-stakes tasks. The HITL pattern ensures safety, accountability, and user trust by pausing the agent to ask for approval before executing irreversible actions.</li>
+</ul>
+<p>You are now familiar with a versatile toolkit of design patterns that can be combined and adapted to build powerful, production-ready AI agents.</p>
+
+<h5>Main Takeaways and The Future</h5>
+<p>Building intelligent systems is evolving beyond simply writing better prompts. It's about designing better systems. The intelligence of an agent lies not just in the LLM itself, but in the structure and architecture you build around it.</p>
+<p>Here are the main takeaways:</p>
+<ul>
+    <li><strong>Start Simple:</strong> For many use cases, a simple Router architecture is all you need. Don't overcomplicate your design if a straightforward solution works.</li>
+    <li><strong>Separate Concerns:</strong> Patterns like the Planner and Router encourage a modular design. Separating planning from execution, or routing from tool use, makes your system easier to build, test, and maintain.</li>
+    <li><strong>Trust but Verify:</strong> LLMs are powerful but not infallible. Incorporate patterns like Self-Critique and Human-in-the-Loop to build guardrails that ensure your agent's outputs are both accurate and safe.</li>
+    <li><strong>Use Frameworks to Accelerate:</strong> Modern toolkits like Google's Agent Development Kit (ADK) are designed with these patterns in mind, providing building blocks like `SequentialAgent`, `Planners`, and `Tools` that simplify the implementation of these architectures.</li>
+</ul>
+<p>The field of AI is moving incredibly fast, but the fundamental principles of good software design remain. By mastering these agentic design patterns, you are well-equipped to move beyond basic prototypes and start building the robust, intelligent, and reliable AI applications of the future.</p>
+<p>The future of AI is collaborative, structured, and thoughtfully designed. Let's keep building.</p>
+
+<checkable-item title="Congratulations! You have completed the guide to AI Agent Design Patterns."></checkable-item>
+
+
