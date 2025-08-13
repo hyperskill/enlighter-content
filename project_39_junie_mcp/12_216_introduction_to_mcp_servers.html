@@ -5,7 +5,7 @@
   "next_button_title": "Next "
 }
 -->
-<p>In this stage, we'll learn the basics of MCP servers and set up our first server using Playwright. As a platform for launching MCP servers, we'll use <a href="https://claude.ai/download" target="_blank">Claude Desktop</a>.</p>
+<p>In this stage, we'll learn the basics of MCP servers and set up our first server using Playwright in Junie.</p>
 
 <h5>What is MCP?</h5>
 
@@ -17,23 +17,10 @@
 <li>Browsing websites and taking screenshots</li>
 </ul>
 
-<h5>How to configure MCP servers in Claude Desktop</h5>
-
-<p>In Claude Desktop Settings:</p>
-<ol>
-  <li>Go to <strong>Claude → Settings → Developer</strong> or use the shortcut <code>⌘ + ,</code></li>
-  <li>Click <strong>Edit config</strong></li>
-</ol>
-
-<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/cff14d5b-f4a2-403b-98e1-8c61d0e3e899/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Settings" title="Claude MCP Settings"></p>
-
-<p>This will create a configuration file at:</p>
-
-<pre><code>macOS: ~/Library/Application Support/Claude/claude_desktop_config.json</code></pre>
 
 <h5>MCP Configuration Format</h5>
 
-<p>The configuration format in <code>claude_desktop_config.json</code> files follows this structure:</p>
+<p>The configuration format for MCP servers follows this structure:</p>
 
 <pre><code>{
   "mcpServers": {
@@ -73,50 +60,60 @@
 <p>Let's create the Playwright MCP configuration:</p>
 
 <ol>
-  <li>Open <code>claude_desktop_config.json</code> with a text editor.</li>
-  <li>Paste the following configuration:</li>
+  <li>Open <code>Settings → MCP Settings</code> in Junie.</li>
+  <li>Click <strong>+</strong> button and paste the following configuration:</li>
 </ol>
 
-<pre><code>{
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@executeautomation/playwright-mcp-server"
-      ]
+<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/e65c3764-51c5-4e21-b3b6-c28824a7b916/" alt="Opening Junie settings" title="Opening Junie settings"></p>
+
+<pre><code>
+  {
+    "mcpServers": {
+      "playwright": {
+        "command": "npx",
+        "args": [
+          "@playwright/mcp@latest"
+        ]
+      }
     }
   }
-}</code></pre>
+</code></pre>
 
-<ul interactive>
-	<li title="<code>claude_desktop_config.json</code> is created"></li>
-	<li title="<code>claude_desktop_config.json</code> is configured as defined above"></li>
-  <li title="After the file is configured, restart Claude Desktop"></li>
-</ul>
+<p>If you are using Junie on Windows, you may need to use PowerShell instead of npx, and modify the configuration as follows:</p>
 
-<p>Now you should see Playwright MCP server under chat settings button:</p>
+<pre><code>
+  {
+    "mcpServers": {
+      "playwright": {
+        "command": "cmd",
+        "args": ["/c", "npx", "-y", "@playwright/mcp@latest"]
+      }
+    }
+  }
+</code></pre>
 
-<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/95696c77-c009-4a2b-85ea-43f7b69ccd73/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Settings" title="Claude MCP Settings"></p>
+<p>After a few seconds the MCP server will be ready to use - you'll see a green toggle button in the MCP servers list.</p>
 
-<p>Click on the Playwright MCP list element to see available tools:</p>
+<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/d9db4451-79c6-4c0c-9d9b-9df8d2feb1e3/" alt="MCP Settings" title="Junie MCP Settings"></p>
 
-<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/4b3a0cfa-4b06-4baf-aacb-4d79275468a2/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Tools" title="Claude MCP Tools"></p>
+<checkable-item title="Playwright MCP server is ready to use"></checkable-item>
 
-<checkable-item title="Playwright MCP tools are listed"></checkable-item>
+<p>You can see the list of available tools in the settings if you click over the status icon:</p>
+
+<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/08ef0dc9-c761-4dfb-8764-43b00890c227/" alt="Playwright MCP Tools" title="Playwright MCP Tools"></p>
 
 <h5>Testing Our Playwright Setup</h5>
 
 <p>Now that we've set up our Playwright MCP server, let's test it by asking the AI to use it to check the weather in New York.</p>
 
-<checkable-item title="Execute following prompt in <strong>Claude Desktop</strong>">
+<checkable-item title="Execute following prompt in <strong>Junie</strong>">
 </checkable-item>
-<pre><code>Using the playwright MCP tools, navigate to weather.com and check the current temperature in New York City.</code></pre>
+<pre><code>Using the playwright MCP tools, check the current temperature in New York City.</code></pre>
 
-<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/42d3c466-369b-4a79-b752-bd3bd618382b/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Claude MCP Tools" title="Claude MCP Tools"></p>
+<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/0ad52025-4836-4ba6-910b-976a71c37c8c/" alt="Junie MCP Tools" title="Junie MCP Tools"></p>
 
-<p>If everything is set up correctly, the AI should be able to use the Playwright tools to open a browser, navigate to Wikipedia and answer the question.</p>
-<checkable-item title="Claude Desktop uses Playwright MCP server to navigate in browser">
+<p>If everything is set up correctly, the AI should be able to use the Playwright tools to open a browser, navigate to a website and answer the question.</p>
+<checkable-item title="Junie uses Playwright MCP server to navigate in browser">
 </checkable-item>
 
 <alert>Browsing with Playwright is not so fast. Give it a time to do the task.</alert>
