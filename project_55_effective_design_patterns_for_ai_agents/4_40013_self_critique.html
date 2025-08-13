@@ -1,84 +1,123 @@
 <!-- Enlighter Metainfo
 {
-  "id": 55004,
-  "title": "Pattern 3: Self-critique Loop",
+  "id": 40013,
+  "title": "Self-critique Loop",
   "next_button_title": "Next"
 }
 -->
-<h5>Self-critique Pattern</h5>
-<p><strong>Problem</strong>: First-pass generations can be mediocre or incorrect. Without review, quality suffers.</p>
-<p><strong>Solution</strong>: Add a critic step that reviews the draft and either proposes improvements or signals completion. Iterate until the critique says "done" or a max loop count is reached.</p>
+<h5>Self-Critique</h5>
+<p>The Self-Critique pattern, also known as Reflection, is a powerful technique that enables an AI agent to review, evaluate, and iteratively improve its own work. Instead of accepting the first output, the agent engages in a loop of generating a response and then critiquing it, much like a human would draft, review, and refine a document.</p>
 
-<h5>When to apply</h5>
+<h5>What Problem Does It Solve?</h5>
+
+<p>Even the most advanced LLMs can produce outputs that are inaccurate, incomplete, or subtly flawed. The Self-Critique pattern addresses this by introducing a quality control loop. This process significantly improves the accuracy and reliability of the final output. Key benefits include:</p>
 <ul>
-  <li>Content generation (draft → critique → refine).</li>
-  <li>Code generation and refactoring.</li>
-  <li>Factual responses that benefit from reviewer scrutiny.</li>
+    <li><strong>Higher Accuracy:</strong> By checking its own work, the agent can catch factual errors, logical inconsistencies, and other mistakes.</li>
+    <li><strong>Improved Quality:</strong> The critique process can refine the clarity, style, and coherence of generated content.</li>
+    <li><strong>Enhanced Reliability:</strong> It is particularly effective for tasks that require high precision, such as code generation or mathematical problem-solving.</li>
 </ul>
 
-<h5>Practical example (Google ADK)</h5>
-<p>Use <code>LoopAgent</code> with a critic and a refiner. Provide an explicit exit condition (e.g., an <code>exit_loop</code> tool or a completion phrase).</p>
+<p>There are two ways to implement the self-critique pattern:</p>
+
+<ul>
+    <li><strong>Non-deterministic approach:</strong> another LLM or agent is used to critique the output of the first agent. This is often called <strong>"LLM as a Judge"</strong>.</li>
+    <li><strong>Deterministic approach:</strong> uses hardcoded rules to assess the output. For example, if the output is not a valid JSON, the agent will regenerate the output.</li>
+</ul>
+
+<h5>When to Apply It</h5>
+
+<p>This pattern is valuable in any scenario where the quality of the generated output is critical. It is especially useful for:</p>
+
+<ul>
+    <li><strong>Content Creation:</strong> An agent can write a draft of an article, then critique it for clarity, tone, and accuracy before producing the final version.</li>
+    <li><strong>Code Generation:</strong> An agent writes a piece of code, and a critique process checks it for bugs, inefficiencies, or violations of coding standards.</li>
+    <li><strong>Problem Solving:</strong> For complex questions, a "generator" agent can propose a solution, and a "critique" agent can verify its correctness.</li>
+</ul>
+
+<img src="https://ucarecdn.com/2f5b5aff-b81c-4199-a501-d02386a1e3e7/" style="margin: auto; display: block; width: 800px" alt="Self-Critique Pattern" />
+
+<warning><p>To avoid bias where a model simply agrees with its own initial output, it's a best practice to use different models and prompts for the generator and the critic. It's usually a good idea to use a more powerful model for the critic.</p></warning>
+
+<h5>Practical Example with Google ADK</h5>
+
+<p>We can implement the Self-Critique pattern in the Google ADK by using <code>LoopAgent</code> with a critic and a refiner. We should also provide an explicit exit condition (e.g., an <code>exit_loop</code> tool or a completion phrase) to know when to stop the loop. Usually it's done by providing specific criteria for the output to be considered good enough.</p>
+
+<callout label="Ask your coding agent to create a self-critique workflow">
+    Using the `google-adk` library, create a root agent that uses a loop agent to critique and refine the output of a generator agent.
+
+    The loop agent should use a critic and a refiner agents.
+    The critic agent should use gemini flash model and critique the output of the generator agent.
+    The refiner agent should use gemini flash model and refine the output of the generator agent.
+    The loop agent should exit the loop when the output is good enough.
+        
+    create a new folder "self_critique" for it with files:
+    __init__.py
+    agent.py
+        
+    make the agent as simple as possible for demonstation purposes
+        
+Use MCP context7.
+</callout>
 
 <alert>
 <details>
-<summary>Iterative refinement with a critic</summary>
-<pre><code>from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
-from google.adk.tools import exit_loop
-
-STATE_DOC = "current_document"
-STATE_CRIT = "criticism"
-COMPLETION_PHRASE = "Looks good."
-
-initial_writer = LlmAgent(
-    name="InitialWriter",
-    model="gemini-2.0-flash",
-    instruction="Write a short draft on the requested topic.",
-    output_key=STATE_DOC,
-)
-
-critic = LlmAgent(
-    name="Critic",
-    model="gemini-2.0-flash",
-    instruction=(
-        "Review state['current_document']. Provide concrete critique if improvements are needed, "
-        f"otherwise output exactly '{COMPLETION_PHRASE}'."
-    ),
-    output_key=STATE_CRIT,
-)
-
-refiner = LlmAgent(
-    name="Refiner",
-    model="gemini-2.0-flash",
-    instruction=(
-        "If the critique equals the completion phrase, call exit_loop. "
-        "Otherwise, apply the critique and output only the revised document.")
-    ,
-    tools=[exit_loop],
-    output_key=STATE_DOC,
-)
-
-refinement_loop = LoopAgent(
-    name="RefineLoop",
-    sub_agents=[critic, refiner],
-    max_iterations=5,
-)
-
-pipeline = SequentialAgent(
-    name="WriteThenRefine",
-    sub_agents=[initial_writer, refinement_loop]
-)
-</code></pre>
+<summary>Self-Critique Workflow Code Example</summary>
+<pre><code>
+    from google.adk.agents import LlmAgent, LoopAgent, Agent
+    from google.adk.tools import exit_loop
+    
+    STATE_DOC = "current_document"
+    STATE_CRIT = "criticism"
+    COMPLETION_PHRASE = "Looks good."
+    
+    critic = LlmAgent(
+        name="Critic",
+        model="gemini-2.0-flash",
+        instruction=(
+            "Review state['current_document']. Provide concrete critique if improvements are needed, "
+            f"otherwise output exactly '{COMPLETION_PHRASE}'."
+        ),
+        output_key=STATE_CRIT,
+    )
+    
+    refiner = LlmAgent(
+        name="Refiner",
+        model="gemini-2.0-flash",
+        instruction=(
+            "If the critique equals the completion phrase, call exit_loop. "
+            "Otherwise, apply the critique and output only the revised document.")
+        ,
+        tools=[exit_loop],
+        output_key=STATE_DOC,
+    )
+    
+    refiner_loop = LoopAgent(
+        name="RefineLoop",
+        sub_agents=[critic, refiner],
+        max_iterations=5,
+    )
+    
+    root_agent = Agent(
+        name="RootAgent",
+        model="gemini-2.0-flash",
+        instruction="You are a root agent that generates a document based on the user's request and refines it using the refiner loop.",
+        sub_agents=[refiner_loop],
+        output_key=STATE_DOC,
+    )
+</code>
+</pre>
 </details>
 </alert>
 
-<warning>To reduce bias, consider using different models or prompting styles for the critic vs. the generator (e.g., higher reasoning model for critique, faster model for drafting).</warning>
+<p>Example of the interaction with the self-critique agent:</p>
 
-<callout label="Ask Cascade: add a self-critique loop">
-Using ADK, implement a writer → critic → refiner loop. Set a max of 3–5 iterations and an explicit completion phrase or an exit tool. Compare outputs with and without critique.
-</callout>
+<img src="https://ucarecdn.com/c61cd1a4-37ac-4348-9f72-39419ddf396f/" style="margin: auto; display: block; width: 800px" alt="Self-Critique Pattern" />
 
-<checkable-item title="My pipeline iterates until critique is satisfied or the loop limit is reached."></checkable-item>
+<p>In this workflow, the <code>root_agent</code> first generates a text based on the user's query and then passes it to the <code>refiner_loop_agent</code> to critique and refine it. When the output is good enough, the loop is exited and the final output is returned. The intermediate results are passed betweeen agents using specific output keys.</p>
 
-<p>Next, you will integrate a human approval step for high-stakes decisions.</p>
+<p>This structured collaboration showcases the power of the <strong>Self-Critique</strong> pattern.</p>
+
+<p>In the next lesson, we will cover the <strong>Human-in-the-Loop</strong> pattern, for when AI needs a human's final say.</p>
+
 
 

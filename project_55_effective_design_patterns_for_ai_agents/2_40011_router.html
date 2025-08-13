@@ -1,71 +1,105 @@
 <!-- Enlighter Metainfo
 {
-  "id": 55002,
-  "title": "Pattern 1: Router",
+  "id": 40011,
+  "title": "Pattern 1: The Router",
   "next_button_title": "Next"
 }
 -->
-<h5>Router Pattern</h5>
-<p><strong>Problem</strong>: A single agent becomes a bottleneck when queries span multiple domains (e.g., search, coding, knowledge retrieval). We need a way to route each request to the most suitable specialist.</p>
-<p><strong>Solution</strong>: Use a coordinator agent with child agents or tools, allowing automatic or explicit delegation. ADK supports this with <code>sub_agents</code> and <code>AgentTool</code> for agent-as-a-tool composition.</p>
+<h5>The Router</h5>
+<p>The Router is a fundamental design pattern in agentic architecture. Its primary role is to act as a traffic controller, receiving a user's request and directing it to the most appropriate tool or specialized agent for handling. This pattern is one of the most straightforward ways to structure an agent, yet it provides immense value by creating a modular and efficient system.</p>
 
-<h5>When to apply</h5>
+<h5>What Problem Does It Solve?</h5>
+<p>As you build more complex agents, you'll equip them with multiple capabilities or "tools." An agent might need to search the web, query a database, or analyze data. Without a clear system, the agent's main LLM would have to decide which tool to use from a potentially long list every single time, which can be inefficient and error-prone. A router simplifies this by decoupling the decision-making from the execution. It acts as a classification layer, using an LLM or other methods to make one simple choice: which path should this request follow? This makes the system more scalable, easier to debug, and often faster, as it can avoid unnecessary LLM calls.</p>
+<alert>
+    <p>The router pattern also helps to optimize the cost and latency of the system by deciding if the task should be handled by 'expensive' calls with reasoning or 'cheap' calls with less powerful LLMs. This approach is one of the inovation used by OpenAI in GPT-5 realese.</p>
+</alert>
+<h5>When to Apply It</h5>
+<p>The Router pattern is ideal for agents that have a clear, limited set of distinct skills or functions. Common use cases include:</p>
 <ul>
-  <li>Multi-domain assistants (coding, search, math, RAG).</li>
-  <li>Customer support triage (billing vs. tech vs. account).</li>
-  <li>Any system where capabilities are clearly separable.</li>
+    <li><strong>Customer Support Bots:</strong> Routing a user's query to the "Billing," "Technical Support," or "General Inquiry" sub-agent.</li>
+    <li><strong>Data Analysis Co-pilots:</strong> Deciding whether the user wants to "look up data," "analyze data," or "visualize data."</li>
+    <li><strong>Multi-modal Agents:</strong> Choosing between a text-processing tool for written questions and an image-analysis tool for uploaded images.</li>
 </ul>
 
-<h5>Practical example (Google ADK)</h5>
-<p>The coordinator delegates to a Search specialist or a Code specialist. This mirrors the ADK pattern of composing agents with <code>sub_agents</code> or wrapping an agent as a tool via <code>AgentTool</code>.</p>
+<img src="https://ucarecdn.com/14590e92-50dc-4fe0-98c6-d13dbfbe772f/" style="margin: auto; display: block; width: 800px" alt="Router Diagram" />
+
+<p>If your workflow can be broken down into a set of well-defined, independent functions, the Router pattern is an excellent starting point.</p>
+
+<h5>Practical Example with Google ADK</h5>
+<p>The Google Agent Development Kit (ADK) enables dynamic routing by allowing an `LlmAgent` to choose the correct tool based on the user's prompt. Let's create a simple customer service router.</p>
+<p>Imagine we have two specialized functions (our "tools"): one for handling financial questions and another for technical support. The router agent's job is to call the right one.</p>
+
+<callout label="Ask your coding agent to create a router agent">
+Using the `google-adk` library, create a router agent that has two tools: `handle_finance_query` and `handle_tech_support_query`. 
+The agent's instruction should tell it to act as a router.
+    
+create a new folder for it with files:
+__init__.py
+agent.py
+    
+make the agent as simple as possible for demonstation purposes
+    
+Use MCP context7.
+</callout>
 
 <alert>
 <details>
-<summary>Coordinator with sub-agents (auto routing)</summary>
-<pre><code>from google.adk.agents import Agent
-from google.adk.tools import google_search
-from google.adk.tools.agent_tool import AgentTool
-from google.adk.code_executors import BuiltInCodeExecutor
+<summary>Router Agent Code Example</summary>
+<pre><code>
+from google.adk.agents import Agent
+from google.adk.tools import FunctionTool
 
-search_agent = Agent(
-    model='gemini-2.0-flash',
-    name='SearchAgent',
+def handle_finance_query(query: str) -> dict:
+    return {
+        "status": "success",
+        "result": f"Finance query handled: {query}. This would typically connect to financial APIs or databases."
+    }
+
+
+def handle_tech_support_query(query: str) -> dict:
+    return {
+        "status": "success", 
+        "result": f"Tech support query handled: {query}. This would typically connect to knowledge bases or ticketing systems."
+    }
+   
+    
+# Create the router agent
+root_agent = Agent(
+    name="router_agent",
+    model="gemini-2.0-flash",
+    description="A router agent that directs queries to appropriate specialized tools.",
     instruction="""
-    You are a specialist in Google Search. Use the search tool when needed.
+    You are a router agent. Your job is to analyze user queries and route them to the appropriate specialized tool.
+        
+    - If the query is related to finance, money, investments, banking, accounting, or financial planning, use the handle_finance_query tool.
+    - If the query is related to technical support, IT issues, software problems, hardware issues, or technical troubleshooting, use the handle_tech_support_query tool.
+        
+    Always use the appropriate tool based on the query content. Do not try to answer the query yourself - let the specialized tools handle the responses.
     """,
-    tools=[google_search],
+    tools=[
+        FunctionTool(func=handle_finance_query),
+        FunctionTool(func=handle_tech_support_query)
+    ]
 )
-
-code_agent = Agent(
-    model='gemini-2.0-flash',
-    name='CodeAgent',
-    instruction="""
-    You are a code execution specialist.
-    """,
-    code_executor=[BuiltInCodeExecutor],
-)
-
-router = Agent(
-    model='gemini-2.0-flash',
-    name='Router',
-    instruction=(
-        "You are a coordinator. Delegate web lookup to SearchAgent and coding tasks "
-        "to CodeAgent. If neither applies, answer directly."
-    ),
-    # Either include as tools (Agent-as-a-Tool) or as sub_agents.
-    tools=[AgentTool(agent=search_agent), AgentTool(agent=code_agent)],
-    # Alternatively: sub_agents=[search_agent, code_agent]
-)
-</code></pre>
+</code>
+</pre>
 </details>
 </alert>
 
-<callout label="Ask Cascade: build a router with two specialists">
-Using Google ADK, create a coordinator agent named "Router" and two specialists: "SearchAgent" with the Google Search tool and "CodeAgent" with code execution. Demonstrate delegation by asking a search question and a coding request.
-</callout>
+<p>In this example, the `Agent` in the ADK acts as the router. Its `instruction` prompt guides it to perform a classification task, and its `tools` are the different routes it can take. This creates a clean separation of concerns and a reliable workflow.</p>
 
-<checkable-item title="I can route a search query to SearchAgent and a code task to CodeAgent."></checkable-item>
+<p>Now let's test it.</p>
 
-<p>Next, you will separate planning from execution to balance quality and speed.</p>
+<p>first, make sure you have epmty <code>__init__.py</code> file in the router folder and your Agent is called <code>root_agent</code>. These are important for the ADK to work properly.</p>
 
+<p>Then, open terminal and run the command <code>adk web</code>. This will start the agent and provide the web interface to interact with it. It's usually available at <code>http://localhost:8000/dev-ui</code>.</p>
 
+<p>You can now interact with the agent by sending it a query. For example, "I need help with my finance query." or "I need help with my tech support query."</p>
+
+<p>Here is the example of the interaction with an agent that has router pattern:</p>
+
+<img src="https://ucarecdn.com/7f9e3af9-2d0c-4598-98c4-11e6c0068dc5/" style="margin: auto; display: block; width: 800px" alt="Router Diagram" />
+
+<p>You can see that the agent has successfully routed the query to the appropriate tool based on the query content.</p>
+
+<p>In our next lesson, we'll examine the Planner pattern, which handles more complex, multi-step tasks efficiently.</p>

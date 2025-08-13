@@ -1,64 +1,85 @@
 <!-- Enlighter Metainfo
 {
-  "id": 55003,
-  "title": "Pattern 2: Planner → Executor",
+  "id": 40012,
+  "title": "Planner → Executor",
   "next_button_title": "Next"
 }
 -->
-<h5>Planner → Executor Pattern</h5>
-<p><strong>Problem</strong>: One model trying to both plan and execute complex tasks often yields poor quality or slow responses.</p>
-<p><strong>Solution</strong>: Use a strong model to produce a plan, then hand the plan to a cheaper/faster model to execute. In ADK, you can compose this with a <code>SequentialAgent</code> or custom orchestration.</p>
+<h5>The Planner</h5>
+<p>For complex tasks that require multiple steps, a simple router isn't enough. The Planner pattern addresses this by using an AI agent to first break down a large goal into a sequence of smaller, manageable sub-tasks. This "plan-and-execute" approach allows for more sophisticated and reliable problem-solving.</p>
 
-<h5>When to apply</h5>
+<h5>What Problem Does It Solve?</h5>
+<p>LLMs can struggle when asked to solve a multi-step problem in one go. They might miss steps, execute them in the wrong order, or lose track of the overall objective. The Planner pattern solves this by creating an explicit plan first. This has several advantages:
 <ul>
-  <li>Complex, multi-step goals (research → summarize → format).</li>
-  <li>Workloads sensitive to latency/cost at execution time.</li>
-  <li>Clear separation between "what to do" and "do it".</li>
-  </ul>
+    <li><strong>Improved Reliability:</strong> Forcing the model to "think through" all the steps improves the quality and success rate of the outcome.</li>
+    <li><strong>Efficiency and Cost Savings:</strong> You can use a powerful, reasoning model to create the plan and then use smaller, faster, and cheaper models to execute each individual sub-task. This will optimize the cost and latency of the system while improving the quality of the output.</li>
+    <li><strong>Better Control and Observability:</strong> With a clear plan, it's easier for developers to understand, debug, and guide the agent's behavior.</li>
+</ul>
+</p>
 
-<h5>Practical example (Google ADK)</h5>
-<p>The Planner writes a structured plan to shared state. The Executor reads it and performs steps quickly.</p>
+<h5>When to Apply It</h5>
+<p>The Planner pattern is best for complex, multi-step tasks where the sequence of actions is not fixed and must be determined dynamically. Examples include:</p>
+<ul>
+    <li><strong>Research Assistants:</strong> A request to "write a report on the impact of AI on the job market" could be planned as: 1. Search for recent academic papers. 2. Summarize key findings. 3. Find relevant news articles. 4. Synthesize the information into a report.</li>
+    <li><strong>Software Development:</strong> A task to "add a new feature" can be broken down into sub-tasks like "write the API endpoint," "create the frontend component," and "write integration tests."</li>
+    <li><strong>Travel Planning:</strong> Planning a trip involves sequential tasks like booking flights, reserving hotels, and creating an itinerary.</li>
+</ul>
+
+<img src="https://ucarecdn.com/61923bf0-0bae-4d8e-9c86-7a655d2b6f9a/" style="margin: auto; display: block; width: 800px" alt="Planner Agent Interaction" />
+
+<h5>Practical Example with Google ADK</h5>
+<p>The Google Agent Development Kit (ADK) supports the Planner → Executor pattern using <code>SequentialAgent</code>. This agent allows you to chain multiple agents together, where one agent can act as the "Planner" and another as the "Executor."</p>
+<p>Let's create an agent that first plans how to answer a research question and then executes that plan. The planner will break down the task, and the executor will handle the individual steps.</p>
+
+<callout label="Ask your coding agent to create a planner agent">
+Using the `google-adk` library, create a planner and executor agents. 
+Planner agent should use smart gemini pro model and create a plan for the task.
+Executor agent should use gemini flash model and execute a specific step in the plan.
+Use SequentialAgent to chain them together.
+    
+create a new folder "planner" for it with files:
+__init__.py
+agent.py
+    
+make the agent as simple as possible for demonstation purposes
+    
+Use MCP context7.
+</callout>
 
 <alert>
 <details>
-<summary>Planner and Executor with shared state</summary>
-<pre><code>from google.adk.agents import LlmAgent, SequentialAgent
-
-PLAN_KEY = "plan_steps"
-
-planner = LlmAgent(
-    name="Planner",
-    model="gemini-2.0-flash",  # consider a higher-quality model for planning
-    instruction=(
-        "Break the user's goal into 3-6 concrete steps. Output a numbered list. "
-        f"Save them in state['{PLAN_KEY}'] as a JSON array of strings."
-    ),
-    output_key=PLAN_KEY,
+<summary>Planner Agent Code Example</summary>
+<pre>
+<code>
+from google.adk.agents import SequentialAgent
+from google.adk.agents import Agent
+    
+planner_agent = Agent(
+    model="gemini-2.5-pro",
+    name="planner_agent",
+    instruction="You are a planning assistant. Given a user task, produce a concise, actionable plan containing sub-tasks.",
 )
-
-executor = LlmAgent(
-    name="Executor",
-    model="gemini-2.0-flash",  # can use a cheaper/faster variant
-    instruction=(
-        f"Read state['{PLAN_KEY}']. Execute each step succinctly. "
-        "Return the final result."
-    ),
+    
+executor_agent = Agent(
+    model="gemini-2.5-flash",
+    name="executor_agent",
+    instruction="You are an execution assistant. You'r goal is to execute sub-tasks from the plan.",
 )
-
-pipeline = SequentialAgent(
-    name="PlanThenExecute",
-    sub_agents=[planner, executor]
+    
+root_agent = SequentialAgent(
+    name="root_agent",
+    sub_agents=[
+        planner_agent,
+        executor_agent
+    ]
 )
-</code></pre>
+</code>
+</pre>
 </details>
 </alert>
+<p>Let's look at the example of the interaction with the planner agent:</p>
 
-<callout label="Ask Cascade: create a plan-execute pipeline">
-Using ADK, implement a two-stage pipeline where the first agent writes a plan to state and the second agent executes it. Test with a multi-step task (e.g., "Research 3 libraries, compare, and recommend one").
-</callout>
+<img src="https://ucarecdn.com/c3ed7a44-5a1c-4c61-bab6-d6c407e8b482/" style="margin: auto; display: block; width: 800px" alt="Planner Agent Interaction" />
 
-<checkable-item title="A plan is generated and then executed by a separate agent."></checkable-item>
-
-<p>Next, you will add a self-critique loop to improve quality via an internal reviewer.</p>
-
-
+<p>In this example, <code>SequentialAgent</code> runs the `planner_agent` first to create a plan. Then, it passes the plan to the `executor_agent` to carry out the steps. This separation of concerns—planning versus execution—is a powerful way to build more reliable and complex agents.</p>
+<p>Next, we will look at the <strong>Self-Critique</strong> pattern, which helps agents improve the quality of their own outputs.</p>
