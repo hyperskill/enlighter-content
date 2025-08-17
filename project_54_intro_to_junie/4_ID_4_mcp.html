@@ -1,0 +1,68 @@
+<!-- Enlighter Metainfo
+{
+  "id": "ID_4",
+  "title": "Advanced Customization: Extending Junie with MCP",
+  "next_button_title": "Got it. Let's talk about safety"
+}
+-->
+
+<h5>Unlocking New Capabilities with MCP</h5>
+
+<p>Junie's functionality can be dramatically expanded by connecting it to <strong>Model Context Protocol (MCP) servers</strong>. MCP is a standardized way for AI agents to interact with external tools and data sources, such as file systems, databases, or third-party APIs like GitHub.</p>
+
+<p>By configuring an MCP server, you give Junie a new set of "tools" it can use to accomplish tasks. For example, the official GitHub MCP server provides tools for reading issues, creating pull requests, and searching for code—all of which Junie can then incorporate into its plans.</p>
+
+<h5>Configuring an MCP Server</h5>
+<p>You can configure MCP servers at a global level (for all projects) or at a project level. Let's add a project-level configuration for the "File System" MCP server, which is a useful utility for many tasks.</p>
+
+<p>First, ask Junie to create the configuration file.</p>
+<callout label="Paste to Junie" type="chat">
+Create a project-level MCP configuration file at `.junie/mcp/mcp.json`.
+</callout>
+
+<p>Now that the file is created, we need to add the server configuration to it. This JSON snippet tells Junie how to run the File System MCP server, which is distributed as a Docker container.</p>
+
+<precode path=".junie/mcp/mcp.json">
+{
+  "mcpServers": {
+    "fs": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-v",
+        "${result:pwd}:${result:pwd}",
+        "-w",
+        "${result:pwd}",
+        "ghcr.io/modelcontextprotocol/fs-mcp-server"
+      ]
+    }
+  }
+}
+</precode>
+
+<alert>After saving this file, Junie will automatically detect the new MCP server. You can verify this by going to <code>Settings → Tools → Junie → MCP Settings</code>. You should see the "fs" server listed.</alert>
+
+<h5>Using the New Tool</h5>
+<p>With the File System MCP server active, Junie now has access to tools like `readFile`, `writeFile`, and `listFiles`. You don't need to mention these tool names explicitly. You can simply state your goal, and Junie will figure out which tool to use.</p>
+
+<callout label="Paste to Junie" type="chat">
+Using the available tools, list all the files in the root directory of this project and save the list to a new file named `project_files.txt`.
+</callout>
+
+<p>In its plan, Junie will now show a step that involves calling the `listFiles` tool from the "fs" server, followed by a step to write that output to a file. You've successfully extended Junie's capabilities!</p>
+
+<ul interactive>
+  <li title="Create the MCP configuration file">
+    Have Junie create the `.junie/mcp/mcp.json` file.
+  </li>
+  <li title="Add the File System server config">
+    Use the `<precode>` block to populate the `mcp.json` file.
+  </li>
+  <li title="Test the new file system tool">
+    Give Junie the prompt to list the project files and verify that it uses the new MCP tool in its plan.
+  </li>
+</ul>
+
+<p>MCP is a powerful way to integrate Junie into your specific development environment and workflows. In the next stage, we'll cover how to keep your workspace safe by telling Junie what it should and shouldn't touch.</p>

@@ -1,0 +1,45 @@
+<!-- Enlighter Metainfo
+{
+  "id": "ID_5",
+  "title": "Advanced Safety: Using .aiignore and Allow Lists",
+  "next_button_title": "I'm ready to wrap up"
+}
+-->
+
+<h5>Setting Boundaries for the Agent</h5>
+
+<p>While Junie's planning-first approach provides a strong safety net, you might have sensitive files or critical configurations that you want to be absolutely certain the AI will not touch without explicit permission. Junie provides two key features for this: <code>.aiignore</code> files and the <strong>Action Allowlist</strong>.</p>
+
+<h5>Restricting Access with <code>.aiignore</code></h5>
+<p>Similar to <code>.gitignore</code>, an <code>.aiignore</code> file in your project root tells Junie which files and folders it should not process. If a task requires accessing an ignored file, Junie will stop and ask for your explicit approval.</p>
+
+<p>Let's create an <code>.aiignore</code> file to protect our newly created MCP configuration.</p>
+
+<callout label="Paste to Junie" type="chat">
+Create an `.aiignore` file in the project root. Add the `.junie/` directory to it, so that the agent does not touch any files within it without my permission.
+</callout>
+
+<p>Now, if you were to ask Junie to modify the MCP configuration, it would first present a warning and require you to approve the action, giving you an extra layer of security for critical project files.</p>
+
+<ul interactive>
+  <li title="Create the .aiignore file">
+    Use the prompt to have Junie generate the file and add the `.junie/` directory to it.
+  </li>
+</ul>
+
+<h5>Automating Approval with the Action Allowlist</h5>
+<p>On the other hand, some actions are so routine and safe that you might not want to be prompted for approval every time. A perfect example is running `git status` to check the state of the repository. You can add safe, common commands to the <strong>Action Allowlist</strong>.</p>
+
+<p>To do this:</p>
+<ol>
+    <li>Go to <code>Settings → Tools → Junie → Action Allowlist</code>.</li>
+    <li>Click the <strong>Add</strong> button and select <strong>Terminal Rule</strong>.</li>
+    <li>In the text box, you can enter a specific command (e.g., `git status`) or a regular expression to match a pattern of commands.</li>
+</ol>
+
+<p>For example, adding `^git\s` as a regex would allow Junie to run any `git` command without asking you first. This is a powerful feature to streamline your workflow for trusted actions.</p>
+
+<p><img style="margin: auto; display: block;" src="https://i.imgur.com/your-image-url.png" alt="Junie Action Allowlist settings" title="Junie Action Allowlist settings"></p>
+<alert>Use the Action Allowlist wisely. Only add commands that you are completely confident are safe to be run automatically in your project context.</alert>
+
+<p>By combining <code>.aiignore</code> for sensitive files and the Action Allowlist for routine commands, you can fine-tune your interaction with Junie to be both efficient and secure.</p>
