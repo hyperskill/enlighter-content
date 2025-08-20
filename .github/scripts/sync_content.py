@@ -7,6 +7,10 @@ import subprocess
 from supabase import create_client
 
 # Initialize Supabase client
+# Global flag to indicate if any non-fatal errors occurred; used to fail CI at the end
+error_occurred = False
+
+# Initialize Supabase client
 url = os.environ.get("SUPABASE_URL")
 key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(url, key)
@@ -235,10 +239,10 @@ def extract_info_from_filename(filename, is_draft=False):
     }
 
 def get_stage_from_supabase(stage_id):
-    """Get stage from Supabase by ID."""
+    """Get stage from Supabase by ID, including enabled flag and project_id."""
     response = (
         supabase.table("stages")
-        .select("id, title, description, github_file_url, next_button_title")
+        .select("id, title, description, github_file_url, next_button_title, enabled, project_id")
         .eq("id", stage_id)
         .execute()
     )
@@ -247,24 +251,51 @@ def get_stage_from_supabase(stage_id):
         return response.data[0]
     return None
 
+
+def get_project_stages_from_supabase(project_id):
+    """Get all stages for a project from Supabase by project_id."""
+    response = (
+        supabase.table("stages")
+        .select("id, title")
+        .eq("project_id", project_id)
+        .execute()
+    )
+    return response.data or []
+
+
+def disable_stage_in_supabase(stage_id):
+    """Disable a stage in Supabase by setting enabled=false if the column exists."""
+    # We optimistically set enabled=false. If the column doesn't exist in schema, Supabase will raise an error.
+    # In that unlikely case, the CI logs will show it; but per project schema, stages support enabled.
+    return (
+        supabase.table("stages")
+        .update({"enabled": False})
+        .eq("id", stage_id)
+        .execute()
+    )
+
 def get_github_file_url(file_path):
     """Construct GitHub URL for a file."""
     return f"https://github.com/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/blob/main/{file_path}"
 
-def update_stage_in_supabase(stage_id, description, github_file_url, title, next_button_title):
-    """Update stage description and GitHub URL in Supabase."""
+def update_stage_in_supabase(stage_id, description, github_file_url, title, next_button_title, project_id):
+    """Update stage fields in Supabase and ensure it's enabled when present in code, including project_id."""
     response = (
         supabase.table("stages")
         .update({
             "description": description,
             "github_file_url": github_file_url,
             "title": title,
-            "next_button_title": next_button_title
+            "next_button_title": next_button_title,
+            "enabled": True,
+            "project_id": project_id,
         })
         .eq("id", stage_id)
         .execute()
     )
     return response
+
+
 
 def extract_metadata_from_html(file_content):
     """Extract metadata from HTML file content."""
@@ -282,7 +313,7 @@ def extract_metadata_from_html(file_content):
     return None
 
 def create_stage_in_supabase(stage_id, title, description, github_file_url, project_id, order_num, next_button_title=None):
-    """Create a new stage in Supabase."""
+    """Create a new stage in Supabase and ensure it's enabled."""
     response = (
         supabase.table("stages")
         .insert({
@@ -292,13 +323,15 @@ def create_stage_in_supabase(stage_id, title, description, github_file_url, proj
             "github_file_url": github_file_url,
             "project_id": project_id,
             "order_num": order_num,
-            "next_button_title": next_button_title
+            "next_button_title": next_button_title,
+            "enabled": True,
         })
         .execute()
     )
     return response
 
 def main():
+    global error_occurred
     # Find all project directories
     project_dirs = glob.glob("project_*")
     print(f"Found {len(project_dirs)} project directories")
@@ -404,6 +437,9 @@ def main():
         total_html_files += len(html_files)
         print(f"Found {len(html_files)} HTML files in {project_dir}")
 
+        # Track stage IDs present in code for this project
+        stage_ids_in_code = set()
+
         # Process each HTML file in this project directory
         for html_file in html_files:
             # Extract information from filename
@@ -417,6 +453,9 @@ def main():
             # Get stage from Supabase
             stage_id = file_info['id']
             stage = get_stage_from_supabase(stage_id)
+            # Track this stage as present in code
+            stage_ids_in_code.add(stage_id)
+
 
             # Read HTML content from file
             with open(html_file, 'r', encoding='utf-8') as f:
@@ -462,8 +501,12 @@ def main():
             next_button_changed = next_button_title != stage.get('next_button_title')
             # Check if github_file_url has changed
             github_url_changed = github_file_url != stage.get('github_file_url')
+            # Check if stage is disabled and needs re-enabling
+            need_enabled = (stage.get('enabled') is False)
+            # Check if project_id differs
+            project_id_changed = project_info and (stage.get('project_id') != project_info['id'])
 
-            if content_changed or title_changed or next_button_changed or github_url_changed:
+            if content_changed or title_changed or next_button_changed or github_url_changed or need_enabled or project_id_changed:
                 # Create a list of changed fields for detailed logging
                 changes = []
                 if content_changed:
@@ -474,10 +517,14 @@ def main():
                     changes.append("next_button_title")
                 if github_url_changed:
                     changes.append("github_file_url")
+                if need_enabled:
+                    changes.append("enabled")
+                if project_id_changed:
+                    changes.append("project_id")
 
                 print(f"Updating stage {stage_id} ({title}) - Changed fields: {', '.join(changes)}")
 
-                update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title)
+                update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title, project_info['id'] if project_info else None)
 
                 # Increment the appropriate counter based on whether the stage is a draft
                 if stage_id < 0:
@@ -486,6 +533,24 @@ def main():
                     updated_count += 1
             else:
                 print(f"No changes for stage {stage_id} ({stage.get('title', '')})")
+
+        # After processing all files in this project, disable stages missing from code
+        try:
+            existing_stages = get_project_stages_from_supabase(project_id)
+            existing_stage_ids = {s['id'] for s in existing_stages}
+            missing_stage_ids = existing_stage_ids - stage_ids_in_code
+            if missing_stage_ids:
+                print(f"Disabling {len(missing_stage_ids)} stage(s) in Supabase that are missing from code for project {project_id}")
+                for missing_id in sorted(missing_stage_ids):
+                    print(f"Disabling stage {missing_id} (absent in repository)")
+                    try:
+                        disable_stage_in_supabase(missing_id)
+                    except Exception as e:
+                        print(f"ERROR: Failed to disable stage {missing_id}: {e}")
+                        error_occurred = True
+        except Exception as e:
+            print(f"ERROR: Could not fetch/compare project stages for disabling: {e}")
+            error_occurred = True
 
     print("\nSummary:")
 
@@ -515,6 +580,11 @@ def main():
         for project in all_draft_projects:
             # Format: DRAFT_PROJECT:<draft_id>:<original_id>:<title>:<pr_number>
             print(f"DRAFT_PROJECT:{project['draft_id']}:{project['original_id']}:{project['title']}:{project['pr_number']}")
+
+    # If any non-fatal errors were recorded, fail the CI with non-zero exit
+    if error_occurred:
+        print("\nERROR: One or more errors occurred during synchronization. Failing CI.")
+        exit(1)
 
 if __name__ == "__main__":
     main()
