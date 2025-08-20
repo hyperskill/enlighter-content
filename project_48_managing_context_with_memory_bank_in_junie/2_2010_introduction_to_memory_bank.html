@@ -45,19 +45,51 @@
 
 <h5>Setting Up Memory Bank</h5>
 
-<callout label="Ask Junie to copy Memory Bank repo">
-Copy the 'src/mcp_memory_bank' folder from the repo:
+<p>
+  To set up Memory Bank we will use <a href="https://github.com/ipospelov/mcp-memory-bank">Memory Bank MCP Server</a>. 
+  It's a simple way to create a Memory Bank for your projects automatically based on provided context.
+</p>
 
-https://github.com/ipospelov/mcp-memory-bank
+<p>First of all, we need to install uv and uvx tools to run Memory Bank MCP Server.</p>
+
+<callout label="Install uv and uvx tool">
+  Install uv and uvx tool if it's not installed yet
 </callout>
 
+<p>Then, we need to configure Memory Bank MCP Server.</p>
 
-<h5>Limitations</h5>
+<callout label="Create mcp.json config with Memory Bank MCP Server">
+1. Create .junie/mcp/ folder in project if it doesn't exist.
+2. Create mcp.json file in this folder with the following content:
 
-<warning>Original MCP implementation works as an MCP server, which is currently not supported in Junie, but in this tutorial we'll show a workaround on how to achieve same performance without MCP server functionality.</warning>
+{
+    "mcpServers": {
+        "mcp-memory-bank": {
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/ipospelov/mcp-memory-bank",
+                "mcp_memory_bank"
+            ]
+        }
+    }
+}
 
-<h5>Outcome</h5>
+If mcp.json file is already created, just add "mcp-memory-bank" to the "mcpServers" array.
+</callout>
 
-<checkable-item title="Contents of https://github.com/ipospelov/mcp-memory-bank/src/mcp_memory_bank are stored in the project folder"></checkable-item>
+<checkable-item title="The file ./junie/mcp/mcp.json is created and has the proper content"></checkable-item>
+
+<p>Now we need to activate Memory Bank MCP Server in Junie settings. Go to <strong>Settings → Tools → Junie → MCP settings</strong> and click on the <strong>Edit config</strong> button.</p>
+
+<p>Toggle <strong>mcp-memory-bank</strong> and click the <strong>Apply</strong> button.</p>
+
+<p>After that the status icon for the Memory bank MCP server should change to green and you can see the list of available tools in the settings.</p>
+
+<p>
+    <img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/ffea3756-4640-4796-8665-78b66da54a04/" alt="Memory Bank MCP Server" title="Memory Bank MCP Server">
+</p>
+
+<checkable-item title="Memory Bank MCP Server is activated in Junie settings"></checkable-item>
 
 <p>In the next stage, we'll dive deeper into the Memory Bank concept, exploring the file hierarchy and how the different components work together to maintain context.</p> 
