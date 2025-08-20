@@ -56,11 +56,14 @@ jobs:
 
       - name: Post comment
         if: |
-          failure() && github.event_name == 'pull_request_target'
+          (failure() || success()) && github.event_name == 'pull_request_target'
         uses: mshick/add-pr-comment@v2
         with:
           refresh-message-position: true
           message-id: validation
+          message: failure
+          message-success: |
+            ## Validation Success
           message-failure: |
             ## Validation is failed
             
@@ -184,6 +187,7 @@ jobs:
         with:
           refresh-message-position: true
           message-id: draft
+          status: success
           message-success: |
             ## 🚀 Draft Projects Created
 
