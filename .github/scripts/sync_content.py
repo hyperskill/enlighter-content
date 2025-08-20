@@ -239,10 +239,10 @@ def extract_info_from_filename(filename, is_draft=False):
     }
 
 def get_stage_from_supabase(stage_id):
-    """Get stage from Supabase by ID, including enabled flag."""
+    """Get stage from Supabase by ID, including enabled flag and project_id."""
     response = (
         supabase.table("stages")
-        .select("id, title, description, github_file_url, next_button_title, enabled")
+        .select("id, title, description, github_file_url, next_button_title, enabled, project_id")
         .eq("id", stage_id)
         .execute()
     )
@@ -278,8 +278,8 @@ def get_github_file_url(file_path):
     """Construct GitHub URL for a file."""
     return f"https://github.com/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/blob/main/{file_path}"
 
-def update_stage_in_supabase(stage_id, description, github_file_url, title, next_button_title):
-    """Update stage fields in Supabase and ensure it's enabled when present in code."""
+def update_stage_in_supabase(stage_id, description, github_file_url, title, next_button_title, project_id):
+    """Update stage fields in Supabase and ensure it's enabled when present in code, including project_id."""
     response = (
         supabase.table("stages")
         .update({
@@ -288,11 +288,14 @@ def update_stage_in_supabase(stage_id, description, github_file_url, title, next
             "title": title,
             "next_button_title": next_button_title,
             "enabled": True,
+            "project_id": project_id,
         })
         .eq("id", stage_id)
         .execute()
     )
     return response
+
+
 
 def extract_metadata_from_html(file_content):
     """Extract metadata from HTML file content."""
@@ -453,6 +456,7 @@ def main():
             # Track this stage as present in code
             stage_ids_in_code.add(stage_id)
 
+
             # Read HTML content from file
             with open(html_file, 'r', encoding='utf-8') as f:
                 file_content = f.read()
@@ -499,8 +503,10 @@ def main():
             github_url_changed = github_file_url != stage.get('github_file_url')
             # Check if stage is disabled and needs re-enabling
             need_enabled = (stage.get('enabled') is False)
+            # Check if project_id differs
+            project_id_changed = project_info and (stage.get('project_id') != project_info['id'])
 
-            if content_changed or title_changed or next_button_changed or github_url_changed or need_enabled:
+            if content_changed or title_changed or next_button_changed or github_url_changed or need_enabled or project_id_changed:
                 # Create a list of changed fields for detailed logging
                 changes = []
                 if content_changed:
@@ -513,10 +519,12 @@ def main():
                     changes.append("github_file_url")
                 if need_enabled:
                     changes.append("enabled")
+                if project_id_changed:
+                    changes.append("project_id")
 
                 print(f"Updating stage {stage_id} ({title}) - Changed fields: {', '.join(changes)}")
 
-                update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title)
+                update_stage_in_supabase(stage_id, file_content, github_file_url, title, next_button_title, project_info['id'] if project_info else None)
 
                 # Increment the appropriate counter based on whether the stage is a draft
                 if stage_id < 0:
