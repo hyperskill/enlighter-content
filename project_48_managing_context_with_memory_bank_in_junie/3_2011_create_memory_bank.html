@@ -71,18 +71,8 @@
 
 <h5>Memory Bank files creation</h5>
 
-<p>Now, we need to explain to Junie what Memory Bank is, and how to use it in the projects. </p>
-
-<p>Let's ask Junie to analyse the contents of Memory Bank implementation. As the original repo contains code for MCP set-up, we need to explicitly ask Junie to ignore those parts.</p>
-
-<callout label="Ask Junie to aggregate information from Memory Bank repo">
-In the scr/mcp_memory_bank analyse all the .py files, guides and templates - they contain set of instructions, rules and prompts to an LLM-agent, which can help in developing a complex codebase, and managing context in it. Aggregate all these instructions into '.junie/guidelines.md'
-
-Ignore the MCP set-up, let's create a single document explaining how the memory bank should work.
-
-in the '.junie/guidelines.md' file, please include the line on top:
-
-'# Please use Memory Bank system while working on the project. Always refer to the documentation below'
+<callout label="Ask Cursor to create Memory Bank files">
+  Based on snake_game.md create memory bank files. Use Memory Bank MCP.
 </callout>
 
 <checkable-item title="Memory Bank Instructions are created in .junie/guidelines.md"></checkable-item>
