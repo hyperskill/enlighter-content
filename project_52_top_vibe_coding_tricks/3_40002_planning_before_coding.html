@@ -1,0 +1,50 @@
+<!-- Enlighter Metainfo
+{
+"id": 40002,
+"title": "Vibe Coding Trick 2: Planning Before You Code",
+"next_button_title": null
+}
+-->
+<h5>Introduction</h5>
+<p>Now that you understand your role as a manager, it's time to learn your most important duty: creating a plan. Before you ask your AI to write a single line of code, you must first collaborate with it to build a project plan.</p>
+<p>This single technique is arguably the most effective way to get better, more consistent results from your AI. A good plan acts as the project's long-term memory and guiding star, keeping both you and your AI intern focused and aligned.</p>
+<h5>The Challenge: The Intern with No Long-Term Plan</h5>
+<p>Imagine giving an intern a pile of bricks and saying, "build a house." Without a plan, they would start laying bricks randomly. The same is true for your AI. When you give it tasks without a master plan, you run headfirst into its core psychological weaknesses:</p>
+<ul>
+<li><strong>Amnesia Sets In:</strong> As we learned, your intern has a poor short-term memory (a limited context window). Without a written plan to refer back to, it will forget the project's goals and the features you've already built.</li>
+<li><strong>Bad Decisions Are Made:</strong> Lacking the "bigger picture," the AI will make poor architectural choices. It might build a feature in a way that conflicts with a future requirement that you haven't stated yet.</li>
+<li><strong>Effort is Wasted:</strong> Without clear milestones, you can't tell if you're making meaningful progress. You might spend hours on a feature only to realize it doesn't fit the overall goal, forcing you to scrap the work and start over.</li>
+</ul>
+<p>Giving tasks without a plan isn't just inefficient; it's poor management. You are setting your talented intern up to fail.</p>
+<h5>The Trick: Creating Your Plan</h5>
+<p>The solution is to work with your AI to create a project plan before the coding begins. This process involves having the AI generate a formal project plan, which you then review and approve. This plan will can live in a `plan.md` file at the root of your project or in a special file depending on the IDE or AI agent you are using.</p>
+<p>A good plan contains three critical sections:</p>
+<ul>
+<li><strong>The Goal:</strong> A clear description of what you're building. Project Requirements Document is a good example of this.</li>
+<li><strong>Context:</strong> Provide all important details about your product, such as the target audience, technical requirements, and limitations.</li>
+<li><strong>The Milestones:</strong> The project broken down into small, concrete, and testable steps. Each milestone is a mini-victory that moves you forward.</li>
+</ul>
+<alert>
+<strong>Pro Tip: Use the Right Model for the Planning</strong>
+<p>For high-level strategic thinking, like creating a project plan, it's best to use the most powerful "reasoning" model you have access to. These models are better at understanding complex requirements and breaking them down logically. You can then use a faster model for the actual step-by-step coding.</p>
+</alert>
+<h5>Practical Application</h5>
+<p>Let's practice and create a project plan that our AI assistant can follow. Below is a simplified example, for real projects the description of the product will be much longer and more detailed. Feel free to add more details or use your own product idea to create the plan.</p>
+<callout label="Ask your AI assistant to create the project plan">
+Generate a project plan for a "Smart Task Manager" web application and save it in a `plan.md` file. The plan should cover:
+Target Audience: Who is this application for? (e.g., students, busy professionals, people learning to code).
+Core Problem: What simple problem does this app solve?
+Main Features:
+Add tasks via an input field.
+View all current tasks in a list.
+Mark tasks as "complete," which visually distinguishes them.
+Delete tasks from the list.
+Store tasks in the browser's local storage to persist between sessions.
+Tech Stack: Define this as HTML, CSS, and vanilla JavaScript.
+</callout>
+<p>After running this prompt, your AI will create the `plan.md` file. Open it and review the milestones. A good "Milestone 1" would be "Create the basic HTML layout with an input field, a button, and an empty list." This is a perfect, bite-sized task. You have successfully created your plan!</p>
+<checkable-item title="plan.md file for the Smart Task Manager is created."></checkable-item>
+<h5>Outcome of This Lesson and Next Steps</h5>
+<p>You have now learned the most powerful technique for improving your AI-assisted development workflow. You've created a project plan that will serve as your guide and your AI's external memory.</p>
+<p>This document is your defense against context drift, confusion, and wasted effort. With this plan in hand, you are ready to start building with confidence.</p>
+<p>In the next lesson, we will learn how to set <strong>rules</strong> for your AI, ensuring it has the right instructions before it starts coding.</p>
