@@ -1,6 +1,6 @@
 <!-- Enlighter Metainfo
 {
-  "id": "ID_5",
+  "id": "5405",
   "title": "Advanced Safety: Using .aiignore and Allow Lists",
   "next_button_title": "I'm ready to wrap up"
 }
@@ -15,17 +15,23 @@
 
 <p>Let's create an <code>.aiignore</code> file to protect our newly created MCP configuration.</p>
 
-<callout label="Paste to Junie" type="chat">
-Create an `.aiignore` file in the project root. Add the `.junie/` directory to it, so that the agent does not touch any files within it without my permission.
+<callout label="Ask Junie to create .aiignore file" type="chat">
+Create an `.aiignore` file in the project root. Add the `.junie/` directory to it, so that the agent does not touch any files within it without my permission. Also add the logs into the ignore list.
 </callout>
+
+<p>The <code>.aiignore</code> file should look like this:</p>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/1fbc0701-e203-4010-86be-d2eae66c3936/" alt="Junie .aiignore file" title="Junie .aiignore file">
 
 <p>Now, if you were to ask Junie to modify the MCP configuration, it would first present a warning and require you to approve the action, giving you an extra layer of security for critical project files.</p>
 
-<ul interactive>
-  <li title="Create the .aiignore file">
-    Use the prompt to have Junie generate the file and add the `.junie/` directory to it.
-  </li>
-</ul>
+<callout label="Ask Junie to change the settings of the MCP server" type="chat">
+Delete the MCP configuration file in .junie/mcp/
+</callout>
+
+<checkable-item title=".aiignore file is created and Junie can't modify the MCP configuration">
+  .aiignore file is created and Junie can't modify the MCP configuration
+</checkable-item>
 
 <h5>Automating Approval with the Action Allowlist</h5>
 <p>On the other hand, some actions are so routine and safe that you might not want to be prompted for approval every time. A perfect example is running `git status` to check the state of the repository. You can add safe, common commands to the <strong>Action Allowlist</strong>.</p>
@@ -37,9 +43,14 @@ Create an `.aiignore` file in the project root. Add the `.junie/` directory to i
     <li>In the text box, you can enter a specific command (e.g., `git status`) or a regular expression to match a pattern of commands.</li>
 </ol>
 
+<callout label="Ask Junie to write a regex for a terminal rule" type="chat">
+  What regular expression should I use to allow Junie to cover all the `git` commands in the terminal?
+</callout>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/d1053057-f6af-4e14-94ce-0a07bc46f604/" alt="Junie Action Allowlist settings" title="Junie Action Allowlist settings">
+
 <p>For example, adding `^git\s` as a regex would allow Junie to run any `git` command without asking you first. This is a powerful feature to streamline your workflow for trusted actions.</p>
 
-<p><img style="margin: auto; display: block;" src="https://i.imgur.com/your-image-url.png" alt="Junie Action Allowlist settings" title="Junie Action Allowlist settings"></p>
-<alert>Use the Action Allowlist wisely. Only add commands that you are completely confident are safe to be run automatically in your project context.</alert>
+<warning>Use the Action Allowlist wisely. Only add commands that you are completely confident are safe to be run automatically in your project context.</warning>
 
 <p>By combining <code>.aiignore</code> for sensitive files and the Action Allowlist for routine commands, you can fine-tune your interaction with Junie to be both efficient and secure.</p>
