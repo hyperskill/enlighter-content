@@ -5,19 +5,30 @@
   "next_button_title": "Next"
 }
 -->
-<p>Now that we've built our Echo MCP server, let's configure Claude Desktop to use it and test its functionality. In this stage, we'll add our server to the MCP configuration, verify it's enabled in settings, and test each of its features.</p>
+<p>Now that we've built our Echo MCP server, let's configure Junie to use it and test its functionality. In this stage, we'll add our server to the MCP configuration, verify it's enabled in settings, and test each of its features.</p>
 
 <h5>Adding the Echo Server to MCP Configuration</h5>
 
-<p>First, we need to add our custom MCP server to Claude's <code>claude_desktop_config.json</code> file. The same as before, we need to add the server to the <code>claude_desktop_config.json</code> file.</p>
+<p>First, we need to add our custom MCP server to Junie's configuration file. The same as before, we need to add the server in the settings.</p>
 
 <pre><code>{
   "mcpServers": {
     "Echo": {
-      "command": "path/to/your/project/venv/bin/python3.12",
+      "command": ".venv/bin/python3.12",
       "args": [
         "path/to/your/project/echo_server.py",
       ]
+    }
+  }
+}</code></pre>
+
+For Windows we advice to specify the absolute path to the python executable and to the echo_server.py
+
+<pre><code>{
+  "mcpServers": {
+    "Echo": {
+      "command": "C:\\Users\\USERNAME\\PROJECT_PATH\\.venv\\Scripts\\python.exe",
+      "args": ["C:\\Users\\USERNAME\\PROJECT_PATH\\echo_server.py"]
     }
   }
 }</code></pre>
@@ -26,7 +37,7 @@
 <details>
   <summary>Ask Junie to compose correct MCP configuration</summary>
   <callout label="Execute prompt using Ask mode in Junie" type="chat">
-I want to attach MCP to Claude Desktop app. Please update paths in the following config to correct ones.
+I want to run my custom MCP server. Please update paths in the following config to correct ones.
 
     {
       "mcpServers": {
@@ -51,24 +62,19 @@ Pass absolute path to the python executable instead of "path/to/your/project". D
 
 <ul interactive>
   <li title="MCP configuration is updated"></li>
-  <li title="Claude Desktop is restarted"></li>
-  <li title="Echo tool is listed in the tools menu"></li>
 </ul>
-
-<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/7034edbb-4747-4dab-a896-3de94ce3c448/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Echo tool response" title="Echo tool response"></p>
 
 <h5>Testing the Echo Tool</h5>
 
 <p>Now, let's test the tool functionality:</p>
 
-<checkable-item title="Execute following prompt in <strong>Claude Desktop</strong>">
-</checkable-item>
-<pre><code>Please use the echo_tool and show the result</code></pre>
+<callout label="Execute prompt using Code mode in Junie" type="composer">
+  Please use the echo_tool and show the result of it's execution</callout>
 
 <checkable-item title="Echo tool is called by AI"></checkable-item>
 <checkable-item title="Echo tool response has format 'Tool echo: {message}'"></checkable-item>
 
-<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/ab8b58ea-09d3-4873-b684-10977b6cc115/-/stretch/off/-/resize/2200x/-/format/webp/" alt="Echo tool response" title="Echo tool response"></p>
+<p><img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/0b341580-1aa4-42fd-9658-20659c3f1f11/" alt="Echo tool response" title="Echo tool response"></p>
 
 <h5>What's Next?</h5>
 
