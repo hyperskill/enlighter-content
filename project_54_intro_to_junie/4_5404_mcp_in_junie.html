@@ -1,0 +1,90 @@
+<!-- Enlighter Metainfo
+{
+  "id": "5404",
+  "title": "Extending Junie with Playwright for Frontend Testing",
+  "next_button_title": "Got it. Let's talk about safety"
+}
+-->
+
+<h5>Automating Browser Interactions with MCP and Playwright</h5>
+
+<p>A powerful application of <strong>MCP</strong> is browser automation for tasks like end-to-end testing.</p>
+
+<p>By connecting Junie to the <strong>Playwright MCP server</strong>, you can delegate complex frontend testing scenarios to the agent, which it can execute and report on.</p>
+
+<p>This approach is ideal for experienced developers who want to automate QA processes directly from their IDE. Instead of writing brittle test scripts, you can describe a user flow in natural language.</p>
+<p>Let's see how this works.</p>
+
+<h5>Configuring the Playwright MCP Server</h5>
+<p>First, we need to add the Playwright MCP server to our project's configuration. This server is conveniently available as an NPX package, which simplifies the setup.</p>
+
+<p>Ask Junie to create and populate the MCP configuration file for you.</p>
+
+<callout label="Ask Junie to set up Playwright MCP" type="chat">
+Create a project-level MCP configuration file at `.junie/mcp/mcp.json` and configure the Playwright server in it:
+
+<code>
+    {
+        "mcpServers": {
+          "playwright": {
+            "command": "npx",
+            "args": [
+              "@playwright/mcp@latest"
+            ]
+          }
+        }
+      }
+</code>
+
+</callout>
+
+<alert>This command uses `npx` to download and run the Playwright MCP server on the fly. Ensure you have Node.js and npm installed. </alert>
+
+<alert>If you are on Windows, Junie may need to configure the MCP server differently, via using cmd:
+
+    <code>
+        {
+            "mcpServers": {
+              "playwright": {
+                "command": "cmd",
+                "args": ["/c", "npx", "-y", "@playwright/mcp@latest"]
+              }
+            }
+          }
+    </code>
+</alert>
+
+<p>Once Junie creates the file, go to the settings and enable the MCP server. You can verify this in <code>Settings → Tools → Junie → MCP Settings</code>, where you should see the "playwright" server with a list of its available browser automation tools.</p>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/08ef0dc9-c761-4dfb-8764-43b00890c227/" alt="Junie MCP settings" title="Junie MCP settings">
+
+<checkable-item title="Playwright MCP server is configured and connected">
+    Use the prompt above and then verify in the Junie settings that the server is active.
+</checkable-item>
+
+<h5>Testing a User Flow with Junie and Playwright</h5>
+<p>Now, let's use this new capability to test a real-world user flow. Imagine we have a web application with a login form. We can ask Junie to perform the test for us.</p>
+<p>For this example, let's use a public demo site. Let's ask Junie to test the login functionality on saucedemo.com.</p>
+
+<callout label="Ask Junie to test a login form" type="chat">
+Using the Playwright tools, go to `https://www.saucedemo.com`. Enter the username `standard_user` and the password `secret_sauce`. Click the login button. After logging in, verify that the page contains the text "Products". Report back on whether the test was successful.
+</callout>
+
+<p>Junie will now use the Playwright MCP tools to:</p>
+<ol>
+    <li>Navigate to the URL.</li>
+    <li>Locate the username and password fields and fill them in.</li>
+    <li>Click the login button.</li>
+    <li>Scan the resulting page for the verification text.</li>
+    <li>Summarize the outcome in the chat.</li>
+</ol>
+
+<p>This demonstrates how you can offload repetitive but critical frontend testing to the agent, freeing you up to focus on development.</p>
+
+<checkable-item title="Login flow test is successful">
+    Execute the prompt and observe Junie controlling the browser to perform the test.
+</checkable-item>
+
+<p>This is just a glimpse of what's possible. You can create complex test suites, handle different user roles, and validate intricate UI states, all through conversational prompts with Junie.</p>
+
+<p>You can create your own MCP servers or use existing ones to extend Junie's capabilities. Check out the <a href="https://enlightby.ai/projects/39">Enlighter page</a> for more information.</p>
