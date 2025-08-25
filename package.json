@@ -12,7 +12,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5",
     "nodemon": "^3.1.10",
-    "prettier": "3.5.3",
+    "prettier": "3.6.2",
     "ts-node": "^10.9.1",
     "tsx": "^4.19.4"
   },
