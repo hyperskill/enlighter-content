@@ -14,7 +14,7 @@
     "nodemon": "^3.1.10",
     "prettier": "3.5.3",
     "ts-node": "^10.9.1",
-    "tsx": "^4.19.4"
+    "tsx": "^4.20.5"
   },
   "scripts": {
     "prepare": "husky",
