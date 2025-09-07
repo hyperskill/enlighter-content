@@ -1,0 +1,91 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40002,
+  "title": "Creating Your First App with Claude Code",
+  "next_button_title": "Ready to code!"
+}
+-->
+
+<h5>Time to Get Hands-On</h5>
+<p>Now that Claude Code is installed and authenticated, it's time to experience its power firsthand. In this stage, we'll create a basic task manager application structure and see how Claude Code can intelligently generate code, suggest architecture, and set up development environments.</p>
+
+<p>This hands-on practice will demonstrate the Claude Code in action - we'll provide the requirements, and Claude Code will make smart decisions about implementation details.</p>
+
+<h5>Setting Up Your Project</h5>
+<p>Let's start by creating a dedicated workspace for our task manager application. We'll set up the basic project structure manually first, then let Claude Code enhance it with intelligent suggestions.</p>
+
+<h5>Step 1: Create Project Structure</h5>
+
+<p>Let's set up the basic project structure with npm and create our initial files:</p>
+
+<callout>
+npm init -y
+mkdir src
+cd src
+touch index.html app.js style.css
+cd ..</callout>
+
+<p>This creates a basic structure with a `package.json` file and our main source files in the `src` directory.</p>
+
+<h5>Step 2: Generate Your Application Structure</h5>
+<p>Now comes the exciting part - let's start Claude Code and see how it can help us build our application:</p>
+
+<p>Here's where the magic happens. We'll give Claude Code a clear prompt about what we want to build, and it will make intelligent decisions about the implementation:</p>
+
+<callout label="Copy and paste to Claude Code">
+I'm creating a simple Task Manager web application. Help me set up the basic project structure with HTML, CSS and JavaScript. Create a package.json file with necessary development scripts, including live-server for local hosting.
+
+The task manager should include:
+- Add new tasks
+- Mark tasks as complete/incomplete
+- Delete tasks
+- Filter tasks by status (all, active, completed)
+- Clean, modern interface
+
+Please set up the complete file structure and provide the initial code for all files.
+
+Run the app after generating all the files
+</callout>
+
+<h5>What to Expect</h5>
+<p>After running this prompt, Claude Code will demonstrate several key capabilities of semi-deterministic workflows:</p>
+
+<ul>
+<li><strong>Intelligent Architecture Decisions:</strong> Claude will suggest an appropriate file structure and code organization</li>
+<li><strong>Development Environment Setup:</strong> It will configure package.json with useful scripts for development</li>
+<li><strong>Modern Web Practices:</strong> The generated code will follow current best practices for HTML, CSS, and JavaScript</li>
+<li><strong>Complete Implementation:</strong> You'll get working code that you can immediately test and run</li>
+</ul>
+
+<h5>Verification Steps</h5>
+<p>Once Claude Code finishes generating your application, let's verify everything is working correctly:</p>
+
+<callout>
+Check the project structure. Verify that there are:
+
+- Updated package.json with development scripts
+- HTML file with proper structure
+- CSS file with modern styling
+- JavaScript file with task management functionality</callout>
+
+<p>Now let's run and test the application.</p>
+
+<callout>Install dependencies and test your application:
+
+npm install
+npm start
+</callout>
+
+<img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/650f2dc0-06fd-41e6-8ec9-202e848e57be/" alt="Task Manager Application" title="Task Manager Application">
+
+<p>By the end of this stage, you should have:</p>
+
+<ul interactive>
+  <li title="A complete project structure with all necessary files"></li>
+  <li title="A working task manager application that runs in your browser"></li>
+</ul>
+
+<alert>If your application isn't working as expected, don't worry! In the next stage, we'll explore how to iterate and improve the application using Claude Code's debugging and enhancement capabilities.</alert>
+
+<h5>What's Next</h5>
+<p>Congratulations! You've successfully used Claude Code to generate a complete web application. In the next stage, we'll dive deeper into the semi-deterministic workflow by customizing and enhancing the application, demonstrating how Claude Code can adapt to changing requirements while maintaining code quality.</p> 

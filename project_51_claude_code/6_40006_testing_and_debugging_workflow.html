@@ -1,0 +1,45 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40006,
+  "title": "Testing and Debugging Workflow",
+  "next_button_title": "Let's debug!"
+}
+-->
+
+<h5>Testing and Debugging Workflow</h5>
+<p>In real-world development, things don't always go as planned. Bugs happen. That's why a robust workflow needs to account for testing and debugging. In this stage, you'll learn how to use your semi-deterministic workflow to identify, analyze, and fix issues in your application.</p>
+
+<h5>Step 1: Intentionally Introduce and Fix a Bug</h5>
+<p>Let's start by intentionally introducing an error into our application to simulate a real-world bug. Then, we'll use our custom <code>/debug-issue</code> command to find and fix it.</p>
+<p>First, open <code>src/app.js</code> and comment out the line where you add the event listener to the "Add Task" button. This will break the task addition functionality.</p>
+<p>Now, let's use our debugging command to find and fix the bug:</p>
+
+<callout label="Copy and paste to Claude Code">
+
+/debug-issue The application's task addition feature is not working. The 'Add Task' button does not respond to clicks.
+</callout>
+
+<p>Claude will analyze the code, identify the missing event listener, and suggest a fix. Once you approve the fix, the bug will be resolved, and your hooks will format and commit the changes.</p>
+
+<img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/93e6017c-09c7-44ca-b53e-dcdfd639fbfb/" alt="Code Review Command" title="Code Review Command">
+
+
+<h5>Step 2: Add Data Persistence</h5>
+<p>A common feature request for an application like this is data persistence. Users want their tasks to be saved even after they close the browser. Let's add this feature using our workflow.</p>
+
+<callout label="Copy and paste to Claude Code">
+/add-feature Add the functionality to save tasks to the browser's localStorage so they don't disappear when the page is reloaded.
+</callout>
+
+<h5>Step 3: Conduct a Final Code Review</h5>
+<p>Before we conclude, let's perform one last code review to ensure everything is working correctly and the code is of high quality.</p>
+
+<callout>Run a final code review:
+
+/review-code Conduct a final code review of the entire application and ensure everything works correctly.
+</callout>
+
+<ul interactive>
+    <li>You have successfully found and fixed a bug using your custom debug command.</li>
+    <li>The application now has data-saving functionality.</li>
+</ul>
