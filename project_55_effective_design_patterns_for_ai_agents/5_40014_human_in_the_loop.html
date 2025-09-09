@@ -1,0 +1,104 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40014,
+  "title": "Pattern 4: Human-in-the-Loop (HITL)",
+  "next_button_title": "Next"
+}
+-->
+<h5>Human-in-the-Loop</h5>
+
+<p>While full automation is one of the goals of AI, there are many situations where giving full control to an agent is risky or undesirable. The Human-in-the-Loop (HITL) design pattern addresses this by strategically inserting human oversight, feedback, or approval into the agent's workflow. This pattern transforms the AI from an autonomous decision-maker into a powerful assistant, where the human user retains ultimate control.</p>
+
+<h5>What Problem Does It Solve?</h5>
+<p>The HITL pattern is essential for mitigating risks associated with AI autonomy. It is not a temporary fix but a crucial long-term pattern for building safe and trustworthy AI systems.
+
+<img src="https://ucarecdn.com/d7c5048b-f661-414e-91d2-7b00040f4244/" style="margin: auto; display: block; width: 800px" alt="HITL Pattern" />
+
+<p><strong>Advantages:</strong></p>
+<ul>
+    <li><strong>Safety and Control:</strong> It prevents agents from taking irreversible or harmful actions, such as deleting a database or sending an incorrect invoice, without explicit permission.</li>
+    <li><strong>Accountability and Compliance:</strong> For many enterprise applications, having a human approver is necessary for audit trails and regulatory compliance (e.g., SOC 2).</li>
+    <li><strong>Building Trust:</strong> Involving users in key decisions turns the AI from a "black box" into a transparent and collaborative tool, which increases user adoption and confidence.</li>
+    <li><strong>Handling Ambiguity:</strong> When an agent encounters a novel or ambiguous situation it doesn't know how to handle, it can pause and ask a human for guidance.</li>
+</ul>
+
+<p><strong>Downsides:</strong></p>
+<ul>
+    <li><strong>Increased Latency:</strong> Pausing a workflow to wait for human input naturally slows down the process.</li>
+    <li><strong>User Interruption:</strong> It requires the user to be available and responsive, which can be a bottleneck. Asynchronous review channels (like email or Slack notifications) can help mitigate this.</li>
+</ul>
+</p>
+
+<h5>When to Apply It</h5>
+<p>You should implement a Human-in-the-Loop pattern for any critical or high-stakes task, such as:</p>
+<ul>
+    <li><strong>Executing Financial Transactions:</strong> "Are you sure you want to transfer $10,000 to this account?"</li>
+    <li><strong>Granting Permissions:</strong> An agent proposes, "I need access to this confidential document to complete the research." A human must approve the request.</li>
+    <li><strong>Creative Workflows:</strong> An agent generates multiple design options, and a human selects the best one to refine.</li>
+    <li><strong>Sending External Communications:</strong> An agent drafts an important email to a client, but a human must give final approval before it is sent.</li>
+</ul>
+
+<h5>Practical Example</h5>
+
+<p>Google ADK provides a <code>LongRunningFunctionTool</code> that can be used to implement a HITL pattern. It allows the agent to pause and wait for a human to approve or reject the action.</p>
+
+<p>It's a good practice to always provide a detailed description of the action to be taken. This will help the human to understand the context and make a decision.</p>
+
+<callout label="Ask your coding Agent">
+Using the `google-adk` library, create a root agent that uses a long running function tool to ask for approval before executing a critical action.
+The tool should be a function that asks for approval before executing a critical action.
+The agent should use a gemini flash model.
+The agent should use a long running function tool to ask for approval before executing a critical action.
+The agent should use a gemini flash model.
+</callout>
+
+<alert>
+<details>
+<summary>Human-in-the-Loop Tool Code Example</summary>
+<pre>
+<code>
+    from typing import Any
+    from google.adk.agents import Agent
+    from google.adk.tools import LongRunningFunctionTool, FunctionTool
+    
+    def ask_for_approval(purpose: str, amount: float) -> dict[str, Any]:
+        # Create a ticket and notify approver (out-of-band system).
+        return {
+            "status": "pending",
+            "ticket_id": "approval-1",
+            "purpose": purpose,
+            "amount": amount
+        }
+    
+    def reimburse(purpose: str, amount: float) -> dict[str, Any]:
+        return {"status": "ok", "purpose": purpose, "amount": amount}
+    
+    approval_tool = LongRunningFunctionTool(func=ask_for_approval)
+    
+    root_agent = Agent(
+        model="gemini-2.0-flash",
+        name="reimbursement_agent",
+        instruction=(
+            "If amount &lt; $100, call reimburse. Otherwise, call ask_for_approval and wait "
+            "for a human decision, then reimburse or reject accordingly. When you receive approval, reimburse the amount."
+        ),
+        tools=[FunctionTool(func=reimburse), approval_tool],
+    )
+</code>
+</pre>
+</details>
+</alert>
+
+<p>Example of the interaction with the HITL agent:</p>
+
+<img src="https://ucarecdn.com/1e623c7d-a94d-41f5-83f8-f66656da5dcb/" style="margin: auto; display: block; width: 800px" alt="HITL Pattern" />
+
+<p>As you can see if the reimbursement is less than $100, the agent will use the <code>reimburse</code> tool to finish the task immediately. Otherwise, it will use the <code>ask_for_approval</code> tool to wait for a human to approve the action.</p>
+
+<p>This is how the confirmation  might look like:</p>
+
+<img src="https://ucarecdn.com/1b45b9f9-47bb-4d0c-8a0f-729b4e261921/" style="margin: auto; display: block; width: 800px" alt="HITL Pattern" />
+
+<p>This simple pattern ensures that the AI agent acts as a responsible assistant. The agent can propose the action, but the final, critical decision rests with a human, creating a safe and effective partnership.</p>
+
+<p>Next, we will summarize our journey through AI agent design patterns.</p>

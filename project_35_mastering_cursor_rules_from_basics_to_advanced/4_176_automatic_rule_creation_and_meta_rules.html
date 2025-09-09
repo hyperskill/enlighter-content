@@ -1,13 +1,13 @@
 <!-- Enlighter Metainfo
 {
   "id": 177,
-  "title": "Automatic rule creation and meta rules",
+  "title": "Autonomous rule creation and meta rules",
   "next_button_title": "Next"
 }
 -->
-<p>One of the most powerful aspects of Cursor Rules is that you can create them automatically using Cursor's AI capabilities. Let's explore this feature and learn about some advanced rule settings.</p>
+<p>One of the most powerful aspects of Cursor Rules is that you can create them autonomously using Cursor's AI capabilities. Let's explore this feature and learn about some advanced rule settings.</p>
 
-<h5>Improving Automatic Rule Creation</h5>
+<h5>Improving Autonomous Rule Creation</h5>
 
 <p>We've already seen how to create rules with Cursor's help. Now, let's take it a step further by creating a meta-rule - a rule about rules themselves!</p>
 
@@ -42,12 +42,28 @@ Apply this rule for every edit or create rule
 
 <alert>Use alwaysApply sparingly! Too many always-applied rules can slow down Cursor and create conflicting instructions.</alert>
 
+<h5>Autonomous Rule Creation</h5>
+<p>We’re ready to unlock autonomous self-improvement! From now on, the AI will generate a new rule every time we give it feedback.</p>
+
+<callout type="chat">
+Create a new rule file called autonomous-rule-creation.mdc in .cursor/rules folder, add the following content:
+
+# Autonomous Rule Creation
+
+Create a new rule in .cursor/rules whenever you receive feedback from a user:
+- Extract the main point of the feedback
+- Create a new rule that captures this as a reusable instruction
+- Save the new rule with a short, descriptive name
+- Keep rules simple and avoid redundancy
+
+Apply this rule for every edit or create rule.
+</callout>
 
 <h5>Completion Checklist</h5>
 
 <ul interactive>
     <li title="Check rule creation">
-        Verify rules-location.mdc exists in .cursor/rules<br>
+        Verify rules-location.mdc & autonomous-rule-creation.mdc exist in .cursor/rules<br>
     </li>
     <li title="Check rule type">
         Verify that rule type is set to "Always"<br>
