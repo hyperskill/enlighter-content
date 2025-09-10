@@ -1,0 +1,92 @@
+<!-- Enlighter Metainfo
+{
+  "id": 290,
+  "title": "Playwright MCP: Browser Automation and Testing",
+  "next_button_title": "Next"
+}
+-->
+<p>The <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP</a> is a powerful server that brings Microsoft's Playwright browser automation capabilities to Junie. This extensive toolkit enables precise control over web browsers, allowing for sophisticated web interactions, testing, and automation.</p>
+
+<h5>Features:</h5>
+<ul>
+<li>Comprehensive browser control with multiple interaction modes</li>
+<li>Keyboard and mouse control for complex interactions</li>
+<li>Screenshot capabilities with customization options</li>
+<li>Tab and window management for multi-page workflows</li>
+</ul><br>
+
+<h5>Key Use Cases</h5>
+<ul>
+<li>Automated web testing and verification</li>
+<li>Complex form filling and submission</li>
+<li>Web scraping with precise element targeting</li>
+<li>Multi-step workflow automation</li>
+<li>Cross-browser compatibility testing</li>
+</ul><br>
+
+<h5>Prerequisites</h5>
+
+<p>Before setting up any MCP servers, you'll need to ensure you have the necessary tools installed on your system:</p>
+
+<h5>NPX Installation</h5>
+<p>Throughout this project, we'll primarily use NPX to install and run MCP servers. NPX is included with Node.js and npm, which you'll need to install if you don't have them already:</p>
+
+<callout type="chat">Install npx, node, and npm.
+
+Verify your installation by running:
+```
+node --version
+npm --version
+npx --version
+```
+
+All three commands should display version numbers if the installation was successful.</callout>
+
+<h5>Docker (Optional)</h5>
+<p>Some MCP servers provide Docker installation options, which can be useful for containerized environments or if you prefer isolation. Throughout this project, we'll show Docker configuration examples alongside NPX options.</p>
+
+<p>If you choose to use Docker, you'll need to install Docker Desktop or Docker Engine on your system. Installation instructions vary by operating system and are beyond the scope of this project. Please refer to the <a href="https://docs.docker.com/get-docker/">official Docker documentation</a> for installation guidance.</p>
+
+<h5>Setup Instructions</h5>
+
+<p>You can set up the Playwright MCP using NPX, which is the recommended method:</p>
+
+<h5>NPX Setup</h5>
+<callout type="chat">
+
+1. Create .junie/mcp/ folder in project if it doesn't exist.
+2. Create mcp.json file in this folder with the following content:
+
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}</callout>
+
+<p>For headless browser operation (no visible browser window), use:</p>
+
+<callout type="chat">Create or edit a file .junie/mcp/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--headless"
+      ]
+    }
+  }
+}
+</callout>
+
+
+
+<h5>Practical Example: Web Automation</h5>
+
+<callout type="chat">Use Playwright MCP to get the weather in New York City.</callout>
