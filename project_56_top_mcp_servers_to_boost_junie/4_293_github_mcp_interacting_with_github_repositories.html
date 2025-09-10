@@ -1,0 +1,77 @@
+<!-- Enlighter Metainfo
+{
+  "id": 293,
+  "title": "GitHub MCP: Interacting with GitHub Repositories",
+  "next_button_title": "Next"
+}
+-->
+<p>The <a href="https://github.com/github/github-mcp-server">GitHub MCP</a> enables Junie to interact directly with GitHub repositories, allowing you to manage your code, issues, pull requests, and more without leaving your environment. This powerful integration provides comprehensive features including file operations, repository management, advanced search functionality, and pull request workflows. This stage will guide you through setting up and utilizing this powerful GitHub integration tool.</p>
+
+<h5>Features:</h5>
+<ul>
+<li>Create or update files in repositories with automatic branch creation</li>
+<li>Push multiple files in a single commit with batch operations support</li>
+<li>Search repositories, code, issues, and users with advanced search capabilities</li>
+<li>Manage repository issues and pull requests with comprehensive error handling</li>
+<li>Review and merge pull requests while preserving Git history</li>
+<li>View file and directory contents</li>
+<li>Perform both single-file and multi-file operations efficiently</li>
+</ul><br>
+
+<h5>Key Use Cases</h5>
+<ul>
+<li>Creating and managing GitHub repositories</li>
+<li>Accessing and modifying repository content</li>
+<li>Working with issues and pull requests</li>
+<li>Performing advanced GitHub searches</li>
+<li>Automating repository operations</li>
+</ul><br>
+
+<h5>Setup Instructions</h5>
+
+<p>You can set up the GitHub MCP using either NPX or Docker. Both methods require a GitHub Personal Access Token.</p>
+
+<p>To create your GitHub Personal Access Token, go to <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">GitHub Settings → Developer Settings → Personal Access Tokens</a>. For full repository access, select the `repo` scope; for public repositories only, select the `public repositories` scope.</p>
+
+<h5>NPX Setup</h5>
+<callout type="chat">Create or edit a file .junie/mcp/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_personal_access_token"
+      }
+    }
+  }
+}</callout>
+
+<h5>Docker Setup</h5>
+<callout type="chat">Create or edit a file .junie/mcp/mcp.json to include the following MCP setup:
+
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_personal_access_token"
+      }
+    }
+  }
+}</callout>
+
+<h5>Practical Example: Repository Search</h5>
+
+<callout type="chat">Search for the most popular TypeScript state management libraries on GitHub. Look for repositories with over 1000 stars that have "state management" in their description or README.</callout>

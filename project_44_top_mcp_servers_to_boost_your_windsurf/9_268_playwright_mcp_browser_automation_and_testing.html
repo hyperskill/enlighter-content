@@ -60,34 +60,6 @@
 }
 </callout>
 
-<h5>Interaction Modes</h5>
-
-<p>Playwright MCP offers two primary interaction modes:</p>
-
-<h5>1. Snapshot Mode (Default)</h5>
-<ul>
-<li>Uses accessibility snapshots for better performance</li>
-<li>More reliable for structured content</li>
-<li>Preferred for most automation tasks</li>
-</ul><h5>2. Vision Mode</h5>
-<ul>
-<li>Uses screenshots for visual-based interactions</li>
-<li>Better for visually complex interfaces</li>
-<li>Enable with the --vision flag:</li>
-</ul><callout type="chat" label="Add the following code to your mcp_config.json file">
-{
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "@playwright/mcp@latest",
-        "--vision"
-      ]
-    }
-  }
-}
-</callout>
-
 <h5>Practical Example: Web Automation</h5>
 
 <callout type="chat">Use Playwright MCP to get the weather in New York City.</callout> 
