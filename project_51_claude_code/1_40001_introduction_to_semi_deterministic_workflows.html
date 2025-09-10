@@ -1,0 +1,91 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40001,
+  "title": "Introduction to Semi-Deterministic Workflows",
+  "next_button_title": "Let's get started!"
+}
+-->
+
+<h5>What You Will Build</h5>
+<p>In this course, you will create a simple task manager application using Claude Code and a semi-deterministic workflow approach. This workflow combines the predictability of automated processes with the intelligence of AI-driven decision making.</p>
+
+<p>The task manager will feature:</p>
+<ul>
+<li>Add, edit, and delete tasks</li>
+<li>Mark tasks as complete</li>
+<li>Filter tasks by status</li>
+<li>Clean, modern interface</li>
+</ul>
+
+<p>But more importantly, you'll learn how to set up workflows where Claude Code handles architectural decisions while maintaining consistent coding standards.</p>
+
+<h5>Understanding Semi-Deterministic Workflows</h5>
+<p>Semi-deterministic workflows represent a powerful approach to software development that combines the best of both worlds:</p>
+
+<p><strong>Deterministic part:</strong> Pre-configured rules and automatic actions such as code formatting, testing, commits, and consistent project structure. These elements remain predictable and standardized.</p>
+
+<p><strong>Semi-deterministic part:</strong> Claude makes intelligent decisions about code structure, architecture, feature implementation, and improvements based on the current context and project needs.</p>
+
+<p>This approach allows you to maintain coding standards while leveraging AI's creativity and problem-solving capabilities for complex development decisions.</p>
+
+<h5>Installing Claude Code</h5>
+<p>Before we begin building our task manager, we need to install Claude Code CLI. Claude Code is a powerful command-line tool that brings Claude's capabilities directly into your development environment.</p>
+
+<h5>System Requirements</h5>
+<p>Make sure your system meets these requirements:</p>
+<ul>
+<li><strong>Operating Systems:</strong> macOS 10.15+, Ubuntu 20.04+/Debian 10+, or Windows 10+ (with WSL 1, WSL 2, or Git for Windows)</li>
+<li><strong>Hardware:</strong> 4GB+ RAM</li>
+<li><strong>Software:</strong> Node.js 18+</li>
+<li><strong>Network:</strong> Internet connection required for authentication and AI processing</li>
+<li><strong>Shell:</strong> Works best in Bash, Zsh or Fish</li>
+</ul>
+
+<h5>Installation Steps</h5>
+<p>Let's install Claude Code using npm. The installation is straightforward but there are important considerations for different operating systems.</p>
+
+<callout>Install Claude Code globally using npm. Run this command in your terminal:
+
+npm install -g @anthropic-ai/claude-code
+
+Important: Do NOT use `sudo npm install -g` as this can lead to permission issues and security risks.</callout>
+
+<h5>Verify Your Installation</h5>
+<p>After installation, let's verify that everything is working correctly.</p>
+
+<callout type="chat">Run this command to check your Claude Code installation:
+  
+  claude doctor
+</callout>
+
+<h5>Authentication</h5>
+<p>Claude Code offers several authentication options. For this tutorial, we'll use the most common approach:</p>
+
+<callout type="chat">Navigate to your project directory and start Claude Code:
+
+cd your-project-directory
+claude
+</callout>
+
+<p>You'll be prompted to authenticate. Choose one of these options:</p>
+<ol>
+<li>Anthropic Console (requires active billing at console.anthropic.com)</li>
+<li>Claude App with Pro or Max plan</li>
+<li>Enterprise platforms (Bedrock or Vertex AI)</li>
+</ol>
+
+<ul interactive>
+  <li title="Claude Code is installed">
+  </li>
+  <li title="Claude Code authentication is successful">
+  </li>
+</ul>
+
+<img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/974f9e4a-5542-47db-b3af-ded1cc09b9a6/" alt="Claude Code" title="Claude Code">
+
+<h5>What's Next</h5>
+<p>Now that you have Claude Code installed and authenticated, you're ready to start building our task manager application using semi-deterministic workflows. In the next stage, we'll set up our project structure and create the foundation for our intelligent development workflow.</p>
+
+<p>This approach will demonstrate how Claude Code can make smart architectural decisions while maintaining the consistency and reliability you need in professional development.</p> 
+
+<alert>If any of these checks fail, don't proceed to the next stage. Revisit the installation and authentication steps, or consult the Claude Code documentation for troubleshooting.</alert>
