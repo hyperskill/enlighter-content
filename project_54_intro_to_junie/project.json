@@ -1,0 +1,10 @@
+{
+  "id": 54,
+  "title": "Intro to Junie: AI for Professional Developers",
+  "description": "An interactive, hands-on introduction to JetBrains Junie. Learn its core 'Ask, Plan, Execute' workflow, and then dive into advanced topics like extending its capabilities with MCP servers and fine-tuning its permissions with .aiignore files and the Action Allowlist. This course is designed for experienced developers who value control, safety, and efficiency.",
+  "short_description": "A hands-on guide to Junie, covering core workflow and advanced customization like MCP and safety features.",
+  "categories": "Junie,JetBrains AI,Productivity,Developer Tools,MCP",
+  "cover_url": "https://ucarecdn.com/095c5cdc-ab73-4334-a050-368e22831c5c/",
+  "readme": "# Intro to Junie Course\\n\\nThis course provides a hands-on introduction to JetBrains Junie, an AI agent for professional developers. You will learn about Junie's core 'Ask, Plan, Execute' workflow, how to extend its capabilities with MCP servers like Playwright for frontend testing, and how to use advanced safety features like `.aiignore` files and Action Allowlists to maintain control over your codebase.\\n",
+  "ides": "junie"
+}
