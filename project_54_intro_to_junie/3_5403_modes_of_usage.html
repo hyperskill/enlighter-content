@@ -8,32 +8,34 @@
 
 <h5>From Inquiry to Action</h5>
 
-<p>The core of working with Junie revolves around a powerful loop: using <b>Ask mode</b> to inquire and learn, and using <b>Code mode</b> to plan and execute. Let's walk through a complete workflow where we first learn about a feature and then have the agent implement it for us.</p>
+<p>The core of working with Junie revolves around a powerful loop: using <strong>Ask mode</strong> to inquire and learn, and <strong>Code mode</strong> to plan and execute. Let’s walk through a complete workflow where we first learn about a feature and then have the agent implement it.</p>
 
 <img style="margin: auto; display: block;" src="https://ucarecdn.com/6a80fba3-236f-4410-bf61-1e20f59a87b0/" alt="Modes of Junie usage" title="Modes of Junie usage">
 
 <h5>Step 1: Inquire with 'Ask' Mode</h5>
-<p>Imagine you know that Junie can be customized, but you're not sure how. This is a perfect use case for 'Ask' mode. You can ask Junie about its own functionality. Let's find out about its project rules system.</p>
+<p>Imagine you know that Junie can be customized, but you’re not sure how. This is a perfect use case for <strong>Ask mode</strong>, where you can ask Junie about its own functionality. Let’s explore the project rules system.</p>
 
-<callout label="Ask Junie about guidelines" type="chat">
+<callout label="Ask Junie about guidelines:" type="chat">
 What are Junie guidelines? Explain their purpose, where the files should be stored, and what format they should use.
 </callout>
 
-<p>Junie will provide a detailed explanation. It will tell you that guidelines are stored in `.md` files inside a `.junie/` directory, and that they are used to guide the agent's behavior to maintain project-specific standards. Now you have the knowledge.</p>
+<p>Junie will provide a detailed explanation: guidelines are stored in .md files inside a .junie/ directory and are used to guide the agent’s behavior to maintain project-specific standards. Now you have the knowledge.</p>
 
-<alert>Think of 'Ask' mode as your built-in documentation and pair-programming partner, always ready to clarify concepts or details about the code on which you are working or the tool itself.</alert>
+<alert><strong>Tip:</strong> Think of Ask mode as your built-in documentation and pair-programming partner—always ready to clarify concepts or details about the code you’re working on or the tool itself.</alert>
 
 <h5>Step 2: Plan and Execute with 'Code' Mode</h5>
-<p>Now that we know how to create a rule, let's delegate the task of creating one to the <b>Code mode</b>. Switch to the Code, and ask Junie to write a guideline that enforces a header comment on all new Python files. Based on the information from 'Ask' mode, we can formulate a precise request.</p>
+<p>Now that we know how to create a rule, we can delegate the task to Code mode. Switch to Code mode and ask Junie to write a guideline that enforces a header comment on all new Python files. Using what we learned in Ask mode, we can formulate a precise request.</p>
 
 <callout label="Paste to Junie" type="chat">
 Create project guidelines for Python files.
-The guidelines should state that all new Python files must start with a header comment: `# Copyright (c) 2024 MyAwesomeProject`.
-Create the necessary directory and file (`.junie/guidelines.md`).
+The guidelines should state that all new Python files must start with a header comment:
+# Copyright (c) 2024 MyAwesomeProject
+Create the necessary directory and file (.junie/guidelines.md).
 </callout>
 
-<p>Junie will now create a plan. After you approve the plan, Junie will execute it. In moments, your project has a new guideline, created correctly according to the feature you just learned about.</p>
+<p>Junie will create a plan. After you approve it, Junie will execute the task. Moments later, your project has a new guideline created correctly based on the feature you just learned about.</p>
 
+<p><strong>Checklist:</strong></p>
 <checkable-item title="Guideline file is created">
     Approve the plan and verify that the file and its content are created as expected.
 </checkable-item>
@@ -41,8 +43,8 @@ Create the necessary directory and file (`.junie/guidelines.md`).
 <h5>Supercharging 'Code' Mode</h5>
 <p><b>Code mode</b> has two powerful modifiers that you can toggle:</p>
 <ul>
-    <li><b>Brave Mode:</b> When enabled, Junie will execute terminal commands without asking for your confirmation first. This is useful for trusted, repetitive tasks but should be used with caution.</li>
-    <li><b>Think More Mode:</b> This gives Junie extra time and resources to analyze your request and codebase, often resulting in a more thorough plan and higher-quality code. It's ideal for complex or ambiguous tasks.</li>
+    <li><b>Brave Mode:</b> Executes terminal commands without asking for confirmation first. Ideal for trusted, repetitive tasks—use with caution.</li>
+    <li><b>Think More Mode:</b> Gives Junie extra time and resources to analyze your request and codebase, often resulting in more thorough plans and higher-quality code. Best for complex or ambiguous tasks.</li>
 </ul>
 
 <p>This "Ask → Act" cycle is fundamental to working effectively with Junie. You use conversation to resolve ambiguity and gain knowledge, then use the agent to perform the work with precision and speed.</p>
