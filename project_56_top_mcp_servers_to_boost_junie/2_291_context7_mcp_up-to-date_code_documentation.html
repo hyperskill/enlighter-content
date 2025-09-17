@@ -1,6 +1,6 @@
 <!-- Enlighter Metainfo
 {
-  "id": 191,
+  "id": 291,
   "title": "Context7 MCP: Up-to-date Code Documentation",
   "next_button_title": "Next"
 }
@@ -25,10 +25,10 @@
 
 <h5>Setup Instructions</h5>
 
-<p>You can set up the Context7 MCP for your Cursor environment. This setup allows Cursor to leverage Context7 for more accurate code generation.</p>
+<p>You can set up the Context7 MCP for your Junie assistant. This setup allows Junie to leverage Context7 for more accurate code generation.</p>
 
 <p>For a local server connection (recommended for development and courses):</p>
-<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup for Context7:
+<callout type="chat">Create or edit a file .junie/mcp/mcp.json to include the following MCP setup for Context7:
 
 {
   "mcpServers": {
@@ -40,21 +40,11 @@
 }
 </callout>
 
-<p>Alternatively, for a remote server connection (if you prefer not to run a local server):</p>
-<callout type="chat">Create or edit a file .cursor/mcp.json to include the following MCP setup for Context7:
-
-{
-  "mcpServers": {
-    "context7": {
-      "url": "https://mcp.context7.com/mcp"
-    }
-  }
-}
-</callout>
+<alert>Currently Junie supports only MCP servers that use the Standard Input/Output (stdio) transport type, no Streamable HTTP is allowed for now.</alert>
 
 <h5>Practical Example: Using Context7 in a Prompt</h5>
 
-<p>To use Context7, simply add <code>use context7</code> to your prompt in Cursor. For example:</p>
+<p>To use Context7, simply add <code>use context7</code> to your prompt in Junie. For example:</p>
 <callout type="chat">How to implement authentication in a Flask app using Authlib. Use context7</callout>
 <br>
 <callout type="chat">Create a basic Next.js project with app router. Use context7</callout>
