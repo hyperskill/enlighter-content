@@ -1,0 +1,36 @@
+<!-- Enlighter Metainfo
+{
+"id": 40007,
+"title": "Vibe Coding Trick #7: Commit Early, Commit Often, Revert if necessary",
+"next_button_title": null
+}
+-->
+<h5>Introduction</h5>
+<p>In Vibe Coding, momentum is everything. You're in a flow, translating ideas into reality with the help of your AI assistant. But what happens when a new change breaks everything? The key to maintaining that flow is to have a safety net. This trick is about making that net a core part of your process: <strong>save your state often.</strong></p>
+<h5>The Danger of "One More Change"</h5>
+<p>It's a familiar story. You've just implemented a new feature, and it works perfectly. You think, "I'll just make one more small tweak." But that "small tweak" cascades into a series of errors. Suddenly, the app won't load, and you can't remember exactly what you changed to cause the problem. Your creative flow grinds to a halt, replaced by frustrating and time-consuming debugging.</p>
+<p>When you're working with an AI, this can be even more pronounced. A single, slightly ambiguous prompt can lead to dozens of changes across multiple files. Trying to undo that manually is nearly impossible.</p>
+<h5>The Trick: Commit Early, Commit Often, Revert if necessary</h5>
+<p>The solution is to treat your version control system (like Git) as a series of save points in a video game. Every time you reach a stable, working state, you create a commit. This gives you a snapshot of your project at a moment when you know for sure that everything was working correctly.</p>
+<p>This practice has several key benefits:</p>
+<ul>
+<li><strong>Fearless Experimentation:</strong> When you know you can rewind to a good state in seconds, you're more likely to try creative or ambitious ideas.</li>
+<li><strong>Effortless Reversion:</strong> If a change goes wrong, you don't debug. You simply revert to the last working commit and try again with a different approach. No time is wasted trying to fix a broken state.</li>
+<li><strong>Clear History:</strong> A series of small, logical commits tells a story of how your project evolved, making it easier to understand and build upon.</li>
+</ul>
+<img style="margin: auto; display: block;" width="450px" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXp0NjlxNXM3aTNicDBpZjZpODZwbW5mMms4Nmd1YzM5bHRoeWZidiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hs1wBxNGuR7z2LyzHT/giphy.gif" alt="Git" title="Git">
+<h5>Practical Application: The Save-Point Workflow</h5>
+<p>Let's put this into practice. Imagine you've just finished building a basic to-do list application. It works. Before you add a new feature, you create a save point.</p>
+<callout label="Create a Save Point with Git">
+git add .
+git commit -m "feat: Initial working to-do list"
+</callout>
+<p>Now, you decide to add a "delete task" feature. You give your AI a prompt, but the resulting code not only adds the delete button but also accidentally breaks the "add task" functionality.</p>
+<p>Instead of trying to fix the broken code, you simply revert.</p>
+<callout label="Revert to Your Last Save Point">
+git reset --hard HEAD
+</callout>
+<p>Your codebase is instantly back to the perfectly working version. All the broken code is gone. Now you can try a new, more specific prompt to add the delete feature, knowing you're starting from a clean slate.</p>
+<h5>Outcome of This Lesson and Next Steps</h5>
+<p>You've learned the most important trick for maintaining momentum in Vibe Coding: frequent saving. By creating a commit every time your application is in a good state, you give yourself the freedom to experiment without fear. If something breaks, you don't debug—you revert and retry.</p>
+<p>Now that you know how to protect your progress, let's move on to the next trick.</p>
