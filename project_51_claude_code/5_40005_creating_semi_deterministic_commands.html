@@ -1,0 +1,60 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40004,
+  "title": "Creating Semi-deterministic Commands",
+  "next_button_title": "Let's create commands!"
+}
+-->
+
+<h5>Creating Semi-deterministic Commands</h5>
+<p>You've successfully set up the deterministic part of your workflow with hooks. Now, it's time to build the semi-deterministic part using custom commands. Custom slash commands allow you to give Claude specific instructions and context, empowering it to make intelligent decisions within a well-defined framework.</p>
+
+<h5>Understanding Custom Commands</h5>
+<p>Custom commands are markdown files that act as templates for prompts. They allow you to create reusable, context-aware instructions for Claude. This is the core of the semi-deterministic approach: you define the rules and the goals, and Claude uses its intelligence to figure out the best way to achieve them.</p>
+
+<h5>Step 1: Create a Commands Folder</h5>
+<p>First, we need a place to store our custom commands. Claude Code looks for a <code>commands</code> directory inside the <code>.claude</code> folder.</p>
+
+<callout>Create a directory for your custom commands:
+
+mkdir .claude/commands
+</callout>
+
+<h5>Step 2: Create Custom Slash Commands</h5>
+<p>Now, let's ask Claude to create three essential commands for our web development workflow: one for adding features, one for reviewing code, and one for debugging.</p>
+
+<callout label="Copy and paste to Claude Code">
+
+Create three custom slash commands in the `.claude/commands/` directory:
+
+1.  `/add-feature.md`: A command for adding new functionality. It should analyze the current code, suggest architectural solutions, and implement the feature, including tests.
+2.  `/review-code.md`: A command for analyzing code quality. It should check for readability, performance, and security, then suggest improvements.
+3.  `/debug-issue.md`: A command for finding and fixing bugs. It should analyze the code, help reproduce the problem, and suggest a solution.
+
+Each command should be able to accept parameters through the `$ARGUMENTS` variable.
+</callout>
+
+<h5>Step 3: Create a Project Context File</h5>
+<p>To help Claude make better decisions, we should provide it with high-level context about our project. The <code>CLAUDE.md</code> file in the root of your project is the perfect place for this.</p>
+
+<callout label="Copy and paste to Claude Code">
+
+Create a `CLAUDE.md` file in my project root. This file should describe the architecture of our Task Manager application. Include:
+- A general description of the application's functionality.
+- The file structure and the purpose of each file.
+- The coding standards for this project.
+- The principles that the AI should follow when working with the code.
+</callout>
+
+<alert>The CLAUDE.md file acts as a master prompt, providing Claude with a consistent set of guidelines for all its operations on your project.</alert>
+
+<h5>Expected Results</h5>
+<p>After completing this stage, your workflow will be significantly more powerful:</p>
+
+<ul interactive>
+  <li title="A .claude/commands/ directory with three custom commands"></li>
+  <li title="A CLAUDE.md file in the project root"></li>
+</ul>
+
+<h5>What's Next</h5>
+<p>You have now established a complete semi-deterministic workflow with both automated hooks and intelligent custom commands. In the next stage, we'll put this workflow into practice by developing new features for our Task Manager application.</p>

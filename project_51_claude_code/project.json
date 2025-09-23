@@ -1,0 +1,10 @@
+{
+  "id": 51,
+  "description": "Learn how to build a simple task manager by combining the predictability of automated processes with the intelligence of AI-driven decisions using Claude Code.",
+  "title": "Semi-Deterministic Workflows with Claude Code",
+  "categories": "AI Agents, Claude, AI Engineering, Deterministic Workflows",
+  "cover_url": "https://ucarecdn.com/0c6b884e-7ae2-4d44-b268-9b4ddd626d5f/",
+  "readme": "# Semi-Deterministic Workflows with Claude Code\n\nThis course teaches you how to build a simple task manager application using a semi-deterministic workflow. You'll learn to leverage Claude Code for intelligent decision-making while maintaining predictable, automated processes for code quality and structure.",
+  "short_description": "Build a task manager using AI-driven semi-deterministic workflows with Claude Code.",
+  "ides": "cursor"
+}

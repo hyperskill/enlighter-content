@@ -1,0 +1,60 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40006,
+  "title": "Feature Development with Automation",
+  "next_button_title": "Continue to testing and debugging"
+}
+-->
+
+<h5>Feature Development with Automation</h5>
+<p>With our semi-deterministic workflow fully configured, it's time to see it in action. In this stage, we'll use our custom <code>/add-feature</code> command to build out the functionality of our Task Manager application. You'll witness how Claude makes architectural decisions while the hooks you configured handle the routine tasks of formatting and committing the code.</p>
+
+<h5>Step 1: Add Basic Task Management Features</h5>
+<p>Let's start by creating the core interface for our Task Manager. We'll ask Claude to add the ability to add, delete, and mark tasks as complete.</p>
+
+<callout label="Copy and paste to Claude Code">
+
+/add-feature Create the basic Task Manager interface with the ability to add, delete, and mark tasks as completed.
+</callout>
+
+<p>Observe the process. Claude will analyze your request, generate the necessary HTML, CSS, and JavaScript, and then your hooks will automatically trigger to format the new code and commit the changes to your git repository.</p>
+
+<h5>Step 2: Add Advanced Features</h5>
+<p>Now that we have the basic functionality, let's extend it. We'll add the ability to edit tasks and filter them by their status.</p>
+
+<p>Let's use the <code>/add-feature</code> command again to add more functionality:</p>
+
+<callout label="Copy and paste to Claude Code">
+/add-feature Add the capability to edit existing tasks and to filter tasks by their status (all, active, completed).
+</callout>
+
+<ul interactive>
+  <li>The custom slash command has been executed correctly.</li>
+</ul>
+
+<h5>Step 3: Test the Hooks and Run the Application</h5>
+<p>After Claude has finished implementing the new features, it's time to test the application and see the results of our automated workflow.</p>
+
+<callout>Run the development server to see your application in action:
+
+npm run dev
+</callout>
+<p>Your browser should open with the Task Manager application running. Test out all the features: adding, editing, deleting, and filtering tasks.</p>
+
+<h5>Step 4: Use the Code Review Command</h5>
+<p>Our semi-deterministic workflow isn't just for adding features. Let's use the <code>/review-code</code> command to get suggestions for improving what we've built.</p>
+
+<callout label="Copy and paste to Claude Code">
+/review-code Analyze the current application code and suggest improvements for performance and readability.
+</callout>
+
+<p>After executing the command, Claude will provide suggestions for improvements in the application's performance and readability.</p>
+
+<img style="margin: auto; display: block; width: 800px;" src="https://ucarecdn.com/682f1c07-c57f-48a6-a102-35f518b60d57/" alt="Code Review Command" title="Code Review Command">
+
+<ul interactive>
+  <li>Claude has provided suggestions for improvements in the application's performance and readability.</li>
+</ul>
+
+<h5>What's Next</h5>
+<p>Your application is now feature-complete. In the next stage, we'll focus on testing and debugging, using our custom <code>/debug-issue</code> command to find and fix problems, further demonstrating the power of a semi-deterministic workflow.</p>
