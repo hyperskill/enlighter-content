@@ -1,0 +1,10 @@
+{
+  "id": 57,
+  "description": "This project explores how different software architectures impact AI-assisted coding. Based on research from the vibe-coding-architectures repository, it guides you through building a Snake game using four different patterns—Layered, Atomic Composable, Vertical Slice, and Pipeline—to see how each performs with an AI assistant.",
+  "title": "AI-Optimized Software Architectures",
+  "categories": "Junie, AI, Software Architecture, Vibe Coding",
+  "cover_url": "",
+  "readme": "### Welcome to AI-Optimized Software Architectures!\\n\\nIn this project, you'll explore the crucial link between software design and the performance of AI coding assistants. You'll learn how to structure your codebases to help AI tools understand context, generate better code, and use fewer resources.\\n\\n#### What You'll Learn:\\n\\n*   The impact of architecture on AI effectiveness (token consumption, context management).\\n*   Hands-on implementation of four architectural patterns:\\n    *   Layered Architecture\\n    *   Atomic Composable Architecture\\n    *   Vertical Slice Architecture\\n    *   Pipeline Architecture\\n*   How to guide an AI assistant to build a complete Snake game using each pattern.\\n*   Best practices for creating AI-friendly code.\\n\\nThis project is based on the research and experiments from the [vibe-coding-architectures](https://github.com/ipospelov/vibe-coding-architectures) repository. By the end, you'll have a practical understanding of how to choose the right architecture for your AI-assisted development workflow.",
+  "short_description": "Learn how to design codebases that are optimized for AI coding assistants.",
+  "ides": "junie, cursor, windsurf"
+}

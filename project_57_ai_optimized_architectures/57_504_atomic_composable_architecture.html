@@ -1,0 +1,139 @@
+<!-- Enlighter Metainfo
+{
+  "id": 504,
+  "title": "Atomic Composable Architecture",
+  "next_button_title": "Next"
+}
+-->
+<h5>3. Atomic Composable Architecture (ACA)</h5>
+<p>
+    Atomic Composable Architecture borrows its concepts from Brad Frost's Atomic Design methodology and applies them to code organization. The core principle is to build complex systems from simple, predictable, and reusable components.
+</p>
+
+<p>
+    ACA structures code into three levels of increasing complexity:
+</p>
+<ul>
+    <li><b>Atoms:</b> The smallest, indivisible units of functionality, like a single function or constant. They have no internal dependencies.</li>
+    <li><b>Molecules:</b> Small modules that are composed of several atoms to perform a specific function.</li>
+    <li><b>Organisms:</b> Complete subsystems or features built by combining molecules.</li>
+</ul>
+
+<h5>Advantages</h5>
+<ul>
+    <li>High degree of modularity and reusability.</li>
+    <li>Components are easy to test in isolation.</li>
+    <li>Scales well as new functionality is added.</li>
+</ul>
+
+<h5>Disadvantages</h5>
+<ul>
+    <li>Can suffer from the "chain reaction" problem, where a change in a low-level atom requires changes in all dependent molecules and organisms.</li>
+    <li>Requires strict discipline to manage dependencies.</li>
+</ul>
+
+<h5>Let's Build a Snake Game</h5>
+<p>
+    Let's build the Snake game again, this time using ACA. We'll use the same game specification but provide different architectural guidelines to the AI.
+</p>
+
+
+
+<callout type="chat">
+    Create a file atomic_composable_architecture/architecture.md. Add the following content:
+
+    You are working in a codebase that MUST follow **Atomic Composable Architecture (ACA)**.
+
+─────────────────────────────────
+🔹 1. Core Idea
+─────────────────────────────────
+Build complex features by composing tiny, self-contained units.  
+The hierarchy is:
+
+• **Atom** – a single pure function / small class / constant (≈ 5-50 Lines of code).  
+  ▸ No runtime side-effects, no knowledge of the outside world, no imports from higher layers.
+
+• **Molecule** – a folder grouping several atoms plus tests (≈ 50-300 Lines of code).  
+  ▸ Exposes a minimal public interface; depends only on atoms or other molecules in the same folder.
+
+• **Organism** – a complete subsystem or service (≈ 300-1500 Lines of code).  
+  ▸ May hold state, start I/O, spin up workers, etc., but never leaks its internals upward.
+
+Each layer can depend **only on its own layer or lower layers**—never upward.
+
+─────────────────────────────────
+🔹 2. Folder Naming Rules
+─────────────────────────────────
+src/
+├── atoms/
+│   └── {filename}*.{ext}
+├── molecules/
+│   └── {filename}*.{ext}
+├── organisms/
+│   └── {filename}*.{ext}
+└── main.{ext} (if needed)
+
+─────────────────────────────────
+🔹 3. Allowed Imports
+─────────────────────────────────
+✔ Atom   → std-lib, third-party libs, *never* other atoms.  
+✔ Molecule → atoms in same folder, std-lib, third-party.  
+✔ Organism → atoms & molecules, infrastructure libs.  
+✘ Cyclic or upward imports are forbidden and should fail lint/CI.
+
+─────────────────────────────────
+🔹 4. Code Generation Targets
+─────────────────────────────────
+When generating or refactoring code, ALWAYS start at the lowest layer that changes the behavior.  
+
+─────────────────────────────────
+🔹 5. Best Practices
+─────────────────────────────────
+• Pure functions first – push side-effects to the edges (organisms).  
+• Prefer dependency injection over global state.  
+• One public export per file unless strongly justified.  
+• Document any place an atom’s change forces molecule/organism updates.
+• Whenever you create or modify code **Decide the correct layer** (atom / molecule / organism).  
+</callout>
+
+<p>
+    Use the following prompt to generate the game with ACA.
+</p>
+
+<callout label="Generate the Snake game">
+Generate an application based on the description from @/snake_game.md, designed as described in @/atomic_composable_architecture/architecture.md. Run the app when you have completed the implementation.
+</callout>
+
+<h5>Results from the Study</h5>
+<p>
+    ACA performed well during the initial generation, with a 100% success rate. However, it struggled significantly with modifications. The study found that making changes often caused a "chain reaction" that broke the architecture's integrity.
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>Metric</th>
+            <th>Average Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>One-shot generation success</td>
+            <td>5/5 (100%)</td>
+        </tr>
+        <tr>
+            <td>One-shot modification success</td>
+            <td>3/5 (60%)</td>
+        </tr>
+        <tr>
+            <td>Architecture adherence (modification)</td>
+            <td>1/5 (20%)</td>
+        </tr>
+        <tr>
+            <td>Initial token consumption</td>
+            <td>25.88k ↑ / 340.6k ↓</td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    This pattern is excellent for initial builds of applications with rich, composable functionality, but it may require more careful handling during maintenance and evolution.
+</p>
