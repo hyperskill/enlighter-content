@@ -1,0 +1,102 @@
+<!-- Enlighter Metainfo
+{
+  "id": 502,
+  "title": "Experimental Setup",
+  "next_button_title": "Let's test!"
+}
+-->
+<h5>Experimental Setup</h5>
+
+<p>
+    To provide a clear and transparent foundation for the findings in this project, this section details the experimental setup used in the original research. Understanding the methodology will help you interpret the results and replicate the experiments with your own tools and models.
+</p>
+
+<h5>3.1 Experimental Setup</h5>
+<ul>
+    <li><b>Test Application:</b> Snake game implementation</li>
+    <li><b>Test Modification:</b> Addition of randomly generated maze functionality</li>
+    <li><b>LLM:</b> Claude Sonnet 3.7</li>
+    <li><b>Isolation:</b> New functionality added from new chat (no context sharing)</li>
+    <li><b>Sample Size:</b> 5 runs for each architecture</li>
+</ul>
+
+<h5>3.2 Evaluation Metrics</h5>
+<p>The performance of each architecture was measured against the following metrics:</p>
+<h6>Initial Generation Metrics:</h6>
+<ul>
+    <li><b>One-shot generation success:</b> Application works correctly on the first attempt (binary).</li>
+    <li><b>Architecture adherence:</b> Generated app follows the specified architecture (binary).</li>
+    <li><b>Token consumption:</b> Cached and non-cached tokens for the initial generation.</li>
+    <li><b>Context window size:</b> Final context length after generation.</li>
+</ul>
+<h6>Modification Metrics:</h6>
+<ul>
+    <li><b>One-shot modification success:</b> New feature works on the first attempt (binary).</li>
+    <li><b>Architecture preservation:</b> Architecture is maintained after modification (binary).</li>
+    <li><b>Modification token consumption:</b> Tokens used for the feature addition.</li>
+    <li><b>Final context window size:</b> Context length after modification.</li>
+</ul>
+
+<h5>3.3 Project Setup</h5>
+<p>
+    Now, let's set up the necessary files and folders for our experiment. First, create a directory for each architectural pattern we will test.
+</p>
+
+<callout label="Create architecture directories">
+Create four new directories: `layered_architecture`, `atomic_composable_architecture`, `vertical_slice_architecture`, and `pipeline_architecture`.
+</callout>
+
+<p>
+    Next, we'll create a single, detailed specification file for the Snake game. This ensures the AI assistant has consistent requirements for each architecture.
+</p>
+
+<callout label="Create the Snake game specification file">
+Create a new file named `snake_game.md` with the following content:
+
+```markdown
+# Project: Browser-based Snake Game (MVP)
+
+## 1. Purpose & Scope
+**Purpose:** To deliver a minimal, fully playable Snake game in a modern browser.
+**Scope:** This MVP includes only the essential features needed for a functional Snake game; it excludes all optional enhancements.
+
+## 2. MVP Features
+- **Game Initialization:** A snake of length 3 appears centered on a 20×20 grid. One food item spawns at a random empty cell.
+- **Core Game Loop:** The game updates every 150 ms by default. Each tick involves moving the snake, detecting collisions, and rendering the state.
+- **Controls & Direction Handling:** Use Arrow keys (and/or WASD) to change direction. 180° reversals (e.g., from left to right) are disallowed.
+- **Collision Detection & Game Over:** Hitting a wall or the snake's own body triggers "Game Over." The game loop pauses, an overlay with the final score is shown, and input is disabled until restart.
+- **Scoring Display:** The current score (number of food eaten) is updated in real time above or beside the canvas.
+- **Restart Functionality:** A "Restart" button resets the game to its initial state without reloading the page.
+- **Browser Compatibility:** Supports the latest two major versions of Chrome, Firefox, Edge, and Safari.
+
+## 3. Functional Requirements
+- **FR-1:** Initialize the game state with a snake of length 3 at the grid center and one food item.
+- **FR-2:** Implement a game loop that runs at a configurable interval (default: 150 ms).
+- **FR-3:** Capture and queue keyboard events for direction changes; prevent direct reversals.
+- **FR-4:** On each tick:
+  1. Move the snake head one cell in the current direction.
+  2. Check for wall or self-collision; if one occurs, trigger the game-over flow.
+  3. If the head lands on food: increment the score, grow the snake by one segment, and spawn new food.
+  4. Render the updated snake, food, and score.
+- **FR-5:** Display a "Game Over" overlay with the final score and a clickable "Restart" button.
+- **FR-6:** Reset all state (snake position/length, score, food) when the "Restart" button is clicked.
+
+## 8. Non-Functional Requirements
+- The canvas should scale to fit the viewport while preserving the cell aspect ratio.
+- Use ES6+ modules to separate game logic from rendering.
+- All interactive elements should be reachable via the keyboard; provide minimal ARIA labels on buttons.
+
+## 9. Acceptance Criteria
+- The player can move the snake using the keyboard; the snake cannot reverse direction by 180°.
+- The snake grows when eating food, and the score increments accordingly.
+- Colliding with a wall or itself immediately stops the game and displays the final score.
+- Clicking "Restart" immediately resets and restarts the gameplay.
+- The game works smoothly in Chrome, Firefox, Edge, and Safari without console errors.
+```
+</callout>
+
+<p> Now, let's test each code architecture design in practice. </p>
+
+<alert>
+    The results presented in this course are based on a specific set of tools and models. Your results may differ depending on the IDE, AI assistant, and underlying language model you use. Feel free to experiment with your own settings to see how the architectures perform!
+</alert>
