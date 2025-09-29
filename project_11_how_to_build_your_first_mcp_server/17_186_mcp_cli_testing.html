@@ -34,7 +34,7 @@ Install jq if it's not installed yet:
 - Windows: Download from https://stedolan.github.io/jq/download/
 
 Then run:
-echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | python echo_server.py | jq
+echo '{"jsonrpc":"2.0","method":"notifications/initialized"}\n{"jsonrpc":"2.0","method":"tools/list","id":1}' | python echo_server.py | jq
 </callout>
 
 <checkable-item title="Tools list command returns formatted JSON with echo_tool"></checkable-item>
@@ -51,21 +51,50 @@ Create a file named test_echo_mcp.sh with the context as specified below.
 echo "Testing Echo MCP Server"
 echo "======================"
 
+run_mcp_test() {
+    local test_name="$1"
+    local method="$2"
+    local params="$3"
+    local jq_filter="$4"
+    
+    echo -e "\n${test_name}:"
+    
+    # Create a temporary file for the session
+    local tmpfile=$(mktemp)
+    
+    # Write initialization sequence and command to temp file
+    echo '{"jsonrpc":"2.0","method":"notifications/initialized"}' > "$tmpfile"
+    if [ -n "$params" ]; then
+        echo "{\"jsonrpc\":\"2.0\",\"method\":\"$method\",\"id\":1,\"params\":$params}" >> "$tmpfile"
+    else
+        echo "{\"jsonrpc\":\"2.0\",\"method\":\"$method\",\"id\":1}" >> "$tmpfile"
+    fi
+    
+    # Run the server with the commands and filter the result
+    if python echo_server.py < "$tmpfile" | grep -v "WARNING" | tail -n 1 | jq "$jq_filter" 2>/dev/null; then
+        echo PASS
+        result=0
+    else
+        echo FAIL
+        result=1
+    fi
+    
+    # Clean up
+    rm "$tmpfile"
+    return $result
+}
+
 # Test 1: List tools
-echo -e "\n1. Listing available tools:"
-echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | python echo_server.py | jq '.result.tools[].name'
+run_mcp_test "1. Listing available tools" "tools/list" "" ".result.tools[].name"
 
 # Test 2: Call echo_tool
-echo -e "\n2. Calling echo_tool with message:"
-echo '{"jsonrpc":"2.0","method":"tools/call","id":2,"params":{"name":"echo_tool","arguments":{"message":"Hello from CLI test!"}}}' | python echo_server.py | jq '.result.content[0].text'
+run_mcp_test "2. Calling echo_tool with message" "tools/call" '{"name":"echo_tool","arguments":{"message":"Hello from CLI test!"}}' ".result.content[0].text"
 
 # Test 3: List resources
-echo -e "\n3. Listing available resources:"
-echo '{"jsonrpc":"2.0","method":"resources/list","id":3}' | python echo_server.py | jq '.result.resources'
+run_mcp_test "3. Listing available resources" "resources/list" "" ".result.resources"
 
 # Test 4: Read a resource
-echo -e "\n4. Reading echo resource:"
-echo '{"jsonrpc":"2.0","method":"resources/read","id":4,"params":{"uri":"echo://testing-resources"}}' | python echo_server.py | jq '.result.contents[0].text'
+run_mcp_test "4. Reading echo resource" "resources/read" '{"uri":"echo://testing-resources"}' ".result.contents[0].text"
 
 echo -e "\nAll tests completed!"
 </callout>
