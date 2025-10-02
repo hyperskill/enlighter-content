@@ -1,11 +1,11 @@
 {
-  "id": 55,
-  "description": "Practical patterns to design robust, efficient, and safe AI agents using Google's ADK (Agent Development Kit).",
-  "title": "Effective Design Patterns for AI Agents",
-  "categories": "AI Agents, Design Patterns, ADK",
-  "cover_url": "https://ucarecdn.com/8fbccc15-9cd9-4346-86b9-fb8d39d8ec06/",
-  "readme": "# Effective Design Patterns for AI Agents\n\nLearn essential, production-ready agentic patterns (Router, Planner-Executor, Self-Critique, Human-in-the-Loop) with hands-on tasks using Google ADK.",
-  "short_description": "Implement router, planner, self-critique, and HITL patterns with Google ADK.",
+  "id": 68,
+  "description": "Learn to build powerful, AI-driven automations using both visual node-based tools like n8n and conversational platforms like Ona AI.",
+  "title": "AI-Powered Workflow Automation: From Visual Builders to Natural Language",
+  "categories": "Workflow Automation, n8n, Ona AI, No-Code, AI",
+  "cover_url": "https://ucarecdn.com/c4003279-c7bc-4d63-b139-57c00131035a/",
+  "readme": "# AI-Powered Workflow Automation\n\nMaster two modern approaches to automation. Build complex AI agents with the visual, node-based power of n8n, then create workflows instantly using plain English with Ona AI.",
+  "short_description": "Build AI automations with n8n's visual canvas and Ona AI's natural language interface.",
   "ides": "cursor, windsurf, junie, vscode"
 }
 
