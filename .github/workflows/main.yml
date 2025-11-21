@@ -19,13 +19,13 @@ jobs:
     steps:
       - name: Checkout base branch for pull_request_target
         if: github.event_name == 'pull_request_target'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.base.ref }}
 
       - name: Checkout current ref for push and workflow_dispatch
         if: github.event_name != 'pull_request_target'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Configure git identity
         if: github.event_name == 'pull_request_target'
@@ -43,7 +43,7 @@ jobs:
           git merge --no-ff FETCH_HEAD || (echo "Merge conflict detected" && exit 1)
 
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
 
@@ -76,7 +76,7 @@ jobs:
     needs: validate # Depends on the 'validate' job succeeding
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -102,14 +102,14 @@ jobs:
     steps:
       - name: Checkout base branch for pull_request_target
         if: github.event_name == 'pull_request_target'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.base.ref }}
           fetch-depth: 0
 
       - name: Checkout current ref for push and workflow_dispatch
         if: github.event_name != 'pull_request_target'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
