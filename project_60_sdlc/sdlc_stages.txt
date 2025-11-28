@@ -1,0 +1,10 @@
+SDLC Stages for the project:
+
+1. Introduction to SDLC and Junie's role
+2. Requirements Gathering and Analysis with Junie
+3. Design and Architecture with Junie
+4. Implementation and Coding with Junie
+5. Testing and Quality Assurance with Junie (including MCP/Playwright)
+6. Deployment and DevOps with Junie
+7. Maintenance and Support with Junie
+8. Summary and Best Practices

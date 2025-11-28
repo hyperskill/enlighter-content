@@ -1,0 +1,368 @@
+<!-- Enlighter Metainfo
+{
+  "id": 6007,
+  "title": "Maintenance and Support with Junie",
+  "next_button_title": "Next"
+}
+-->
+
+<h5>Maintenance and Support</h5>
+
+<p>After deployment, software enters the Maintenance and Support phase, which is often the longest phase in the SDLC. During this phase, the focus shifts to keeping the software running smoothly, addressing issues, and implementing enhancements. Effective maintenance ensures that software continues to meet user needs and adapts to changing requirements.</p>
+
+<p>In this section, we'll explore how Junie can assist with maintenance and support activities, helping teams extend the lifespan and value of their software.</p>
+
+<h5>Key Maintenance and Support Activities</h5>
+
+<p>The maintenance phase encompasses several important activities:</p>
+
+<ul>
+    <li><strong>Bug Fixing</strong>: Identifying and resolving defects discovered after deployment.</li>
+    <li><strong>Performance Optimization</strong>: Improving system performance and efficiency.</li>
+    <li><strong>Feature Enhancements</strong>: Adding new capabilities based on user feedback.</li>
+    <li><strong>Security Patching</strong>: Addressing security vulnerabilities.</li>
+    <li><strong>Dependency Updates</strong>: Keeping libraries and frameworks up-to-date.</li>
+    <li><strong>Documentation Updates</strong>: Maintaining accurate and current documentation.</li>
+    <li><strong>User Support</strong>: Assisting users with questions and issues.</li>
+</ul>
+
+<h5>Common Challenges in Maintenance</h5>
+
+<p>Teams often face these challenges during maintenance:</p>
+
+<ul>
+    <li><strong>Technical Debt</strong>: Managing accumulated shortcuts and suboptimal solutions.</li>
+    <li><strong>Knowledge Transfer</strong>: Maintaining understanding of the system as team members change.</li>
+    <li><strong>Legacy Code</strong>: Working with outdated code that may be difficult to modify.</li>
+    <li><strong>Regression Risk</strong>: Ensuring that fixes don't introduce new problems.</li>
+    <li><strong>Balancing Maintenance and New Development</strong>: Allocating resources effectively.</li>
+    <li><strong>User Communication</strong>: Keeping users informed about changes and updates.</li>
+</ul>
+
+<h5>How Junie Can Help with Maintenance and Support</h5>
+
+<p>Junie offers valuable assistance throughout the maintenance phase:</p>
+
+<h5>1. Bug Analysis and Resolution</h5>
+
+<p>Junie can help diagnose and fix bugs:</p>
+
+<ul>
+    <li><strong>Error Analysis</strong>: Interpreting error logs and stack traces.</li>
+    <li><strong>Root Cause Identification</strong>: Tracing issues to their source.</li>
+    <li><strong>Fix Implementation</strong>: Suggesting code changes to resolve issues.</li>
+    <li><strong>Regression Testing</strong>: Creating tests to verify fixes and prevent recurrence.</li>
+</ul>
+
+<callout label="Ask Junie to help with bug fixing">
+I'm seeing this error in production logs: "TypeError: Cannot read property 'filter' of undefined at /app/services/productService.js:42". Here's the relevant code:
+
+```javascript
+// productService.js
+function getProductsByCategory(categoryId) {
+  return getAllProducts()
+    .then(products => {
+      return products.filter(product => product.categoryId === categoryId);
+    })
+    .catch(error => {
+      console.error('Error filtering products:', error);
+      throw error;
+    });
+}
+
+function getAllProducts() {
+  return db.query('SELECT * FROM products')
+    .then(results => {
+      return results.rows;
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+      return Promise.reject(error);
+    });
+}
+```
+
+What might be causing this error and how can I fix it?
+</callout>
+
+<h5>2. Code Refactoring</h5>
+
+<p>Junie can assist with improving existing code:</p>
+
+<ul>
+    <li><strong>Technical Debt Identification</strong>: Spotting areas that need improvement.</li>
+    <li><strong>Refactoring Suggestions</strong>: Recommending ways to improve code structure.</li>
+    <li><strong>Performance Optimization</strong>: Identifying and resolving performance bottlenecks.</li>
+    <li><strong>Modernization</strong>: Updating code to use newer language features and patterns.</li>
+</ul>
+
+<callout label="Ask Junie to help with refactoring">
+Help me refactor this legacy JavaScript function to use modern ES6+ features and improve its readability and performance:
+
+```javascript
+function processUserData(users) {
+  var result = [];
+  for (var i = 0; i < users.length; i++) {
+    var user = users[i];
+    if (user.active === true) {
+      var processedUser = {
+        id: user.id,
+        name: user.firstName + ' ' + user.lastName,
+        email: user.email,
+        role: user.role || 'user',
+        lastLogin: user.lastLogin ? new Date(user.lastLogin) : null
+      };
+      result.push(processedUser);
+    }
+  }
+  return result;
+}
+```
+</callout>
+
+<h5>3. Dependency Management</h5>
+
+<p>Junie can help manage software dependencies:</p>
+
+<ul>
+    <li><strong>Vulnerability Assessment</strong>: Identifying security issues in dependencies.</li>
+    <li><strong>Update Planning</strong>: Suggesting approaches for updating dependencies.</li>
+    <li><strong>Breaking Change Analysis</strong>: Identifying potential issues when upgrading.</li>
+    <li><strong>Migration Guides</strong>: Creating step-by-step guides for major updates.</li>
+</ul>
+
+<callout label="Ask Junie about dependency updates">
+I need to update my React application from version 16.8 to version 18.2. The app uses Redux, React Router, and several custom hooks. Can you help me create a migration plan that identifies potential breaking changes and outlines the steps needed for a smooth upgrade?
+</callout>
+
+<h5>4. Documentation Maintenance</h5>
+
+<p>Junie can help keep documentation current:</p>
+
+<ul>
+    <li><strong>Code Documentation</strong>: Updating comments and API documentation.</li>
+    <li><strong>User Guides</strong>: Revising user-facing documentation.</li>
+    <li><strong>Knowledge Base Articles</strong>: Creating support content for common issues.</li>
+    <li><strong>Change Logs</strong>: Documenting changes between versions.</li>
+</ul>
+
+<callout label="Ask Junie to update documentation">
+Help me update this API documentation to reflect recent changes. The endpoint now supports pagination and sorting, and we've added a new field called "status" to the response object:
+
+```markdown
+## Get Users
+
+Retrieves a list of users.
+
+**URL**: `/api/users`
+
+**Method**: `GET`
+
+**Auth required**: Yes
+
+**Query Parameters**:
+- `role` (optional) - Filter users by role
+
+**Success Response**:
+- **Code**: 200
+- **Content**:
+  ```json
+  {
+    "users": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "role": "admin",
+        "createdAt": "2023-01-15T08:30:00Z"
+      }
+    ]
+  }
+  ```
+```
+</callout>
+
+<h5>5. Performance Analysis and Optimization</h5>
+
+<p>Junie can help identify and resolve performance issues:</p>
+
+<ul>
+    <li><strong>Performance Bottleneck Identification</strong>: Analyzing code for inefficiencies.</li>
+    <li><strong>Query Optimization</strong>: Improving database query performance.</li>
+    <li><strong>Caching Strategies</strong>: Suggesting appropriate caching approaches.</li>
+    <li><strong>Load Testing Scripts</strong>: Creating scripts to test system performance.</li>
+</ul>
+
+<callout label="Ask Junie about performance optimization">
+This database query is running slowly in our production environment. Can you help optimize it?
+
+```sql
+SELECT 
+  o.order_id, 
+  o.order_date, 
+  o.total_amount,
+  c.customer_name,
+  c.email,
+  p.product_name,
+  oi.quantity,
+  oi.unit_price
+FROM 
+  orders o
+JOIN 
+  customers c ON o.customer_id = c.customer_id
+JOIN 
+  order_items oi ON o.order_id = oi.order_id
+JOIN 
+  products p ON oi.product_id = p.product_id
+WHERE 
+  o.order_date > '2023-01-01'
+ORDER BY 
+  o.order_date DESC;
+```
+
+The orders table has about 1 million rows, customers has 100,000 rows, order_items has 5 million rows, and products has 10,000 rows.
+</callout>
+
+<h5>6. User Support Assistance</h5>
+
+<p>Junie can help with supporting users:</p>
+
+<ul>
+    <li><strong>Troubleshooting Guides</strong>: Creating step-by-step instructions for common issues.</li>
+    <li><strong>FAQ Generation</strong>: Developing frequently asked questions and answers.</li>
+    <li><strong>Error Message Explanations</strong>: Providing user-friendly explanations of technical errors.</li>
+    <li><strong>Support Response Templates</strong>: Creating templates for common support scenarios.</li>
+</ul>
+
+<callout label="Ask Junie to create support content">
+Help me create a troubleshooting guide for users who are experiencing login issues with our web application. Include common problems like forgotten passwords, account lockouts, browser compatibility issues, and network connectivity problems. For each issue, provide step-by-step resolution steps and explain when they should contact support.
+</callout>
+
+<h5>7. GitHub Issue Management with Junie for GitHub</h5>
+
+<p>A powerful new tool for maintenance and support is Junie for GitHub, which brings AI-assisted development directly to your GitHub repositories. This integration allows teams to handle issues, make improvements, and collaborate more efficiently during the maintenance phase.</p>
+
+<p>Junie for GitHub is an Early Access feature from JetBrains that extends Junie's capabilities beyond the IDE and into your GitHub workflow:</p>
+
+<ul>
+    <li><strong>Issue Resolution</strong>: Assign issues directly to Junie from GitHub for quick fixes.</li>
+    <li><strong>Multi-tasking</strong>: Assign multiple maintenance tasks to Junie simultaneously.</li>
+    <li><strong>Team Collaboration</strong>: Work with your team and Junie to solve complex maintenance problems.</li>
+    <li><strong>Code Review</strong>: Get AI-powered reviews on maintenance PRs to ensure quality.</li>
+</ul>
+
+<h5>Setting Up Junie for GitHub</h5>
+
+<p>To enable Junie for GitHub in your maintenance workflow:</p>
+
+<ol>
+    <li>Install the Junie GitHub App from the GitHub Marketplace (currently by invitation only).</li>
+    <li>The app will automatically create a Pull Request with the required workflow file (<code>.github/workflows/ej-issue.yml</code>).</li>
+    <li>It will also add a <code>devcontainer.json</code> file to your repository to support containerized environments.</li>
+</ol>
+
+<p>The devcontainer configuration defines the environment where Junie will run when processing your GitHub issues. While a default setup is provided, you may need to customize it to match your project's specific requirements.</p>
+
+<h5>Using Junie for GitHub in Maintenance</h5>
+
+<p>Once configured, you can leverage Junie for GitHub in your maintenance workflow:</p>
+
+<ul>
+    <li><strong>Issue Triage</strong>: Create an issue with "junie" in the title or mention <code>@jetbrains-junie</code> in comments.</li>
+    <li><strong>PR Assistance</strong>: Get help iterating on pull requests with smart suggestions.</li>
+    <li><strong>Automated Fixes</strong>: If Junie created the PR or you're the author of comments with mentions, fixes are committed to the same branch.</li>
+    <li><strong>New PR Creation</strong>: For other cases, Junie creates a new PR with the changes.</li>
+</ul>
+
+<callout label="Ask Junie to help with GitHub issue management">
+I have several bug reports in my GitHub repository that need to be triaged and fixed. How can I set up Junie for GitHub to help manage these issues more efficiently? What's the best workflow for using Junie to handle routine bug fixes while my team focuses on more complex maintenance tasks?
+</callout>
+
+<h5>Best Practices for AI-Assisted Maintenance</h5>
+
+<p>To maximize the value of Junie during maintenance:</p>
+
+<ul>
+    <li><strong>Provide Context</strong>: Give Junie information about the system's architecture and history.</li>
+    <li><strong>Share Error Details</strong>: Include logs, stack traces, and relevant code when discussing issues.</li>
+    <li><strong>Document AI Solutions</strong>: Record solutions provided by Junie for future reference.</li>
+    <li><strong>Use for Knowledge Transfer</strong>: Let Junie explain complex parts of the system to new team members.</li>
+    <li><strong>Validate Changes</strong>: Always review and test changes suggested by Junie before implementing them.</li>
+</ul>
+
+<h5>Practical Exercise: Legacy Code Analysis</h5>
+
+<p>Let's practice using Junie for maintenance tasks:</p>
+
+<callout label="Ask Junie to analyze legacy code">
+Analyze this legacy code and provide recommendations for improvement:
+
+```javascript
+// User authentication module from 2015
+var UserAuth = (function() {
+  var currentUser = null;
+  
+  function login(username, password, callback) {
+    $.ajax({
+      url: '/api/login',
+      type: 'POST',
+      data: {
+        username: username,
+        password: password
+      },
+      success: function(response) {
+        if (response.status === 'success') {
+          currentUser = {
+            id: response.userId,
+            username: username,
+            token: response.token,
+            role: response.role
+          };
+          localStorage.setItem('auth_token', response.token);
+          callback(null, currentUser);
+        } else {
+          callback(new Error(response.message || 'Login failed'), null);
+        }
+      },
+      error: function(xhr) {
+        callback(new Error('Network error'), null);
+      }
+    });
+  }
+  
+  function logout() {
+    currentUser = null;
+    localStorage.removeItem('auth_token');
+    window.location.href = '/login.html';
+  }
+  
+  function getCurrentUser() {
+    if (!currentUser && localStorage.getItem('auth_token')) {
+      // Try to restore session
+      $.ajax({
+        url: '/api/me',
+        type: 'GET',
+        async: false,
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('auth_token')
+        },
+        success: function(response) {
+          currentUser = response.user;
+        }
+      });
+    }
+    return currentUser;
+  }
+  
+  return {
+    login: login,
+    logout: logout,
+    getCurrentUser: getCurrentUser
+  };
+})();
+```
+
+Identify security issues, outdated practices, and suggest how to modernize this code using current best practices.
+</callout>
+
+<p>In the next section, we'll summarize what we've learned about how Junie can assist throughout the SDLC and discuss best practices for integrating AI into your development workflow.</p>

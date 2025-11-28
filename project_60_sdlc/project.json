@@ -1,0 +1,10 @@
+{
+  "id": 60,
+  "description": "Learn how Junie can assist developers throughout the entire software development lifecycle, from planning and requirements gathering to implementation, testing, deployment, and maintenance.",
+  "title": "Junie in the Software Development Lifecycle: AI-Assisted Development from Start to Finish",
+  "categories": "SDLC, Software Development, AI-Assisted Development, Testing, Planning",
+  "cover_url": "https://ucarecdn.com/c4003279-c7bc-4d63-b139-57c00131035a/",
+  "readme": "# Junie in the Software Development Lifecycle\n\nDiscover how Junie can enhance every stage of the software development lifecycle. Learn practical techniques for leveraging AI to improve planning, requirements gathering, design, implementation, testing, deployment, and maintenance.",
+  "short_description": "Leverage Junie's capabilities to enhance every stage of the software development lifecycle.",
+  "ides": "junie"
+}
