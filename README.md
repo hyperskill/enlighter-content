@@ -55,4 +55,4 @@ Each project follows this structure:
 
 ## 👩‍💻 How to Contribute
 
-If you want to contribute a project to Enlighter, please follow our [Contributing Guidelines](CONTRIBUTING.md).
+If you want to contribute a project to Enlighter, please follow our [Contributing Guidelines](CONTRIBUTION.md).
