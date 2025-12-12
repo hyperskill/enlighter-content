@@ -8,7 +8,7 @@
 
 <h5>Setting Boundaries for the Agent</h5>
 
-<p>While Junie's planning-first approach provides a strong safety net, you might have sensitive files or critical configurations that you want to be absolutely certain the AI will not touch without explicit permission. Junie provides two key features for this: <code>.aiignore</code> files and the <strong>Action Allowlist</strong>.</p>
+<p>While Junie’s planning-first approach provides a strong safety net, you may have sensitive files or critical configurations that you want to protect. Junie offers two key features for this: <code>.aiignore</code> files and the <strong>Action Allowlist</strong>.</p>
 
 <h5>Restricting Access with <code>.aiignore</code></h5>
 <p>Similar to <code>.gitignore</code>, an <code>.aiignore</code> file in your project root tells Junie which files and folders it should not process. If a task requires accessing an ignored file, Junie will stop and ask for your explicit approval.</p>
@@ -23,18 +23,19 @@ Create an `.aiignore` file in the project root. Add the `.junie/` directory to i
 
 <img style="margin: auto; display: block;" src="https://ucarecdn.com/1fbc0701-e203-4010-86be-d2eae66c3936/" alt="Junie .aiignore file" title="Junie .aiignore file">
 
-<p>Now, if you were to ask Junie to modify the MCP configuration, it would first present a warning and require you to approve the action, giving you an extra layer of security for critical project files.</p>
+<p>Now, if you ask Junie to modify the MCP configuration, it will first present a warning and require approval, giving you an extra layer of security.</p>
 
 <callout label="Ask Junie to change the settings of the MCP server" type="chat">
 Delete the MCP configuration file in .junie/mcp/
 </callout>
 
+<p><strong>Checklist:</strong></p>
 <checkable-item title=".aiignore file is created and Junie can't modify the MCP configuration">
   .aiignore file is created and Junie can't modify the MCP configuration
 </checkable-item>
 
 <h5>Automating Approval with the Action Allowlist</h5>
-<p>On the other hand, some actions are so routine and safe that you might not want to be prompted for approval every time. A perfect example is running `git status` to check the state of the repository. You can add safe, common commands to the <strong>Action Allowlist</strong>.</p>
+<p>For routine and safe actions, you may not want to be prompted for approval every time. For example, running <code>git status</code> to check the repository state. You can add these safe commands to the <strong>Action Allowlist</strong>.</p>
 
 <p>To do this:</p>
 <ol>
