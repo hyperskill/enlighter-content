@@ -1,0 +1,150 @@
+<!-- Enlighter Metainfo
+{
+  "id": 505,
+  "title": "Vertical Slice Architecture",
+  "next_button_title": "Next"
+}
+-->
+<h5>4. Vertical Slice Architecture</h5>
+<p>
+    Vertical Slice Architecture is an alternative to traditional layered architectures. Instead of organizing code into horizontal layers based on technical concerns (e.g., UI, business logic), this pattern organizes code around features, or "vertical slices."
+</p>
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/6019c6ad-33f8-4d2b-9bac-06bd03857643/" alt="Vertical Slice Architecture" title="Vertical Slice Architecture">
+<p>
+    Each slice encapsulates all the code needed for a specific feature, from the user interface down to the database. This approach promotes high cohesion within features and loose coupling between them.
+</p>
+
+<h5>Advantages</h5>
+<ul>
+    <li>Easier to add or change features, as all related code is in one place.</li>
+    <li>Minimizes dependencies between features.</li>
+    <li>Good for applications with many independent features.</li>
+</ul>
+
+<h5>Disadvantages</h5>
+<ul>
+    <li>Can lead to code duplication between slices if not managed carefully.</li>
+    <li>May be less familiar to developers accustomed to layered architectures.</li>
+</ul>
+
+<h5>Let's Build a Snake Game</h5>
+<p>
+    Let's implement the Snake game one more time, now with Vertical Slice Architecture.
+</p>
+
+<callout type="chat">
+
+    Create a file vertical_slice_architecture/architecture.md. Add the following content:
+
+    You are working in a codebase that MUST follow **Vertical Slice Architecture (VSA)**.
+
+    ─────────────────────────────────
+    🔹 1. Core Idea
+    ─────────────────────────────────
+    Group code **by business feature, not by technical layer**.  
+    Each *slice* is an end-to-end package that owns everything required for ONE user scenario:
+    
+    • Transport adapter (HTTP/GraphQL/CLI)  
+    • Request / Command / Query models  
+    • Validation / Authorization  
+    • Handler / Use-case logic  
+    • Data access (repo or gateway)  
+    
+    **One feature, one folder, one dependency graph.**
+    
+    ─────────────────────────────────
+    🔹 2. Folder & Naming Rules
+    ─────────────────────────────────
+    src/
+    ├── shared_kernel/          # universal value objects, errors, utilities
+    ├── infrastructure/         # cross-cutting drivers (DB, broker, cache)
+    └── features/
+        ├── orders/
+        │   ├── place_order/
+        │   │   ├── PlaceOrderEndpoint.py
+        │   │   ├── PlaceOrderCommand.py
+        │   │   ├── PlaceOrderValidator.py
+        │   │   ├── PlaceOrderHandler.py
+        │   │   ├── repository.py        # optional, slice-specific
+        │   │   └── test_place_order.py
+        │   └── get_order/
+        └── auth/
+            └── login/
+    
+    Conventions:
+    • Top-level dir **features/**; sub-dirs are domains (**orders**, **auth**, etc.).  
+    • Next level is the specific action (**place_order**, **login**).  
+    • Name files after what they do;
+    
+    ─────────────────────────────────
+    🔹 3. Dependency Rules
+    ─────────────────────────────────
+    ✔ Slice → shared_kernel (value objects, errors)  
+    ✔ Slice → infrastructure (only via interfaces or adapters)  
+    ✘ Slice → another slice (avoid direct coupling; use events or shared_kernel)
+    
+    ─────────────────────────────────
+    🔹 4. Code Generation & Refactoring
+    ─────────────────────────────────
+    1. **Create a new slice folder** for each new feature/change.  
+    2. Touch *only* that slice; other features remain untouched.  
+    3. If helper logic is reused by ≥ 3 slices, lift it to shared_kernel.  
+    
+    ─────────────────────────────────
+    🔹 5. Your Role
+    ─────────────────────────────────
+    Whenever you create or modify code:
+    
+    1. **Identify/define the slice** that owns the change.  
+    2. **Conform strictly** to the folder structure and dependency rules.  
+    3. Reject or refactor any solution that couples slices directly or violates these principles.
+</callout>
+
+<p>
+    Use the prompt below to have the AI generate the game.
+</p>
+
+<callout label="Generate the Snake game">
+Generate an application based on the description from @/snake_game.md, designed as described in @/vertical_slice_architecture/architecture.md. Run the app when you have completed the implementation.
+</callout>
+
+<p>
+    Test the game in your browser to ensure whether all the features are working as expected.
+</p>
+
+<h5>Results from the Study</h5>
+<p>
+    The Vertical Slice Architecture had mixed results. Its initial generation success rate was inconsistent (60%). However, for the successful generations, it performed perfectly on modification tasks, maintaining architectural integrity.
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>Metric</th>
+            <th>Average Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>One-shot generation success</td>
+            <td>3/5 (60%)</td>
+        </tr>
+        <tr>
+            <td>One-shot modification success</td>
+            <td>3/3 (100%)*</td>
+        </tr>
+        <tr>
+            <td>Architecture adherence (modification)</td>
+            <td>3/3 (100%)*</td>
+        </tr>
+        <tr>
+            <td>Initial token consumption</td>
+            <td>18.8k ↑ / 443.6k ↓</td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    <i>*Note: Only successful initial generations were tested for modifications.</i>
+</p>
+<p>
+    This architecture is a strong choice for applications with independent features, as it excels at isolating changes and maintaining integrity during modifications.
+</p>

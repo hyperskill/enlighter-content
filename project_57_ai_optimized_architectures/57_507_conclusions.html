@@ -1,0 +1,84 @@
+<!-- Enlighter Metainfo
+{
+  "id": 507,
+  "title": "Conclusions and Key Takeaways",
+  "next_button_title": "Finish the Course"
+}
+-->
+
+<h5>6. Conclusions and Key Takeaways</h5>
+<p>
+    This project demonstrated that codebase architecture has a significant impact on the effectiveness of AI coding tools. By experimenting with four different architectural patterns, we've seen how choosing the right structure can lead to higher success rates, and more efficient token usage.
+</p>
+
+<h5>Performance Ranking</h5>
+<p>
+    Based on the overall performance across all metrics in the study, here is the final ranking of the architectures:
+</p>
+<ol>
+    <li><b>Layered Architecture:</b> The clear winner, with 100% success rates in both generation and modification, and the best token efficiency. Its familiarity and clear separation of concerns make it highly compatible with current AI models.</li>
+    <li><b>Atomic Composable Architecture:</b> Performed well for initial generation but struggled to maintain its integrity during modifications due to the "chain reaction" problem.</li>
+    <li><b>Vertical Slice Architecture:</b> Showed inconsistent initial generation but was very robust and effective for modifications, making it a good choice for feature-rich applications.</li>
+    <li><b>Pipeline Architecture:</b> Was a poor fit for an interactive application like a game, resulting in a very low success rate. This highlights the importance of matching the architecture to the problem domain.</li>
+</ol>
+
+<h5>Architecture Selection Guidelines</h5>
+<p>
+    The research provides the following guidelines for choosing an architecture for your next AI-assisted project:
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>Architecture</th>
+            <th>Best Use Cases</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b>Layered</b></td>
+            <td>Applications with a clear separation between UI, logic, and data (e.g., MVC-style apps).</td>
+        </tr>
+        <tr>
+            <td><b>Vertical Slice</b></td>
+            <td>Applications with many independent features that can be developed in isolation.</td>
+        </tr>
+        <tr>
+            <td><b>Atomic Composable</b></td>
+            <td>Applications with rich functionality that needs to be composed in various ways.</td>
+        </tr>
+        <tr>
+            <td><b>Pipeline</b></td>
+            <td>Sequential data processing and transformation tasks.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h5>Limitations of the Study</h5>
+<p>
+    It's important to acknowledge the limitations of the research that this project is based on. The findings provide valuable insights, but they are not universal. Keep the following in mind:
+</p>
+<ul>
+    <li><b>Single Test Case:</b> The results are based on a single application (the Snake game).</li>
+    <li><b>Specific LLM:</b> The tests were conducted with a single model (Claude Sonnet 3.7). Performance will vary with other models.</li>
+    <li><b>Small Sample Size:</b> The experiment was limited to five runs per architecture.</li>
+    <li><b>Specific Tooling:</b> The results are tied to the specific code generation tool used (RooCode).</li>
+</ul>
+<p>
+    We encourage you to experiment with these architectures on your own projects and with your preferred tools to see what works best for you.
+</p>
+
+<h5>Best Practices for AI-Optimized Codebases</h5>
+<p>
+    To make your codebase more AI-friendly, consider the following best practices:
+</p>
+<ul>
+    <li><b>Prioritize Familiar Patterns:</b> Use well-established architectural patterns that LLMs have likely seen frequently in their training data.</li>
+    <li><b>Optimize for Token Efficiency:</b> Design code that requires minimal context for the AI to understand a task.</li>
+    <li><b>Maintain Clear Boundaries:</b> Ensure that your architectural components (layers, slices, atoms) have well-defined responsibilities and interfaces.</li>
+    <li><b>Consider Chain Effects:</b> Be mindful of how changes might propagate through your chosen architecture.</li>
+    <li><b>Manage Context Actively:</b> Design your codebase to make it easy to provide the right context to the AI for any given task.</li>
+</ul>
+
+<p>
+    The key insight from this course is that context management through architectural design is crucial for AI coding effectiveness. By considering the requirements of AI tools alongside traditional architectural principles, development teams can maximize the benefits of AI-assisted programming.
+</p>

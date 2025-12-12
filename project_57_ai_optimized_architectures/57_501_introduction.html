@@ -1,0 +1,44 @@
+<!-- Enlighter Metainfo
+{
+  "id": 501,
+  "title": "Introduction to AI-Optimized Architectures",
+  "next_button_title": "Next"
+}
+-->
+<h5>Introduction to AI-Optimized Architectures</h5>
+<p>
+    Welcome to this course on designing software architectures that work effectively with AI coding assistants. As AI tools become more integrated into our development workflows, it's crucial to understand how to structure our codebases to maximize their potential. This tutorial, based on the research from the <a href="https://github.com/ipospelov/vibe-coding-architectures">vibe-coding-architectures</a> repository, will guide you through different architectural patterns and their impact on AI-assisted development.
+</p>
+
+<h5>The Question: Does Architecture Matter for AI?</h5>
+<p>
+    With the rise of powerful AI coding tools, a key question emerges: "How can we design codebases to be optimal for AI?" Traditional architectural patterns were designed for human developers, but AI assistants have different requirements for understanding code and navigating context. The primary goal of this course is to determine if and how software architecture affects the performance of AI code generation.
+</p>
+
+<h5>Key Components of AI Code Generation</h5>
+<p>
+    The success of AI in coding tasks depends on four main components:
+</p>
+<ul>
+    <li><b>Prompt:</b> The instruction given to the AI. The model generates the most probable continuation of a text based on the prompt.</li>
+    <li><b>Model:</b> The underlying Large Language Model (LLM) that determines the quality and probability of the generated code.</li>
+    <li><b>Context:</b> All the information available to the model beyond the prompt, which is primarily the existing codebase.</li>
+    <li><b>Tools:</b> Functions and capabilities that allow the AI to expand its context, such as file readers, search tools, and terminal access.</li>
+</ul>
+<p>
+    This course will focus on optimizing the <b>context</b> through thoughtful codebase architecture.
+</p>
+
+<h5>Why is Architecture Important for AI?</h5>
+<p>
+    A well-designed architecture significantly impacts the effectiveness of AI coding tools. Here's why:
+</p>
+<ul>
+    <li><b>Context Management:</b> Good architecture simplifies context management for both developers and AI, ensuring the AI has the right information without being overwhelmed.</li>
+    <li><b>Token Efficiency:</b> AI models have a limited context window (measured in tokens). A token-efficient codebase requires less context to be provided to the AI, leading to faster and more accurate results.</li>
+    <li><b>Resource Efficiency:</b> A well-structured codebase is more cost-effective. It saves developer time, reduces the computational resources (tokens) needed by the AI, and ultimately saves money.</li>
+    <li><b>Clarity and Predictability:</b> Familiar and clear architectural patterns are easier for AI to understand and follow, leading to better adherence to the existing design during code generation and modification.</li>
+</ul>
+<p>
+    In the following stages, we will explore four different architectural patterns, build a small application with each, and analyze their performance with AI assistants.
+</p>

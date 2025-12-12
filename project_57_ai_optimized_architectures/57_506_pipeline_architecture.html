@@ -1,0 +1,152 @@
+<!-- Enlighter Metainfo
+{
+  "id": 506,
+  "title": "Pipeline Architecture",
+  "next_button_title": "Next"
+}
+-->
+<h5>5. Pipeline Architecture</h5>
+<p>
+    The Pipeline Architecture, also known as Pipes and Filters, is a pattern where data is processed through a series of sequential stages or "filters." Each stage in the pipeline performs a specific transformation on the data and passes the result to the next stage.
+</p>
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/88bd5ea4-c5f4-4810-8478-2487e879f8fb/" alt="Pipeline Architecture Diagram" title="Pipeline Architecture">
+<p>
+    This pattern is commonly used for data processing tasks, compilers, and workflows where a task can be broken down into a series of independent, sequential steps.
+</p>
+
+<h5>Advantages</h5>
+<ul>
+    <li>Simple, linear processing flow is easy to understand.</li>
+    <li>Stages are decoupled and can be developed and tested independently.</li>
+    <li>Highly scalable and allows for parallel processing of stages.</li>
+</ul>
+
+<h5>Disadvantages</h5>
+<ul>
+    <li>Not well-suited for applications with complex user interactions or state management.</li>
+    <li>Can be inefficient if the data needs to be transformed back and forth between formats for different stages.</li>
+</ul>
+
+<h5>Let's Build a Snake Game</h5>
+<p>
+    Finally, let's see how the Pipeline Architecture handles the Snake game.
+</p>
+
+
+<callout type="chat">
+    Create a file pipeline_architecture/architecture.md. Add the following content:
+
+    You are working in a codebase that MUST follow **Pipeline Architecture (PA)**.
+
+─────────────────────────────────
+🔹 1. Core Idea
+─────────────────────────────────
+Process data as a linear (or branched) **flow of stages**:
+
+    Source  ➜  Stage 1  ➜  Stage 2  ➜ … ➜  Sink
+
+• Each stage performs ONE atomic transformation, then immediately forwards the record.  
+• Stages run concurrently; different records may sit on different stages at the same time.  
+• Contracts (schema or typed DTO) between stages are explicit and version-controlled.
+
+“**Do one thing, pass it on.**”
+
+─────────────────────────────────
+🔹 2. Folder & Naming Rules
+─────────────────────────────────
+src/
+├── pipeline/
+│   ├── stages/
+│   │   ├── 00_source.py        # emits records
+│   │   ├── 01_validate.py      # Stage 1
+│   │   ├── 02_enrich.py        # Stage 2
+│   │   ├── 03_predict.py       # Stage 3
+│   │   ├── 04_sink.py          # final drop-off
+│   │   └── __tests__/
+│   ├── runner.py               # wires queues, sets back-pressure, starts tasks
+│   ├── contracts/              # Avro/Proto/JSON-Schema files
+│   ├── shared/                 # generic utils (logging, metrics)
+│   └── config.yaml
+└── README.md
+
+Convention notes  
+• Prefix stage files with a sequence number (**00**, **10**, **20**…) so order is obvious.  
+
+─────────────────────────────────
+🔹 3. Dependency Rules
+─────────────────────────────────
+✔ Stage  → contracts/, shared/, std-lib, third-party libs  
+✘ Stage  → another stage’s **implementation** (no “reach-inside”)  
+✘ Cyclic imports among stages or shared code  
+
+─────────────────────────────────
+🔹 4. Code Generation & Refactoring
+─────────────────────────────────
+
+Create a new stage file or modify exactly ONE stage.  
+
+─────────────────────────────────
+🔹 5. Best Practices
+─────────────────────────────────
+• **Single-Responsibility Stage** – validation ≠ enrichment ≠ ML inference.  
+• **Idempotent processing** – a stage can safely re-run on the same record.  
+• **Explicit schemas** – Avro/Proto/JSON-Schema stored under contracts/.  
+• **Dead-letter queue** – send irrecoverable records to DLQ, don’t stop the flow.  
+
+─────────────────────────────────
+🔹 6. Your Role
+─────────────────────────────────
+Whenever you create or modify code:
+
+1. **Identify the affected stage** (or insert a new one).  
+2. **Respect folder structure and dependency rules.**  
+</callout>
+
+<p>
+    Use the prompt below to generate the game.
+</p>
+
+<callout label="Generate the Snake game">
+Generate an application based on the description from @/snake_game.md, designed as described in @/pipeline_architecture/architecture.md. Run the app when you have completed the implementation.
+</callout>
+
+<p>
+    Test the game in your browser to ensure whether all the features are working as expected.
+</p>
+
+<h5>Results from the Study</h5>
+<p>
+    The Pipeline Architecture was a poor fit for this type of interactive application. It had a very low success rate for the initial generation (20%) and was difficult for the AI to implement correctly.
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>Metric</th>
+            <th>Average Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>One-shot generation success</td>
+            <td>1/5 (20%)</td>
+        </tr>
+        <tr>
+            <td>One-shot modification success</td>
+            <td>1/1 (100%)*</td>
+        </tr>
+        <tr>
+            <td>Architecture adherence (modification)</td>
+            <td>1/1 (100%)*</td>
+        </tr>
+        <tr>
+            <td>Initial token consumption</td>
+            <td>25.6k ↑ / 210k ↓</td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    <i>*Note: Only one successful initial generation was achieved and tested.</i>
+</p>
+<p>
+    This demonstrates the importance of choosing an architecture that matches the problem domain. While Pipeline is powerful for data processing, it is not ideal for event-driven, interactive applications like a game.
+</p>

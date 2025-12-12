@@ -1,0 +1,156 @@
+<!-- Enlighter Metainfo
+{
+  "id": 503,
+  "title": "Layered Architecture",
+  "next_button_title": "Next"
+}
+-->
+<h5>2. Layered Architecture</h5>
+<p>
+    The Layered Architecture is a classic and widely-used design pattern. It organizes an application into horizontal layers, each with a specific responsibility. This separation of concerns makes the codebase easier to understand, maintain, and test.
+</p>
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/7c892123-fc13-41e6-a5b1-d67aed2b910f/" alt="Layered Architecture" title="Layered Architecture">
+<p>
+    A typical web application might have three layers:
+</p>
+<ul>
+    <li><b>Presentation Layer (UI):</b> Handles all user interface logic.</li>
+    <li><b>Business Logic Layer (Domain):</b> Contains the core application logic and business rules.</li>
+    <li><b>Data Access Layer:</b> Manages data persistence and retrieval.</li>
+</ul>
+<p>
+    Dependencies in this architecture are strict and typically flow in one direction: Presentation → Business Logic → Data Access.
+</p>
+
+<h5>Advantages</h5>
+<ul>
+    <li>High cohesion and low coupling between layers.</li>
+    <li>Promotes separation of concerns.</li>
+    <li>Well-understood and familiar to many developers (and AIs).</li>
+</ul>
+
+<h5>Disadvantages</h5>
+<ul>
+    <li>Can be rigid; changes may require modifications across multiple layers.</li>
+    <li>Can lead to unnecessary complexity for simple applications.</li>
+</ul>
+
+<h5>Let's Build a Snake Game</h5>
+<p>
+    Now, let's use an AI assistant to generate a Snake game using the Layered Architecture. First, we need to provide the AI with the game's specification and the architectural guidelines. The following blocks will create the necessary files.
+</p>
+
+
+<callout type="chat">
+
+    Create a file /layered_architecture/architecture.md. Add the following content:
+
+    You are working in a codebase that MUST follow **Pipeline Architecture (PA)**.
+
+    ─────────────────────────────────
+    🔹 1. Core Idea
+    ─────────────────────────────────
+    Process data as a linear (or branched) **flow of stages**:
+    
+        Source  ➜  Stage 1  ➜  Stage 2  ➜ … ➜  Sink
+    
+    • Each stage performs ONE atomic transformation, then immediately forwards the record.  
+    • Stages run concurrently; different records may sit on different stages at the same time.  
+    • Contracts (schema or typed DTO) between stages are explicit and version-controlled.
+    
+    “**Do one thing, pass it on.**”
+    
+    ─────────────────────────────────
+    🔹 2. Folder & Naming Rules
+    ─────────────────────────────────
+    src/
+    ├── pipeline/
+    │   ├── stages/
+    │   │   ├── 00_source.py        # emits records
+    │   │   ├── 01_validate.py      # Stage 1
+    │   │   ├── 02_enrich.py        # Stage 2
+    │   │   ├── 03_predict.py       # Stage 3
+    │   │   ├── 04_sink.py          # final drop-off
+    │   │   └── __tests__/
+    │   ├── runner.py               # wires queues, sets back-pressure, starts tasks
+    │   ├── contracts/              # Avro/Proto/JSON-Schema files
+    │   ├── shared/                 # generic utils (logging, metrics)
+    │   └── config.yaml
+    └── README.md
+    
+    Convention notes  
+    • Prefix stage files with a sequence number (**00**, **10**, **20**…) so order is obvious.  
+    
+    ─────────────────────────────────
+    🔹 3. Dependency Rules
+    ─────────────────────────────────
+    ✔ Stage  → contracts/, shared/, std-lib, third-party libs  
+    ✘ Stage  → another stage’s **implementation** (no “reach-inside”)  
+    ✘ Cyclic imports among stages or shared code  
+    
+    ─────────────────────────────────
+    🔹 4. Code Generation & Refactoring
+    ─────────────────────────────────
+    
+    Create a new stage file or modify exactly ONE stage.  
+    
+    ─────────────────────────────────
+    🔹 5. Best Practices
+    ─────────────────────────────────
+    • **Single-Responsibility Stage** – validation ≠ enrichment ≠ ML inference.  
+    • **Idempotent processing** – a stage can safely re-run on the same record.  
+    • **Explicit schemas** – Avro/Proto/JSON-Schema stored under contracts/.  
+    • **Dead-letter queue** – send irrecoverable records to DLQ, don’t stop the flow.  
+    
+    ─────────────────────────────────
+    🔹 6. Your Role
+    ─────────────────────────────────
+    Whenever you create or modify code:
+    
+    1. **Identify the affected stage** (or insert a new one).  
+    2. **Respect folder structure and dependency rules.**  
+
+</callout>
+
+<p>
+    Now that the files are created, use the following prompt to ask the AI to generate the game.
+</p>
+
+<callout label="Generate the Snake game">
+Generate an application based on the description from @/snake_game.md, designed as described in @/layered_architecture/architecture.md. Run the app when you have completed the implementation.
+</callout>
+
+<p>
+    Test the game in your browser to ensure whether all the features are working as expected.
+</p>
+
+<h5>Results from the Study</h5>
+<p>
+    The Layered Architecture achieved a 100% success rate for both initial generation and subsequent modifications.
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>Metric</th>
+            <th>Average Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>One-shot generation success</td>
+            <td>5/5 (100%)</td>
+        </tr>
+        <tr>
+            <td>One-shot modification success</td>
+            <td>5/5 (100%)</td>
+        </tr>
+        <tr>
+            <td>Architecture adherence (modification)</td>
+            <td>5/5 (100%)</td>
+        </tr>
+        <tr>
+            <td>Initial token consumption</td>
+            <td>16.22k ↑ / 248k ↓</td>
+        </tr>
+    </tbody>
+</table>
