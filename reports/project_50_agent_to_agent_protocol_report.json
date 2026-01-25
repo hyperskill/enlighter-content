@@ -1,0 +1,25 @@
+{
+  "project": "project_50_agent_to_agent_protocol",
+  "audit_date": "2026-01-25T12:11:36.420787",
+  "files_checked": [
+    "1_30001_introduction_to_the_agent_to_agent_a2a_protocol.html",
+    "2_30007_the_future_is_collaborative.html",
+    "3_30002_core_concepts_of_the_a2a_protocol.html",
+    "4_30009_tasks_and_artifacts.html",
+    "5_30008_a2a_and_mcp.html",
+    "6_30003_agent_cards_and_skills.html",
+    "7_30004_making_our_agents_discoverable.html",
+    "8_30005_agent_client.html",
+    "9_30006_summary_and_future_of_a2a.html",
+    "project.json"
+  ],
+  "total_files": 10,
+  "status": "ok",
+  "findings_summary": {
+    "total": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "findings": []
+}

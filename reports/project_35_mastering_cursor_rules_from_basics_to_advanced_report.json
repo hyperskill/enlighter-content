@@ -1,0 +1,23 @@
+{
+  "project": "project_35_mastering_cursor_rules_from_basics_to_advanced",
+  "audit_date": "2026-01-25T12:11:36.398354",
+  "files_checked": [
+    "1_173_introduction_to_cursor_rules.html",
+    "2_174_project_rule_types_and_settings.html",
+    "3_175_testing_our_rule_in_action.html",
+    "4_176_automatic_rule_creation_and_meta_rules.html",
+    "5_177_making_rules_visible.html",
+    "6_178_what_weve_learned.html",
+    "7_179_whats_next.html",
+    "project.json"
+  ],
+  "total_files": 8,
+  "status": "ok",
+  "findings_summary": {
+    "total": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "findings": []
+}

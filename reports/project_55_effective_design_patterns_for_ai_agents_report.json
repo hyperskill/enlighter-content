@@ -1,0 +1,22 @@
+{
+  "project": "project_55_effective_design_patterns_for_ai_agents",
+  "audit_date": "2026-01-25T12:11:36.426330",
+  "files_checked": [
+    "1_40010_introduction.html",
+    "2_40011_router.html",
+    "3_40012_planner.html",
+    "4_40013_self_critique.html",
+    "5_40014_human_in_the_loop.html",
+    "6_40015_summary.html",
+    "project.json"
+  ],
+  "total_files": 7,
+  "status": "ok",
+  "findings_summary": {
+    "total": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "findings": []
+}

@@ -1,0 +1,308 @@
+📁 Found 27 projects
+📍 Working directory: /Users/nikkononov/enlighter-content
+
+🎯 Will audit 27 projects:
+  - project_10_rag_based_support_agent
+  - project_11_how_to_build_your_first_mcp_server
+  - project_19_agent_all_dry
+  - project_29_console_chat_with_llm
+  - project_31_real_time_camera_filter_app
+  - project_33_cursors_lifehacks_mastering_the_ide
+  - project_35_mastering_cursor_rules_from_basics_to_advanced
+  - project_36_top_mcp_servers_to_boost_your_cursor
+  - project_37_managing_context_with_memory_bank
+  - project_38_real_time_camera_filter_app_junie
+  - project_39_junie_mcp
+  - project_40_console_llm_chat_junie
+  - project_41_rag_based_support_agent_junie
+  - project_42_cursor_1_0_update
+  - project_43_managing_context_with_memory_bank_in_windsurf
+  - project_44_top_mcp_servers_to_boost_your_windsurf
+  - project_45_top_mcp_servers_to_boost_your_copilot
+  - project_46_managing_context_with_memory_bank_in_copilot
+  - project_47_windsurf_wave_10_update
+  - project_48_managing_context_with_memory_bank_in_junie
+  - project_49_mastering_windsurf_rules
+  - project_50_agent_to_agent_protocol
+  - project_52_top_vibe_coding_tricks
+  - project_54_intro_to_junie
+  - project_55_effective_design_patterns_for_ai_agents
+  - project_56_top_mcp_servers_to_boost_junie
+  - project_68_workflow_automations
+
+Press Enter to start audit...
+======================================================================
+🔍 Auditing: project_10_rag_based_support_agent
+======================================================================
+✓ Files checked: 12
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_10_rag_based_support_agent_report.json
+
+======================================================================
+🔍 Auditing: project_11_how_to_build_your_first_mcp_server
+======================================================================
+✓ Files checked: 10
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_11_how_to_build_your_first_mcp_server_report.json
+
+======================================================================
+🔍 Auditing: project_19_agent_all_dry
+======================================================================
+✓ Files checked: 7
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_19_agent_all_dry_report.json
+
+======================================================================
+🔍 Auditing: project_29_console_chat_with_llm
+======================================================================
+✓ Files checked: 7
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_29_console_chat_with_llm_report.json
+
+======================================================================
+🔍 Auditing: project_31_real_time_camera_filter_app
+======================================================================
+✓ Files checked: 6
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_31_real_time_camera_filter_app_report.json
+
+======================================================================
+🔍 Auditing: project_33_cursors_lifehacks_mastering_the_ide
+======================================================================
+✓ Files checked: 12
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_33_cursors_lifehacks_mastering_the_ide_report.json
+
+======================================================================
+🔍 Auditing: project_35_mastering_cursor_rules_from_basics_to_advanced
+======================================================================
+✓ Files checked: 8
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_35_mastering_cursor_rules_from_basics_to_advanced_report.json
+
+======================================================================
+🔍 Auditing: project_36_top_mcp_servers_to_boost_your_cursor
+======================================================================
+✓ Files checked: 10
+✓ Total findings: 2
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 1
+✓ Report saved: project_36_top_mcp_servers_to_boost_your_cursor_report.json
+
+======================================================================
+🔍 Auditing: project_37_managing_context_with_memory_bank
+======================================================================
+✓ Files checked: 6
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_37_managing_context_with_memory_bank_report.json
+
+======================================================================
+🔍 Auditing: project_38_real_time_camera_filter_app_junie
+======================================================================
+✓ Files checked: 6
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_38_real_time_camera_filter_app_junie_report.json
+
+======================================================================
+🔍 Auditing: project_39_junie_mcp
+======================================================================
+✓ Files checked: 8
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_39_junie_mcp_report.json
+
+======================================================================
+🔍 Auditing: project_40_console_llm_chat_junie
+======================================================================
+✓ Files checked: 7
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_40_console_llm_chat_junie_report.json
+
+======================================================================
+🔍 Auditing: project_41_rag_based_support_agent_junie
+======================================================================
+✓ Files checked: 13
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_41_rag_based_support_agent_junie_report.json
+
+======================================================================
+🔍 Auditing: project_42_cursor_1_0_update
+======================================================================
+✓ Files checked: 7
+✓ Total findings: 19
+  - High priority: 16
+  - Medium priority: 3
+  - Low priority: 0
+✓ Report saved: project_42_cursor_1_0_update_report.json
+
+======================================================================
+🔍 Auditing: project_43_managing_context_with_memory_bank_in_windsurf
+======================================================================
+✓ Files checked: 6
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_43_managing_context_with_memory_bank_in_windsurf_report.json
+
+======================================================================
+🔍 Auditing: project_44_top_mcp_servers_to_boost_your_windsurf
+======================================================================
+✓ Files checked: 11
+✓ Total findings: 2
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 1
+✓ Report saved: project_44_top_mcp_servers_to_boost_your_windsurf_report.json
+
+======================================================================
+🔍 Auditing: project_45_top_mcp_servers_to_boost_your_copilot
+======================================================================
+✓ Files checked: 11
+✓ Total findings: 2
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 1
+✓ Report saved: project_45_top_mcp_servers_to_boost_your_copilot_report.json
+
+======================================================================
+🔍 Auditing: project_46_managing_context_with_memory_bank_in_copilot
+======================================================================
+✓ Files checked: 6
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_46_managing_context_with_memory_bank_in_copilot_report.json
+
+======================================================================
+🔍 Auditing: project_47_windsurf_wave_10_update
+======================================================================
+✓ Files checked: 6
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_47_windsurf_wave_10_update_report.json
+
+======================================================================
+🔍 Auditing: project_48_managing_context_with_memory_bank_in_junie
+======================================================================
+✓ Files checked: 7
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_48_managing_context_with_memory_bank_in_junie_report.json
+
+======================================================================
+🔍 Auditing: project_49_mastering_windsurf_rules
+======================================================================
+✓ Files checked: 6
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_49_mastering_windsurf_rules_report.json
+
+======================================================================
+🔍 Auditing: project_50_agent_to_agent_protocol
+======================================================================
+✓ Files checked: 10
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_50_agent_to_agent_protocol_report.json
+
+======================================================================
+🔍 Auditing: project_52_top_vibe_coding_tricks
+======================================================================
+✓ Files checked: 12
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_52_top_vibe_coding_tricks_report.json
+
+======================================================================
+🔍 Auditing: project_54_intro_to_junie
+======================================================================
+✓ Files checked: 7
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_54_intro_to_junie_report.json
+
+======================================================================
+🔍 Auditing: project_55_effective_design_patterns_for_ai_agents
+======================================================================
+✓ Files checked: 7
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_55_effective_design_patterns_for_ai_agents_report.json
+
+======================================================================
+🔍 Auditing: project_56_top_mcp_servers_to_boost_junie
+======================================================================
+✓ Files checked: 9
+✓ Total findings: 2
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 1
+✓ Report saved: project_56_top_mcp_servers_to_boost_junie_report.json
+
+======================================================================
+🔍 Auditing: project_68_workflow_automations
+======================================================================
+✓ Files checked: 7
+✓ Total findings: 1
+  - High priority: 0
+  - Medium priority: 1
+  - Low priority: 0
+✓ Report saved: project_68_workflow_automations_report.json
+
+======================================================================
+📊 Summary report saved: /Users/nikkononov/enlighter-content/reports/audit_summary.json
+======================================================================
+
+✅ Audit complete!

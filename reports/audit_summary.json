@@ -1,10 +1,10 @@
 {
-  "audit_date": "2026-01-25T11:38:35.431859",
-  "projects_audited": 2,
+  "audit_date": "2026-01-25T12:11:36.429339",
+  "projects_audited": 27,
   "projects": [
     {
       "project": "project_10_rag_based_support_agent",
-      "audit_date": "2026-01-25T11:38:35.429223",
+      "audit_date": "2026-01-25T12:11:36.390821",
       "files_checked": [
         "10_53_test_your_app.html",
         "11_54_improvement_ideas.html",
@@ -20,27 +20,18 @@
         "project.json"
       ],
       "total_files": 12,
-      "status": "needs_updates",
+      "status": "ok",
       "findings_summary": {
-        "total": 1,
+        "total": 0,
         "high": 0,
-        "medium": 1,
+        "medium": 0,
         "low": 0
       },
-      "findings": [
-        {
-          "file": "project.json",
-          "severity": "medium",
-          "issue": "Missing required fields: stages",
-          "line": 0,
-          "context": "",
-          "suggested_fix": ""
-        }
-      ]
+      "findings": []
     },
     {
       "project": "project_11_how_to_build_your_first_mcp_server",
-      "audit_date": "2026-01-25T11:38:35.431608",
+      "audit_date": "2026-01-25T12:11:36.393224",
       "files_checked": [
         "12_29_introduction_to_mcp_servers.html",
         "13_182_understanding_mcp_architecture.html",
@@ -54,23 +45,772 @@
         "project.json"
       ],
       "total_files": 10,
-      "status": "needs_updates",
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_19_agent_all_dry",
+      "audit_date": "2026-01-25T12:11:36.394066",
+      "files_checked": [
+        "1_133_what_are_you_going_to_build.html",
+        "2_134_set_up_your_cursor_chat_assistant.html",
+        "3_135_create_the_description_file_with_the_chat.html",
+        "4_136_get_openrouter_api_credentials.html",
+        "5_137_generate_your_app.html",
+        "6_138_enjoy_the_result_and_test_it.html",
+        "project.json"
+      ],
+      "total_files": 7,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_29_console_chat_with_llm",
+      "audit_date": "2026-01-25T12:11:36.394997",
+      "files_checked": [
+        "1_115_what_are_you_going_to_build.html",
+        "2_116_set_up_your_cursor_chat_assistant.html",
+        "3_117_create_the_description_file_with_the_chat.html",
+        "4_118_get_openrouter_api_credentials.html",
+        "5_119_generate_your_app.html",
+        "6_120_enjoy_the_result_and_test_it.html",
+        "project.json"
+      ],
+      "total_files": 7,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_31_real_time_camera_filter_app",
+      "audit_date": "2026-01-25T12:11:36.395694",
+      "files_checked": [
+        "1_145_what_you_will_build.html",
+        "2_146_set_up_your_cursor_chat_assistant.html",
+        "3_147_create_a_camera_filter_app.html",
+        "4_148_add_a_new_filter.html",
+        "5_149_key_takeaways.html",
+        "project.json"
+      ],
+      "total_files": 6,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_33_cursors_lifehacks_mastering_the_ide",
+      "audit_date": "2026-01-25T12:11:36.396607",
+      "files_checked": [
+        "10_164_use_notepads.html",
+        "11_165_bug_finder.html",
+        "1_155_log_everything.html",
+        "2_156_tdd_mindset.html",
+        "3_157_yolo_mode.html",
+        "4_158_using_context_files.html",
+        "5_159_write_readme.html",
+        "6_160_index_codebase.html",
+        "7_161_use_web_search.html",
+        "8_162_tag_and_folders.html",
+        "9_163_customize_with_cursorrules.html",
+        "project.json"
+      ],
+      "total_files": 12,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_35_mastering_cursor_rules_from_basics_to_advanced",
+      "audit_date": "2026-01-25T12:11:36.398354",
+      "files_checked": [
+        "1_173_introduction_to_cursor_rules.html",
+        "2_174_project_rule_types_and_settings.html",
+        "3_175_testing_our_rule_in_action.html",
+        "4_176_automatic_rule_creation_and_meta_rules.html",
+        "5_177_making_rules_visible.html",
+        "6_178_what_weve_learned.html",
+        "7_179_whats_next.html",
+        "project.json"
+      ],
+      "total_files": 8,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_36_top_mcp_servers_to_boost_your_cursor",
+      "audit_date": "2026-01-25T12:11:36.400077",
+      "files_checked": [
+        "1_189_sequential_thinking_mcp_structured_problem_solving_assistant.html",
+        "2_191_context7_mcp_up-to-date_code_documentation.html",
+        "3_210_memory_bank_mcp_ai_context_management_system.html",
+        "4_192_github_mcp_interacting_with_github_repositories.html",
+        "5_193_knowledge_graph_memory_mcp_persistent_storage.html",
+        "6_194_duckduckgo_mcp_web_search_capabilities.html",
+        "7_195_mcp_compass_mcp_servers_discovery_recommendation.html",
+        "8_196_playwright_mcp_browser_automation_and_testing.html",
+        "9_197_mcp_resources_and_next_steps.html",
+        "project.json"
+      ],
+      "total_files": 10,
+      "status": "minor_issues",
       "findings_summary": {
         "total": 1,
         "high": 0,
-        "medium": 1,
+        "medium": 0,
+        "low": 1
+      },
+      "findings": [
+        {
+          "file": "5_193_knowledge_graph_memory_mcp_persistent_storage.html",
+          "severity": "low",
+          "issue": "Reference to year 2023 - may be outdated",
+          "line": 88,
+          "context": "<callout type=\"chat\">Create a knowledge graph about our project team. Store that John is a frontend ",
+          "suggested_fix": "Review if this date reference is still relevant"
+        }
+      ]
+    },
+    {
+      "project": "project_37_managing_context_with_memory_bank",
+      "audit_date": "2026-01-25T12:11:36.401311",
+      "files_checked": [
+        "1_198_introduction_to_memory_bank.html",
+        "2_199_create_memory_bank.html",
+        "3_200_creating_your_first_memory_bank_file.html",
+        "4_201_creating_the_product_context_file.html",
+        "5_202_creating_the_system_patterns_file.html",
+        "project.json"
+      ],
+      "total_files": 6,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_38_real_time_camera_filter_app_junie",
+      "audit_date": "2026-01-25T12:11:36.402215",
+      "files_checked": [
+        "1_211_set_up_your_cursor_chat_assistant.html",
+        "2_213_what_you_will_build.html",
+        "3_215_generate_app.html",
+        "4_212_add_a_new_filter.html",
+        "5_214_key_takeaways.html",
+        "project.json"
+      ],
+      "total_files": 6,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_39_junie_mcp",
+      "audit_date": "2026-01-25T12:11:36.404012",
+      "files_checked": [
+        "12_216_introduction_to_mcp_servers.html",
+        "13_219_understanding_mcp_architecture.html",
+        "14_217_building_a_custom_mcp_server.html",
+        "15_220_testing_our_custom_mcp_server.html",
+        "16_222_development_mode_and_debugging.html",
+        "19_221_what_we_have_learned_and_additional_resources.html",
+        "1_223_set_up_junie_plugin.html",
+        "project.json"
+      ],
+      "total_files": 8,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_40_console_llm_chat_junie",
+      "audit_date": "2026-01-25T12:11:36.405026",
+      "files_checked": [
+        "1_230_set_up_junie_plugin.html",
+        "2_224_what_are_you_going_to_build.html",
+        "3_229_create_the_description_file_with_the_chat.html",
+        "4_226_get_openrouter_api_credentials.html",
+        "5_227_generate_your_app.html",
+        "6_228_enjoy_the_result_and_test_it.html",
+        "project.json"
+      ],
+      "total_files": 7,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_41_rag_based_support_agent_junie",
+      "audit_date": "2026-01-25T12:11:36.407079",
+      "files_checked": [
+        "10_231_generate_your_app.html",
+        "11_232_test_your_app.html",
+        "12_233_improvement_ideas.html",
+        "13_235_key_findings.html",
+        "1_243_set_up_junie_plugin.html",
+        "2_236_what_are_you_going_to_build.html",
+        "3_242_go_ahead_and_sign_up_for_a_zendesk_mock.html",
+        "5_241_lets_create_the_cursor_context_file.html",
+        "6_234_set_your_zendesk_credentials.html",
+        "7_238_choose_the_llm_model_and_add_it.html",
+        "8_239_add_the_zendesk_documentation.html",
+        "9_237_create_a_requirements_list.html",
+        "project.json"
+      ],
+      "total_files": 13,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_42_cursor_1_0_update",
+      "audit_date": "2026-01-25T12:11:36.408858",
+      "files_checked": [
+        "1_301_what_you_will_explore.html",
+        "2_302_memories_persistent_context.html",
+        "3_203_bugbot_automatic_code_review.html",
+        "4_204_background_agent_for_everyone.html",
+        "6_206_mcp_servers_and_chat.html",
+        "8_208_key_takeaways_and_next_steps.html",
+        "project.json"
+      ],
+      "total_files": 7,
+      "status": "needs_urgent_updates",
+      "findings_summary": {
+        "total": 18,
+        "high": 16,
+        "medium": 2,
         "low": 0
       },
       "findings": [
         {
-          "file": "project.json",
+          "file": "1_301_what_you_will_explore.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 8,
+          "context": "<h5>Welcome to Cursor 1.0: Revolutionary AI-Powered Development</h5>",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "1_301_what_you_will_explore.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 10,
+          "context": "<p>Cursor 1.0 represents a major milestone in AI-assisted development, introducing powerful new feat",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "1_301_what_you_will_explore.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 16,
+          "context": "<p>Throughout this hands-on tutorial, you'll explore the groundbreaking features that make Cursor 1.",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "1_301_what_you_will_explore.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 32,
+          "context": "<li>Cursor 1.0 or later installed on your system</li>",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "1_301_what_you_will_explore.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 41,
+          "context": "<alert>Make sure you've updated to Cursor 1.0 to access all the features covered in this tutorial!</",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "1_301_what_you_will_explore.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 45,
+          "context": "<p>Each section of this tutorial will walk you through one major feature, providing hands-on example",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "2_302_memories_persistent_context.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 10,
+          "context": "<p>Cursor 1.0 introduces Memories, a breakthrough feature that allows the AI to remember important f",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "2_302_memories_persistent_context.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 35,
+          "context": "<p>Another important update of Cursor 1.0 is that it brings the power of AI agents directly into Jup",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "2_302_memories_persistent_context.html",
           "severity": "medium",
-          "issue": "Missing required fields: stages",
-          "line": 0,
-          "context": "",
-          "suggested_fix": ""
+          "issue": "Contains \"coming soon\" or \"beta\" - verify if still accurate",
+          "line": 27,
+          "context": "<p>Memories is currently in beta and requires manual activation:</p>",
+          "suggested_fix": "Check if feature is now released"
+        },
+        {
+          "file": "3_203_bugbot_automatic_code_review.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 10,
+          "context": "<p>BugBot is Cursor 1.0's automatic code review feature that analyzes your pull requests and identif",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "4_204_background_agent_for_everyone.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 10,
+          "context": "<p>Background Agent is now available to all Cursor 1.0 users! This remote coding agent works indepen",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "4_204_background_agent_for_everyone.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 112,
+          "context": "<p>Background Agent represents a new paradigm in AI-assisted development. Next, we'll explore how Cu",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "4_204_background_agent_for_everyone.html",
+          "severity": "medium",
+          "issue": "Contains \"coming soon\" or \"beta\" - verify if still accurate",
+          "line": 30,
+          "context": "<li>2. Switch to Settings Beta and toggle Background Agent</li>",
+          "suggested_fix": "Check if feature is now released"
+        },
+        {
+          "file": "6_206_mcp_servers_and_chat.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 10,
+          "context": "<p>Cursor 1.0 makes external tool integration with MCP (Model Context Protocol) servers even easier,",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "6_206_mcp_servers_and_chat.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 35,
+          "context": "<h5>Other features of Cursor 1.0</h5>",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "8_208_key_takeaways_and_next_steps.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 10,
+          "context": "<p>Cursor 1.0 represents a significant leap in AI-assisted development, introducing features that im",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "8_208_key_takeaways_and_next_steps.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 13,
+          "context": "<p>The major features introduced in Cursor 1.0 each address specific pain points in the development ",
+          "suggested_fix": "Update to latest stable cursor version"
+        },
+        {
+          "file": "8_208_key_takeaways_and_next_steps.html",
+          "severity": "high",
+          "issue": "Outdated Cursor version: 1.0",
+          "line": 24,
+          "context": "<p>Congratulations on completing this comprehensive tour of Cursor 1.0! You're now equipped to lever",
+          "suggested_fix": "Update to latest stable cursor version"
         }
       ]
+    },
+    {
+      "project": "project_43_managing_context_with_memory_bank_in_windsurf",
+      "audit_date": "2026-01-25T12:11:36.410073",
+      "files_checked": [
+        "1_244_introduction_to_memory_bank.html",
+        "2_245_create_memory_bank.html",
+        "3_246_creating_your_first_memory_bank_file.html",
+        "4_247_creating_the_product_context_file.html",
+        "5_248_creating_the_system_patterns_file.html",
+        "project.json"
+      ],
+      "total_files": 6,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_44_top_mcp_servers_to_boost_your_windsurf",
+      "audit_date": "2026-01-25T12:11:36.411801",
+      "files_checked": [
+        "10_269_mcp_resources_and_next_steps.html",
+        "1_260_introduction.html",
+        "2_261_sequential_thinking_mcp_structured_problem_solving_assistant.html",
+        "3_262_context7_mcp_up-to-date_code_documentation.html",
+        "4_263_memory_bank_mcp_ai_context_management_system.html",
+        "5_264_github_mcp_interacting_with_github_repositories.html",
+        "6_265_knowledge_graph_memory_mcp_persistent_storage.html",
+        "7_266_duckduckgo_mcp_web_search_capabilities.html",
+        "8_267_mcp_compass_mcp_servers_discovery_recommendation.html",
+        "9_268_playwright_mcp_browser_automation_and_testing.html",
+        "project.json"
+      ],
+      "total_files": 11,
+      "status": "minor_issues",
+      "findings_summary": {
+        "total": 1,
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "findings": [
+        {
+          "file": "6_265_knowledge_graph_memory_mcp_persistent_storage.html",
+          "severity": "low",
+          "issue": "Reference to year 2023 - may be outdated",
+          "line": 90,
+          "context": "<callout type=\"chat\">Create a knowledge graph about our project team. Store that John is a frontend ",
+          "suggested_fix": "Review if this date reference is still relevant"
+        }
+      ]
+    },
+    {
+      "project": "project_45_top_mcp_servers_to_boost_your_copilot",
+      "audit_date": "2026-01-25T12:11:36.413717",
+      "files_checked": [
+        "10_1009_mcp_resources_and_next_steps.html",
+        "1_1000_introduction.html",
+        "2_1001_context7_mcp_up-to-date_code_documentation.html",
+        "3_1002_memory_bank_mcp_ai_context_management_system.html",
+        "4_1003_github_mcp_interacting_with_github_repositories.html",
+        "5_1004_knowledge_graph_memory_mcp_persistent_storage.html",
+        "6_1005_duckduckgo_mcp_web_search_capabilities.html",
+        "7_1006_mcp_compass_mcp_servers_discovery_recommendation.html",
+        "8_1007_playwright_mcp_browser_automation_and_testing.html",
+        "9_1008_sequential_thinking_mcp_structured_problem_solving_assistant.html",
+        "project.json"
+      ],
+      "total_files": 11,
+      "status": "minor_issues",
+      "findings_summary": {
+        "total": 1,
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "findings": [
+        {
+          "file": "5_1004_knowledge_graph_memory_mcp_persistent_storage.html",
+          "severity": "low",
+          "issue": "Reference to year 2023 - may be outdated",
+          "line": 94,
+          "context": "<callout type=\"chat\" label=\"Ask Copilot\">Create a knowledge graph about our project team. Store that",
+          "suggested_fix": "Review if this date reference is still relevant"
+        }
+      ]
+    },
+    {
+      "project": "project_46_managing_context_with_memory_bank_in_copilot",
+      "audit_date": "2026-01-25T12:11:36.414879",
+      "files_checked": [
+        "1_1010_introduction_to_memory_bank.html",
+        "2_1011_create_memory_bank.html",
+        "3_1012_build_snake_game.html",
+        "4_1013_iterate_features.html",
+        "5_1014_key_takeaways.html",
+        "project.json"
+      ],
+      "total_files": 6,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_47_windsurf_wave_10_update",
+      "audit_date": "2026-01-25T12:11:36.416090",
+      "files_checked": [
+        "1_20001_introduction.html",
+        "2_20002_planning_mode.html",
+        "3_20003_building_with_planning_mode.html",
+        "4_20004_styling_with_browser.html",
+        "5_20005_summary.html",
+        "project.json"
+      ],
+      "total_files": 6,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_48_managing_context_with_memory_bank_in_junie",
+      "audit_date": "2026-01-25T12:11:36.417612",
+      "files_checked": [
+        "1_2009_set_up_junie_plugin.html",
+        "2_2010_introduction_to_memory_bank.html",
+        "3_2011_create_memory_bank.html",
+        "4_2012_build_snake_game.html",
+        "5_2013_iterate_features.html",
+        "6_2014_key_takeaways.html",
+        "project.json"
+      ],
+      "total_files": 7,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_49_mastering_windsurf_rules",
+      "audit_date": "2026-01-25T12:11:36.418542",
+      "files_checked": [
+        "1_20006_introduction_to_windsurf_rules.html",
+        "2_20007_rules_and_activation_modes.html",
+        "3_20008_advanced_rules_and_memories.html",
+        "4_20009_understanding_memories.html",
+        "5_20010_rules_wrap_up.html",
+        "project.json"
+      ],
+      "total_files": 6,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_50_agent_to_agent_protocol",
+      "audit_date": "2026-01-25T12:11:36.420787",
+      "files_checked": [
+        "1_30001_introduction_to_the_agent_to_agent_a2a_protocol.html",
+        "2_30007_the_future_is_collaborative.html",
+        "3_30002_core_concepts_of_the_a2a_protocol.html",
+        "4_30009_tasks_and_artifacts.html",
+        "5_30008_a2a_and_mcp.html",
+        "6_30003_agent_cards_and_skills.html",
+        "7_30004_making_our_agents_discoverable.html",
+        "8_30005_agent_client.html",
+        "9_30006_summary_and_future_of_a2a.html",
+        "project.json"
+      ],
+      "total_files": 10,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_52_top_vibe_coding_tricks",
+      "audit_date": "2026-01-25T12:11:36.423500",
+      "files_checked": [
+        "10_40009_ai_teacher.html",
+        "11_400010_course_wrap_up.html",
+        "1_40000_introduction_to_vibe_coding.html",
+        "2_40001_ai_manager_mindset.html",
+        "3_40002_planning_before_coding.html",
+        "4_40003_setting_the_rules.html",
+        "5_40004_effective_prompting.html",
+        "6_40005_mcp.html",
+        "7_40006_ui.html",
+        "8_40007_git.html",
+        "9_40008_testing.html",
+        "project.json"
+      ],
+      "total_files": 12,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_54_intro_to_junie",
+      "audit_date": "2026-01-25T12:11:36.424539",
+      "files_checked": [
+        "1_5401_meet_junie.html",
+        "2_5402_setting_up.html",
+        "3_5403_modes_of_usage.html",
+        "4_5404_mcp_in_junie.html",
+        "5_5405_safety_features.html",
+        "6_5406_summary.html",
+        "project.json"
+      ],
+      "total_files": 7,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_55_effective_design_patterns_for_ai_agents",
+      "audit_date": "2026-01-25T12:11:36.426330",
+      "files_checked": [
+        "1_40010_introduction.html",
+        "2_40011_router.html",
+        "3_40012_planner.html",
+        "4_40013_self_critique.html",
+        "5_40014_human_in_the_loop.html",
+        "6_40015_summary.html",
+        "project.json"
+      ],
+      "total_files": 7,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
+    },
+    {
+      "project": "project_56_top_mcp_servers_to_boost_junie",
+      "audit_date": "2026-01-25T12:11:36.427720",
+      "files_checked": [
+        "1_290_playwright_mcp_browser_automation_and_testing.html",
+        "2_291_context7_mcp_up-to-date_code_documentation.html",
+        "3_292_memory_bank_mcp_ai_context_management_system.html",
+        "4_293_github_mcp_interacting_with_github_repositories.html",
+        "5_294_knowledge_graph_memory_mcp_persistent_storage.html",
+        "6_295_duckduckgo_mcp_web_search_capabilities.html",
+        "7_296_mcp_compass_mcp_servers_discovery_recommendation.html",
+        "8_297_mcp_resources_and_next_steps.html",
+        "project.json"
+      ],
+      "total_files": 9,
+      "status": "minor_issues",
+      "findings_summary": {
+        "total": 1,
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "findings": [
+        {
+          "file": "5_294_knowledge_graph_memory_mcp_persistent_storage.html",
+          "severity": "low",
+          "issue": "Reference to year 2023 - may be outdated",
+          "line": 90,
+          "context": "<callout type=\"chat\">Create a knowledge graph about our project team. Store that John is a frontend ",
+          "suggested_fix": "Review if this date reference is still relevant"
+        }
+      ]
+    },
+    {
+      "project": "project_68_workflow_automations",
+      "audit_date": "2026-01-25T12:11:36.429216",
+      "files_checked": [
+        "1_60001_introduction.html",
+        "2_60002_n8n.html",
+        "3_60003_handson.html",
+        "4_60004_intro_to_ona.html",
+        "5_60005_ona_example.html",
+        "6_60006_summary.html",
+        "project.json"
+      ],
+      "total_files": 7,
+      "status": "ok",
+      "findings_summary": {
+        "total": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "findings": []
     }
   ]
 }

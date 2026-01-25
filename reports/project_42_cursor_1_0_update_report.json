@@ -1,0 +1,167 @@
+{
+  "project": "project_42_cursor_1_0_update",
+  "audit_date": "2026-01-25T12:11:36.408858",
+  "files_checked": [
+    "1_301_what_you_will_explore.html",
+    "2_302_memories_persistent_context.html",
+    "3_203_bugbot_automatic_code_review.html",
+    "4_204_background_agent_for_everyone.html",
+    "6_206_mcp_servers_and_chat.html",
+    "8_208_key_takeaways_and_next_steps.html",
+    "project.json"
+  ],
+  "total_files": 7,
+  "status": "needs_urgent_updates",
+  "findings_summary": {
+    "total": 18,
+    "high": 16,
+    "medium": 2,
+    "low": 0
+  },
+  "findings": [
+    {
+      "file": "1_301_what_you_will_explore.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 8,
+      "context": "<h5>Welcome to Cursor 1.0: Revolutionary AI-Powered Development</h5>",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "1_301_what_you_will_explore.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 10,
+      "context": "<p>Cursor 1.0 represents a major milestone in AI-assisted development, introducing powerful new feat",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "1_301_what_you_will_explore.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 16,
+      "context": "<p>Throughout this hands-on tutorial, you'll explore the groundbreaking features that make Cursor 1.",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "1_301_what_you_will_explore.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 32,
+      "context": "<li>Cursor 1.0 or later installed on your system</li>",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "1_301_what_you_will_explore.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 41,
+      "context": "<alert>Make sure you've updated to Cursor 1.0 to access all the features covered in this tutorial!</",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "1_301_what_you_will_explore.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 45,
+      "context": "<p>Each section of this tutorial will walk you through one major feature, providing hands-on example",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "2_302_memories_persistent_context.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 10,
+      "context": "<p>Cursor 1.0 introduces Memories, a breakthrough feature that allows the AI to remember important f",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "2_302_memories_persistent_context.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 35,
+      "context": "<p>Another important update of Cursor 1.0 is that it brings the power of AI agents directly into Jup",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "2_302_memories_persistent_context.html",
+      "severity": "medium",
+      "issue": "Contains \"coming soon\" or \"beta\" - verify if still accurate",
+      "line": 27,
+      "context": "<p>Memories is currently in beta and requires manual activation:</p>",
+      "suggested_fix": "Check if feature is now released"
+    },
+    {
+      "file": "3_203_bugbot_automatic_code_review.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 10,
+      "context": "<p>BugBot is Cursor 1.0's automatic code review feature that analyzes your pull requests and identif",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "4_204_background_agent_for_everyone.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 10,
+      "context": "<p>Background Agent is now available to all Cursor 1.0 users! This remote coding agent works indepen",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "4_204_background_agent_for_everyone.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 112,
+      "context": "<p>Background Agent represents a new paradigm in AI-assisted development. Next, we'll explore how Cu",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "4_204_background_agent_for_everyone.html",
+      "severity": "medium",
+      "issue": "Contains \"coming soon\" or \"beta\" - verify if still accurate",
+      "line": 30,
+      "context": "<li>2. Switch to Settings Beta and toggle Background Agent</li>",
+      "suggested_fix": "Check if feature is now released"
+    },
+    {
+      "file": "6_206_mcp_servers_and_chat.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 10,
+      "context": "<p>Cursor 1.0 makes external tool integration with MCP (Model Context Protocol) servers even easier,",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "6_206_mcp_servers_and_chat.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 35,
+      "context": "<h5>Other features of Cursor 1.0</h5>",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "8_208_key_takeaways_and_next_steps.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 10,
+      "context": "<p>Cursor 1.0 represents a significant leap in AI-assisted development, introducing features that im",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "8_208_key_takeaways_and_next_steps.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 13,
+      "context": "<p>The major features introduced in Cursor 1.0 each address specific pain points in the development ",
+      "suggested_fix": "Update to latest stable cursor version"
+    },
+    {
+      "file": "8_208_key_takeaways_and_next_steps.html",
+      "severity": "high",
+      "issue": "Outdated Cursor version: 1.0",
+      "line": 24,
+      "context": "<p>Congratulations on completing this comprehensive tour of Cursor 1.0! You're now equipped to lever",
+      "suggested_fix": "Update to latest stable cursor version"
+    }
+  ]
+}

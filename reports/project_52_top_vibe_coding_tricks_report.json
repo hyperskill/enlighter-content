@@ -1,0 +1,27 @@
+{
+  "project": "project_52_top_vibe_coding_tricks",
+  "audit_date": "2026-01-25T12:11:36.423500",
+  "files_checked": [
+    "10_40009_ai_teacher.html",
+    "11_400010_course_wrap_up.html",
+    "1_40000_introduction_to_vibe_coding.html",
+    "2_40001_ai_manager_mindset.html",
+    "3_40002_planning_before_coding.html",
+    "4_40003_setting_the_rules.html",
+    "5_40004_effective_prompting.html",
+    "6_40005_mcp.html",
+    "7_40006_ui.html",
+    "8_40007_git.html",
+    "9_40008_testing.html",
+    "project.json"
+  ],
+  "total_files": 12,
+  "status": "ok",
+  "findings_summary": {
+    "total": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "findings": []
+}

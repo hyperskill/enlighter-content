@@ -1,0 +1,23 @@
+{
+  "project": "project_39_junie_mcp",
+  "audit_date": "2026-01-25T12:11:36.404012",
+  "files_checked": [
+    "12_216_introduction_to_mcp_servers.html",
+    "13_219_understanding_mcp_architecture.html",
+    "14_217_building_a_custom_mcp_server.html",
+    "15_220_testing_our_custom_mcp_server.html",
+    "16_222_development_mode_and_debugging.html",
+    "19_221_what_we_have_learned_and_additional_resources.html",
+    "1_223_set_up_junie_plugin.html",
+    "project.json"
+  ],
+  "total_files": 8,
+  "status": "ok",
+  "findings_summary": {
+    "total": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "findings": []
+}

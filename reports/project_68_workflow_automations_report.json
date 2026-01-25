@@ -1,0 +1,22 @@
+{
+  "project": "project_68_workflow_automations",
+  "audit_date": "2026-01-25T12:11:36.429216",
+  "files_checked": [
+    "1_60001_introduction.html",
+    "2_60002_n8n.html",
+    "3_60003_handson.html",
+    "4_60004_intro_to_ona.html",
+    "5_60005_ona_example.html",
+    "6_60006_summary.html",
+    "project.json"
+  ],
+  "total_files": 7,
+  "status": "ok",
+  "findings_summary": {
+    "total": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "findings": []
+}

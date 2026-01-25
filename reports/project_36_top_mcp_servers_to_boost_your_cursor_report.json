@@ -1,0 +1,34 @@
+{
+  "project": "project_36_top_mcp_servers_to_boost_your_cursor",
+  "audit_date": "2026-01-25T12:11:36.400077",
+  "files_checked": [
+    "1_189_sequential_thinking_mcp_structured_problem_solving_assistant.html",
+    "2_191_context7_mcp_up-to-date_code_documentation.html",
+    "3_210_memory_bank_mcp_ai_context_management_system.html",
+    "4_192_github_mcp_interacting_with_github_repositories.html",
+    "5_193_knowledge_graph_memory_mcp_persistent_storage.html",
+    "6_194_duckduckgo_mcp_web_search_capabilities.html",
+    "7_195_mcp_compass_mcp_servers_discovery_recommendation.html",
+    "8_196_playwright_mcp_browser_automation_and_testing.html",
+    "9_197_mcp_resources_and_next_steps.html",
+    "project.json"
+  ],
+  "total_files": 10,
+  "status": "minor_issues",
+  "findings_summary": {
+    "total": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "findings": [
+    {
+      "file": "5_193_knowledge_graph_memory_mcp_persistent_storage.html",
+      "severity": "low",
+      "issue": "Reference to year 2023 - may be outdated",
+      "line": 88,
+      "context": "<callout type=\"chat\">Create a knowledge graph about our project team. Store that John is a frontend ",
+      "suggested_fix": "Review if this date reference is still relevant"
+    }
+  ]
+}

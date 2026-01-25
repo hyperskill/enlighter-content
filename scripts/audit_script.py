@@ -223,7 +223,7 @@ class ContentAuditor:
                 data = json.load(f)
                 
             # Check for metadata completeness
-            required_fields = ['title', 'stages']
+            required_fields = ['title']  # 'stages' is optional - stages are separate HTML files
             missing_fields = [f for f in required_fields if f not in data]
             
             if missing_fields:
@@ -350,12 +350,14 @@ def main():
     print(f"📁 Found {len(all_projects)} projects")
     print(f"📍 Working directory: {project_root}")
     
-    # For initial run, audit first 2 projects
-    projects_to_audit = all_projects[:2]
+    # Audit all projects
+    projects_to_audit = all_projects
     
     print(f"\n🎯 Will audit {len(projects_to_audit)} projects:")
     for p in projects_to_audit:
         print(f"  - {p.name}")
+    
+    input("\nPress Enter to start audit...")
     
     # Create reports directory
     reports_dir = project_root / 'reports'
