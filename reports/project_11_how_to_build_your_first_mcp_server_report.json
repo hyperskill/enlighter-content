@@ -1,0 +1,34 @@
+{
+  "project": "project_11_how_to_build_your_first_mcp_server",
+  "audit_date": "2026-01-25T11:38:35.431608",
+  "files_checked": [
+    "12_29_introduction_to_mcp_servers.html",
+    "13_182_understanding_mcp_architecture.html",
+    "14_183_building_a_custom_mcp_server.html",
+    "15_184_testing_our_custom_mcp_server.html",
+    "16_185_development_mode_and_debugging.html",
+    "17_186_mcp_cli_testing.html",
+    "18_187_optimizing_tool_selection_with_cursor_rules.html",
+    "19_188_publishing.html",
+    "20_255_what_weve_learned_and_additional_resources.html",
+    "project.json"
+  ],
+  "total_files": 10,
+  "status": "needs_updates",
+  "findings_summary": {
+    "total": 1,
+    "high": 0,
+    "medium": 1,
+    "low": 0
+  },
+  "findings": [
+    {
+      "file": "project.json",
+      "severity": "medium",
+      "issue": "Missing required fields: stages",
+      "line": 0,
+      "context": "",
+      "suggested_fix": ""
+    }
+  ]
+}
