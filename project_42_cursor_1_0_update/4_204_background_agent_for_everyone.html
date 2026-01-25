@@ -40,6 +40,20 @@
 
 <img style="margin: auto; display: block;" src="https://ucarecdn.com/dd18910e-07e5-4a4d-94bc-7ba9b95b0e9f/" alt="Cloud Agent Interface" title="Cloud Agent working on a task">
 
+<h5>Subagents: Specialized Task Delegation</h5>
+
+<p>Cursor 2.4 introduces Subagents - independent agents specialized to handle discrete parts of a parent agent's task. They run in parallel, use their own context, and can be configured with custom prompts, tool access, and models.</p>
+
+<p>Default subagents automatically handle:</p>
+
+<ul>
+  <li><strong>Codebase Research</strong> - Finding relevant code and documentation</li>
+  <li><strong>Terminal Commands</strong> - Running tests, builds, and scripts</li>
+  <li><strong>Parallel Work Streams</strong> - Independent feature development</li>
+</ul>
+
+<p>You can also define custom subagents with specialized knowledge for your domain. This results in faster overall execution and more focused context in your main conversation.</p>
+
 <h5>Multi-Agent Execution</h5>
 
 <p>Cursor 2.0 supports running up to 8 agents in parallel on a single prompt. This powerful feature uses git worktrees or remote machines to prevent file conflicts, with each agent operating in its own isolated copy of your codebase.</p>
