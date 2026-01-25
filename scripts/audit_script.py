@@ -25,11 +25,24 @@ class ContentAuditor:
     
     KNOWN_OUTDATED_VERSIONS = {
         'cursor': {'1.0', '1.1', '1.2'},  # Anything below 2.x is likely outdated
-        'python': {'3.7', '3.8'},  # EOL versions
-        'node': {'14', '16'},  # EOL versions
+        'python': {'3.7', '3.8', '3.9'},  # EOL versions (3.9 EOL October 2025)
+        'node': {'14', '16', '18'},  # EOL versions
+    }
+    
+    # Known outdated or non-existent free LLM models as of January 2026
+    OUTDATED_FREE_MODELS = {
+        'deepseek-r1-0528:free': {
+            'issue': 'No longer free - costs $0.40/M input, $1.75/M output',
+            'replacement': 'tngtech/deepseek-r1t2-chimera:free'
+        },
+        'gpt-3.5-turbo:free': {
+            'issue': 'No longer available as free model',
+            'replacement': 'Check OpenRouter for current free models'
+        }
     }
     
     URL_PATTERN = re.compile(r'https?://[^\s<>"\']+')
+    LLM_MODEL_PATTERN = re.compile(r'openrouter\.ai/([a-z0-9-]+/[a-z0-9-]+(?::free)?)', re.IGNORECASE)
     
     def __init__(self, project_path: Path):
         self.project_path = project_path
@@ -71,6 +84,9 @@ class ContentAuditor:
         # Check for outdated versions
         self.check_versions(file_path.name, content, lines)
         
+        # Check for outdated LLM models
+        self.check_llm_models(file_path.name, content, lines)
+        
         # Check for broken or potentially outdated URLs
         self.check_urls(file_path.name, content, lines)
         
@@ -99,6 +115,45 @@ class ContentAuditor:
                             context=lines[line_num-1].strip()[:100] if line_num <= len(lines) else '',
                             suggested_fix=f'Update to latest stable {tool} version'
                         )
+    
+    def check_llm_models(self, filename: str, content: str, lines: List[str]):
+        """Check for outdated or non-existent LLM model references"""
+        # Find all OpenRouter model URLs
+        matches = self.LLM_MODEL_PATTERN.finditer(content)
+        
+        for match in matches:
+            model_path = match.group(1).lower()
+            line_num = content[:match.start()].count('\n') + 1
+            context_line = lines[line_num-1].strip()[:150] if line_num <= len(lines) else ''
+            
+            # Check if model is in outdated list
+            for outdated_model, info in self.OUTDATED_FREE_MODELS.items():
+                if outdated_model.lower() in model_path:
+                    self.add_finding(
+                        file=filename,
+                        severity='high',
+                        issue=f'Outdated LLM model reference: {model_path}',
+                        line=line_num,
+                        context=context_line,
+                        suggested_fix=f"{info['issue']}. Replace with: {info['replacement']}"
+                    )
+                    break
+            
+            # Check for models claiming to be free
+            if ':free' in model_path:
+                # Check if it's a known paid model
+                model_base = model_path.split(':')[0]
+                known_paid_models = ['gpt-4', 'gpt-5', 'claude-opus', 'claude-sonnet']
+                
+                if any(paid in model_base for paid in known_paid_models):
+                    self.add_finding(
+                        file=filename,
+                        severity='high',
+                        issue=f'Suspicious free model claim: {model_path}',
+                        line=line_num,
+                        context=context_line,
+                        suggested_fix='Verify this model is actually free on OpenRouter'
+                    )
     
     def check_urls(self, filename: str, content: str, lines: List[str]):
         """Check for URLs that might be outdated"""
