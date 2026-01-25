@@ -1,112 +1,116 @@
 <!-- Enlighter Metainfo
 {
   "id": 204,
-  "title": "Background agent",
+  "title": "Cloud Agents and Multi-Agent Execution",
   "next_button_title": null
 }
 -->
-<h5>Background Agent: Your Remote AI Coding Assistant</h5>
+<h5>Cloud Agents: Your Remote AI Coding Assistants</h5>
 
-<p>Background Agent is now available to all Cursor 1.0 users! This remote coding agent works independently to implement features, fix bugs, and handle complex coding tasks while you focus on high-level design and architecture.</p>
+<p>Cursor 2.0 introduces Cloud Agents - remote AI assistants that work independently on complex tasks while you focus on other work. Unlike traditional AI assistants that require your active attention, Cloud Agents can run in the background and even continue working when you're away from your computer.</p>
 
-<h5>What Makes Background Agent Special</h5>
+<h5>What Makes Cloud Agents Special</h5>
 
-<p>Unlike traditional AI assistants, Background Agent operates with unprecedented autonomy:</p>
+<p>Cloud Agents operate with unprecedented autonomy and reliability:</p>
 
 <ul>
   <li><strong>Independent Execution</strong> - Works on tasks without constant supervision</li>
+  <li><strong>99.9% Reliability</strong> - Enterprise-grade uptime and instant startup</li>
   <li><strong>Multi-file Operations</strong> - Can read, create, and modify multiple files simultaneously</li>
   <li><strong>Context Awareness</strong> - Understands your entire project structure and dependencies</li>
-  <li><strong>Tool Integration</strong> - Can run commands, install packages, and interact with your development environment</li>
+  <li><strong>Cross-Device Access</strong> - Continue conversations on web or mobile at cursor.com/agents</li>
 </ul>
 
-<h5>Accessing Background Agent</h5>
+<h5>Using Cloud Agents</h5>
 
-<alert>Currently, the Background Agent is available only with disabled Privacy mode, which means that Cursor and its model providers may store prompts and development environments to help improve the product. Disable the Privacy Mode only if you sure that it complies with your company's policy</alert>
-
-<p>To activate the background agent, perform the following steps:</p>
-<ul>
-  <li>1. Go to Settings General Privacy and Select the option Disable the privacy mode</li>
-  <li>2. Switch to Settings Beta and toggle Background Agent</li>
-</ul>
-
-<img style="margin: auto; display: block;" src="https://ucarecdn.com/c645595a-e617-4a1e-a520-65370385383d/" alt="">
-<img style="margin: auto; display: block;" src="https://ucarecdn.com/929fc6ed-1864-4633-ac3c-a0ec95152d3f/" alt="">
-
-<h5>Practical Use Cases</h5>
-
-<p>Background Agent excels at various development tasks:</p>
-
-<ul>
-  <li><strong>Feature Implementation</strong> - Build complete features from requirements</li>
-  <li><strong>Bug Fixing</strong> - Investigate and resolve complex issues across multiple files</li>
-  <li><strong>Refactoring</strong> - Restructure code while maintaining functionality</li>
-  <li><strong>Testing</strong> - Generate comprehensive test suites</li>
-  <li><strong>Documentation</strong> - Create detailed API documentation and code comments</li>
-</ul>
-
-<h5>Hands-On Example</h5>
-
-<p>Go to Settings - Background Agents, or press <code>Ctrl+E</code> (Win) or <Cmd+E> (MacOs) to open the Background Agent Chat menu</p>
-
-<img style="margin: auto; display: block;" src="https://ucarecdn.com/dd18910e-07e5-4a4d-94bc-7ba9b95b0e9f/" alt="Background Agent Chat Menu" title="Background Agent Chat Menu">
-
-<alert>
-<ul>
-  <li>Background Agent is clonning your repo from GitHub, and then creates a separate branch so that you can easily follow-up on updates.</li>
-  <li>Only Max Mode-compatible models are available to use for background agents, it means that the pricing is based on token usage.</li>
-</ul>
-</alert>
-
-
-
-
-
-<!-- <p>Let's see Background Agent in action by asking it to build a simple REST API:</p>
-
-<callout>Start a Background Agent session and give it this task:
-
-"Create a Node.js REST API for a book management system with the following endpoints:
-- GET /books - List all books
-- POST /books - Add a new book
-- PUT /books/:id - Update a book
-- DELETE /books/:id - Delete a book
-
-Include proper error handling, input validation, and a simple in-memory data store. Also create a package.json with all necessary dependencies."</callout>
-
-<p>Watch as Background Agent:</p>
+<p>There are two ways to use Cloud Agents:</p>
 
 <ol>
-  <li>Analyzes the requirements</li>
-  <li>Creates multiple files (server.js, package.json, etc.)</li>
-  <li>Implements all endpoints with proper error handling</li>
-  <li>Adds input validation and documentation</li>
+  <li><strong>Send to Cloud from Editor</strong> - While working in Cursor, you can offload long-running tasks to the cloud</li>
+  <li><strong>Cloud Agent Handoff</strong> - Prepend `&` to any message to send it directly to a cloud agent</li>
 </ol>
 
-<img style="margin: auto; display: block;" src="https://placeholder-image-url.com/background-agent-progress.png" alt="Background Agent Progress" title="Background Agent showing progress on the API creation task">
+<p>To send work to a cloud agent from your editor:</p>
 
-<h5>Monitoring Background Agent</h5>
+<callout type="chat">
+& Refactor the entire authentication system to use JWT tokens instead of sessions. Update all relevant files, add proper error handling, and write comprehensive tests.
+</callout>
 
-<p>While Background Agent works autonomously, you can monitor its progress:</p>
+<p>The agent will start working immediately in the cloud. You'll receive notifications when it completes or encounters issues.</p>
+
+<img style="margin: auto; display: block;" src="https://ucarecdn.com/dd18910e-07e5-4a4d-94bc-7ba9b95b0e9f/" alt="Cloud Agent Interface" title="Cloud Agent working on a task">
+
+<h5>Subagents: Specialized Task Delegation</h5>
+
+<p>Cursor 2.4 introduces Subagents - independent agents specialized to handle discrete parts of a parent agent's task. They run in parallel, use their own context, and can be configured with custom prompts, tool access, and models.</p>
+
+<p>Default subagents automatically handle:</p>
 
 <ul>
-  <li>View real-time updates on file changes</li>
-  <li>See the reasoning behind each decision</li>
-  <li>Intervene or provide feedback when needed</li>
-  <li>Review all changes before accepting them</li>
+  <li><strong>Codebase Research</strong> - Finding relevant code and documentation</li>
+  <li><strong>Terminal Commands</strong> - Running tests, builds, and scripts</li>
+  <li><strong>Parallel Work Streams</strong> - Independent feature development</li>
 </ul>
+
+<p>You can also define custom subagents with specialized knowledge for your domain. This results in faster overall execution and more focused context in your main conversation.</p>
+
+<h5>Multi-Agent Execution</h5>
+
+<p>Cursor 2.0 supports running up to 8 agents in parallel on a single prompt. This powerful feature uses git worktrees or remote machines to prevent file conflicts, with each agent operating in its own isolated copy of your codebase.</p>
+
+<p>Multi-agent execution is perfect for:</p>
+
+<ul>
+  <li><strong>Exploring Multiple Approaches</strong> - Try different implementations simultaneously</li>
+  <li><strong>Parallel Workstreams</strong> - Work on independent features at the same time</li>
+  <li><strong>A/B Testing</strong> - Compare different solutions side-by-side</li>
+  <li><strong>Speed</strong> - Complete large refactors faster by parallelizing work</li>
+</ul>
+
+<h5>Practical Example</h5>
+
+<p>Let's see Cloud Agents in action with a realistic scenario:</p>
+
+<callout type="chat">
+& I need to add authentication to my API. Create:
+1. JWT token generation and validation
+2. User registration endpoint
+3. Login endpoint with password hashing
+4. Protected route middleware
+5. Refresh token mechanism
+6. Unit tests for all components
+
+Use Express.js and follow security best practices.
+</callout>
+
+<p>The cloud agent will break this down into subtasks, work on them systematically, and notify you when complete. You can check progress at any time on cursor.com/agents.</p>
+
+<h5>Plan Mode with Cloud Agents</h5>
+
+<p>You can combine Cloud Agents with Plan Mode for even better results:</p>
+
+<ol>
+  <li>Agent creates a detailed plan with one model</li>
+  <li>You review and approve the plan</li>
+  <li>Agent executes the plan in the cloud (optionally with parallel agents)</li>
+</ol>
+
+<p>To use Plan Mode, start your request with `/plan`:</p>
+
+<callout type="chat">
+/plan & Migrate our entire database schema from MongoDB to PostgreSQL, including data migration scripts
+</callout>
 
 <h5>Best Practices</h5>
 
-<p>To get the most out of Background Agent:</p>
-
 <ul>
-  <li><strong>Clear Requirements</strong> - Provide detailed, specific instructions</li>
-  <li><strong>Project Context</strong> - Ensure your project structure is well-organized</li>
-  <li><strong>Incremental Tasks</strong> - Break large features into manageable chunks</li>
-  <li><strong>Review Changes</strong> - Always review the agent's work before committing</li>
+  <li>Use cloud agents for tasks that take more than 5 minutes</li>
+  <li>Provide clear, detailed instructions for complex tasks</li>
+  <li>Check progress regularly on cursor.com/agents</li>
+  <li>Use multi-agent execution when exploring different approaches</li>
+  <li>Combine with Plan Mode for complex refactors</li>
 </ul>
 
-<warning>Background Agent is powerful but should be used thoughtfully. Always review its output and ensure it aligns with your project's requirements and coding standards.</warning>
+<warning>Cloud agents have access to your codebase. Always review their changes before merging, especially for security-critical code.</warning>
 
-<p>Background Agent represents a new paradigm in AI-assisted development. Next, we'll explore how Cursor 1.0 brings this same level of AI assistance to Jupyter notebooks.</p>  -->
+<p>Cloud Agents represent a paradigm shift in how we think about AI-assisted development. Next, we'll explore how MCP servers extend Cursor's capabilities with external tools and services.</p>
