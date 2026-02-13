@@ -1,0 +1,139 @@
+<!-- Enlighter Metainfo
+{
+  "id": 40003,
+  "title": "Setting Up Deterministic Hooks",
+  "next_button_title": "Let's automate!"
+}
+-->
+
+<h5>Automating with Deterministic Hooks</h5>
+<p>In the previous stage, you saw how Claude Code can make intelligent decisions to generate a complete application. Now, we'll focus on the deterministic part of our workflow by setting up hooks. Hooks are automated actions that run at specific points in the development process, ensuring consistency and quality without manual intervention.</p>
+
+<h5>Understanding Hooks</h5>
+<p>Hooks in Claude Code are the deterministic core of your workflow. They automatically perform specific actions at key moments:</p>
+<ul>
+    <li><strong>PreToolUse:</strong> Executes before each file change is applied. Useful for validation or backups.</li>
+    <li><strong>PostToolUse:</strong> Executes after each file change is applied. Perfect for formatting, linting, or running tests.</li>
+    <li><strong>Stop:</strong> Executes when Claude completes a task. Ideal for final actions like committing changes or sending notifications.</li>
+</ul>
+<p>By automating these routine tasks, you can focus on the creative aspects of development while maintaining a high standard of code quality.</p>
+
+<h5>Step 1: Create Hooks Configuration File</h5>
+<p>First, we need to create a directory and a file to store our hook configurations. Claude Code looks for these configurations in a <code>.claude</code> directory in your project root.</p>
+
+<callout>Create the necessary directory and file for your hooks:
+
+mkdir .claude
+touch .claude/settings.json
+</callout>
+
+<h5>Step 2: Configure Your Hooks</h5>
+<p>Now, let's instruct Claude to populate our <code>hooks.json</code> file. We will configure hooks for automatic logging of all the bash commands used by Claude Code agent.</p>
+
+<callout>
+Create a .claude/logger.py file with the follwowing content:
+
+#!/usr/bin/env python3
+"""
+Command logging hook.
+Logs all Bash commands with timestamps and descriptions.
+"""
+import json
+import sys
+from datetime import datetime
+from pathlib import Path
+
+
+def main():
+    try:
+        # Read input
+        input_data = json.load(sys.stdin)
+        tool_name = input_data.get('tool_name', '')
+        
+        # Log all tool actions (not just Bash)
+        if not tool_name:
+            sys.exit(0)
+        
+        # Extract tool info
+        tool_input = input_data.get('tool_input', {})
+        session_id = input_data.get('session_id', 'unknown')
+        
+        # Format log entry based on tool type
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        if tool_name == 'Bash':
+            command = tool_input.get('command', '')
+            description = tool_input.get('description', 'No description')
+            log_entry = f"[{timestamp}] [{session_id[:8]}] BASH: {command} - {description}\n"
+        else:
+            # For other tools, log the tool name and key parameters
+            key_info = str(tool_input)[:100] + '...' if len(str(tool_input)) > 100 else str(tool_input)
+            log_entry = f"[{timestamp}] [{session_id[:8]}] {tool_name.upper()}: {key_info}\n"
+        
+        # Append to log file
+        log_file = Path.cwd() / 'claude-logs.txt'
+        try:
+            with open(log_file, 'a') as f:
+                f.write(log_entry)
+        except Exception as e:
+            print(f"Warning: Could not write to command log: {e}", file=sys.stderr)
+        
+        
+    except json.JSONDecodeError:
+        print("Error: Invalid JSON input", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        # Don't fail the command due to logging errors
+        print(f"Warning: Command logging error: {e}", file=sys.stderr)
+        sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()
+
+</callout>
+
+<p>We have created a simple logger script, but in fact you can create more complex hooks in the language you like.</p>
+
+<p>How we have to configure the conditions under which the script will be executed. Let's ask an assistant to create a configuration file:</p>
+
+<callout>
+ Create a .claude/settings.json file with the following content:
+
+ {
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/logger.py"
+          }
+        ]
+      }
+    ]
+  }
+}
+</callout>
+
+<p>In this configuration, we set up a <code>PostToolUse</code> hook that triggers our logging script after every use of the <code>Bash</code> tool. This way, every command executed by Claude will be logged with a timestamp and description.</p>
+
+<p>Now in the terminal, ask Claude Code to do some analysis of your project filesystem:</p>
+
+<callout label="Copy and paste to Claude Code">How much space does my current project occupy?</callout>
+
+<p>After Claude completes the task, check the <code>claude-logs.txt</code> file in your project root. You should see a log entry for the bash command that was executed.</p>
+
+<p>By the end of this stage, you will have a more robust and automated workflow:</p>
+
+<ul interactive>
+  <li title="A .claude/settings.json file with configuration for logging hook is created."></li>
+  <li title="Claude Code authomatically logs the bash commands"></li>
+</ul>
+
+<p>Feel free to test your custom hooks. For more information about how the Claude Hooks can be configured, refer to <a href="https://docs.anthropic.com/en/docs/claude-code/hooks">official documentation</a></p>
+
+<warning>If you notice that the hook does not work as expected, calling <code>/hooks</code> and then selecting <code>Disable all hooks</code>, and then re-enable it by calling <code>/hooks</code> again.</warning>
+
+<p>With deterministic hooks in place, your workflow is now smarter and more efficient. In the next stage, we'll explore the other side of the coin: creating semi-deterministic custom commands that empower Claude to make intelligent decisions within a structured framework.</p>
